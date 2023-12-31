@@ -1,0 +1,36 @@
+---
+interface Props {
+	counter: number;
+	offset: number;
+  code_next: string;
+  code_prev: string;
+  prompt: string;
+}
+
+const { counter, offset = 200, code_next, code_prev, prompt } = Astro.props;  // Default value is 200 if offset is not provided
+---
+
+<div class="fixed bottom-2 p-4 w-[1440px]">
+  <img src="/images/el-panel.png" class="w-full">
+  <a href={`/mjd3/${code_next}`} id='region2' class="absolute" style="top: 40px; left: 40px; width: 100px; height: 100px; border: 0px solid red;"></a>
+  <a href={`/mjd3/${code_prev}`} id='region1' class="absolute" style="top: 40px; left: 200px; width: 100px; height: 100px; border: 0px solid blue;"></a>
+
+  <div class="absolute top-1/2 transform -translate-y-1/2 text-8xl font-bold text-primary-dark font-impact" style={`left: ${offset}px`}>
+    {counter}
+  </div>
+  <div class="absolute top-1/2 transform -translate-y-1/2 text-2xl text-white  max-w-[1000px] text-ellipsis overflow-hidden max-h-[100px]" style={`left: 350px`}>
+    {prompt}
+  </div>
+</div>
+
+<script>
+document.addEventListener("keydown", function (event) {
+  if (event.key === "ArrowLeft") {
+    // Left arrow key was pressed, navigate to the previous link
+    window.location.href = document.getElementById("region1").getAttribute("href");
+  } else if (event.key === "ArrowRight") {
+    // Right arrow key was pressed, navigate to the next link
+    window.location.href = document.getElementById("region2").getAttribute("href");
+  }
+});
+</script>

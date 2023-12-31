@@ -1,0 +1,14 @@
+---
+interface Props {
+  debug?: boolean;
+}
+
+const { debug = false } = Astro.props;
+---
+
+<div class="flex items-center">
+  <img src="/images/logo-appy-cast-image.png" alt="Brand Logo" class={`my-w-60px my-h-60px ${debug ? 'debug' : ''}`} />
+  <span class={`brand-category ${debug ? 'debug' : ''}`}>
+    <slot></slot>
+  </span>
+</div>

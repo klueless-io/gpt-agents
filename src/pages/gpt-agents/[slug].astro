@@ -1,0 +1,33 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content'
+import Layout from '../../layouts/Layout.astro';
+
+export const getStaticPaths = async () => {
+  const items = await getCollection('gpt-agents');
+
+  const paths = items.map((gptAgent) => {
+    return {
+      params: { slug: gptAgent.slug },
+      props: { gptAgent },
+    };
+  });
+
+  return paths;
+}
+type Props = {
+  gptAgents: CollectionEntry<'gpt-agents'>;
+}
+
+const { gptAgent, frontmatter } = Astro.props;
+const { Content, headings } = await gptAgent.render();
+// console.log("Content");
+// console.log(Content);
+// console.log("headings");
+// console.log(headings);
+// console.log("frontmatter");
+// console.log(frontmatter);
+---
+<Layout>
+  <Content />
+</Layout>
+

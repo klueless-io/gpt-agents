@@ -1,0 +1,55 @@
+---
+import ElArrow from './ElArrow.astro';
+import PanelContent from './ElPanelContent.astro';
+
+interface Props {
+    title: string;
+    arrow_top: string;
+    arrow_left: string;
+    label_top: string;
+    label_left: string;
+    panel_top_offset: string;
+    panel_left_offset: string;
+    panel_width: string;
+    panel_height: string;
+    debug?: boolean;
+}
+
+const { 
+    label, 
+    arrow_top = "0", 
+    arrow_left = "0", 
+    label_top = "4",
+    label_left = "50", 
+    panel_top_offset = "0",
+    panel_left_offset = "100",
+    panel_width = "700",
+    panel_height = "70",
+    panel_border_radius = '20px',
+    debug = false
+} = Astro.props;
+
+const panel_top = parseInt(arrow_top) + parseInt(panel_top_offset);
+const panel_left = parseInt(arrow_left) + parseInt(panel_left_offset);
+
+console.log(panel_height);
+---
+
+<ElArrow 
+    arrow_left={arrow_left} 
+    arrow_top={arrow_top} 
+    label_left={label_left} 
+    label_top={label_top} 
+    label={label} 
+    text_color_class='text-white'
+    />
+
+<div class="bg-white absolute flex" style={`width: ${panel_width}px; height: ${panel_height}px; border-radius: ${panel_border_radius}; top: ${panel_top}px; left: ${panel_left}px;`}>
+  <div class="relative ml-[180px] flex-grow mt-3 mb-3 mr-3">
+    <div class=` ${debug ? 'debug' : ''}`></div>
+      <div>
+        <slot></slot>
+      </div>
+    </div>
+  </div>
+</div>

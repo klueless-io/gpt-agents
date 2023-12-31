@@ -1,16 +1,20 @@
 ---
-
+import { PORT, SITE_TITLE, SITE_DESCRIPTION } from '../const';
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto p-4">
+      <h1 class="text-3xl font-bold">{SITE_TITLE}</h1>
+      <p class="mt-2 text-lg">{SITE_DESCRIPTION}</p>
+      <p class="mt-2 text-sm">Port: {PORT}</p>
+    </div>
+  </body>
 </html>

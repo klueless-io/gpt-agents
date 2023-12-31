@@ -1,0 +1,15 @@
+---
+interface Props {
+	suffix: string;
+}
+
+const { suffix } = Astro.props;
+---
+
+<div class="flex items-center">
+  <img src="/images/logo-appy-cast-image.png" alt="Brand Logo" class="my-w-200px my-h-200px" />
+  <span class="brand-name h-140px p-0">
+    <span class="brand-white">Appy</span>
+    <span class="brand-light">{suffix}</span> 
+  </span>
+</div>

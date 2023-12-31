@@ -1,0 +1,30 @@
+---
+interface Props {
+    label: string;
+    arrow_left: string;
+    arrow_top: string;
+    label_left: string;
+    label_top: string;
+    text_color_class: string;
+}
+
+const { 
+    label, 
+    arrow_left = "0", 
+    arrow_top = "0", 
+    label_left = "55", 
+    label_top = "4",
+    text_color_class = "text-primary-dark" 
+} = Astro.props;
+
+const textLeft = parseInt(arrow_left) + parseInt(label_left);
+const textTop = parseInt(arrow_top) + parseInt(label_top);
+---
+
+<div class="fixed" style="z-index: 1000;">
+  <img src="/images/el-arrow.png" class="fixed" style={`left: ${arrow_left}px; top: ${arrow_top}px; z-index: 1000;`} />
+  <div class={`fixed text-3xl ${text_color_class} font-impact uppercase hover:bg-primary-light hover:text-primary-dark`}
+       style={`left: ${textLeft}px; top: ${textTop}px; z-index: 1000;`}>
+   {label}
+  </div>
+</div>

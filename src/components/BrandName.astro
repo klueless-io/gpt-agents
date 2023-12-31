@@ -1,0 +1,13 @@
+---
+interface Props {
+	suffix: string;
+}
+
+const { suffix } = Astro.props;
+---
+
+<span class="brand-name">
+  <span class="brand-white">Appy</span>
+  <span class="brand-light">{suffix}</span>
+</span>
+

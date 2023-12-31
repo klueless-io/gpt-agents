@@ -1,0 +1,33 @@
+---
+interface Props {
+	name: string;
+  alias: string;
+}
+
+const { name, alias } = Astro.props;  // Default value is 200 if offset is not provided
+---
+
+<div class="mb-6 flex items-start">
+  <span class="command-name bg-primary-light brand-dark uppercase text-3xl absolute -left-56 w-48 rounded-xl flex items-center justify-between pl-4 font-impact hover:bg-primary-dark hover:text-primary-light hover:border hover:border-white">
+      {name}
+    <svg class="command-arrow w-7 h-7" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" fill="currentColor" />
+        <polygon points="10,6 16,12 10,18" fill="#ccba9d" />
+    </svg>
+  </span>
+  <slot></slot>
+</div>
+
+<script>
+  const commandNames = document.querySelectorAll('.command-name');
+
+  commandNames.forEach(commandName => {
+      commandName.addEventListener('mouseenter', () => {
+          commandName.querySelector('.command-arrow polygon').style.fill = '#342d2d'; // primary-dark color
+      });
+
+      commandName.addEventListener('mouseleave', () => {
+          commandName.querySelector('.command-arrow polygon').style.fill = '#ccba9d'; // original color
+      });
+  });
+</script>

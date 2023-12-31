@@ -1,0 +1,26 @@
+---
+// Define the props with default values
+interface Props {
+    width?: string;
+    height?: string;
+    borderRadius?: string;
+    top?: string;
+    left?: string;
+}
+
+const { 
+    width = '00px', 
+    height = '600px', 
+    borderRadius = '20px',
+    top = '0', 
+    left = '0' 
+} = Astro.props;
+---
+
+<div class="bg-white absolute flex" style={`width: ${width}; height: ${height}; border-radius: ${borderRadius}; top: ${top}px; left: ${left}px;`}>
+  <div class="relative ml-[180px] flex-grow mt-3 mb-3 mr-3">
+    <div>
+      <slot></slot>
+    </div>
+  </div>
+</div>

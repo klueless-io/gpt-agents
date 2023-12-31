@@ -1,0 +1,5 @@
+.brand-name {
+  text-transform: uppercase;
+  color: var(--color-primary-dark); /* Assuming you have set this CSS variable for your brand color */
+  /* Add other styles as needed */
+}
