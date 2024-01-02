@@ -1,0 +1,52 @@
+---
+// Import necessary utilities
+import { readdir, readFile } from 'node:fs/promises';
+import path from 'node:path';
+import Layout from '../../layouts/Layout.astro';
+
+// Return an array of objects representing the paths to be pre-rendered
+export async function getStaticPaths() {
+  const jsonDirectory = path.join(process.cwd(), 'src/content/gpt-agents-json');
+  const filenames = await readdir(jsonDirectory);
+  
+  const paths = filenames.filter(file => file.endsWith('.json')).map(file => {
+    const slug = file.replace('.json', '');
+    return {
+      params: { slug },
+      props: { slug },
+    };
+  });
+
+  return paths;
+}
+
+// Return an object with the props needed to render the page
+export async function getStaticProps({ params }) {
+  console.log('FUCKIT');
+  const filePath = path.join(process.cwd(), 'src/content/gpt-agents-json', `${params.slug}.json`);
+  try {
+    const fileContents = await readFile(filePath, 'utf8');
+    console.log(`Reading file: ${filePath}`); // Debugging line
+    const content = JSON.parse(fileContents);
+    return { props: { content } };
+  } catch (error) {
+    console.error(`Error reading file: ${error.message}`);
+    return { props: { content: null } };
+  }
+}
+
+const { content } = Astro.props;
+---
+
+<Layout>
+  <!-- Check if content is loaded -->
+  {content ? (
+    <>
+      <h1>{content.title}</h1>
+      <p>{content.name}</p>
+      <!-- Render more content as needed -->
+    </>
+  ) : (
+    <p>Content not found or failed to load.</p>
+  )}
+</Layout>
