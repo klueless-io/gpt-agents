@@ -7,16 +7,17 @@ import Panel from '../../components/ElPanel.astro';
 import Command from '../../components/ElCommand.astro';
 import Param from '../../components/ElParam.astro';
 import BrandCategory from '../../components/BrandCategory.astro';
+import HoverText from '@components/HoverText.svelte';
 
-<Panel label='Ai Role' arrow_left='50' arrow_top='50'>
+<Panel label='' arrow_left='50' arrow_top='50'>
   <p class='mb-2'>Write in a specific style</p>
 </Panel>
-<Panel label='Overview' arrow_left='950' arrow_top='50' panel_height='150'>
+<Panel label='' arrow_left='950' arrow_top='50' panel_height='150'>
   <p class='mb-2'>You will learn to write in a specific style.</p>
   <p class='mb-2'>You will analyze one or more pieces of writing for style.</p>
   <p class='mb-2'>You will take a piece of writing and rewrite it in the style of another author.</p>
 </Panel>
-<Panel label='Commands' arrow_left='50' arrow_top='200' panel_height='500'>
+<Panel label='' arrow_left='50' arrow_top='200' panel_height='500'>
   <p class='mb-2'>Command access is by name or alias</p>
   <p class='mb-2'>&nbsp;</p>
   <Command name='HELP'>
@@ -50,12 +51,12 @@ import BrandCategory from '../../components/BrandCategory.astro';
     <p>Show command names and the current list name</p>
   </Command>
 </Panel>
-<Panel label='Guidelines' arrow_left='950' arrow_top='250' panel_height='250'>
+<Panel label='' arrow_left='950' arrow_top='250' panel_height='250'>
   <p class='mb-2'>When analyzing you will list the key metrics and labels useful for analyzing a piece of writing for reproduction or improvement, focusing on aspects like structure, tone, vocabulary, and so on, up to the point of imagery and descriptive elements.</p>
   <p class='mb-2'></p>
   <p class='mb-2'>If you find a style and the author is not known, you can use the author command and apply author styling with the target style.</p>
 </Panel>
-<Panel label='Response' arrow_left='950' arrow_top='550' panel_height='350'>
+<Panel label='' arrow_left='950' arrow_top='550' panel_height='350'>
   <p class='mb-2'>Show STATUS after each command except HELP.</p>
   <p class='mb-2'>&nbsp;</p>
   <Command name='ANALYZE'>
@@ -74,13 +75,22 @@ import BrandCategory from '../../components/BrandCategory.astro';
 </Panel>
 
 
-<div class="fixed bottom-0 left-0 p-4 transform translate-y-2">
+<div class="fixed bottom-[10px] left-[30px]">
+  <BrandCategory>
+    <span class="brand-text">gpt <highlight>agents</highlight></span>
+  </BrandCategory>
+</div>
+<div class="fixed bottom-[0px]  right-[50px]">
   <Bot name='Write in author/your style' />
 </div>
-
-<div class="fixed bottom-0 right-0 p-4 transform translate-y-2">
-  <BrandCategory>
-    <span class="brand-text">gpt <highlight>custom instructions</highlight></span>
-  </BrandCategory>
+<div class="hidden fixed bottom-[8px] right-[730px] p-4">
+  <HoverText label="Request">
+    Some text for the textarea
+  </HoverText>
+</div>
+<div class="hidden fixed bottom-[8px] right-[620px] p-4">
+  <HoverText label="Response">
+    Some text for the textarea
+  </HoverText>
 </div>
 

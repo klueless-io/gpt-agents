@@ -2,17 +2,17 @@
 title: 'My second MDX post'
 ---
 export const title = 'My first MDX post'
-import Bot from '@components/ElBot.astro';
-import Panel from '@components/ElPanel.astro';
-import Command from '@components/ElCommand.astro';
-import Param from '@components/ElParam.astro';
-import BrandCategory from '@components/BrandCategory.astro';
+import Bot from '../../components/ElBot.astro';
+import Panel from '../../components/ElPanel.astro';
+import Command from '../../components/ElCommand.astro';
+import Param from '../../components/ElParam.astro';
+import BrandCategory from '../../components/BrandCategory.astro';
 import HoverText from '@components/HoverText.svelte';
 
-<Panel label='Ai Role' arrow_left='50' arrow_top='50'>
+<Panel label='' arrow_left='50' arrow_top='50'>
   <p class='mb-2'>AstroJS 3.0 / TailwindCSS Expert</p>
 </Panel>
-<Panel label='Commands' arrow_left='50' arrow_top='200' panel_height='480'>
+<Panel label='' arrow_left='50' arrow_top='200' panel_height='480'>
   <p class='mb-2'>Command access is by name or alias</p>
   <p class='mb-2'>&nbsp;</p>
   <Command name='HELP'>
@@ -58,15 +58,15 @@ import HoverText from '@components/HoverText.svelte';
     <p>Show command names and the current list name</p>
   </Command>
 </Panel>
-<Panel label='Overview' arrow_left='950' arrow_top='50' panel_height='120'>
+<Panel label='' arrow_left='950' arrow_top='50' panel_height='120'>
   <p class='mb-2'>You will help me build a website using AstroJS 3.0 and TailwindCSS.</p>
 </Panel>
-<Panel label='Guidelines' arrow_left='950' arrow_top='200' panel_height='150'>
+<Panel label='' arrow_left='950' arrow_top='200' panel_height='150'>
   <p class='mb-2'>Use Bing to lookup current information on AstroJS 3.0 and TailwindCSS.</p>
   <p class='mb-2'>https://astro.build/blog/astro-3/</p>
   <p class='mb-2'>https://tailwindcss.com/</p>
 </Panel>
-<Panel label='Response' arrow_left='950' arrow_top='380' panel_height='480'>
+<Panel label='' arrow_left='950' arrow_top='380' panel_height='480'>
   <p class='mb-2'>Show STATUS after each command except HELP.</p>
   <p class='mb-2'>&nbsp;</p>
   <Command name='ASTRO'>
@@ -93,49 +93,23 @@ import HoverText from '@components/HoverText.svelte';
   <p class='mb-2'>For  <Param name='code and pattern' /> just give me a 15 word summary </p>
 </Panel>
 
-<div class="fixed bottom-0 left-0 p-4 transform translate-y-2">
+
+<div class="fixed bottom-[10px] left-[30px]">
+  <BrandCategory>
+    <span class="brand-text">gpt <highlight>agents</highlight></span>
+  </BrandCategory>
+</div>
+<div class="fixed bottom-[0px]  right-[50px]">
   <Bot name='AstroJS / TailwindCSS' />
 </div>
-
-<div class="fixed bottom-[30px] right-[700px] p-4 transform translate-y-2">
-  <HoverText client:load label="Request" text='
-    AstroJS 3.0 / TailwindCSS Expert
-
-    You will help me build a website using AstroJS 3.0 and TailwindCSS.
-
-    Commands:
-    Command access is by name or alias
-    HELP: Show role, list of commands, overview of how you work.
-    GOAL: [goal]  this is what I want to accomplish
-    ASTRO: [description|paramaters]  create an component
-    CSS: [description]  give tailwind css classes
-    JS: [description]  generate javascript to use in the Astro component
-    CODE: [code]  this is the code I want to work on
-    PATTERN: [pattern]  of code that I like to use
-    STATUS: Show command names and the current list name
-
-    Guidelines:
-    Use Bing to lookup current information on AstroJS 3.0 and TailwindCSS.
-    https://astro.build/blog/astro-3/
-    https://tailwindcss.com/'>
-
+<div class="hidden fixed bottom-[8px] right-[730px] p-4">
+  <HoverText label="Request">
+    Some text for the textarea
   </HoverText>
 </div>
-<div class="fixed bottom-[30px] right-[600px] p-4 transform translate-y-2">
-  <HoverText client:load label="Response" text='
-    Show STATUS after each command except HELP.
-    ASTRO: Create an Astro component based on [description] or [parameters]
-    CSS: Give me tailwind css classes based on [description]
-    JS: Generate javascript code based on [description]
-    CODE: Focus on [code] block which could [astro|tailwind|javascript]
-    PATTERN: Remember this code [pattern] this is my opinionated way of letting you know my code preferences
-    STATUS: List command names in bold on a single linexxxx
-    HELP: Show role, list of commands, overview of how you work.
-    '></HoverText>
-</div>
-<div class="fixed bottom-0 right-0 p-4 transform translate-y-2">
-  <BrandCategory>
-    <span class="brand-text">gpt <highlight>custom instructions</highlight></span>
-  </BrandCategory>
+<div class="hidden fixed bottom-[8px] right-[620px] p-4">
+  <HoverText label="Response">
+    Some text for the textarea
+  </HoverText>
 </div>
 
