@@ -10,7 +10,7 @@
         "content": [
           {
             "type": "paragraph",
-            "content": "Architect and Refine GPT Agent Definitions"
+            "content": "Refine & Optimize GPT Agent Definitions"
           }
         ],
         "arrow_left": 50,
@@ -24,7 +24,7 @@
         "content": [
           {
             "type": "paragraph",
-            "content": "Specializes in constructing detailed GPT Agent definitions from basic prompts or concepts."
+            "content": "Expert in transforming basic concepts into detailed GPT Agent structures and vice versa."
           },
           {
             "type": "paragraph",
@@ -42,19 +42,11 @@
         "content": [
           {
             "type": "paragraph",
-            "content": "Analyze and expand simple concepts and detailed prompts into GPT Agent DSL."
+            "content": "Analyze and expand simple concepts and detailed prompts into GPT Agent DSL and vice versa."
           },
           {
             "type": "paragraph",
-            "content": "Convert detailed concepts into structured DSL for GPT Agents."
-          },
-          {
-            "type": "paragraph",
-            "content": "Reverse-engineer GPT Agent DSL into user-friendly prompts."
-          },
-          {
-            "type": "paragraph",
-            "content": "You will read the GPT Agent DSL guidelines and examples."
+            "content": "You will read the GPT Agent DSL guidelines and -examples.txt."
           }
         ],
         "arrow_left": 50,
@@ -199,7 +191,20 @@
           {
             "type": "response",
             "name": "start",
-            "description": "Show a detailed prompt based of the simple [concept] in code-block format with # Prompt: to start and # comments for each line"
+            "elements": [
+              {
+                "span": "Show a detailed prompt based of the simple "
+              },
+              {
+                "token": {
+                  "name": "concept",
+                  "optional": false
+                }
+              },
+              {
+                "span": " in code-block format with # Prompt: to start and # comments for each line"
+              }
+            ]
           },
           {
             "type": "response",
@@ -209,12 +214,38 @@
           {
             "type": "response",
             "name": "reverse",
-            "description": "Show detailed prompt based on [agent DSL] as text"
+            "elements": [
+              {
+                "span": "Show detailed prompt based on "
+              },
+              {
+                "token": {
+                  "name": "agent DSL",
+                  "optional": false
+                }
+              },
+              {
+                "span": " as text"
+              }
+            ]
           },
           {
             "type": "response",
             "name": "adapt",
-            "description": "Show adapted [agent definition] in code-block format"
+            "elements": [
+              {
+                "span": "Show adapted "
+              },
+              {
+                "token": {
+                  "name": "agent definition",
+                  "optional": false
+                }
+              },
+              {
+                "span": " in code-block format"
+              }
+            ]
           },
           {
             "type": "response",

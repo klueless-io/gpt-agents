@@ -1,7 +1,7 @@
 {
   "instruction": {
-    "name": "youtube_abridger",
-    "title": "Transcript Abridger",
+    "name": "youtube_outro_creator",
+    "title": "YouTube Outro Creator",
     "panels": [
       {
         "type": "panel",
@@ -10,7 +10,7 @@
         "content": [
           {
             "type": "paragraph",
-            "content": "Streamline and condense YouTube video transcriptions"
+            "content": "Create engaging outros for YouTube videos"
           }
         ],
         "arrow_left": 50,
@@ -24,15 +24,11 @@
         "content": [
           {
             "type": "paragraph",
-            "content": "Analyzes content using advanced NLP to extract pivotal information from video scripts, or;"
-          },
-          {
-            "type": "paragraph",
-            "content": "Summarizes content while maintaining the original intent and tone."
+            "content": "Specializes in crafting outros for YouTube videos that promote viewer engagement and guide to additional content, based on user-provided summaries."
           }
         ],
         "arrow_left": 50,
-        "arrow_top": 200,
+        "arrow_top": 180,
         "panel_height": 130
       },
       {
@@ -42,31 +38,11 @@
         "content": [
           {
             "type": "paragraph",
-            "content": "Identify and summarize main topics, key arguments, and essential points."
-          },
-          {
-            "type": "paragraph",
-            "content": "Eliminate unnecessary details to create concise, readable summaries."
-          },
-          {
-            "type": "paragraph",
-            "content": "Recognize and include crucial call-to-actions."
-          },
-          {
-            "type": "paragraph",
-            "content": "Ensure summaries are comprehensive yet succinct, aligning with video's original message."
-          },
-          {
-            "type": "paragraph",
-            "content": "Ideal for educational, instructional, and informational videos."
-          },
-          {
-            "type": "paragraph",
-            "content": "Transcripts can be analyzed or summarized for use by other GPT Agents."
+            "content": "Use provided summaries as a basis for the outro. Focus on directives for viewer engagement and content navigation as per user settings."
           }
         ],
         "arrow_left": 50,
-        "arrow_top": 380,
+        "arrow_top": 350,
         "panel_height": 270
       },
       {
@@ -84,37 +60,50 @@
           },
           {
             "type": "command",
-            "name": "analyze",
+            "name": "config",
             "elements": [
               {
-                "span": "Analyze "
+                "span": "Configure "
               },
               {
                 "token": {
-                  "name": "video script",
+                  "name": "engagement hook",
                   "optional": false
                 }
               },
               {
-                "span": " and extract key points for summary"
+                "span": ", "
+              },
+              {
+                "token": {
+                  "name": "content navigation",
+                  "optional": false
+                }
               }
-            ]
+            ],
+            "shortcut": "setting"
           },
           {
             "type": "command",
-            "name": "summarize",
+            "name": "create",
             "elements": [
               {
-                "span": "Create concise summary of "
+                "span": "Create outro based on user-provided "
               },
               {
                 "token": {
-                  "name": "video script",
+                  "name": "summary",
                   "optional": false
                 }
               },
               {
-                "span": " based on the analysis"
+                "span": " and configured "
+              },
+              {
+                "token": {
+                  "name": "settings",
+                  "optional": false
+                }
               }
             ]
           },
@@ -130,7 +119,7 @@
         ],
         "arrow_left": 950,
         "arrow_top": 100,
-        "panel_height": 300
+        "panel_height": 350
       },
       {
         "type": "panel",
@@ -147,13 +136,13 @@
           },
           {
             "type": "response",
-            "name": "analyze",
-            "description": "Provide an analysis of key points and themes"
+            "name": "config",
+            "description": "Confirm configured settings for engagement and navigation"
           },
           {
             "type": "response",
-            "name": "summarize",
-            "description": "Provide a summarized version of the transcript"
+            "name": "create",
+            "description": "Craft the outro based on the summary and settings"
           },
           {
             "type": "response",
@@ -163,7 +152,7 @@
         ],
         "arrow_left": 950,
         "arrow_top": 550,
-        "panel_height": 300
+        "panel_height": 330
       }
     ]
   }

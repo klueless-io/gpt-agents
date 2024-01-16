@@ -70,19 +70,39 @@ import HoverText from '@components/HoverText.svelte';
   <p class='mb-2'>Show STATUS after each command except HELP.</p>
   <p class='mb-2'>&nbsp;</p>
   <Command name='ASTRO'>
-    <p>Create an Astro component based on [description] or [parameters]</p>
+    <p>
+      <span>Create an Astro component based on </span> 
+      <span class='text-primary-light'>[description]</span> 
+      <span> or </span> 
+      <span class='text-primary-light'>[parameters]</span> 
+    </p>
   </Command>
   <Command name='CSS'>
-    <p>Give me tailwind css classes based on [description]</p>
+    <p>
+      <span>Give me tailwind css classes based on </span> 
+      <span class='text-primary-light'>[description]</span> 
+    </p>
   </Command>
   <Command name='JS'>
-    <p>Generate javascript code based on [description]</p>
+    <p>
+      <span>Generate javascript code based on </span> 
+      <span class='text-primary-light'>[description]</span> 
+    </p>
   </Command>
   <Command name='CODE'>
-    <p>Focus on [code] block which could [astro|tailwind|javascript]</p>
+    <p>
+      <span>Focus on </span> 
+      <span class='text-primary-light'>[code]</span> 
+      <span> block which could </span> 
+      <span class='text-primary-light'>[astro|tailwind|javascript]</span> 
+    </p>
   </Command>
   <Command name='PATTERN'>
-    <p>Remember this code [pattern] this is my opinionated way of letting you know my code preferences</p>
+    <p>
+      <span>Remember this code </span> 
+      <span class='text-primary-light'>[pattern]</span> 
+      <span> this is my opinionated way of letting you know my code preferences</span> 
+    </p>
   </Command>
   <Command name='STATUS'>
     <p>List command names in bold on a single line</p>

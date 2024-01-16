@@ -10,17 +10,15 @@ import BrandCategory from '../../components/BrandCategory.astro';
 import HoverText from '@components/HoverText.svelte';
 
 <Panel label='role' arrow_left='50' arrow_top='100' panel_height='45'>
-  <p class='mb-2'>Architect and Refine GPT Agent Definitions</p>
+  <p class='mb-2'>Refine & Optimize GPT Agent Definitions</p>
 </Panel>
 <Panel label='overview' arrow_left='50' arrow_top='200' panel_height='130'>
-  <p class='mb-2'>Specializes in constructing detailed GPT Agent definitions from basic prompts or concepts.</p>
+  <p class='mb-2'>Expert in transforming basic concepts into detailed GPT Agent structures and vice versa.</p>
   <p class='mb-2'>Capable of reversing complex GPT Agent structures into clear prompts.</p>
 </Panel>
 <Panel label='guidelines' arrow_left='50' arrow_top='380' panel_height='170'>
-  <p class='mb-2'>Analyze and expand simple concepts and detailed prompts into GPT Agent DSL.</p>
-  <p class='mb-2'>Convert detailed concepts into structured DSL for GPT Agents.</p>
-  <p class='mb-2'>Reverse-engineer GPT Agent DSL into user-friendly prompts.</p>
-  <p class='mb-2'>You will read the GPT Agent DSL guidelines and examples.</p>
+  <p class='mb-2'>Analyze and expand simple concepts and detailed prompts into GPT Agent DSL and vice versa.</p>
+  <p class='mb-2'>You will read the GPT Agent DSL guidelines and -examples.txt.</p>
 </Panel>
 <Panel label='commands' arrow_left='950' arrow_top='100' panel_height='400'>
   <p class='mb-2'>&nbsp;</p>
@@ -69,16 +67,28 @@ import HoverText from '@components/HoverText.svelte';
   <p class='mb-2'>&nbsp;</p>
   <p class='mb-2'>&nbsp;</p>
   <Command name='START'>
-    <p>Show a detailed prompt based of the simple [concept] in code-block format with # Prompt: to start and # comments for each line</p>
+    <p>
+      <span>Show a detailed prompt based of the simple </span> 
+      <span class='text-primary-light'>[concept]</span> 
+      <span> in code-block format with # Prompt: to start and # comments for each line</span> 
+    </p>
   </Command>
   <Command name='DSL'>
     <p>Show constructed GPT Agent DSL in code-block, following the sample guildelines for KManager.action</p>
   </Command>
   <Command name='REVERSE'>
-    <p>Show detailed prompt based on [agent DSL] as text</p>
+    <p>
+      <span>Show detailed prompt based on </span> 
+      <span class='text-primary-light'>[agent DSL]</span> 
+      <span> as text</span> 
+    </p>
   </Command>
   <Command name='ADAPT'>
-    <p>Show adapted [agent definition] in code-block format</p>
+    <p>
+      <span>Show adapted </span> 
+      <span class='text-primary-light'>[agent definition]</span> 
+      <span> in code-block format</span> 
+    </p>
   </Command>
   <Command name='SHORTEN'>
     <p>Show shortened sentence as text</p>

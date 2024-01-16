@@ -41,11 +41,8 @@ import HoverText from '@components/HoverText.svelte';
       <span> based on the analysis</span> 
     </p>
   </Command>
-  <Command name='HELP' alias='?'>
-    <p>Show role, overview, guidelines, and list of commands</p>
-  </Command>
-  <Command name='COMMANDS' alias='cmd'>
-    <p>Show list of command names and parameters</p>
+  <Command name='HELP' alias='["?", :cmd]'>
+    <p>Show role, overview, guidelines, and command list</p>
   </Command>
 </Panel>
 <Panel label='response' arrow_left='950' arrow_top='550' panel_height='300'>
@@ -58,10 +55,7 @@ import HoverText from '@components/HoverText.svelte';
     <p>Provide a summarized version of the transcript</p>
   </Command>
   <Command name='HELP'>
-    <p>Detailed command list with descriptions and parameters</p>
-  </Command>
-  <Command name='COMMANDS'>
-    <p>Brief command list, no description</p>
+    <p>Show detailed command list in a table except for :cmd shortcut, which displays commands and not other details on single line</p>
   </Command>
 </Panel>
 

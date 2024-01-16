@@ -3,8 +3,10 @@
 - JSON version of the pages
   - WORKS:
   - http://localhost:5010/gpt-agents/youtube-description-writer
+  - http://localhost:5010/gpt-agents/youtube-abridger
   - NOT WORKING:
   - http://localhost:5010/gpt-agents-json/youtube-description-writer
+  - http://localhost:5010/gpt-agents-json/youtube-abridger
   - A: Display the JSON
   - B: Pass the JSON to a new component and render something
   - C: Re-implement the page using the JSON

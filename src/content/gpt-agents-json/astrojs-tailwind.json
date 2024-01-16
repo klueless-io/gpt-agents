@@ -187,27 +187,98 @@
           {
             "type": "response",
             "name": "astro",
-            "description": "Create an Astro component based on [description] or [parameters]"
+            "elements": [
+              {
+                "span": "Create an Astro component based on "
+              },
+              {
+                "token": {
+                  "name": "description",
+                  "optional": false
+                }
+              },
+              {
+                "span": " or "
+              },
+              {
+                "token": {
+                  "name": "parameters",
+                  "optional": false
+                }
+              }
+            ]
           },
           {
             "type": "response",
             "name": "css",
-            "description": "Give me tailwind css classes based on [description]"
+            "elements": [
+              {
+                "span": "Give me tailwind css classes based on "
+              },
+              {
+                "token": {
+                  "name": "description",
+                  "optional": false
+                }
+              }
+            ]
           },
           {
             "type": "response",
             "name": "js",
-            "description": "Generate javascript code based on [description]"
+            "elements": [
+              {
+                "span": "Generate javascript code based on "
+              },
+              {
+                "token": {
+                  "name": "description",
+                  "optional": false
+                }
+              }
+            ]
           },
           {
             "type": "response",
             "name": "code",
-            "description": "Focus on [code] block which could [astro|tailwind|javascript]"
+            "elements": [
+              {
+                "span": "Focus on "
+              },
+              {
+                "token": {
+                  "name": "code",
+                  "optional": false
+                }
+              },
+              {
+                "span": " block which could "
+              },
+              {
+                "token": {
+                  "name": "astro|tailwind|javascript",
+                  "optional": false
+                }
+              }
+            ]
           },
           {
             "type": "response",
             "name": "pattern",
-            "description": "Remember this code [pattern] this is my opinionated way of letting you know my code preferences"
+            "elements": [
+              {
+                "span": "Remember this code "
+              },
+              {
+                "token": {
+                  "name": "pattern",
+                  "optional": false
+                }
+              },
+              {
+                "span": " this is my opinionated way of letting you know my code preferences"
+              }
+            ]
           },
           {
             "type": "response",

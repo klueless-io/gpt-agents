@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import { PORT, SITE } from './src/const';
+import { PORT, SITE } from './src/consts';
 import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 
