@@ -1,0 +1,15 @@
+---
+const { pages } = Astro.props;
+// console.log(pages);
+---
+
+<nav class="flex flex-wrap items-center mt-5">
+    {pages.map((page, index) => (
+        <div key={index} class="flex items-center">
+            {index > 0 && <span class="mx-2 text-gray-500">|</span>}
+            <a href={`/gpt-agents-json/${page.slug}`} class="text-amber-400 hover:text-white transition-colors duration-300">
+                {page.title}
+            </a>
+        </div>
+    ))}
+</nav>

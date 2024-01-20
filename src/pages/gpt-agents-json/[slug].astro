@@ -3,50 +3,96 @@
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import Layout from '../../layouts/Layout.astro';
+import GptList from '../../components/GptList.astro';
+import GptFactsheet from '@components/GptFactsheet.astro';
 
-// Return an array of objects representing the paths to be pre-rendered
 export async function getStaticPaths() {
-  const jsonDirectory = path.join(process.cwd(), 'src/content/gpt-agents-json');
-  const filenames = await readdir(jsonDirectory);
-  
-  const paths = filenames.filter(file => file.endsWith('.json')).map(file => {
-    const slug = file.replace('.json', '');
-    return {
-      params: { slug },
-      props: { slug },
-    };
-  });
+    const directory = 'src/content/gpt-agents-json';
+    const slugPaths = await slugs(directory);
 
-  return paths;
+    // Fetch content for each slug and compile a list of all pages
+    let pages = [];
+    const paths = await Promise.all(slugPaths.map(async ({ slug }) => {
+        const content = await getContent(slug);
+        const title = content?.instruction?.title;
+
+        // Add to the list of all pages
+        pages.push({ slug, title });
+
+        return {
+            params: { slug },
+            props: {
+                content: content,
+                pages: pages  // Add the list of all pages to each path
+            }
+        };
+    }));
+
+    // log('Pages', JSON.stringify(pages, null, 2));
+    // log('Paths', JSON.stringify(paths, null, 2));
+
+    // Ensure the list of pages is included in each path
+    return paths.map(path => ({ ...path, props: { ...path.props, pages } }));
 }
 
-// Return an object with the props needed to render the page
-export async function getStaticProps({ params }) {
-  console.log('FUCKIT');
-  const filePath = path.join(process.cwd(), 'src/content/gpt-agents-json', `${params.slug}.json`);
+
+export async function slugs(directory) {
+    try {
+        const jsonDirectory = path.join(process.cwd(), directory);
+        const filenames = await readdir(jsonDirectory);
+        const jsonFiles = filenames.filter(file => file.endsWith('.json'));
+
+        return jsonFiles.map(file => {
+            const slug = file.replace('.json', '');
+            const filePath = path.join(jsonDirectory, file);
+            return { slug, filePath };
+        });
+    } catch (error) {
+        console.error('Error reading directory:', error.message);
+        return []; // Return an empty array in case of an error
+    }
+}
+
+export async function getContent(slug: string) {
+  const filePath = path.join(process.cwd(), 'src/content/gpt-agents-json', `${slug}.json`);
   try {
     const fileContents = await readFile(filePath, 'utf8');
-    console.log(`Reading file: ${filePath}`); // Debugging line
+    // console.log(`Reading file: ${filePath}`); // Debugging line
     const content = JSON.parse(fileContents);
-    return { props: { content } };
+    return content;
   } catch (error) {
     console.error(`Error reading file: ${error.message}`);
-    return { props: { content: null } };
+    return null;
   }
 }
 
-const { content } = Astro.props;
----
+export function log(title, variable) {
+    // Limit the title length to 70 characters
+    let trimmedTitle = title.length > 70 ? title.substring(0, 67) + '...' : title;
 
+    // Append dashes to the title
+    let dashLength = 70 - trimmedTitle.length;
+    let dashes = '-'.repeat(dashLength);
+
+    console.log(`${trimmedTitle}${dashes}`);
+    console.log(variable);
+}
+
+const { content, pages } = Astro.props;
+const gpt = content.instruction;
+// log("GPT", gpt)
+// log("Pages", pages)
+---
 <Layout>
-  <!-- Check if content is loaded -->
-  {content ? (
-    <>
-      <h1>{content.title}</h1>
-      <p>{content.name}</p>
-      <!-- Render more content as needed -->
-    </>
+  <!-- Navigation Menu -->
+  {pages && <GptList pages={pages} />}
+  
+  <!-- Content Section -->
+  {gpt ? (
+      <GptFactsheet gpt={gpt} />
+
   ) : (
-    <p>Content not found or failed to load.</p>
+      <p class="text-center text-red-500 text-xl">Content not found or failed to load.</p>
   )}
+
 </Layout>

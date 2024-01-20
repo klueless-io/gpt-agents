@@ -1,0 +1,46 @@
+---
+import Bot from './ElBot.astro';
+import BrandCategory from './BrandCategory.astro';
+import Panel from './ElPanel.astro';
+import Command from './ElCommand.astro'; // Ensure this is imported
+
+const { gpt } = Astro.props;
+console.log(gpt);
+---
+
+<div class="max-w-4xl mx-auto p-4">
+  <h1 class="text-3xl font-bold text-gray-800 mb-4">{gpt.title}</h1>
+  <p class="text-lg text-gray-600">{gpt.name}</p>
+  <!-- Add more content rendering here if needed -->
+</div>
+
+{gpt.panels.map((panel, index) => (
+  <Panel key={index} label={panel.title} arrow_left={panel.arrow_left} arrow_top={panel.arrow_top} panel_height={panel.panel_height}>
+    {panel.content.map((contentItem, contentIndex) => {
+      if (contentItem.type === 'paragraph') {
+        return <p key={contentIndex} class='mb-2'>{contentItem.content}</p>;
+      }
+      else if (contentItem.type === 'command') {
+        return (
+          <Command key={contentIndex} name={contentItem.name} alias={contentItem.alias}>
+            {/* Render the elements of the command, if elements exist */}
+            {contentItem.elements && contentItem.elements.map((element, elementIndex) => (
+              <span key={elementIndex} class={element.class || ''}>{element.content}</span>
+            ))}
+          </Command>
+        );
+      }
+      // Add more conditions here for other content types if necessary
+    })}
+  </Panel>
+))}
+
+<div class="fixed bottom-[10px] left-[30px]">
+  <BrandCategory>
+    <span class="brand-text">gpt <highlight>agents</highlight></span>
+  </BrandCategory>
+</div>
+
+<div class="fixed bottom-[0px]  right-[50px]">
+  <Bot name={gpt.title} />
+</div>

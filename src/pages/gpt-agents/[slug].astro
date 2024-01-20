@@ -18,6 +18,7 @@ type Props = {
   gptAgents: CollectionEntry<'gpt-agents'>;
 }
 
+
 const { gptAgent, frontmatter } = Astro.props;
 const { Content, headings } = await gptAgent.render();
 // console.log("Content");
