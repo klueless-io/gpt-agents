@@ -12,27 +12,28 @@ import P from '@components/Paragraph.astro';
 import Strong from '@components/Strong.astro';
 
 <Panel label='Role' arrow_left='50' arrow_top='100' panel_height='45'>
-  <p class='mb-2'>Generate tailored intros for YouTube videos</p>
+  <!-- FIX this --> <p class='mb-2'>Generate tailored intros for YouTube videos</p>
 </Panel>
 <Panel label='overview' arrow_left='50' arrow_top='200' panel_height='130'>
   <p class='mb-2'>Creates engaging and educational introductions for YouTube videos in selected niche.</p>
   <p class='mb-2'>Utilizes provided transcripts and drafts to ensure relevance and accuracy.</p>
 </Panel>
 <Panel label='guidelines' arrow_left='50' arrow_top='380' panel_height='350'>
-  <p class='mb-2'>**Use of Materials**: Leverage transcriptions and drafts for content creation.</p>
-  <p class='mb-2'>**Objective**: Create concise, informative, and compelling intros.</p>
-  <p class='mb-2'>**Audience**: Focus on learners and enthusiasts in the selected fields.</p>
-  <p class='mb-2'>**Length and Clarity**: Keep intros brief yet comprehensive, with accessible language.</p>
-  <p class='mb-2'>**Marketing Frameworks**: Use  <Param name='None' />,  <Param name='PAS' /> or  <Param name='AIDA' /> for structuring content. </p>
-  <p class='mb-2'>**Intro Structures**:  <Param name='Preview Method' />,  <Param name='Problem-Solution Brief' />,  <Param name='Statistic/Fact Start' />,  <Param name='Question and Answer' />,  <Param name='Storytelling Approach' />,  <Param name='Challenge Method' />. </p>
+  <P><Strong>Use of Materials</Strong>: Leverage transcriptions and drafts for content creation.</P>
+  <P><Strong>Use of Materials</Strong>: Leverage transcriptions and drafts for content creation.</P>
+  <P><Strong>Objective</Strong>: Create concise, informative, and compelling intros.</P>
+  <P><Strong>Audience</Strong>: Focus on learners and enthusiasts in the selected fields.</P>
+  <P><Strong>Length and Clarity</Strong>: Keep intros brief yet comprehensive, with accessible language.</P>
+  <P><Strong>Marketing Frameworks</Strong>: Use  <Param name='None' />,  <Param name='PAS' /> or  <Param name='AIDA' /> for structuring content. </P>
+  <P><Strong>Intro Structures</Strong>:  <Param name='Preview Method' />,  <Param name='Problem-Solution Brief' />,  <Param name='Statistic/Fact Start' />,  <Param name='Question and Answer' />,  <Param name='Storytelling Approach' />,  <Param name='Challenge Method' />. </P>
 </Panel>
 <Panel label='commands' arrow_left='950' arrow_top='100' panel_height='300'>
-  <p class='mb-2'>&nbsp;</p>
+  <p class='mb-2'>&nbsp;</p> <!-- New Element: Nbsp -->
   <p class='mb-2'>&nbsp;</p>
   <Command name='CONFIG' alias='setting'>
     <p>
-      <span>Configure </span> 
-      <span class='text-primary-light'>[niche/topic/keyword]</span> 
+      <span>Configure </span>  <!-- New Element: Span -->
+      <span class='text-primary-light'>[niche/topic/keyword]</span>  <!-- Fix This: Param -->
       <span>, </span> 
       <span class='text-primary-light'>[framework]</span> 
       <span>, </span> 
@@ -79,21 +80,22 @@ import Strong from '@components/Strong.astro';
   <p class='mb-2'>Default Settings: Framework: PAS, Structure: Preview, Tone: Authoritative & Engaging, Niche: Infer from transcript</p>
 </Panel>
 
+ 
 
-<div class="fixed bottom-[10px] left-[30px]">
+<div class="fixed bottom-[10px] left-[30px]"> <!-- New Element: Position -->
   <BrandCategory>
     <span class="brand-text">gpt <highlight>agents</highlight></span>
   </BrandCategory>
 </div>
-<div class="fixed bottom-[0px]  right-[50px]">
+<div class="fixed bottom-[0px]  right-[50px]"> <!-- New Element: Position -->
   <Bot name='YouTube Intro Generator' />
 </div>
-<div class="hidden fixed bottom-[8px] right-[730px] p-4">
+<div class="hidden fixed bottom-[8px] right-[730px] p-4"> <!-- New Element: Position -->
   <HoverText label="Request">
     Some text for the textarea
   </HoverText>
 </div>
-<div class="hidden fixed bottom-[8px] right-[620px] p-4">
+<div class="hidden fixed bottom-[8px] right-[620px] p-4"> <!-- New Element: Position -->
   <HoverText label="Response">
     Some text for the textarea
   </HoverText>
