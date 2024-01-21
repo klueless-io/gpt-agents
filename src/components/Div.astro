@@ -1,0 +1,12 @@
+---
+interface Props {
+	cssClass: string;
+  cssStyle: string;
+}
+
+const { cssClass, cssStyle } = Astro.props
+---
+
+<div class={cssClass} style={cssStyle}>
+  <slot></slot>
+</div>
