@@ -8,12 +8,6 @@ const { gpt } = Astro.props;
 console.log(gpt);
 ---
 
-<div class="max-w-4xl mx-auto p-4">
-  <h1 class="text-3xl font-bold text-gray-800 mb-4">{gpt.title}</h1>
-  <p class="text-lg text-gray-600">{gpt.name}</p>
-  <!-- Add more content rendering here if needed -->
-</div>
-
 {gpt.panels.map((panel, index) => (
   <Panel key={index} label={panel.title} arrow_left={panel.arrow_left} arrow_top={panel.arrow_top} panel_height={panel.panel_height}>
     {panel.content.map((contentItem, contentIndex) => {
