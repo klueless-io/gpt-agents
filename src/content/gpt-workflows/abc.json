@@ -1,0 +1,532 @@
+{
+  "name": "medium_article_writer",
+  "title": "Medium Article Writer",
+  "description": "This workflow is used to transform a YouTube script into a professional and engaging Medium article.",
+  "settings": {
+    "prompt_path": {
+      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/youtube/script_writer",
+      "description": null,
+      "title": "Prompt Path"
+    },
+    "default_llm": {
+      "value": "gpt4o",
+      "description": null,
+      "title": "Default Llm"
+    }
+  },
+  "sections": [
+    {
+      "name": "Preparation",
+      "title": "Preparation",
+      "order": 1,
+      "description": null,
+      "steps": [
+        {
+          "name": "Review Script",
+          "title": "Review Script",
+          "order": 1,
+          "description": null,
+          "prompt": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+          "input_attributes": [
+            {
+              "name": "script",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Script"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "outline",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Outline"
+            }
+          ]
+        },
+        {
+          "name": "Outline Script",
+          "title": "Outline Script",
+          "order": 2,
+          "description": null,
+          "prompt": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+          "input_attributes": [
+            {
+              "name": "outline",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Outline"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "outline",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Outline"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Writing",
+      "title": "Writing",
+      "order": 2,
+      "description": null,
+      "steps": [
+        {
+          "name": "Introduction",
+          "title": "Introduction",
+          "order": 1,
+          "description": null,
+          "prompt": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+          "input_attributes": [
+            {
+              "name": "outline",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Outline"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "introduction",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Introduction"
+            }
+          ]
+        },
+        {
+          "name": "Title and Subtitle",
+          "title": "Title And Subtitle",
+          "order": 2,
+          "description": null,
+          "prompt": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+          "input_attributes": [
+            {
+              "name": "outline",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Outline"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "title",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Title"
+            },
+            {
+              "name": "subtitle",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Subtitle"
+            }
+          ]
+        },
+        {
+          "name": "Content Expansion",
+          "title": "Content Expansion",
+          "order": 3,
+          "description": null,
+          "prompt": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+          "input_attributes": [
+            {
+              "name": "outline",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Outline"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "expanded_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Expanded Content"
+            }
+          ]
+        },
+        {
+          "name": "Headings and Subheadings",
+          "title": "Headings And Subheadings",
+          "order": 4,
+          "description": null,
+          "prompt": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+          "input_attributes": [
+            {
+              "name": "expanded_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Expanded Content"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "headings_subheadings",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Headings Subheadings"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Enhancement",
+      "title": "Enhancement",
+      "order": 3,
+      "description": null,
+      "steps": [
+        {
+          "name": "Visuals and Media",
+          "title": "Visuals And Media",
+          "order": 1,
+          "description": null,
+          "prompt": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+          "input_attributes": [
+            {
+              "name": "headings_subheadings",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Headings Subheadings"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "visuals",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Visuals"
+            }
+          ]
+        },
+        {
+          "name": "Links and References",
+          "title": "Links And References",
+          "order": 2,
+          "description": null,
+          "prompt": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+          "input_attributes": [
+            {
+              "name": "expanded_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Expanded Content"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "links_references",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Links References"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Finalization",
+      "title": "Finalization",
+      "order": 4,
+      "description": null,
+      "steps": [
+        {
+          "name": "Editing and Proofreading",
+          "title": "Editing And Proofreading",
+          "order": 1,
+          "description": null,
+          "prompt": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+          "input_attributes": [
+            {
+              "name": "expanded_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Expanded Content"
+            },
+            {
+              "name": "links_references",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Links References"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "edited_article",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Edited Article"
+            }
+          ]
+        },
+        {
+          "name": "Formatting",
+          "title": "Formatting",
+          "order": 2,
+          "description": null,
+          "prompt": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+          "input_attributes": [
+            {
+              "name": "edited_article",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Edited Article"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "formatted_article",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Formatted Article"
+            }
+          ]
+        },
+        {
+          "name": "Call to Action",
+          "title": "Call To Action",
+          "order": 3,
+          "description": null,
+          "prompt": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+          "input_attributes": [
+            {
+              "name": "formatted_article",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Formatted Article"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "call_to_action",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Call To Action"
+            }
+          ]
+        },
+        {
+          "name": "Author Bio",
+          "title": "Author Bio",
+          "order": 4,
+          "description": null,
+          "prompt": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+          "input_attributes": [
+            {
+              "name": "formatted_article",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Formatted Article"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "author_bio",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Author Bio"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "script": {
+      "name": "script",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Script"
+    },
+    "outline": {
+      "name": "outline",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Outline"
+    },
+    "introduction": {
+      "name": "introduction",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Introduction"
+    },
+    "title": {
+      "name": "title",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Title"
+    },
+    "subtitle": {
+      "name": "subtitle",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Subtitle"
+    },
+    "expanded_content": {
+      "name": "expanded_content",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Expanded Content"
+    },
+    "headings_subheadings": {
+      "name": "headings_subheadings",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Headings Subheadings"
+    },
+    "visuals": {
+      "name": "visuals",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Visuals"
+    },
+    "links_references": {
+      "name": "links_references",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Links References"
+    },
+    "edited_article": {
+      "name": "edited_article",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Edited Article"
+    },
+    "formatted_article": {
+      "name": "formatted_article",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Formatted Article"
+    },
+    "call_to_action": {
+      "name": "call_to_action",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Call To Action"
+    },
+    "author_bio": {
+      "name": "author_bio",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Author Bio"
+    }
+  },
+  "prompts": {
+    "review_script": {
+      "name": "review_script",
+      "content": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+      "description": null,
+      "title": "Review Script"
+    },
+    "outline_script": {
+      "name": "outline_script",
+      "content": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+      "description": null,
+      "title": "Outline Script"
+    },
+    "introduction": {
+      "name": "introduction",
+      "content": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+      "description": null,
+      "title": "Introduction"
+    },
+    "title_subtitle": {
+      "name": "title_subtitle",
+      "content": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+      "description": null,
+      "title": "Title Subtitle"
+    },
+    "expand_content": {
+      "name": "expand_content",
+      "content": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+      "description": null,
+      "title": "Expand Content"
+    },
+    "headings_subheadings": {
+      "name": "headings_subheadings",
+      "content": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+      "description": null,
+      "title": "Headings Subheadings"
+    },
+    "visuals_media": {
+      "name": "visuals_media",
+      "content": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+      "description": null,
+      "title": "Visuals Media"
+    },
+    "links_references": {
+      "name": "links_references",
+      "content": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+      "description": null,
+      "title": "Links References"
+    },
+    "editing_proofreading": {
+      "name": "editing_proofreading",
+      "content": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+      "description": null,
+      "title": "Editing Proofreading"
+    },
+    "formatting": {
+      "name": "formatting",
+      "content": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+      "description": null,
+      "title": "Formatting"
+    },
+    "call_to_action": {
+      "name": "call_to_action",
+      "content": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+      "description": null,
+      "title": "Call To Action"
+    },
+    "author_bio": {
+      "name": "author_bio",
+      "content": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+      "description": null,
+      "title": "Author Bio"
+    }
+  }
+}

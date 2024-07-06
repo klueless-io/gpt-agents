@@ -16,67 +16,9 @@
   },
   "sections": [
     {
-      "name": "Introduction",
-      "title": "Introduction",
-      "order": 1,
-      "description": null,
-      "steps": [
-        {
-          "name": "Introduction",
-          "title": "Introduction",
-          "order": 1,
-          "description": null,
-          "prompt": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
-          "input_attributes": [
-            {
-              "name": "working_idea",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Working Idea"
-            }
-          ],
-          "output_attributes": [
-            {
-              "name": "keep_for_futre",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Keep For Futre"
-            }
-          ]
-        },
-        {
-          "name": "Fact check",
-          "title": "Fact Check",
-          "order": 2,
-          "description": null,
-          "prompt": "I need you to expand the basic factsheet you created for idea: [idea]\r\nI need the expanded factsheet to include information \r\nrequired for this type of video [video_idea]\r\n\r\nHere is the basic factsheet\r\n[basic_factsheet]",
-          "input_attributes": [
-            {
-              "name": "keep_for_futre",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Keep For Futre"
-            }
-          ],
-          "output_attributes": [
-            {
-              "name": "validated",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Validated"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "name": "Research",
       "title": "Research",
-      "order": 2,
+      "order": 1,
       "description": null,
       "steps": [
         {
@@ -87,11 +29,11 @@
           "prompt": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
           "input_attributes": [
             {
-              "name": "best_idea",
+              "name": "idea",
               "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Best Idea"
+              "title": "Idea"
             }
           ],
           "output_attributes": [
@@ -105,18 +47,43 @@
           ]
         },
         {
+          "name": "Select an Idea",
+          "title": "Select An Idea",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "ideas",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Ideas"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "selected_idea",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Selected Idea"
+            }
+          ]
+        },
+        {
           "name": "Basic Factsheet",
           "title": "Basic Factsheet",
-          "order": 2,
+          "order": 3,
           "description": null,
           "prompt": "I need you to gather detailed and reliable information about the \n\"[idea]\".\n\nThe information should be based on recent discussions, reviews, and credible sources available on the internet. Please ensure that the data is comprehensive and unbiased, providing enough detail to generate well-informed articles.\n\nThe information should include the following:\nOverview: A brief description of the product, including its purpose and main features.\nCompany Background: Information about the company that developed the product, including its history and reputation.\nUser Reviews: Summarized insights from user reviews and testimonials, highlighting common praises and complaints.\nPricing: Details about the pricing plans and any available free trials or discounts.\nComparison: A comparison with similar products in the market, noting any unique selling points or disadvantages.\nUse Cases: Examples of how different types of users or businesses are utilizing the product.\nUpdates and Roadmap: Information about recent updates and future plans for the product.\nExpert Opinions: Insights from industry experts or notable publications.\nCommunity and Support: Details about the community support, forums, and customer service quality.\nPlease ensure that all information is up-to-date and from credible sources, avoiding any hallucinations or unverified data. The tone of the information must be witty and informative\n",
           "input_attributes": [
             {
-              "name": "idea",
+              "name": "selected_idea",
               "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Idea"
+              "title": "Selected Idea"
             }
           ],
           "output_attributes": [
@@ -132,7 +99,7 @@
         {
           "name": "Video ideas",
           "title": "Video Ideas",
-          "order": 3,
+          "order": 4,
           "description": null,
           "prompt": "I want to do a YouTube video on the following idea:\r\n[idea]\r\n\r\nThe video should only be about three minutes long\r\nThe video is an ATLDR type of video\r\nWhat are five types of videos that I could do?\r\n\r\nHere is the factsheet:\r\n[basic_factsheet]\r\n",
           "input_attributes": [
@@ -171,7 +138,7 @@
         {
           "name": "Select Video Idea",
           "title": "Select Video Idea",
-          "order": 4,
+          "order": 5,
           "description": null,
           "prompt": "",
           "input_attributes": [
@@ -196,7 +163,7 @@
         {
           "name": "Expanded Factsheet",
           "title": "Expanded Factsheet",
-          "order": 5,
+          "order": 6,
           "description": null,
           "prompt": "I need you to expand the basic factsheet you created for idea: [idea]\r\nI need the expanded factsheet to include information \r\nrequired for this type of video [video_idea]\r\n\r\nHere is the basic factsheet\r\n[basic_factsheet]",
           "input_attributes": [
@@ -235,7 +202,7 @@
         {
           "name": "Video Meta Data",
           "title": "Video Meta Data",
-          "order": 6,
+          "order": 7,
           "description": null,
           "prompt": "I will give you a detailed factsheet about idea: [idea]\r\nFor a video idea of: [video_idea]\r\n\r\nI need you to create the following meta data:\r\n\r\n5 engaging titles\r\n10 keywords\r\n5 topics\r\n\r\nHere's the fact sheet: \r\n[expanded_factsheet]",
           "input_attributes": [
@@ -290,7 +257,7 @@
     {
       "name": "Develop Script",
       "title": "Develop Script",
-      "order": 3,
+      "order": 2,
       "description": null,
       "steps": [
         {
@@ -399,33 +366,12 @@
       "description": null,
       "title": "Script"
     },
-    "working_idea": {
-      "name": "working_idea",
+    "selected_idea": {
+      "name": "selected_idea",
       "type": "string",
       "is_array": false,
       "description": null,
-      "title": "Working Idea"
-    },
-    "keep_for_futre": {
-      "name": "keep_for_futre",
-      "type": "string",
-      "is_array": false,
-      "description": null,
-      "title": "Keep For Futre"
-    },
-    "validated": {
-      "name": "validated",
-      "type": "string",
-      "is_array": false,
-      "description": null,
-      "title": "Validated"
-    },
-    "best_idea": {
-      "name": "best_idea",
-      "type": "string",
-      "is_array": false,
-      "description": null,
-      "title": "Best Idea"
+      "title": "Selected Idea"
     }
   },
   "prompts": {

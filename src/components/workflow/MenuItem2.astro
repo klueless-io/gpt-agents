@@ -3,9 +3,10 @@ interface Props {
   name: string;
   letter: string;
   active: boolean;
+  component: string;
 }
 
-const { name, letter, active } = Astro.props;
+const { name, letter, active, component } = Astro.props;
 const activeClass = "bg-primary-dark text-white";
 const inactiveClass = "text-primary-dark hover:text-primary-light hover:bg-primary-dark";
 ---
@@ -13,6 +14,7 @@ const inactiveClass = "text-primary-dark hover:text-primary-light hover:bg-prima
 <li>
   <a
     href="#"
+    @click.prevent=`$dispatch('menu-click', '${component}')`
     class={`group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold ${active ? activeClass : inactiveClass}`}
   >
     <span
