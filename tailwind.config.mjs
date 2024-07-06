@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const defaultTheme = require('tailwindcss/defaultTheme')
+const forms = require('@tailwindcss/forms');
 
 function generateDimensions(start, end) {
   const dimensions = {};
@@ -35,6 +36,8 @@ export default {
         'single-quoted-string': '#e6d4cc',
         'language-constant': '#CC9DC6',
         'hashkey-symbol': '#95a19f',
+        'yellow': '#FFDE59',
+        'red': '#FF3131',
       },
       letterSpacing: {
         wider: '0.1em',  // You can adjust this value to achieve the desired kerning
@@ -51,6 +54,7 @@ export default {
     },
 	},
 	plugins: [
+    forms,
     function ({ addUtilities, theme }) {
       const newUtilities = {
         ...generateDimensions(1, 200),
@@ -68,6 +72,12 @@ export default {
         '.bot': {
           fontFamily: theme('fontFamily.bebas'),
           fontSize: theme('fontSize.7xl'),
+          paddingTop: "0.5rem", // "0.5rem
+          textTransform: 'uppercase',
+        },
+        '.workflow': {
+          fontFamily: theme('fontFamily.bebas'),
+          fontSize: theme('fontSize.5xl'),
           paddingTop: "0.5rem", // "0.5rem
           textTransform: 'uppercase',
         },

@@ -25,11 +25,11 @@ import Strong from '@components/Strong.astro';
   <Paragraph>Utilizes provided transcripts and drafts to ensure relevance and accuracy.</Paragraph>
 </Panel>
 <Panel label='guidelines' arrow_left='50' arrow_top='380' panel_height='350'>
-  <Paragraph><Strong>Use of Materials</Strong>: Leverage transcriptions and drafts for content creation.</Paragraph>
-  <Paragraph><Strong>Objective</Strong>: Create concise, informative, and compelling intros.</Paragraph>
-  <Paragraph><Strong>Audience</Strong>: Focus on learners and enthusiasts in the selected fields.</Paragraph>
+  <Paragraph><Strong>Use of Materials</Strong><Text>: Leverage transcriptions and drafts for content creation.</Text></Paragraph>
+  <Paragraph><Strong>Objective</Strong><Text>: Create concise, informative, and compelling intros.</Text></Paragraph>
+  <Paragraph><Strong>Audience</Strong><Text>: Focus on learners and enthusiasts in the selected fields.</Text></Paragraph>
   <Paragraph><Strong>Length and Clarity</Strong>: Keep intros brief yet comprehensive, with accessible language.</Paragraph>
-  <Paragraph><Strong>Marketing Frameworks</Strong>: Use  <Param name='None' />,  <Param name='PAS' /> or  <Param name='AIDA' /> for structuring content. </Paragraph>
+  <Paragraph><Strong>Marketing Frameworks</Strong><Text>: Use </Text><Param name='None' />,  <Param name='PAS' /> or  <Param name='AIDA' /> for structuring content. </Paragraph>
   <Paragraph><Strong>Intro Structures</Strong>:  <Param name='Preview Method' />,  <Param name='Problem-Solution Brief' />,  <Param name='Statistic/Fact Start' />,  <Param name='Question and Answer' />,  <Param name='Storytelling Approach' />,  <Param name='Challenge Method' />. </Paragraph>
 </Panel>
 <Panel label='commands' arrow_left='950' arrow_top='100' panel_height='350'>
@@ -40,7 +40,7 @@ import Strong from '@components/Strong.astro';
       <Text>Configure </Text>
       <Param name='niche/topic/keyword' />
       <Text>, </Text> 
-      <Param name='framework' /> 
+      <Param name='framework' optional='true' /> 
       <Text>, </Text> 
       <Param name='structure' /> 
       <Text>, and </Text> 

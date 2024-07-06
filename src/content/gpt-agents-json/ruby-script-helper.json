@@ -68,10 +68,10 @@
           },
           {
             "type": "command",
-            "name": "develop",
+            "name": "create",
             "elements": [
               {
-                "span": "Develop or modify a Ruby script organized in SRP classes based on "
+                "span": "Develop a new Ruby script or class organized in SRP classes based on "
               },
               {
                 "token": {
@@ -83,10 +83,10 @@
           },
           {
             "type": "command",
-            "name": "enhance",
+            "name": "update",
             "elements": [
               {
-                "span": "Enhance an existing Ruby script’s class structure based on "
+                "span": "Refactor an existing Ruby script or class structure based on "
               },
               {
                 "token": {
@@ -98,10 +98,10 @@
           },
           {
             "type": "command",
-            "name": "code",
+            "name": "read",
             "elements": [
               {
-                "span": "Provide "
+                "span": "Read "
               },
               {
                 "token": {
@@ -110,15 +110,18 @@
                 }
               },
               {
-                "span": " for Agent, so it understands the current state of the script"
+                "span": " so it understands the current state of the script"
               }
             ]
           },
           {
             "type": "command",
             "name": "help",
-            "description": "Show role, overview, and list of commands",
-            "shortcut": "commands"
+            "description": "Show role, overview, guidelines, and command list",
+            "shortcut": [
+              "?",
+              "cmd"
+            ]
           }
         ],
         "arrow_left": 950,
@@ -140,23 +143,23 @@
           },
           {
             "type": "response",
-            "name": "develop",
-            "description": "Create or update Ruby code based on given requirements"
+            "name": "create",
+            "description": "Create new ruby class, script, spec based on given requirements"
           },
           {
             "type": "response",
-            "name": "enhance",
-            "description": "Enhance Ruby code, only give code related to the enhancement"
+            "name": "update",
+            "description": "Refactor existing code, only return code related to the enhancement"
           },
           {
             "type": "response",
-            "name": "code",
-            "description": "reply with 'Thankyou for updated code'"
+            "name": "read",
+            "description": "reply with: Code absorbed, awatiting instruction?"
           },
           {
             "type": "response",
             "name": "help",
-            "description": "Display role, overview, and list of commands. If using the commands shortcut, display just the commands on single line"
+            "description": "Show detailed command list in a table except for :cmd shortcut, which displays commands and not other details on single line"
           }
         ],
         "arrow_left": 950,

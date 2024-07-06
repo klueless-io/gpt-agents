@@ -1,0 +1,29 @@
+---
+import Step from './Step.astro';
+
+interface Props {
+  sections: {
+    name: string;
+    steps: { 
+      name: string;
+      prompt: string;
+      input_attributes: { name: string; isArray: boolean; isRequired: boolean }[];
+      output_attributes: { name: string }[]
+    }[];
+  }[];
+}
+
+const { sections } = Astro.props;
+console.log(sections);
+---
+
+{sections.map((section) => (
+  <div class="mt-8" key={section.name}>
+    <h2 class="text-2xl font-semibold text-white mb-4">{section.name}</h2>
+    <div class="flex flex-row flex-wrap gap-4 justify-start">
+      {section.steps.map((step) => (
+        <Step step={step} key={step.name} class="flex-none w-64" />
+      ))}
+    </div>
+  </div>
+))}

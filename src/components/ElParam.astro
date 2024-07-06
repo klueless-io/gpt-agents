@@ -1,9 +1,14 @@
 ---
 interface Props {
 	name: string;
+  optional: boolean;
 }
 
-const { name } = Astro.props;  // Default value is 200 if offset is not provided
+const { name, optional } = Astro.props;  // Default value is 200 if offset is not provided
 ---
 
-<span class="text-primary-light">[{name}]</span>
+{optional ? (
+  <span class="text-primary-light">[{name}?]</span>
+) : (
+  <span class="text-primary-light">[{name}]</span>
+)}

@@ -1,7 +1,7 @@
+import mdx from "@astrojs/mdx";
+import tailwind from "@astrojs/tailwind";
 import { defineConfig } from 'astro/config';
 import { PORT, SITE } from './src/consts';
-import tailwind from "@astrojs/tailwind";
-import mdx from "@astrojs/mdx";
 
 import svelte from "@astrojs/svelte";
 

@@ -42,6 +42,19 @@
         "content": [
           {
             "type": "paragraph",
+            "elements": [
+              {
+                "type": "strong",
+                "content": "Use of Materials"
+              },
+              {
+                "type": "text",
+                "content": ": Leverage transcriptions and drafts for content creation."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
             "content": "**Use of Materials**: Leverage transcriptions and drafts for content creation."
           },
           {

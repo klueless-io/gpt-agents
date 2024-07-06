@@ -1,0 +1,30 @@
+---
+interface Props {
+  workflow: any;
+}
+
+const { workflow } = Astro.props;
+const totalSteps = workflow.sections.reduce((total, section) => total + section.steps.length, 0);
+---
+
+
+<div>
+  <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-4">
+    <div class="overflow-hidden rounded-lg bg-primary-light px-4 py-5 shadow sm:p-6">
+      <dt class="truncate text-sm font-medium text-white">Sections</dt>
+      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-dark">{workflow.sections.length}</dd>
+    </div>
+    <div class="overflow-hidden rounded-lg bg-primary-light px-4 py-5 shadow sm:p-6">
+      <dt class="truncate text-sm font-medium text-white">Steps</dt>
+      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-dark">{totalSteps}</dd>
+    </div>
+    <div class="overflow-hidden rounded-lg bg-primary-light px-4 py-5 shadow sm:p-6">
+      <dt class="truncate text-sm font-medium text-white">Attributes</dt>
+      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-dark">{Object.keys(workflow.attributes).length}</dd>
+    </div>
+    <div class="overflow-hidden rounded-lg bg-primary-light px-4 py-5 shadow sm:p-6">
+      <dt class="truncate text-sm font-medium text-white">Prompts</dt>
+      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-dark">{Object.keys(workflow.prompts).length}</dd>
+    </div>
+  </dl>
+</div>

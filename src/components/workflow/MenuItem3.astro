@@ -1,0 +1,18 @@
+---
+interface Props {
+  name: string;
+  letter: string;
+  active: boolean;
+}
+
+const { name, letter, active } = Astro.props;
+---
+
+<li>
+  <a
+    href="#"
+    @click.prevent="$dispatch('click')"
+  >
+    <span class="truncate">{name}</span>
+  </a>
+</li>

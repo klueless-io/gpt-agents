@@ -168,7 +168,11 @@
           {
             "type": "command",
             "name": "help",
-            "description": "Show role, overview, and list of commands"
+            "description": "Show role, overview, guidelines, and command list",
+            "shortcut": [
+              "?",
+              "cmd"
+            ]
           }
         ],
         "arrow_left": 950,
@@ -255,7 +259,76 @@
           {
             "type": "response",
             "name": "help",
-            "description": "Detailed command list with descriptions and parameters"
+            "description": "For :help, show command list in a table, for :cmd show single line of commands and no other help"
+          },
+          {
+            "type": "paragraph",
+            "elements": [
+              {
+                "span": "Display available command names after "
+              },
+              {
+                "token": {
+                  "name": "start",
+                  "optional": false
+                }
+              },
+              {
+                "span": ", "
+              },
+              {
+                "token": {
+                  "name": "dsl",
+                  "optional": false
+                }
+              },
+              {
+                "span": ", "
+              },
+              {
+                "token": {
+                  "name": "reverse",
+                  "optional": false
+                }
+              },
+              {
+                "span": ", "
+              },
+              {
+                "token": {
+                  "name": "adapt",
+                  "optional": false
+                }
+              },
+              {
+                "span": ", and "
+              },
+              {
+                "token": {
+                  "name": "shorten",
+                  "optional": false
+                }
+              },
+              {
+                "span": " commands"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": "The DSL structure for a new GPT should have minimal commands, 2 to 3 max per agent unless I say otherwise"
+          },
+          {
+            "type": "paragraph",
+            "content": "`gpt-agent-overview.m` overview and principalsof the GPT Agent Architect"
+          },
+          {
+            "type": "paragraph",
+            "content": "`gpt-agent-DSL-examples.md ` patterns for creating new DSLs"
+          },
+          {
+            "type": "paragraph",
+            "content": "`gpt-agent-detailed-prompt-examples.md ` examples of good prompts and how I represent them in markdown"
           }
         ],
         "arrow_left": 950,

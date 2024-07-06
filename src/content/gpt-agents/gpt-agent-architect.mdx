@@ -8,6 +8,8 @@ import Command from '../../components/ElCommand.astro';
 import Param from '../../components/ElParam.astro';
 import BrandCategory from '../../components/BrandCategory.astro';
 import HoverText from '@components/HoverText.svelte';
+import P from '@components/Paragraph.astro';
+import Strong from '@components/Strong.astro';
 
 <Panel label='role' arrow_left='50' arrow_top='100' panel_height='45'>
   <p class='mb-2'>Refine & Optimize GPT Agent Definitions</p>
@@ -26,41 +28,41 @@ import HoverText from '@components/HoverText.svelte';
   <Command name='START'>
     <p>
       <span>Create detailed prompt from a </span> 
-      <span class='text-primary-light'>[concept]</span> 
+      <Param name='concept' />
     </p>
   </Command>
   <Command name='DSL'>
     <p>
       <span>Construct a GPT Agent DSL from </span> 
-      <span class='text-primary-light'>[prompt]</span> 
+      <Param name='prompt' />
       <span> or </span> 
-      <span class='text-primary-light'>[concept]</span> 
+      <Param name='concept' />
     </p>
   </Command>
   <Command name='REVERSE'>
     <p>
       <span>Reverse-engineer </span> 
-      <span class='text-primary-light'>[agent DSL]</span> 
+      <Param name='agent DSL' />
       <span> into a detailed prompt</span> 
     </p>
   </Command>
   <Command name='ADAPT'>
     <p>
       <span>Using specific </span> 
-      <span class='text-primary-light'>[domain or context]</span> 
+      <Param name='domain or context' />
       <span> adapt </span> 
-      <span class='text-primary-light'>[agent definition]</span> 
+      <Param name='agent definition' />
     </p>
   </Command>
   <Command name='SHORTEN'>
     <p>
       <span>Shorten </span> 
-      <span class='text-primary-light'>[sentence or paragraph]</span> 
+      <Param name='sentence or paragraph' />
       <span> but keep intent</span> 
     </p>
   </Command>
-  <Command name='HELP'>
-    <p>Show role, overview, and list of commands</p>
+  <Command name='HELP' alias='["?", :cmd]'>
+    <p>Show role, overview, guidelines, and command list</p>
   </Command>
 </Panel>
 <Panel label='response' arrow_left='950' arrow_top='540' panel_height='430'>
@@ -69,7 +71,7 @@ import HoverText from '@components/HoverText.svelte';
   <Command name='START'>
     <p>
       <span>Show a detailed prompt based of the simple </span> 
-      <span class='text-primary-light'>[concept]</span> 
+      <Param name='concept' />
       <span> in code-block format with # Prompt: to start and # comments for each line</span> 
     </p>
   </Command>
@@ -79,14 +81,14 @@ import HoverText from '@components/HoverText.svelte';
   <Command name='REVERSE'>
     <p>
       <span>Show detailed prompt based on </span> 
-      <span class='text-primary-light'>[agent DSL]</span> 
+      <Param name='agent DSL' />
       <span> as text</span> 
     </p>
   </Command>
   <Command name='ADAPT'>
     <p>
       <span>Show adapted </span> 
-      <span class='text-primary-light'>[agent definition]</span> 
+      <Param name='agent definition' />
       <span> in code-block format</span> 
     </p>
   </Command>
@@ -94,8 +96,13 @@ import HoverText from '@components/HoverText.svelte';
     <p>Show shortened sentence as text</p>
   </Command>
   <Command name='HELP'>
-    <p>Detailed command list with descriptions and parameters</p>
+    <p>For :help, show command list in a table, for :cmd show single line of commands and no other help</p>
   </Command>
+  <p class='mb-2'>Display available command names after  <Param name='start' />,  <Param name='dsl' />,  <Param name='reverse' />,  <Param name='adapt' />, and  <Param name='shorten' /> commands </p>
+  <p class='mb-2'>The DSL structure for a new GPT should have minimal commands, 2 to 3 max per agent unless I say otherwise</p>
+  <p class='mb-2'>`gpt-agent-overview.m` overview and principalsof the GPT Agent Architect</p>
+  <p class='mb-2'>`gpt-agent-DSL-examples.md ` patterns for creating new DSLs</p>
+  <p class='mb-2'>`gpt-agent-detailed-prompt-examples.md ` examples of good prompts and how I represent them in markdown</p>
 </Panel>
 
 
