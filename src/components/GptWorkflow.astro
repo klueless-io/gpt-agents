@@ -2,7 +2,7 @@
 import Attributes from './workflow/Attributes.astro';
 import PlaceholderFrame from './workflow/PlaceholderFrame.astro';
 import Prompts from './workflow/Prompts.astro';
-import Sections from './workflow/Sections.astro';
+import Section from './workflow/Section.astro';
 import Settings from './workflow/Settings.astro';
 import SidebarDesktop from './workflow/SidebarDesktop.astro';
 import SidebarDesktopContainer from './workflow/SidebarDesktopContainer.astro';
@@ -14,7 +14,7 @@ import WorkflowStats from './workflow/WorkflowStats.astro';
 const { gpt } = Astro.props;
 const settingsArray = Object.entries(gpt.settings).map(([name, value]) => ({ name, value }));
 ---
-<div x-data="{ open: false, currentComponent: 'sections', activeMenuItem: 'sections' }" @menu-click.window="currentComponent = $event.detail" @keydown.window.escape="open = false">
+<div x-data="{ open: false, currentComponent: 'Research', activeMenuItem: 'sections' }" @menu-click.window="currentComponent = $event.detail" @keydown.window.escape="open = false">
   <SidebarMobileContainer>
     <SidebarMobile sections={gpt.sections} @click="currentComponent = $event.detail" />
   </SidebarMobileContainer>
@@ -28,7 +28,9 @@ const settingsArray = Object.entries(gpt.settings).map(([name, value]) => ({ nam
 
     <main class="py-10">
       <div class="px-4 sm:px-6 lg:px-8">
-        <!-- <h2 class="text-2xl font-semibold mb-4">Current Component: <span x-text="currentComponent"></span></h2> -->
+        <div x-show="currentComponent === 'overview'">
+          <WorkflowStats workflow={gpt} />
+        </div>
         <div x-show="currentComponent === 'attributes'">
           <Attributes attributes={gpt.attributes} />
         </div>
@@ -38,11 +40,14 @@ const settingsArray = Object.entries(gpt.settings).map(([name, value]) => ({ nam
         <div x-show="currentComponent === 'settings'">
           <Settings settings={settingsArray} />
         </div>
-        <div x-show="currentComponent === 'sections'">
-          <WorkflowStats workflow={gpt} />
-          <Sections sections={gpt.sections} />
-        </div>
-        <PlaceholderFrame />
+        {gpt.sections.map((section) => (
+          <div x-show={`currentComponent === '${section.name}'`} key={section.name}>
+            <Section section={section} />
+          </div>
+        ))}
+        <PlaceholderFrame>
+          <h2 class="text-2xl font-semibold mb-4">Current Component: <span x-text="currentComponent"></span></h2>
+        </PlaceholderFrame>
       </div>
     </main>
   </div>
