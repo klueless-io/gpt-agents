@@ -23,7 +23,7 @@ const { step } = Astro.props;
         {step.input_attributes.map((attr) => (
           <div key={attr.name}>
             <label for={attr.name} class="block text-sm font-medium text-gray-700">
-              {attr.name} {attr.isRequired ? "*" : ""}
+              {attr.title} {attr.isRequired ? "*" : ""}
             </label>
             <input
               type={attr.isArray ? "text[]" : "text"}

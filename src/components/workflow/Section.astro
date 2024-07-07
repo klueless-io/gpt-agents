@@ -11,19 +11,19 @@ interface Props {
       input_attributes: { name: string; isArray: boolean; isRequired: boolean }[];
       output_attributes: { name: string }[]
     }[];
-  };
+  },
+  currentStep: number;
 }
 
-const { section } = Astro.props;
-const currentStep = 3;
+const { section, currentStep } = Astro.props;
 ---
 
   <div class="mt-8" key={section.name}>
     <h2 class="text-2xl font-semibold text-white mb-4">{section.name}</h2>
     <StepProgress steps={section.steps} currentStep={currentStep} />
     <div class="flex flex-row flex-wrap gap-4 justify-start">
-      {section.steps.map((step) => (
-        <Step step={step} key={step.name} class="flex-none w-64" />
+      {section.steps.map((step, index) => (
+        index === currentStep && <Step step={step} key={step.name} />
       ))}
     </div>
   </div>

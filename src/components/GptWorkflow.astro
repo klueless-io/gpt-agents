@@ -13,6 +13,7 @@ import WorkflowStats from './workflow/WorkflowStats.astro';
 
 const { gpt } = Astro.props;
 const settingsArray = Object.entries(gpt.settings).map(([name, value]) => ({ name, value }));
+const currentStep = 3;
 ---
 <div x-data="{ open: false, currentComponent: 'Research', activeMenuItem: 'sections' }" @menu-click.window="currentComponent = $event.detail" @keydown.window.escape="open = false">
   <SidebarMobileContainer>
@@ -42,7 +43,7 @@ const settingsArray = Object.entries(gpt.settings).map(([name, value]) => ({ nam
         </div>
         {gpt.sections.map((section) => (
           <div x-show={`currentComponent === '${section.name}'`} key={section.name}>
-            <Section section={section} />
+            <Section section={section} currentStep={currentStep} />
           </div>
         ))}
         <PlaceholderFrame>
