@@ -10,30 +10,29 @@ const { title } = Astro.props;
 ---
 <!doctype html>
 <html lang="en" class="h-full bg-primary-dark">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
     <ViewTransitions />
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.2/dist/cdn.min.js"></script>
-	</head>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.2/dist/cdn.min.js" is:inline></script>
+  </head>
   <body class="h-full">
-		<slot />
-	</body>
+    <slot />
+  </body>
 </html>
 
 <style is:global>
-	html {
-		font-family: system-ui, sans-serif;
-		background-size: 224px;
-	}
+  html {
+    font-family: system-ui, sans-serif;
+    background-size: 224px;
+  }
   .bebas {
     font-family: 'Bebas Neue', sans-serif;
   }
-
   .impact {
     font-family: 'Impact', sans-serif;
   }

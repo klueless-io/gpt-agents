@@ -1,9 +1,16 @@
 ---
+interface Attribute {
+  name: string;
+  title: string;
+  isArray: boolean;
+  isRequired: boolean;
+}
+
 interface Step {
   name: string;
   prompt: string;
-  input_attributes: { name: string; isArray: boolean; isRequired: boolean }[];
-  output_attributes: { name: string; isArray: boolean; isRequired: boolean }[];
+  input_attributes: Attribute[];
+  output_attributes: Attribute[];
 }
 
 interface Props {
@@ -11,13 +18,13 @@ interface Props {
   currentStep: number;
 }
 
-const { steps, currentStep } = Astro.props;
+const { steps, currentStep } = Astro.props as Props;
 ---
 
 <nav aria-label="Progress">
   <ol role="list" class="divide-y divide-gray-600 rounded-md border border-gray-300 md:flex md:divide-y-0 bg-primary-light">
     {steps.map((step, index) => (
-      <li class="relative md:flex md:flex-1" key={step.name}>
+      <li class="relative md:flex md:flex-1" data-key={step.name}>
         <a href="#" class={`group flex w-full items-center ${index <= currentStep ? 'text-primary-dark' : 'text-primary-dark'}`}>
           <span class="flex items-center px-6 py-4 text-sm font-medium">
             <span class={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full ${index < currentStep ? 'bg-primary-dark' : (index === currentStep ? 'bg-white border-2 border-primary-dark' : 'border-2 border-primary-dark')}`}>

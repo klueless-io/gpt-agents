@@ -1,8 +1,8 @@
 ---
 import ElArrow from './ElArrow.astro';
-import PanelContent from './ElPanelContent.astro';
 
 interface Props {
+    label: string;
     title: string;
     arrow_top: string;
     arrow_left: string;
@@ -12,6 +12,7 @@ interface Props {
     panel_left_offset: string;
     panel_width: string;
     panel_height: string;
+    panel_border_radius: string;
     debug?: boolean;
 }
 

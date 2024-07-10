@@ -1,6 +1,10 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content'
+import { getCollection, type CollectionEntry } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+
+interface Props {
+  gptAgent: CollectionEntry<'gpt-agents'>;
+}
 
 export const getStaticPaths = async () => {
   const items = await getCollection('gpt-agents');
@@ -13,22 +17,11 @@ export const getStaticPaths = async () => {
   });
 
   return paths;
-}
-type Props = {
-  gptAgents: CollectionEntry<'gpt-agents'>;
-}
+};
 
-
-const { gptAgent, frontmatter } = Astro.props;
-const { Content, headings } = await gptAgent.render();
-// console.log("Content");
-// console.log(Content);
-// console.log("headings");
-// console.log(headings);
-// console.log("frontmatter");
-// console.log(frontmatter);
+const { gptAgent } = Astro.props as Props;
+const { Content } = await gptAgent.render();
 ---
-<Layout>
+<Layout title={gptAgent.data.title}>
   <Content />
 </Layout>
-

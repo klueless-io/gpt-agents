@@ -1,7 +1,7 @@
 {
-  "name": "youtube_script_writer",
-  "title": "Youtube Script Writer",
-  "description": "This workflow is used to write a script for a YouTube video.",
+  "name": "case_management",
+  "title": "Case Management",
+  "description": "Law Practice Workflow: Case Management",
   "settings": {
     "prompt_path": {
       "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/youtube/script_writer",
@@ -16,279 +16,263 @@
   },
   "sections": [
     {
-      "name": "Research",
-      "title": "Research",
+      "name": "Case Intake",
+      "title": "Case Intake",
       "order": 1,
       "description": null,
       "steps": [
         {
-          "name": "Basic Idea",
-          "title": "Basic Idea",
+          "name": "Initial ConsultationXXX",
+          "title": "Initial Consultation Xxx",
           "order": 1,
           "description": null,
           "prompt": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
           "input_attributes": [
             {
-              "name": "idea",
+              "name": "client_inquiry",
               "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Idea"
+              "title": "Client Inquiry"
             }
           ],
           "output_attributes": [
             {
-              "name": "ideas",
-              "type": "array",
+              "name": "consultation_notes",
+              "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Ideas"
+              "title": "Consultation Notes"
             }
           ]
         },
         {
-          "name": "Select an Idea",
-          "title": "Select An Idea",
+          "name": "Open Case File",
+          "title": "Open Case File",
           "order": 2,
           "description": null,
           "prompt": "",
           "input_attributes": [
             {
-              "name": "ideas",
-              "type": "array",
+              "name": "consultation_notes",
+              "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Ideas"
+              "title": "Consultation Notes"
             }
           ],
           "output_attributes": [
             {
-              "name": "selected_idea",
+              "name": "case_file",
               "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Selected Idea"
+              "title": "Case File"
             }
           ]
         },
         {
-          "name": "Basic Factsheet",
-          "title": "Basic Factsheet",
+          "name": "Collect Client Information",
+          "title": "Collect Client Information",
           "order": 3,
           "description": null,
           "prompt": "I need you to gather detailed and reliable information about the \n\"[idea]\".\n\nThe information should be based on recent discussions, reviews, and credible sources available on the internet. Please ensure that the data is comprehensive and unbiased, providing enough detail to generate well-informed articles.\n\nThe information should include the following:\nOverview: A brief description of the product, including its purpose and main features.\nCompany Background: Information about the company that developed the product, including its history and reputation.\nUser Reviews: Summarized insights from user reviews and testimonials, highlighting common praises and complaints.\nPricing: Details about the pricing plans and any available free trials or discounts.\nComparison: A comparison with similar products in the market, noting any unique selling points or disadvantages.\nUse Cases: Examples of how different types of users or businesses are utilizing the product.\nUpdates and Roadmap: Information about recent updates and future plans for the product.\nExpert Opinions: Insights from industry experts or notable publications.\nCommunity and Support: Details about the community support, forums, and customer service quality.\nPlease ensure that all information is up-to-date and from credible sources, avoiding any hallucinations or unverified data. The tone of the information must be witty and informative\n",
           "input_attributes": [
             {
-              "name": "selected_idea",
+              "name": "case_file",
               "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Selected Idea"
+              "title": "Case File"
             }
           ],
           "output_attributes": [
             {
-              "name": "basic_factsheet",
+              "name": "detailed_client_profile",
               "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Basic Factsheet"
-            }
-          ]
-        },
-        {
-          "name": "Video ideas",
-          "title": "Video Ideas",
-          "order": 4,
-          "description": null,
-          "prompt": "I want to do a YouTube video on the following idea:\r\n[idea]\r\n\r\nThe video should only be about three minutes long\r\nThe video is an ATLDR type of video\r\nWhat are five types of videos that I could do?\r\n\r\nHere is the factsheet:\r\n[basic_factsheet]\r\n",
-          "input_attributes": [
-            {
-              "name": "idea",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Idea"
-            },
-            {
-              "name": "basic_factsheet",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Basic Factsheet"
-            }
-          ],
-          "output_attributes": [
-            {
-              "name": "video_ideas",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Video Ideas"
-            },
-            {
-              "name": "basic_factsheet",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Basic Factsheet"
-            }
-          ]
-        },
-        {
-          "name": "Select Video Idea",
-          "title": "Select Video Idea",
-          "order": 5,
-          "description": null,
-          "prompt": "",
-          "input_attributes": [
-            {
-              "name": "video_ideas",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Video Ideas"
-            }
-          ],
-          "output_attributes": [
-            {
-              "name": "video_idea",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Idea"
-            }
-          ]
-        },
-        {
-          "name": "Expanded Factsheet",
-          "title": "Expanded Factsheet",
-          "order": 6,
-          "description": null,
-          "prompt": "I need you to expand the basic factsheet you created for idea: [idea]\r\nI need the expanded factsheet to include information \r\nrequired for this type of video [video_idea]\r\n\r\nHere is the basic factsheet\r\n[basic_factsheet]",
-          "input_attributes": [
-            {
-              "name": "idea",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Idea"
-            },
-            {
-              "name": "basic_factsheet",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Basic Factsheet"
-            },
-            {
-              "name": "video_idea",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Idea"
-            }
-          ],
-          "output_attributes": [
-            {
-              "name": "expanded_factsheet",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Expanded Factsheet"
-            }
-          ]
-        },
-        {
-          "name": "Video Meta Data",
-          "title": "Video Meta Data",
-          "order": 7,
-          "description": null,
-          "prompt": "I will give you a detailed factsheet about idea: [idea]\r\nFor a video idea of: [video_idea]\r\n\r\nI need you to create the following meta data:\r\n\r\n5 engaging titles\r\n10 keywords\r\n5 topics\r\n\r\nHere's the fact sheet: \r\n[expanded_factsheet]",
-          "input_attributes": [
-            {
-              "name": "idea",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Idea"
-            },
-            {
-              "name": "video_idea",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Idea"
-            },
-            {
-              "name": "expanded_factsheet",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Expanded Factsheet"
-            }
-          ],
-          "output_attributes": [
-            {
-              "name": "meta_engaging_titles",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Meta Engaging Titles"
-            },
-            {
-              "name": "meta_keywords",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Meta Keywords"
-            },
-            {
-              "name": "meta_topics",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Meta Topics"
+              "title": "Detailed Client Profile"
             }
           ]
         }
       ]
     },
     {
-      "name": "Develop Script",
-      "title": "Develop Script",
+      "name": "Case Preparation",
+      "title": "Case Preparation",
       "order": 2,
       "description": null,
       "steps": [
         {
-          "name": "Write Script",
-          "title": "Write Script",
+          "name": "Gather Evidence",
+          "title": "Gather Evidence",
           "order": 1,
           "description": null,
-          "prompt": "",
+          "prompt": "I want to do a YouTube video on the following idea:\r\n[idea]\r\n\r\nThe video should only be about three minutes long\r\nThe video is an ATLDR type of video\r\nWhat are five types of videos that I could do?\r\n\r\nHere is the factsheet:\r\n[basic_factsheet]\r\n",
           "input_attributes": [
             {
-              "name": "video_idea",
+              "name": "case_file",
               "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Video Idea"
-            },
-            {
-              "name": "expanded_factsheet",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Expanded Factsheet"
+              "title": "Case File"
             }
           ],
           "output_attributes": [
             {
-              "name": "script",
+              "name": "compiled_evidence",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Compiled Evidence"
+            }
+          ]
+        },
+        {
+          "name": "Legal Research",
+          "title": "Legal Research",
+          "order": 2,
+          "description": null,
+          "prompt": "I need you to expand the basic factsheet you created for idea: [idea]\r\nI need the expanded factsheet to include information \r\nrequired for this type of video [video_idea]\r\n\r\nHere is the basic factsheet\r\n[basic_factsheet]",
+          "input_attributes": [
+            {
+              "name": "case_details",
               "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Script"
+              "title": "Case Details"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "research_findings",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Research Findings"
+            }
+          ]
+        },
+        {
+          "name": "Draft Legal Documents",
+          "title": "Draft Legal Documents",
+          "order": 3,
+          "description": null,
+          "prompt": "I will give you a detailed factsheet about idea: [idea]\r\nFor a video idea of: [video_idea]\r\n\r\nI need you to create the following meta data:\r\n\r\n5 engaging titles\r\n10 keywords\r\n5 topics\r\n\r\nHere's the fact sheet: \r\n[expanded_factsheet]",
+          "input_attributes": [
+            {
+              "name": "case_file",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Case File"
+            },
+            {
+              "name": "research_findings",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Research Findings"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "drafted_documents",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Drafted Documents"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Case Progression",
+      "title": "Case Progression",
+      "order": 3,
+      "description": null,
+      "steps": [
+        {
+          "name": "File Documents",
+          "title": "File Documents",
+          "order": 1,
+          "description": null,
+          "prompt": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+          "input_attributes": [
+            {
+              "name": "drafted_documents",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Drafted Documents"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "filed_documents",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Filed Documents"
+            }
+          ]
+        },
+        {
+          "name": "Case Review",
+          "title": "Case Review",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "filed_documents",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Filed Documents"
+            },
+            {
+              "name": "case_status",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Case Status"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "case_review_notes",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Case Review Notes"
+            }
+          ]
+        },
+        {
+          "name": "Client Communication",
+          "title": "Client Communication",
+          "order": 3,
+          "description": null,
+          "prompt": "I want to do a YouTube video on the following idea:\r\n[idea]\r\n\r\nThe video should only be about three minutes long\r\nThe video is an ATLDR type of video\r\nWhat are five types of videos that I could do?\r\n\r\nHere is the factsheet:\r\n[basic_factsheet]\r\n",
+          "input_attributes": [
+            {
+              "name": "case_review_notes",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Case Review Notes"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "client_update",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Client Update"
             }
           ]
         }
@@ -296,114 +280,133 @@
     }
   ],
   "attributes": {
-    "idea": {
-      "name": "idea",
+    "client_inquiry": {
+      "name": "client_inquiry",
       "type": "string",
       "is_array": false,
       "description": null,
-      "title": "Idea"
+      "title": "Client Inquiry"
     },
-    "ideas": {
-      "name": "ideas",
+    "consultation_notes": {
+      "name": "consultation_notes",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Consultation Notes"
+    },
+    "case_file": {
+      "name": "case_file",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Case File"
+    },
+    "detailed_client_profile": {
+      "name": "detailed_client_profile",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Detailed Client Profile"
+    },
+    "compiled_evidence": {
+      "name": "compiled_evidence",
       "type": "array",
       "is_array": false,
       "description": null,
-      "title": "Ideas"
+      "title": "Compiled Evidence"
     },
-    "selected_idea": {
-      "name": "selected_idea",
+    "case_details": {
+      "name": "case_details",
       "type": "string",
       "is_array": false,
       "description": null,
-      "title": "Selected Idea"
+      "title": "Case Details"
     },
-    "basic_factsheet": {
-      "name": "basic_factsheet",
+    "research_findings": {
+      "name": "research_findings",
       "type": "string",
       "is_array": false,
       "description": null,
-      "title": "Basic Factsheet"
+      "title": "Research Findings"
     },
-    "video_ideas": {
-      "name": "video_ideas",
+    "drafted_documents": {
+      "name": "drafted_documents",
       "type": "array",
       "is_array": false,
       "description": null,
-      "title": "Video Ideas"
+      "title": "Drafted Documents"
     },
-    "video_idea": {
-      "name": "video_idea",
-      "type": "string",
-      "is_array": false,
-      "description": null,
-      "title": "Video Idea"
-    },
-    "expanded_factsheet": {
-      "name": "expanded_factsheet",
-      "type": "string",
-      "is_array": false,
-      "description": null,
-      "title": "Expanded Factsheet"
-    },
-    "meta_engaging_titles": {
-      "name": "meta_engaging_titles",
+    "filed_documents": {
+      "name": "filed_documents",
       "type": "array",
       "is_array": false,
       "description": null,
-      "title": "Meta Engaging Titles"
+      "title": "Filed Documents"
     },
-    "meta_keywords": {
-      "name": "meta_keywords",
-      "type": "array",
-      "is_array": false,
-      "description": null,
-      "title": "Meta Keywords"
-    },
-    "meta_topics": {
-      "name": "meta_topics",
-      "type": "array",
-      "is_array": false,
-      "description": null,
-      "title": "Meta Topics"
-    },
-    "script": {
-      "name": "script",
+    "case_status": {
+      "name": "case_status",
       "type": "string",
       "is_array": false,
       "description": null,
-      "title": "Script"
+      "title": "Case Status"
+    },
+    "case_review_notes": {
+      "name": "case_review_notes",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Case Review Notes"
+    },
+    "client_update": {
+      "name": "client_update",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Client Update"
     }
   },
   "prompts": {
-    "working_idea": {
-      "name": "working_idea",
+    "conduct_initial_consultation": {
+      "name": "conduct_initial_consultation",
       "content": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
       "description": null,
-      "title": "Working Idea"
+      "title": "Conduct Initial Consultation"
     },
-    "basic_factsheet": {
-      "name": "basic_factsheet",
+    "collect_client_information": {
+      "name": "collect_client_information",
       "content": "I need you to gather detailed and reliable information about the \n\"[idea]\".\n\nThe information should be based on recent discussions, reviews, and credible sources available on the internet. Please ensure that the data is comprehensive and unbiased, providing enough detail to generate well-informed articles.\n\nThe information should include the following:\nOverview: A brief description of the product, including its purpose and main features.\nCompany Background: Information about the company that developed the product, including its history and reputation.\nUser Reviews: Summarized insights from user reviews and testimonials, highlighting common praises and complaints.\nPricing: Details about the pricing plans and any available free trials or discounts.\nComparison: A comparison with similar products in the market, noting any unique selling points or disadvantages.\nUse Cases: Examples of how different types of users or businesses are utilizing the product.\nUpdates and Roadmap: Information about recent updates and future plans for the product.\nExpert Opinions: Insights from industry experts or notable publications.\nCommunity and Support: Details about the community support, forums, and customer service quality.\nPlease ensure that all information is up-to-date and from credible sources, avoiding any hallucinations or unverified data. The tone of the information must be witty and informative\n",
       "description": null,
-      "title": "Basic Factsheet"
+      "title": "Collect Client Information"
     },
-    "video_ideas": {
-      "name": "video_ideas",
+    "collect_evidence": {
+      "name": "collect_evidence",
       "content": "I want to do a YouTube video on the following idea:\r\n[idea]\r\n\r\nThe video should only be about three minutes long\r\nThe video is an ATLDR type of video\r\nWhat are five types of videos that I could do?\r\n\r\nHere is the factsheet:\r\n[basic_factsheet]\r\n",
       "description": null,
-      "title": "Video Ideas"
+      "title": "Collect Evidence"
     },
-    "expanded_factsheet": {
-      "name": "expanded_factsheet",
+    "conduct_legal_research": {
+      "name": "conduct_legal_research",
       "content": "I need you to expand the basic factsheet you created for idea: [idea]\r\nI need the expanded factsheet to include information \r\nrequired for this type of video [video_idea]\r\n\r\nHere is the basic factsheet\r\n[basic_factsheet]",
       "description": null,
-      "title": "Expanded Factsheet"
+      "title": "Conduct Legal Research"
     },
-    "meta_data": {
-      "name": "meta_data",
+    "draft_legal_documents": {
+      "name": "draft_legal_documents",
       "content": "I will give you a detailed factsheet about idea: [idea]\r\nFor a video idea of: [video_idea]\r\n\r\nI need you to create the following meta data:\r\n\r\n5 engaging titles\r\n10 keywords\r\n5 topics\r\n\r\nHere's the fact sheet: \r\n[expanded_factsheet]",
       "description": null,
-      "title": "Meta Data"
+      "title": "Draft Legal Documents"
+    },
+    "file_documents_with_court": {
+      "name": "file_documents_with_court",
+      "content": "Create 5 simple project ideas on: [idea]\n\nIdea or title should be three to seven words long\n\n",
+      "description": null,
+      "title": "File Documents With Court"
+    },
+    "update_client_on_case_status": {
+      "name": "update_client_on_case_status",
+      "content": "I want to do a YouTube video on the following idea:\r\n[idea]\r\n\r\nThe video should only be about three minutes long\r\nThe video is an ATLDR type of video\r\nWhat are five types of videos that I could do?\r\n\r\nHere is the factsheet:\r\n[basic_factsheet]\r\n",
+      "description": null,
+      "title": "Update Client On Case Status"
     }
   }
 }

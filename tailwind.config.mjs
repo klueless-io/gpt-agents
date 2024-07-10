@@ -29,6 +29,8 @@ export default {
         'secondary-dark': '#879294',
         'secondary-light': '#95a19f',
         'white': '#ffffff',
+        'yellow': '#FFDE59',
+        'red': '#FF3131',
         'COLORS-USED-IN': 'VSCODE',
         'string-punctuation': '#555',
         'function-variable': '#ccba9d',
@@ -36,8 +38,6 @@ export default {
         'single-quoted-string': '#e6d4cc',
         'language-constant': '#CC9DC6',
         'hashkey-symbol': '#95a19f',
-        'yellow': '#FFDE59',
-        'red': '#FF3131',
       },
       letterSpacing: {
         wider: '0.1em',  // You can adjust this value to achieve the desired kerning

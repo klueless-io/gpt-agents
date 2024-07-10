@@ -26,7 +26,7 @@ const { sections } = Astro.props;
           </MenuItem1>
           <div class="text-xs font-semibold leading-6 text-primary-dark">Sections</div>
           {sections.map((section, index) => (
-             <MenuItem1 name={section.name} key={index} active={false} component={section.name}>
+            <MenuItem1 name={section.name} data-key={index} active={false} component={section.name}>
               <SectionIcon />
             </MenuItem1>
           ))}

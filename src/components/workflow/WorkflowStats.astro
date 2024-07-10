@@ -1,12 +1,13 @@
 ---
+import type { Section, Workflow } from '../../types';
+
 interface Props {
-  workflow: any;
+  workflow: Workflow;
 }
 
-const { workflow } = Astro.props;
-const totalSteps = workflow.sections.reduce((total, section) => total + section.steps.length, 0);
+const { workflow } = Astro.props as Props;
+const totalSteps = workflow.sections.reduce((total: number, section: Section) => total + section.steps.length, 0);
 ---
-
 
 <div>
   <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-4">

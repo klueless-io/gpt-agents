@@ -4,7 +4,7 @@ interface Props {
   alias: string;
 }
 
-const { name, alias } = Astro.props;  // Default value is 200 if offset is not provided
+const { name, alias: _alias } = Astro.props;  // Default value is 200 if offset is not provided
 ---
 
 <div class="mb-6 flex items-start">
@@ -23,11 +23,17 @@ const { name, alias } = Astro.props;  // Default value is 200 if offset is not p
 
   commandNames.forEach(commandName => {
       commandName.addEventListener('mouseenter', () => {
-          commandName.querySelector('.command-arrow polygon').style.fill = '#342d2d'; // primary-dark color
+      const polygon = commandName.querySelector('.command-arrow polygon');
+        if (polygon instanceof SVGElement) {
+          polygon.style.fill = '#342d2d'; // primary-dark color
+        }
       });
-
+    
       commandName.addEventListener('mouseleave', () => {
-          commandName.querySelector('.command-arrow polygon').style.fill = '#ccba9d'; // original color
+      const polygon = commandName.querySelector('.command-arrow polygon');
+        if (polygon instanceof SVGElement) {
+          polygon.style.fill = '#ccba9d'; // original color
+        }
       });
   });
 </script>

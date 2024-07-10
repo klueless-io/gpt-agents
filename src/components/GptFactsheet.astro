@@ -1,25 +1,64 @@
 ---
-import Bot from './ElBot.astro';
 import BrandCategory from './BrandCategory.astro';
+import Bot from './ElBot.astro';
+import Command from './ElCommand.astro';
 import Panel from './ElPanel.astro';
-import Command from './ElCommand.astro'; // Ensure this is imported
 
-const { gpt } = Astro.props;
-console.log(gpt);
+interface ContentElement {
+  class?: string;
+  content: string;
+}
+
+interface ContentItem {
+  type: string;
+  content?: string;
+  name?: string;
+  alias?: string;
+  elements?: ContentElement[];
+}
+
+interface PanelProps {
+  title: string;
+  arrow_left: string;
+  arrow_top: string;
+  panel_height: string;
+  label_top: string;
+  label_left: string;
+  panel_top_offset: string;
+  content: ContentItem[];
+}
+
+interface GptProps {
+  panels: PanelProps[];
+  title: string;
+}
+
+const gpt = Astro.props.gpt as GptProps;
 ---
 
 {gpt.panels.map((panel, index) => (
-  <Panel key={index} label={panel.title} arrow_left={panel.arrow_left} arrow_top={panel.arrow_top} panel_height={panel.panel_height}>
+  <Panel
+    data-key={index}
+    label={panel.title}
+    arrow_left={panel.arrow_left}
+    arrow_top={panel.arrow_top}
+    panel_height={panel.panel_height}
+    label_top={panel.label_top}
+    label_left={panel.label_left}
+    panel_top_offset={panel.panel_top_offset}
+  >
     {panel.content.map((contentItem, contentIndex) => {
       if (contentItem.type === 'paragraph') {
-        return <p key={contentIndex} class='mb-2'>{contentItem.content}</p>;
-      }
-      else if (contentItem.type === 'command') {
+        return <p data-key={contentIndex} class='mb-2'>{contentItem.content}</p>;
+      } else if (contentItem.type === 'command') {
         return (
-          <Command key={contentIndex} name={contentItem.name} alias={contentItem.alias}>
-            {/* Render the elements of the command, if elements exist */}
+          <Command
+            data-key={contentIndex}
+            name={contentItem.name ?? ''}
+            alias={contentItem.alias ?? ''}
+          >
             {contentItem.elements && contentItem.elements.map((element, elementIndex) => (
-              <span key={elementIndex} class={element.class || ''}>{element.content}</span>
+              <span data-key={`element-${elementIndex}`} class={element.class || ''}>{element.content}</span>
             ))}
           </Command>
         );
@@ -34,7 +73,6 @@ console.log(gpt);
     <span class="brand-text">gpt <highlight>agents</highlight></span>
   </BrandCategory>
 </div>
-
-<div class="fixed bottom-[0px]  right-[50px]">
+<div class="fixed bottom-[0px] right-[50px]">
   <Bot name={gpt.title} />
 </div>

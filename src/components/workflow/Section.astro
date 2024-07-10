@@ -2,28 +2,37 @@
 import Step from './Step.astro';
 import StepProgress from './StepProgress.astro';
 
-interface Props {
+interface Attribute {
+  name: string;
+  title: string;
+  isArray: boolean;
+  isRequired: boolean;
+}
+
+interface Step {
+  name: string;
+  prompt: string;
+  input_attributes: Attribute[];
+  output_attributes: Attribute[];
+}
+
+interface SectionProps {
   section: {
     name: string;
-    steps: { 
-      name: string;
-      prompt: string;
-      input_attributes: { name: string; isArray: boolean; isRequired: boolean }[];
-      output_attributes: { name: string }[]
-    }[];
-  },
+    steps: Step[];
+  };
   currentStep: number;
 }
 
-const { section, currentStep } = Astro.props;
+const { section, currentStep } = Astro.props as SectionProps;
 ---
 
-  <div class="mt-8" key={section.name}>
-    <h2 class="text-2xl font-semibold text-white mb-4">{section.name}</h2>
-    <StepProgress steps={section.steps} currentStep={currentStep} />
-    <div class="flex flex-row flex-wrap gap-4 justify-start">
-      {section.steps.map((step, index) => (
-        index === currentStep && <Step step={step} key={step.name} />
-      ))}
-    </div>
+<div class="mt-8" data-key={section.name}>
+  <h2 class="text-2xl font-semibold text-white mb-4">{section.name}</h2>
+  <StepProgress steps={section.steps} currentStep={currentStep} />
+  <div class="flex flex-row flex-wrap gap-4 justify-start">
+    {section.steps.map((step, index) => (
+      index === currentStep && <Step step={step} data-key={step.name} />
+    ))}
   </div>
+</div>

@@ -1,15 +1,14 @@
 ---
-import { SettingsProps } from '../types';
+import type { SettingsProps } from '../../types';
 
 const { settings } = Astro.props as SettingsProps;
-// console.log(settings);
 ---
 
 <div class="max-w-2xl mx-auto bg-white shadow-md rounded-md overflow-hidden my-4 p-6">
   <h2 class="text-xl font-semibold text-gray-800 mb-4">Settings</h2>
   <form>
-    {settings.map((setting) => (
-      <div class="mb-4 flex items-center" key={setting.name}>
+    {settings.map((setting: { name: string, value: { title: string, name: string, value: string } }) => (
+      <div class="mb-4 flex items-center" data-key={setting.name}>
         <label for={setting.name} class="block text-sm font-medium text-gray-700 w-1/3">{setting.value.title}</label>
         <input
           type="text"

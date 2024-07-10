@@ -1,6 +1,6 @@
 ---
+import type { Section as SectionType } from '../types';
 import Attributes from './workflow/Attributes.astro';
-import PlaceholderFrame from './workflow/PlaceholderFrame.astro';
 import Prompts from './workflow/Prompts.astro';
 import Section from './workflow/Section.astro';
 import Settings from './workflow/Settings.astro';
@@ -11,7 +11,14 @@ import SidebarMobileContainer from './workflow/SidebarMobileContainer.astro';
 import TopBar from './workflow/TopBar.astro';
 import WorkflowStats from './workflow/WorkflowStats.astro';
 
-const { gpt } = Astro.props;
+interface GptProps {
+  sections: SectionType[];
+  attributes: Record<string, { name: string; type: string; is_array: boolean }>;
+  prompts: Record<string, { name: string; content: string }>;
+  settings: Record<string, { title: string; name: string; value: string }>;
+}
+
+const { gpt } = Astro.props as { gpt: GptProps };
 const settingsArray = Object.entries(gpt.settings).map(([name, value]) => ({ name, value }));
 const currentStep = 3;
 ---
@@ -25,7 +32,7 @@ const currentStep = 3;
   </SidebarDesktopContainer>
 
   <div class="lg:pl-72">
-    <TopBar />
+    <TopBar workflow={gpt} />
 
     <main class="py-10">
       <div class="px-4 sm:px-6 lg:px-8">
@@ -42,13 +49,15 @@ const currentStep = 3;
           <Settings settings={settingsArray} />
         </div>
         {gpt.sections.map((section) => (
-          <div x-show={`currentComponent === '${section.name}'`} key={section.name}>
+          <div x-show={`currentComponent === '${section.name}'`} data-key={section.name}>
             <Section section={section} currentStep={currentStep} />
           </div>
         ))}
+        <!--
         <PlaceholderFrame>
           <h2 class="text-2xl font-semibold mb-4">Current Component: <span x-text="currentComponent"></span></h2>
         </PlaceholderFrame>
+        -->
       </div>
     </main>
   </div>

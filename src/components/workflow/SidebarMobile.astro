@@ -21,14 +21,14 @@ const { sections } = Astro.props;
     <ul role="list" class="flex flex-1 flex-col gap-y-7">
       <li>
         <ul role="list" class="-mx-2 space-y-1">
-          <MenuItem1 name="Overview" active={true}>
+          <MenuItem1 name="Overview" active={true} component="overview">
             <HomeIcon />
           </MenuItem1>
           <div class="text-xs font-semibold leading-6 text-primary-dark">Sections</div>
           {sections.map((section, index) => (
-            <MenuItem1 name={section.name} key={index} active={false} component={section.name}>
-             <SectionIcon />
-           </MenuItem1>
+            <MenuItem1 name={section.name} data-key={index} active={false} component={section.name}>
+              <SectionIcon />
+            </MenuItem1>
           ))}
         </ul>
       </li>
@@ -45,8 +45,8 @@ const { sections } = Astro.props;
           href="#"
           class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-primary-dark hover:bg-primary-dark hover:text-primary-light"
         >
-        <CogIcon />
-        System Settings
+          <CogIcon />
+          System Settings
         </a>
       </li>
     </ul>

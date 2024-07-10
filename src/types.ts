@@ -1,23 +1,20 @@
+// types.ts
+
+// Setting related interfaces
 export interface Setting {
   name: string;
-  value: string;
+  value: {
+    title: string;
+    name: string;
+    value: string;
+  };
 }
 
 export interface SettingsProps {
   settings: Setting[];
 }
 
-export interface Prompt {
-  name: string;
-  content: string;
-}
-
-export interface PromptProps {
-  prompts: Record<string, Prompt>;
-}
-
-// types.ts
-
+// Attribute related interfaces
 export interface Attribute {
   name: string;
   type: string;
@@ -27,3 +24,35 @@ export interface Attribute {
 export interface AttributeProps {
   attributes: Record<string, Attribute>;
 }
+
+// Prompt related interfaces
+export interface Prompt {
+  name: string;
+  content: string;
+}
+
+export interface PromptProps {
+  prompts: Record<string, Prompt>;
+}
+
+// Step related interfaces
+export interface Step {
+  name: string;
+  prompt: string;
+  input_attributes: { name: string; isArray: boolean; isRequired: boolean }[];
+  output_attributes: { name: string; isArray: boolean; isRequired: boolean }[];
+}
+
+// Section related interfaces
+export interface Section {
+  name: string;
+  steps: Step[];
+}
+
+// Workflow related interfaces
+export interface Workflow {
+  sections: Section[];
+  attributes: Record<string, Attribute>;
+  prompts: Record<string, Prompt>;
+}
+

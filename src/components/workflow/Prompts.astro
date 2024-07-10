@@ -1,5 +1,5 @@
 ---
-import type { PromptProps } from '../types';
+import type { Prompt, PromptProps } from '../../types';
 
 const { prompts } = Astro.props as PromptProps;
 ---
@@ -7,8 +7,8 @@ const { prompts } = Astro.props as PromptProps;
 <div class="mt-8">
   <h2 class="text-2xl font-semibold text-white mb-4">Prompts</h2>
   <ul class="flex flex-col space-y-4">
-    {Object.values(prompts).map((prompt) => (
-      <li class="bg-white p-4 rounded shadow" key={prompt.name}>
+    {Object.values(prompts).map((prompt: Prompt) => (
+      <li class="bg-white p-4 rounded shadow" data-key={prompt.name}>
         <h3 class="text-xl font-bold text-primary-dark mb-2">{prompt.name}</h3>
         <textarea
           id={prompt.name}

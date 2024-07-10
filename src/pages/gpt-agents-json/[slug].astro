@@ -1,72 +1,80 @@
 ---
-// Import necessary utilities
+import GptFactsheet from '@components/GptFactsheet.astro';
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
-import Layout from '../../layouts/Layout.astro';
 import GptList from '../../components/GptList.astro';
-import GptFactsheet from '@components/GptFactsheet.astro';
+import Layout from '../../layouts/Layout.astro';
+
+interface ContentItem {
+  instruction: {
+    title: string;
+  };
+}
+
+interface GptProps {
+  content: ContentItem;
+  pages: { slug: string; title: string }[];
+}
 
 export async function getStaticPaths() {
-    const directory = 'src/content/gpt-agents-json';
-    const slugPaths = await slugs(directory);
+  const directory = 'src/content/gpt-agents-json';
+  const slugPaths = await slugs(directory);
 
-    // Fetch content for each slug and compile a list of all pages
-    let pages = [];
-    const paths = await Promise.all(slugPaths.map(async ({ slug }) => {
-        const content = await getContent(slug);
-        const title = content?.instruction?.title;
+  let pages: { slug: string; title: string }[] = [];
+  const paths = await Promise.all(
+    slugPaths.map(async ({ slug }) => {
+      const content = await getContent(slug);
+      const title = content?.instruction?.title;
 
-        // Add to the list of all pages
-        pages.push({ slug, title });
+      pages.push({ slug, title });
 
-        return {
-            params: { slug },
-            props: {
-                content: content,
-                pages: pages  // Add the list of all pages to each path
-            }
-        };
-    }));
+      return {
+        params: { slug },
+        props: {
+          content,
+          pages,
+        },
+      };
+    })
+  );
 
     // log('Pages', JSON.stringify(pages, null, 2));
     // log('Paths', JSON.stringify(paths, null, 2));
 
-    // Ensure the list of pages is included in each path
-    return paths.map(path => ({ ...path, props: { ...path.props, pages } }));
+  return paths.map((path) => ({ ...path, props: { ...path.props, pages } }));
 }
 
+export async function slugs(directory: string) {
+  try {
+    const jsonDirectory = path.join(process.cwd(), directory);
+    const filenames = await readdir(jsonDirectory);
+    const jsonFiles = filenames.filter((file) => file.endsWith('.json'));
 
-export async function slugs(directory) {
-    try {
-        const jsonDirectory = path.join(process.cwd(), directory);
-        const filenames = await readdir(jsonDirectory);
-        const jsonFiles = filenames.filter(file => file.endsWith('.json'));
-
-        return jsonFiles.map(file => {
-            const slug = file.replace('.json', '');
-            const filePath = path.join(jsonDirectory, file);
-            return { slug, filePath };
-        });
-    } catch (error) {
-        console.error('Error reading directory:', error.message);
-        return []; // Return an empty array in case of an error
-    }
+    return jsonFiles.map((file) => {
+      const slug = file.replace('.json', '');
+      const filePath = path.join(jsonDirectory, file);
+      return { slug, filePath };
+    });
+  } catch (error) {
+    console.error('Error reading directory:', (error as Error).message);
+    return [];
+  }
 }
 
 export async function getContent(slug: string) {
   const filePath = path.join(process.cwd(), 'src/content/gpt-agents-json', `${slug}.json`);
   try {
     const fileContents = await readFile(filePath, 'utf8');
-    // console.log(`Reading file: ${filePath}`); // Debugging line
     const content = JSON.parse(fileContents);
     return content;
   } catch (error) {
-    console.error(`Error reading file: ${error.message}`);
+    console.error(`Error reading file: ${(error as Error).message}`);
+    
     return null;
   }
 }
 
-export function log(title, variable) {
+export function log(title: string, variable: any) {
     // Limit the title length to 70 characters
     let trimmedTitle = title.length > 70 ? title.substring(0, 67) + '...' : title;
 
@@ -78,21 +86,18 @@ export function log(title, variable) {
     console.log(variable);
 }
 
-const { content, pages } = Astro.props;
+
+const { content, pages } = Astro.props as GptProps;
 const gpt = content.instruction;
+
 // log("GPT", gpt)
 // log("Pages", pages)
 ---
-<Layout>
-  <!-- Navigation Menu -->
+<Layout title={gpt.title}>
   {pages && <GptList pages={pages} />}
-  
-  <!-- Content Section -->
   {gpt ? (
-      <GptFactsheet gpt={gpt} />
-
+    <GptFactsheet gpt={gpt} />
   ) : (
-      <p class="text-center text-red-500 text-xl">Content not found or failed to load.</p>
+    <p class="text-center text-red-500 text-xl">Content not found or failed to load.</p>
   )}
-
 </Layout>

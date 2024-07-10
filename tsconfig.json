@@ -1,9 +1,14 @@
 {
   "compilerOptions": {
+    "strict": true,
     "baseUrl": "./",
     "paths": {
       "@components/*": ["src/components/*"]
-    }
+    },
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "moduleResolution": "Node"
   },
   "extends": "astro/tsconfigs/strict"
 }

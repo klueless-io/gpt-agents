@@ -1,7 +1,7 @@
 ---
 interface Props {
-	counter: number;
-	offset: number;
+  counter: number;
+  offset: number;
   code_next: string;
   code_prev: string;
   prompt: string;
@@ -18,7 +18,7 @@ const { counter, offset = 200, code_next, code_prev, prompt } = Astro.props;  //
   <div class="absolute top-1/2 transform -translate-y-1/2 text-8xl font-bold text-primary-dark font-impact" style={`left: ${offset}px`}>
     {counter}
   </div>
-  <div class="absolute top-1/2 transform -translate-y-1/2 text-2xl text-white  max-w-[1000px] text-ellipsis overflow-hidden max-h-[100px]" style={`left: 350px`}>
+  <div class="absolute top-1/2 transform -translate-y-1/2 text-2xl text-white max-w-[1000px] text-ellipsis overflow-hidden max-h-[100px]" style={`left: 350px`}>
     {prompt}
   </div>
 </div>
@@ -26,11 +26,21 @@ const { counter, offset = 200, code_next, code_prev, prompt } = Astro.props;  //
 <script>
 document.addEventListener("keydown", function (event) {
   if (event.key === "ArrowLeft") {
-    // Left arrow key was pressed, navigate to the previous link
-    window.location.href = document.getElementById("region1").getAttribute("href");
+    const region1 = document.getElementById("region1");
+    if (region1) {
+      const href = region1.getAttribute("href");
+      if (href) {
+        window.location.href = href;
+      }
+    }
   } else if (event.key === "ArrowRight") {
-    // Right arrow key was pressed, navigate to the next link
-    window.location.href = document.getElementById("region2").getAttribute("href");
+    const region2 = document.getElementById("region2");
+    if (region2) {
+      const href = region2.getAttribute("href");
+      if (href) {
+        window.location.href = href;
+      }
+    }
   }
 });
 </script>

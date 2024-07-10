@@ -1,16 +1,26 @@
 ---
 import LeftArrowIcon from "../icons/LeftArrowIcon.astro";
 import RightArrowIcon from "../icons/RightArrowIcon.astro";
-interface Props {
-  step: {
-    name: string;
-    prompt: string;
-    input_attributes: { name: string; isArray: boolean; isRequired: boolean }[];
-    output_attributes: { name: string; isArray: boolean; isRequired: boolean }[];
-  };
+
+interface Attribute {
+  name: string;
+  title: string;
+  isArray: boolean;
+  isRequired: boolean;
 }
 
-const { step } = Astro.props;
+interface Step {
+  name: string;
+  prompt: string;
+  input_attributes: Attribute[];
+  output_attributes: Attribute[];
+}
+
+interface Props {
+  step: Step;
+}
+
+const { step } = Astro.props as Props;
 ---
 
 <div class="w-full bg-white shadow-md rounded-md overflow-hidden my-4 flex flex-col p-6">
@@ -21,12 +31,12 @@ const { step } = Astro.props;
       <h3 class="text-sm font-semibold text-gray-700 mb-2">Input Parameters</h3>
       <div class="space-y-2">
         {step.input_attributes.map((attr) => (
-          <div key={attr.name}>
+          <div data-key={attr.name}>
             <label for={attr.name} class="block text-sm font-medium text-gray-700">
               {attr.title} {attr.isRequired ? "*" : ""}
             </label>
             <input
-              type={attr.isArray ? "text[]" : "text"}
+              type="text"
               id={attr.name}
               name={attr.name}
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-dark focus:border-primary-dark sm:text-sm"
@@ -51,7 +61,7 @@ const { step } = Astro.props;
       <div class="flex flex-wrap gap-2">
         {step.output_attributes.map((attr) => (
           <span
-            key={attr.name}
+            data-key={attr.name}
             class="inline-block bg-primary-light text-primary-dark text-xs font-medium px-2.5 py-0.5 rounded"
           >
             {attr.name}
@@ -71,7 +81,7 @@ const { step } = Astro.props;
         name="language-model"
         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       >
-        <option value="model1">ChatGTP 4o</option>
+        <option value="model1">ChatGTP 4.0</option>
         <option value="model2">Claude 3.5</option>
         <option value="model3">Gemini</option>
       </select>
