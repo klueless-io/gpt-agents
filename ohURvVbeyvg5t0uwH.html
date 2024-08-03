@@ -1,0 +1,171 @@
+<html><head><base href="https://websim.ai"/>
+<title>YouTube Script Writer Workflow</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #ccba9d;
+    color: #342d2d;
+    line-height: 1.6;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  h1 {
+    text-align: center;
+    color: #342d2d;
+  }
+  .flowchart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .phase {
+    background-color: #342d2d;
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    width: 90%;
+    max-width: 300px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(52, 45, 45, 0.2);
+    transition: all 0.3s ease;
+  }
+  .phase:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 8px rgba(52, 45, 45, 0.3);
+  }
+  .steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  .step {
+    background-color: #ffffff;
+    border: 2px solid #342d2d;
+    border-radius: 8px;
+    padding: 10px;
+    width: calc(33.333% - 20px);
+    min-width: 200px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .step:hover {
+    background-color: #FFDE59;
+    color: #342d2d;
+    transform: scale(1.05);
+  }
+  .arrow {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #342d2d;
+    margin: 10px 0;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(52, 45, 45, 0.4);
+  }
+  .modal-content {
+    background-color: #ffffff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #342d2d;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+  }
+  .close {
+    color: #342d2d;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  .close:hover,
+  .close:focus {
+    color: #FF3131;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    .step {
+      width: calc(50% - 20px);
+    }
+  }
+  @media (max-width: 480px) {
+    .step {
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>YouTube Script Writer Workflow</h1>
+  <div class="flowchart">
+    <div class="phase">Research</div>
+    <div class="arrow"></div>
+    <div class="steps">
+      <div class="step" onclick="showModal('Basic Idea', 'Generate initial concepts for potential video topics.')">Basic Idea</div>
+      <div class="step" onclick="showModal('Select Idea', 'Choose the most promising idea from the generated concepts.')">Select Idea</div>
+      <div class="step" onclick="showModal('Basic Factsheet', 'Compile essential information about the chosen topic.')">Basic Factsheet</div>
+      <div class="step" onclick="showModal('Video Ideas', 'Brainstorm specific video concepts based on the selected topic.')">Video Ideas</div>
+      <div class="step" onclick="showModal('Select Video Idea', 'Choose the best video idea to pursue.')">Select Video Idea</div>
+      <div class="step" onclick="showModal('Expanded Factsheet', 'Develop a comprehensive factsheet with detailed information.')">Expanded Factsheet</div>
+      <div class="step" onclick="showModal('Video Meta Data', 'Create title, description, tags, and other metadata for the video.')">Video Meta Data</div>
+    </div>
+    <div class="arrow"></div>
+    <div class="phase">Develop Script</div>
+    <div class="arrow"></div>
+    <div class="steps">
+      <div class="step" onclick="showModal('Write Script', 'Compose the full script for the YouTube video.')">Write Script</div>
+    </div>
+  </div>
+</div>
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="modalTitle"></h2>
+    <p id="modalContent"></p>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById("myModal");
+  const span = document.getElementsByClassName("close")[0];
+  const modalTitle = document.getElementById("modalTitle");
+  const modalContent = document.getElementById("modalContent");
+
+  function showModal(title, content) {
+    modalTitle.textContent = title;
+    modalContent.textContent = content;
+    modal.style.display = "block";
+  }
+
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
+</body></html>

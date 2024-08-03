@@ -1,0 +1,96 @@
+---
+import { readdir, readFile } from 'fs/promises';
+import path from 'path';
+import GptWorkflow from '../../../components/GptWorkflow.svelte'; // New Svelte component
+import Layout from '../../../layouts/GptArchitectLayout.astro';
+
+interface Content {
+  name: string;
+  // Add other properties as needed
+}
+
+interface Page {
+  slug: string;
+  title: string;
+}
+
+interface Props {
+  content: Content;
+  pages: Page[];
+}
+
+export async function getStaticPaths() {
+  const directory = 'src/content/gpt-workflows';
+  const slugPaths = await slugs(directory);
+
+  let pages: Page[] = [];
+  const paths = await Promise.all(
+    slugPaths.map(async ({ slug }) => {
+      const content = await getContent(slug);
+      const title = content?.name;
+
+      pages.push({ slug, title });
+
+      return {
+        params: { slug },
+        props: {
+          content,
+          pages,
+        },
+      };
+    })
+  );
+
+  log('Pages', JSON.stringify(pages, null, 2));
+  log('Paths', JSON.stringify(paths, null, 2));
+
+  return paths.map((path) => ({ ...path, props: { ...path.props, pages } }));
+}
+
+export async function slugs(directory: string) {
+  try {
+    const jsonDirectory = path.join(process.cwd(), directory);
+    const filenames = await readdir(jsonDirectory);
+    const jsonFiles = filenames.filter((file) => file.endsWith('.json'));
+
+    return jsonFiles.map((file) => {
+      const slug = file.replace('.json', '');
+      const filePath = path.join(jsonDirectory, file);
+      return { slug, filePath };
+    });
+  } catch (error) {
+    console.error('Error reading directory:', (error as Error).message);
+    return []; // Return an empty array in case of an error
+  }
+}
+
+export async function getContent(slug: string) {
+  const filePath = path.join(process.cwd(), 'src/content/gpt-workflows', `${slug}.json`);
+  try {
+    const fileContents = await readFile(filePath, 'utf8');
+    const content = JSON.parse(fileContents);
+    return content;
+  } catch (error) {
+    console.error(`Error reading file: ${(error as Error).message}`);
+    return null;
+  }
+}
+
+export function log(title: string, variable: any) {
+  // Limit the title length to 70 characters
+  let trimmedTitle = title.length > 70 ? title.substring(0, 67) + '...' : title;
+
+  // Append dashes to the title
+  let dashLength = 70 - trimmedTitle.length;
+  let dashes = '-'.repeat(dashLength);
+
+  console.log(`${trimmedTitle}${dashes}`);
+  console.log(variable);
+}
+
+const { content } = Astro.props as Props;
+const gpt = content;
+---
+<Layout title={gpt.name}>
+  <GptWorkflow {gpt} />
+</Layout>

@@ -1,0 +1,46 @@
+---
+import type { Workflow } from '../../types';
+
+interface Props {
+  workflow: Workflow;
+}
+
+const { workflow } = Astro.props as Props;
+---
+
+<div class="container mx-auto mt-8 px-4 px-80">
+  <div class="overflow-hidden rounded-lg bg-primary-light px-4 py-5 shadow sm:p-6">
+    <h3 class="text-4xl text-primary-dark bebas text-center">YouTube Script Writer Workflow</h3>
+    <div class="flex flex-col items-center pt-8">
+      <div class="bg-primary-dark text-white py-4 px-6 rounded-lg mb-6 w-full max-w-sm text-center font-bold shadow-lg transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">Research</div>
+      <div class="arrow"></div>
+      <!-- Can I center these within the grid? -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-8 w-full">
+        <div class="bg-white border-2 border-primary-dark rounded-lg p-4 text-center cursor-pointer transition-all duration-300 hover:bg-yellow hover:scale-105" onclick="showModal('Basic Idea', 'Generate initial concepts for potential video topics.')">Basic Idea</div>
+        <div class="bg-white border-2 border-primary-dark rounded-lg p-4 text-center cursor-pointer transition-all duration-300 hover:bg-yellow hover:scale-105" onclick="showModal('Select Idea', 'Choose the most promising idea from the generated concepts.')">Select Idea</div>
+        <div class="bg-white border-2 border-primary-dark rounded-lg p-4 text-center cursor-pointer transition-all duration-300 hover:bg-yellow hover:scale-105" onclick="showModal('Basic Factsheet', 'Compile essential information about the chosen topic.')">Basic Factsheet</div>
+        <div class="bg-white border-2 border-primary-dark rounded-lg p-4 text-center cursor-pointer transition-all duration-300 hover:bg-yellow hover:scale-105" onclick="showModal('Video Ideas', 'Brainstorm specific video concepts based on the selected topic.')">Video Ideas</div>
+        <div class="bg-white border-2 border-primary-dark rounded-lg p-4 text-center cursor-pointer transition-all duration-300 hover:bg-yellow hover:scale-105" onclick="showModal('Select Video Idea', 'Choose the best video idea to pursue.')">Select Video Idea</div>
+        <div class="bg-white border-2 border-primary-dark rounded-lg p-4 text-center cursor-pointer transition-all duration-300 hover:bg-yellow hover:scale-105" onclick="showModal('Expanded Factsheet', 'Develop a comprehensive factsheet with detailed information.')">Expanded Factsheet</div>
+        <div class="bg-white border-2 border-primary-dark rounded-lg p-4 text-center cursor-pointer transition-all duration-300 hover:bg-yellow hover:scale-105" onclick="showModal('Video Meta Data', 'Create title, description, tags, and other metadata for the video.')">Video Meta Data</div>
+      </div>
+      <div class="arrow"></div>
+      <div class="bg-primary-dark text-white py-4 px-6 rounded-lg my-6 w-full max-w-sm text-center font-bold shadow-lg transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">Develop Script</div>
+      <div class="arrow"></div>
+      <div class="grid grid-cols-1 gap-4 mb-8 w-full max-w-sm">
+        <div class="bg-white border-2 border-primary-dark rounded-lg p-4 text-center cursor-pointer transition-all duration-300 hover:bg-yellow hover:scale-105" onclick="showModal('Write Script', 'Compose the full script for the YouTube video.')">Write Script</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+    .arrow {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #342d2d;
+    margin: 10px 0;
+  }
+</style>

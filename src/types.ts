@@ -38,21 +38,42 @@ export interface PromptProps {
 // Step related interfaces
 export interface Step {
   name: string;
+  title: string;
+  order: number;
+  description: string | null;
   prompt: string;
-  input_attributes: { name: string; isArray: boolean; isRequired: boolean }[];
-  output_attributes: { name: string; isArray: boolean; isRequired: boolean }[];
+  input_attributes: Attribute[];
+  output_attributes: Attribute[];
+}
+
+export interface StepProps {
+  steps: Step[];
 }
 
 // Section related interfaces
 export interface Section {
   name: string;
+  title: string;
+  order: number;
+  description: string | null;
   steps: Step[];
+}
+
+export interface SectionProps {
+  sections: Section[];
 }
 
 // Workflow related interfaces
 export interface Workflow {
+  name: string;
+  title: string;
+  description: string;
+  settings: Record<string, Setting>;
   sections: Section[];
   attributes: Record<string, Attribute>;
   prompts: Record<string, Prompt>;
 }
 
+export interface WorkflowProps {
+  workflow: Workflow;
+}

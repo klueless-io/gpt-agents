@@ -9,6 +9,7 @@ import SidebarDesktopContainer from './workflow/SidebarDesktopContainer.astro';
 import SidebarMobile from './workflow/SidebarMobile.astro';
 import SidebarMobileContainer from './workflow/SidebarMobileContainer.astro';
 import TopBar from './workflow/TopBar.astro';
+import WorkflowFlowchart from './workflow/WorkflowFlowchart.astro';
 import WorkflowStats from './workflow/WorkflowStats.astro';
 
 interface GptProps {
@@ -20,7 +21,7 @@ interface GptProps {
 
 const { gpt } = Astro.props as { gpt: GptProps };
 const settingsArray = Object.entries(gpt.settings).map(([name, value]) => ({ name, value }));
-const currentStep = 3;
+const currentStep = 5;
 ---
 <div x-data="{ open: false, currentComponent: 'Research', activeMenuItem: 'sections' }" @menu-click.window="currentComponent = $event.detail" @keydown.window.escape="open = false">
   <SidebarMobileContainer>
@@ -38,6 +39,7 @@ const currentStep = 3;
       <div class="px-4 sm:px-6 lg:px-8">
         <div x-show="currentComponent === 'overview'">
           <WorkflowStats workflow={gpt} />
+          <WorkflowFlowchart workflow={gpt} />
         </div>
         <div x-show="currentComponent === 'attributes'">
           <Attributes attributes={gpt.attributes} />
