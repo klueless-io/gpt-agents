@@ -1,0 +1,40 @@
+<script>
+  import { createEventDispatcher } from 'svelte';
+  
+  export let sections = [];
+
+  const dispatch = createEventDispatcher();
+
+  function handleMenuItemClick(component) {
+    dispatch('menu-click', component);
+  }
+</script>
+
+<div class="flex grow flex-col gap-y-5 overflow-y-auto bg-primary-light px-6 pb-4">
+  <div class="flex h-16 shrink-0 items-center">
+    <img src="/images/logo-appy-cast-image.png" alt="AppyDave" class='my-w-60px my-h-60px' />
+    <h3 class="text-3xl text-white bebas">Agent <span class="text-primary-dark">Workflow</span></h3>
+  </div>
+  <nav class="flex flex-1 flex-col">
+    <ul role="list" class="flex flex-1 flex-col gap-y-7">
+      <li>
+        <ul role="list" class="-mx-2 space-y-1">
+          <li>
+            <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-primary-dark hover:text-primary-light hover:bg-primary-dark" on:click={() => handleMenuItemClick('overview')}>
+              <HomeIcon />
+              Overview
+            </a>
+          </li>
+          <div class="text-xs font-semibold leading-6 text-primary-dark">Sections</div>
+          {#each sections as section, index}
+            <li>
+              <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-primary-dark hover:text-primary-light hover:bg-primary-dark" on:click={() => handleMenuItemClick(section.name)}>
+                {section.name}
+              </a>
+            </li>
+          {/each}
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>

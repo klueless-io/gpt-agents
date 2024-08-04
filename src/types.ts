@@ -1,5 +1,21 @@
 // types.ts
 
+// State management related interfaces
+
+export interface AppState {
+  currentMenuItem: string;
+  currentComponent: string;
+  currentStep: Record<string, number>; // Mapping section name to step index
+}
+
+// Combined interface for props
+export interface AppStateProps {
+  workflow: Workflow;
+  state: AppState;
+}
+
+
+
 // Setting related interfaces
 export interface Setting {
   name: string;

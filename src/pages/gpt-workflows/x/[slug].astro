@@ -92,5 +92,5 @@ const { content } = Astro.props as Props;
 const gpt = content;
 ---
 <Layout title={gpt.name}>
-  <GptWorkflow {gpt} />
+  <GptWorkflow client:load {gpt} />
 </Layout>

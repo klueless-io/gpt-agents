@@ -1,15 +1,31 @@
----
-interface Props {
-  workflow: any;
-  debug?: boolean;
-}
+<script lang="ts">
+  import { writable } from 'svelte/store';
+  import { workflowStore } from '../../workflowStore';
 
-const { } = Astro.props;
----
+  export let workflow;
+  const isOpen = writable(false);
+
+  workflowStore.subscribe(value => {
+    workflow = value;
+  });
+
+  function toggleSidebar() {
+    // Implement your sidebar toggle logic here
+    console.log('Sidebar toggled');
+  }
+
+  function toggleDropdown() {
+    // console.log('Toggling dropdown');
+    isOpen.update(n => !n);
+    // console.log('Dropdown state:', $isOpen);
+  }
+
+  $: isOpen;
+</script>
 
 <div class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
   <!-- Hamburger button -->
-  <button type="button" class="-m-2.5 p-2.5 text-gray-700 lg:hidden" @click="open = true">
+  <button type="button" class="-m-2.5 p-2.5 text-gray-700 lg:hidden" on:click={toggleSidebar}>
     <span class="sr-only">Open sidebar</span>
     <svg
       class="h-6 w-6"
@@ -72,17 +88,8 @@ const { } = Astro.props;
       <div class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10" aria-hidden="true"></div>
 
       <!-- Profile dropdown -->
-      <div x-data="{ open: false }" class="relative">
-        <button
-          type="button"
-          class="-m-1.5 flex items-center p-1.5"
-          id="user-menu-button"
-          x-ref="button"
-          @click="open = !open"
-          aria-expanded="false"
-          aria-haspopup="true"
-          x-bind:aria-expanded="open.toString()"
-        >
+      <div class="relative">
+        <button type="button" class="-m-1.5 flex items-center p-1.5" on:click={toggleDropdown}>
           <span class="sr-only">Open user menu</span>
           <img
             class="h-8 w-8 rounded-full bg-gray-50"
@@ -99,41 +106,32 @@ const { } = Astro.props;
             </svg>
           </span>
         </button>
-
-        <div
-          x-show="open"
-          x-transition:enter="transition ease-out duration-100"
-          x-transition:enter-start="transform opacity-0 scale-95"
-          x-transition:enter-end="transform opacity-100 scale-100"
-          x-transition:leave="transition ease-in duration-75"
-          x-transition:leave-start="transform opacity-100 scale-100"
-          x-transition:leave-end="transform opacity-0 scale-95"
-          class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
-          x-ref="menu-items"
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="user-menu-button"
-          tabindex="-1"
-        >
-          <a
-            href="#"
-            class="block px-3 py-1 text-sm leading-6 text-gray-900"
-            role="menuitem"
+        {#if $isOpen}
+          <div
+            class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="user-menu-button"
             tabindex="-1"
-            id="user-menu-item-0"
           >
-            Copy Workflow
-          </a>
-          <a
-            href="#"
-            class="block px-3 py-1 text-sm leading-6 text-gray-900"
-            role="menuitem"
-            tabindex="-1"
-            id="user-menu-item-1"
-          >
-            Sign out
-          </a>
-        </div>
+            <a
+              href="#"
+              class="block px-3 py-1 text-sm leading-6 text-gray-900"
+              role="menuitem"
+              tabindex="-1"
+            >
+              Copy Workflow
+            </a>
+            <a
+              href="#"
+              class="block px-3 py-1 text-sm leading-6 text-gray-900"
+              role="menuitem"
+              tabindex="-1"
+            >
+              Sign out
+            </a>
+          </div>
+        {/if}
       </div>
     </div>
   </div>

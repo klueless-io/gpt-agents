@@ -1,0 +1,25 @@
+<script>
+  export let open;
+</script>
+
+<div
+  class="relative z-50 lg:hidden"
+  aria-modal="true"
+  style:display={open ? 'block' : 'none'}
+>
+  <div
+    class="fixed inset-0 bg-gray-900/80"
+    aria-hidden="true"
+    style:display={open ? 'block' : 'none'}
+    on:click={() => open = false}
+  ></div>
+
+  <div class="fixed inset-0 flex">
+    <div
+      class="relative mr-16 flex w-full max-w-xs flex-1"
+      style:display={open ? 'block' : 'none'}
+    >
+      <slot />
+    </div>
+  </div>
+</div>
