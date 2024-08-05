@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
 
   export let name: string;
-  export let letter: string | undefined;
+  export let letter: string | undefined = undefined;
   export let active: boolean;
   export let component: string;
 

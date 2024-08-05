@@ -29,10 +29,6 @@
             <MenuItem name="Overview" active={activeMenuItem === 'Overview'} component="Overview" on:menu-click={handleMenuClick}>
               <HomeIcon />
             </MenuItem>
-            <!-- <a href="#" class={`group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold ${activeMenuItem === 'overview' ? 'bg-primary-dark text-white' : 'text-primary-dark hover:text-primary-light hover:bg-primary-dark'}`} on:click={() => handleMenuItemClick('overview')}>
-              <HomeIcon />
-              Overview
-            </a> -->
           </li>
           <div class="text-xs font-semibold leading-6 text-primary-dark">Sections</div>
           {#each sections as section, index}
@@ -40,12 +36,6 @@
               <MenuItem name={section.name} active={activeMenuItem === section.name} component={section.name} on:menu-click={handleMenuClick}>
                 <SectionIcon />
               </MenuItem>
-<!--               
-              <a href="#" class={`group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold ${activeMenuItem === section.name ? 'bg-primary-dark text-white' : 'text-primary-dark hover:text-primary-light hover:bg-primary-dark'}`} on:click={() => handleMenuItemClick(section.name)}>
-                <SectionIcon />
-                {section.name}
-              </a>
--->
             </li>
           {/each}
         </ul>
