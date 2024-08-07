@@ -3,11 +3,19 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "NODE_DEBUG=astro astro dev --verbose",
+    "dev": "NODE_DEBUG=astro astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "format": "prettier --write \"src/**/*.{js,ts,svelte}\""
+  },
+  "prettier": {
+    "svelteSortOrder": "options",
+    "svelteStrictMode": false,
+    "svelteBracketNewLine": true,
+    "svelteAllowShorthand": true,
+    "svelteIndentScriptAndStyle": true
   },
   "dependencies": {
     "@astrojs/check": "^0.7.0",
@@ -19,9 +27,12 @@
     "astro": "^4.11.5",
     "svelte": "^4.2.18",
     "tailwindcss": "^3.4.4",
+    "tom-select": "^2.3.1",
     "typescript": "^5.5.3"
   },
   "devDependencies": {
-    "@types/node": "^20.14.10"
+    "@types/node": "^20.14.10",
+    "prettier": "^3.3.3",
+    "prettier-plugin-svelte": "^3.2.6"
   }
 }

@@ -3,3 +3,9 @@
   color: var(--color-primary-dark); /* Assuming you have set this CSS variable for your brand color */
   /* Add other styles as needed */
 }
+.ts-wrapper.multi .ts-control > div {
+  @apply bg-primary-light text-primary-dark;
+}
+.ts-wrapper.multi .ts-control > div.active {
+  @apply bg-secondary-light text-secondary-dark;
+}

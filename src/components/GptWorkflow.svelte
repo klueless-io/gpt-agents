@@ -9,7 +9,7 @@
   import SidebarDesktop from './workflow-svelte/SidebarDesktop.svelte';
   import SidebarDesktopContainer from './workflow-svelte/SidebarDesktopContainer.svelte';
   import TopBar from './workflow-svelte/TopBar.svelte';
-  import WorkflowContainer from './workflow-svelte/WorkflowContainer.svelte';
+  import WorkflowContainer from './workflow-svelte/Workflow.svelte';
 
   export let gpt: Workflow;
   let workflow: Workflow;
@@ -75,7 +75,7 @@
         {#if state.currentComponent === 'Overview'}
           <Overview {workflow} />
         {:else if state.currentComponent === 'Workflow' && currentSection && currentStep}
-          <WorkflowContainer {currentSection} {currentStep} />
+          <WorkflowContainer {workflow} {currentSection} {currentStep} />
         {:else if state.currentComponent === 'Attributes'}
           <Attributes {attributes} />
         {:else if state.currentComponent === 'Prompts'}

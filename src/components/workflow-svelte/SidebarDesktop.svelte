@@ -1,6 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import MenuItem from './MenuItem.svelte';
+  import CogIcon from './icons/CogIcon.svelte';
   import HomeIcon from './icons/HomeIcon.svelte';
   import SectionIcon from './icons/SectionIcon.svelte';
 
@@ -47,6 +48,15 @@
           <MenuItem name="Prompts" letter="P" active={activeMenuItem === 'Prompts'} component="Prompts" on:menu-click={handleMenuClick} />
           <MenuItem name="Settings" letter="S" active={activeMenuItem === 'Settings'} component="Settings" on:menu-click={handleMenuClick} />
         </ul>
+      </li>
+      <li class="mt-auto">
+        <a
+          href="#"
+          class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-primary-dark hover:bg-primary-dark hover:text-primary-light"
+        >
+          <CogIcon />
+          System Settings
+        </a>
       </li>
     </ul>
   </nav>
