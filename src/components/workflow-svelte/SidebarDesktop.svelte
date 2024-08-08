@@ -1,13 +1,18 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
-  import MenuItem from './MenuItem.svelte';
+  import { createEventDispatcher, onDestroy, onMount } from 'svelte';
+  import DebugMonitor from './DebugMonitor.svelte';
   import CogIcon from './icons/CogIcon.svelte';
   import HomeIcon from './icons/HomeIcon.svelte';
   import SectionIcon from './icons/SectionIcon.svelte';
+  import MenuItem from './MenuItem.svelte';
+  import QuickAccess from './QuickAccess.svelte';
 
   export let sections = [];
   export let currentComponent: string;
   export let activeMenuItem: string;
+
+  let showQuickAccessPanel = false;
+  let showDebugMonitor = false;
 
   const dispatch = createEventDispatcher();
 
@@ -15,6 +20,36 @@
     console.log('Sidebar Menu Clicked:', component.detail);  // Debug statement
     dispatch('menu-click', component.detail);
   }
+
+  function toggleQuickAccessPanel() {
+    showQuickAccessPanel = !showQuickAccessPanel;
+  }
+
+  function handleOpenDebugMonitor() {
+    showDebugMonitor = true;
+  }
+
+  function handleCloseDebugMonitor() {
+    showDebugMonitor = false;
+  }
+
+  function handleKeyPress(event: KeyboardEvent) {
+    if (event.key === 'q' || event.key === 'Q') {
+      showQuickAccessPanel = !showQuickAccessPanel;
+    }
+  }
+
+  onMount(() => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('keydown', handleKeyPress);
+    }
+  });
+
+  onDestroy(() => {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('keydown', handleKeyPress);
+    }
+  });
 </script>
 
 <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-primary-light px-6 pb-4">
@@ -53,11 +88,16 @@
         <a
           href="#"
           class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-primary-dark hover:bg-primary-dark hover:text-primary-light"
+          on:mouseover|preventDefault={toggleQuickAccessPanel}
         >
           <CogIcon />
-          System Settings
+          Quick Access
         </a>
       </li>
     </ul>
   </nav>
+  <QuickAccess visible={showQuickAccessPanel} on:close={() => showQuickAccessPanel = false} on:openDebugMonitor={handleOpenDebugMonitor} />
+  {#if showDebugMonitor}
+    <DebugMonitor visible={showDebugMonitor} on:close={handleCloseDebugMonitor} />
+  {/if}
 </div>

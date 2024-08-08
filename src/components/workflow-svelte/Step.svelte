@@ -1,16 +1,24 @@
 <script lang="ts">
   import { stateStore } from '../../stateStore';
   import type { Section, Step, Workflow } from '../../types';
+  import { providers } from '../../types';
+
   import TagSelect from './TagSelect.svelte';
   import LeftArrowIcon from './icons/LeftArrowIcon.svelte';
+  import LeftUpArrowIcon from './icons/LeftUpArrowIcon.svelte';
   import RightArrowIcon from './icons/RightArrowIcon.svelte';
+  import RightDownArrowIcon from './icons/RightDownArrowIcon.svelte';
 
   export let workflow: Workflow;
   export let currentSection: Section;
   export let currentStep: Step;
 
-  let options = ['ChatGPT 4o', 'ChatGPT 4.0', 'Claude 3.5', 'Gemini'];
-  let selectedOptions: string[] = [];
+  let options: string[] = [];
+  let selectedOptions: string[] = currentStep.language_models;
+  console.log('Step::Selected Options:', selectedOptions);
+  console.log('STEP::Providers:', providers);
+  options = providers.flatMap(provider => provider.models.map(model => model.apiCode));
+  console.log('Step::Options:', options);
 
   function handleSelectionChange(event) {
     selectedOptions = event.detail;
@@ -60,7 +68,7 @@
   // console.log('Step::Current Step:', currentStep);
 </script>
 
-<div class="w-full bg-white shadow-md rounded-md overflow-hidden my-4 flex flex-col p-6">
+<div class="w-full bg-white shadow-md rounded-md overflow-hidden my-4 flex flex-col p-6 py-16">
   <h2 class="text-xl font-semibold text-gray-800 mb-4">{currentStep.name}</h2>
   <div class="flex gap-8">
     <!-- Input Parameters (Left Column) -->
@@ -114,29 +122,26 @@
     <div class="flex-1 relative">
       <label for="language-model" class="absolute -top-5 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-900">Language Model</label>
       <TagSelect {options} bind:selectedValues={selectedOptions} on:change={handleSelectionChange} />
-      <!-- 
-      <select
-        id="language-model"
-        name="language-model"
-        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      >
-        <option value="model1">ChatGPT 4.0</option>
-        <option value="model2">Claude 3.5</option>
-        <option value="model3">Gemini</option>
-      </select>
-      -->
     </div>
 
     <!-- Controls -->
     <span class="isolate inline-flex rounded-md shadow-sm">
       <button type="button" class="relative inline-flex items-center rounded-l-md bg-white px-2 py-2 text-primary-dark ring-1 ring-inset ring-gray-300 hover:bg-primary-dark hover:text-primary-light focus:z-10" on:click={goToPreviousStep}>
         <span class="sr-only">Previous</span>
-        <LeftArrowIcon />
+         {#if currentSection && workflow.sections.findIndex(section => section.name === currentSection.name) > 0 && currentSection.steps.findIndex(step => step.name === currentStep.name) === 0}
+          <LeftUpArrowIcon />
+        {:else}
+          <LeftArrowIcon />
+        {/if}
       </button>
       <button type="button" class="bg-primary-light text-primary-dark relative -ml-px inline-flex items-center px-3 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 hover:bg-primary-dark hover:text-primary-light focus:z-10">Start</button>
       <button type="button" class="relative -ml-px inline-flex items-center rounded-r-md bg-white px-2 py-2 text-primary-dark ring-1 ring-inset ring-gray-300 hover:bg-primary-dark hover:text-primary-light focus:z-10" on:click={goToNextStep}>
         <span class="sr-only">Next</span>
-        <RightArrowIcon />
+        {#if currentSection && workflow.sections.findIndex(section => section.name === currentSection.name) < workflow.sections.length - 1 && currentSection.steps.findIndex(step => step.name === currentStep.name) === currentSection.steps.length - 1}
+          <RightDownArrowIcon />
+        {:else}
+          <RightArrowIcon />
+        {/if}
       </button>
     </span>
   </div>

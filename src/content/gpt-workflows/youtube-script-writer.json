@@ -44,6 +44,9 @@
               "description": null,
               "title": "Ideas"
             }
+          ],
+          "language_models": [
+            "gpt4o"
           ]
         },
         {
@@ -69,6 +72,9 @@
               "description": null,
               "title": "Selected Idea"
             }
+          ],
+          "language_models": [
+            "gpt4o"
           ]
         },
         {
@@ -94,6 +100,9 @@
               "description": null,
               "title": "Basic Factsheet"
             }
+          ],
+          "language_models": [
+            "gpt4o"
           ]
         },
         {
@@ -133,6 +142,9 @@
               "description": null,
               "title": "Basic Factsheet"
             }
+          ],
+          "language_models": [
+            "gpt4o"
           ]
         },
         {
@@ -158,6 +170,9 @@
               "description": null,
               "title": "Video Idea"
             }
+          ],
+          "language_models": [
+            "gpt4o"
           ]
         },
         {
@@ -197,6 +212,9 @@
               "description": null,
               "title": "Expanded Factsheet"
             }
+          ],
+          "language_models": [
+            "gpt4o"
           ]
         },
         {
@@ -250,6 +268,9 @@
               "description": null,
               "title": "Meta Topics"
             }
+          ],
+          "language_models": [
+            "gpt4o"
           ]
         }
       ]
@@ -290,6 +311,9 @@
               "description": null,
               "title": "Script"
             }
+          ],
+          "language_models": [
+            "gpt4o"
           ]
         }
       ]

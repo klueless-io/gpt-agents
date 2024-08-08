@@ -1,0 +1,120 @@
+{
+  "name": "agent_workflow_architect",
+  "title": "Agent Workflow Architect",
+  "description": "This workflow will help build new agent workflows",
+  "settings": {
+    "prompt_path": {
+      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/agent_workflow_architect",
+      "description": null,
+      "title": "Prompt Path"
+    },
+    "default_llm": {
+      "value": "gpt4o",
+      "description": null,
+      "title": "Default Llm"
+    }
+  },
+  "sections": [
+    {
+      "name": "Develop",
+      "title": "Develop",
+      "order": 1,
+      "description": null,
+      "steps": [
+        {
+          "name": "Workflow Outline",
+          "title": "Workflow Outline",
+          "order": 1,
+          "description": null,
+          "prompt": "You assist in creating outlines for GPT agent workflows.\n\nCreate a workflow for: [workflow_idea]\n\nYou know that Agent workflows are best suited to creating or quality assurance\nexamples include research, drafting, and editing, are ideal for GPT agents due to their need for creativity and nuanced understanding,\nbasic quality control such as a grammar or tone checking.\n\nTasks that require APIs or other action oriented actions such as a manual actions or publishing are not well suited and not show in a workflow.\n\nPeople will ask simple questions like the following:\n\nExample 1: \"Create a workflow for creating a YouTube video.\"\n\nYour response would be similar to\n\nYouTube Video Workflow\n\nResearch\n- Basic Idea\n- Select an Idea\n- Basic Factsheet\n- Select Video Idea\n- Expand Factsheet\n- Expand Video Meta (Keywords, Titles, Topics)\n\nScript Creation\n- Outline Main Points\n- Develop Introduction\n- Flesh Out Main Content\n- Create Conclusion\n- Edit and Refine Script\n\nThumbnail and YouTube Title Creation\n- Design Thumbnail\n- Choose Thumbnail Text\n- Craft Compelling YouTube Title\n\nExample 2: \"Create a workflow for writing a Medium article.\"\n\nMedium Article Creation\n\nResearch\n- Identify Topic\n- Gather Information and Sources\n- Create Basic Outline\n- Expand Outline with Key Points\n- Finalize Research Notes\n\nDrafting\n- Write Introduction\n- Develop Main Content Sections\n- Add Supporting Details and Examples\n- Write Conclusion\n- Review and Revise Draft\n\nEditing\n- Check for Grammar and Spelling\n- Ensure Flow and Coherence\n- Optimize for Readability\n- Finalize and Proofread\n",
+          "input_attributes": [
+            {
+              "name": "workflow_idea",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Workflow Idea"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "workflow_outline",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Workflow Outline"
+            }
+          ],
+          "language_models": [
+            "gpt4o", "gptX"
+          ]
+        },
+        {
+          "name": "Create Agent DSL",
+          "title": "Create Agent Dsl",
+          "order": 2,
+          "description": null,
+          "prompt": "You assist in creating GPT agent workflow DSLs that adhere to Ruby syntax\n\nCreate a DSL for: [workflow_outline]\n\n### DSL Structure Breakdown\n\n#### Agent Creation\n- `Agent.create(:agent_workflow_architect) do`:\n  - This creates a new agent workflow with a specific identifier.\n\n#### Description\n- `description 'This workflow will help build new agent workflows'`:\n  - A description of what the workflow does.\n\n#### Settings\n- `settings do`:\n  - Configuration settings for the workflow.\n  - `prompt_path`: Specifies the path to the prompts used.\n  - `default_llm`: Defines the default language model to be used.\n\n#### Prompts\n- `prompts do`:\n  - Defines various prompts used in the workflow.\n  - Each prompt has a name and associated content loaded from a file.\n\n#### Attributes\n- `attributes do`:\n  - Defines attributes used within the workflow.\n  - Each attribute has a name, type, and possibly other configurations.\n\n#### Sections\n- `section('Section Name') do`:\n  - Workflows are divided into sections, each containing multiple steps.\n\n#### Steps\n- `step('Step Name') do`:\n  - Each section contains multiple steps.\n  - Steps have inputs, prompts, actions, and outputs.\n\nExample #1:\n\nstart_time = Time.now\n\ndsl = Agent.create(:agent_workflow_architect) do\n  description 'This workflow will help build new agent workflows'\n  settings do\n    prompt_path Ad::AgentArchitecture.gem_relative_file('prompts/youtube/agent_workflow_architect')\n    default_llm :gpt4o\n  end\n\n  prompts do\n    prompt :workflow_outline          , content: load_file(\"01-1-develop-workflow-outline.txt\")\n  end\n\n  attributes do\n    attribute :workflow_idea, type: :string\n    attribute :workflow_outline, type: :string\n  end\n\n  section('Develop') do\n    step('Workflow Outline') do\n      input :workflow_idea\n      prompt :workflow_outline\n      output :workflow_outline\n    end\n\n    step('Create Agent DSL') do\n      input :workflow_outline\n      prompt :workflow_dsl\n      output :workflow_dsl\n    end\n  end\nend\n\nfile = '/Users/davidcruwys/dev/sites/working-with-sean/gpt-agents/src/content/gpt-workflows/agent-workflow-architect.json'\ndsl\n  .save\n  .save_json(file)\n\n\nExample #2\n\nstart_time = Time.now\n\ndsl = Agent.create(:youtube_script_writer) do\n  description 'This workflow is used to write a script for a YouTube video.'\n  settings do\n    prompt_path Ad::AgentArchitecture.gem_relative_file('prompts/youtube/script_writer')\n    default_llm :gpt4o\n  end\n\n  prompts do\n    prompt :working_idea          , content: load_file(\"01-1-working-idea.txt\")\n    prompt :basic_factsheet       , content: load_file(\"01-2-basic-factsheet.txt\")\n    prompt :video_ideas           , content: load_file(\"01-3-video-ideas.txt\")\n    prompt :expanded_factsheet    , content: load_file(\"01-4-expanded-factsheet.txt\")\n    prompt :meta_data             , content: load_file(\"01-5-meta-data.txt\")\n  end\n\n  attributes do\n    attribute :idea, type: :string\n    attribute :ideas, type: :array\n    attribute :selected_idea, type: :string\n    attribute :basic_factsheet, type: :string\n    attribute :video_ideas, type: :array\n    attribute :video_idea, type: :string\n    attribute :expanded_factsheet, type: :string\n    attribute :meta_engaging_titles, type: :array\n    attribute :meta_keywords, type: :array\n    attribute :meta_topics, type: :array\n    attribute :script, type: :string\n  end\n\n  # section('Thumbnail') do\n  #   step('Thumbnail Text Research') do\n  #     input :thumb_text_idea\n  #     prompt :working_idea\n  #     output :thumb_text\n  #   end\n\n  #   step('Create Thumbnail') do\n  #     input :thumb_text\n  #     prompt :working_idea\n  #     output :thumbnail\n  #   end\n  # end\n\n  section('Research') do\n    step('Basic Idea') do\n      input :idea\n      prompt :working_idea\n      output :ideas\n    end\n\n    step('Select an Idea') do\n      input :ideas\n      # action 'Select the best idea from the list.'\n      output :selected_idea\n    end\n\n    step('Basic Factsheet') do\n      input :selected_idea\n      prompt :basic_factsheet\n      output :basic_factsheet\n    end\n\n    step('Video ideas') do\n      input :idea\n      input :basic_factsheet\n      prompt :video_ideas\n      output :video_ideas\n      output :basic_factsheet\n    end\n\n    step('Select Video Idea') do\n      input :video_ideas\n      # action 'Select the best video idea from the list.'\n      output :video_idea\n    end\n\n    step('Expanded Factsheet') do\n      input :idea\n      input :basic_factsheet\n      input :video_idea\n      prompt :expanded_factsheet\n      output :expanded_factsheet\n    end\n\n    step('Video Meta Data') do\n      input :idea\n      input :video_idea\n      input :expanded_factsheet\n      prompt :meta_data\n      output :meta_engaging_titles\n      output :meta_keywords\n      output :meta_topics\n    end\n  end\n\n  section('Develop Script') do\n    step('Write Script') do\n      input :video_idea\n      input :expanded_factsheet\n      # action 'Write a script for the video.'\n      output :script\n    end\n  end\nend\n\nfile = '/Users/davidcruwys/dev/sites/working-with-sean/gpt-agents/src/content/gpt-workflows/youtube-script-writer.json'\ndsl\n  .save\n  .save_json(file)\n\nputs \"Time taken: #{Time.now - start_time} seconds\"\n",
+          "input_attributes": [
+            {
+              "name": "workflow_outline",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Workflow Outline"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "workflow_dsl",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Workflow Dsl"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "workflow_idea": {
+      "name": "workflow_idea",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Workflow Idea"
+    },
+    "workflow_outline": {
+      "name": "workflow_outline",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Workflow Outline"
+    },
+    "workflow_dsl": {
+      "name": "workflow_dsl",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Workflow Dsl"
+    }
+  },
+  "prompts": {
+    "workflow_outline": {
+      "name": "workflow_outline",
+      "content": "You assist in creating outlines for GPT agent workflows.\n\nCreate a workflow for: [workflow_idea]\n\nYou know that Agent workflows are best suited to creating or quality assurance\nexamples include research, drafting, and editing, are ideal for GPT agents due to their need for creativity and nuanced understanding,\nbasic quality control such as a grammar or tone checking.\n\nTasks that require APIs or other action oriented actions such as a manual actions or publishing are not well suited and not show in a workflow.\n\nPeople will ask simple questions like the following:\n\nExample 1: \"Create a workflow for creating a YouTube video.\"\n\nYour response would be similar to\n\nYouTube Video Workflow\n\nResearch\n- Basic Idea\n- Select an Idea\n- Basic Factsheet\n- Select Video Idea\n- Expand Factsheet\n- Expand Video Meta (Keywords, Titles, Topics)\n\nScript Creation\n- Outline Main Points\n- Develop Introduction\n- Flesh Out Main Content\n- Create Conclusion\n- Edit and Refine Script\n\nThumbnail and YouTube Title Creation\n- Design Thumbnail\n- Choose Thumbnail Text\n- Craft Compelling YouTube Title\n\nExample 2: \"Create a workflow for writing a Medium article.\"\n\nMedium Article Creation\n\nResearch\n- Identify Topic\n- Gather Information and Sources\n- Create Basic Outline\n- Expand Outline with Key Points\n- Finalize Research Notes\n\nDrafting\n- Write Introduction\n- Develop Main Content Sections\n- Add Supporting Details and Examples\n- Write Conclusion\n- Review and Revise Draft\n\nEditing\n- Check for Grammar and Spelling\n- Ensure Flow and Coherence\n- Optimize for Readability\n- Finalize and Proofread\n",
+      "description": null,
+      "title": "Workflow Outline"
+    },
+    "workflow_dsl": {
+      "name": "workflow_dsl",
+      "content": "You assist in creating GPT agent workflow DSLs that adhere to Ruby syntax\n\nCreate a DSL for: [workflow_outline]\n\n### DSL Structure Breakdown\n\n#### Agent Creation\n- `Agent.create(:agent_workflow_architect) do`:\n  - This creates a new agent workflow with a specific identifier.\n\n#### Description\n- `description 'This workflow will help build new agent workflows'`:\n  - A description of what the workflow does.\n\n#### Settings\n- `settings do`:\n  - Configuration settings for the workflow.\n  - `prompt_path`: Specifies the path to the prompts used.\n  - `default_llm`: Defines the default language model to be used.\n\n#### Prompts\n- `prompts do`:\n  - Defines various prompts used in the workflow.\n  - Each prompt has a name and associated content loaded from a file.\n\n#### Attributes\n- `attributes do`:\n  - Defines attributes used within the workflow.\n  - Each attribute has a name, type, and possibly other configurations.\n\n#### Sections\n- `section('Section Name') do`:\n  - Workflows are divided into sections, each containing multiple steps.\n\n#### Steps\n- `step('Step Name') do`:\n  - Each section contains multiple steps.\n  - Steps have inputs, prompts, actions, and outputs.\n\nExample #1:\n\nstart_time = Time.now\n\ndsl = Agent.create(:agent_workflow_architect) do\n  description 'This workflow will help build new agent workflows'\n  settings do\n    prompt_path Ad::AgentArchitecture.gem_relative_file('prompts/youtube/agent_workflow_architect')\n    default_llm :gpt4o\n  end\n\n  prompts do\n    prompt :workflow_outline          , content: load_file(\"01-1-develop-workflow-outline.txt\")\n  end\n\n  attributes do\n    attribute :workflow_idea, type: :string\n    attribute :workflow_outline, type: :string\n  end\n\n  section('Develop') do\n    step('Workflow Outline') do\n      input :workflow_idea\n      prompt :workflow_outline\n      output :workflow_outline\n    end\n\n    step('Create Agent DSL') do\n      input :workflow_outline\n      prompt :workflow_dsl\n      output :workflow_dsl\n    end\n  end\nend\n\nfile = '/Users/davidcruwys/dev/sites/working-with-sean/gpt-agents/src/content/gpt-workflows/agent-workflow-architect.json'\ndsl\n  .save\n  .save_json(file)\n\n\nExample #2\n\nstart_time = Time.now\n\ndsl = Agent.create(:youtube_script_writer) do\n  description 'This workflow is used to write a script for a YouTube video.'\n  settings do\n    prompt_path Ad::AgentArchitecture.gem_relative_file('prompts/youtube/script_writer')\n    default_llm :gpt4o\n  end\n\n  prompts do\n    prompt :working_idea          , content: load_file(\"01-1-working-idea.txt\")\n    prompt :basic_factsheet       , content: load_file(\"01-2-basic-factsheet.txt\")\n    prompt :video_ideas           , content: load_file(\"01-3-video-ideas.txt\")\n    prompt :expanded_factsheet    , content: load_file(\"01-4-expanded-factsheet.txt\")\n    prompt :meta_data             , content: load_file(\"01-5-meta-data.txt\")\n  end\n\n  attributes do\n    attribute :idea, type: :string\n    attribute :ideas, type: :array\n    attribute :selected_idea, type: :string\n    attribute :basic_factsheet, type: :string\n    attribute :video_ideas, type: :array\n    attribute :video_idea, type: :string\n    attribute :expanded_factsheet, type: :string\n    attribute :meta_engaging_titles, type: :array\n    attribute :meta_keywords, type: :array\n    attribute :meta_topics, type: :array\n    attribute :script, type: :string\n  end\n\n  # section('Thumbnail') do\n  #   step('Thumbnail Text Research') do\n  #     input :thumb_text_idea\n  #     prompt :working_idea\n  #     output :thumb_text\n  #   end\n\n  #   step('Create Thumbnail') do\n  #     input :thumb_text\n  #     prompt :working_idea\n  #     output :thumbnail\n  #   end\n  # end\n\n  section('Research') do\n    step('Basic Idea') do\n      input :idea\n      prompt :working_idea\n      output :ideas\n    end\n\n    step('Select an Idea') do\n      input :ideas\n      # action 'Select the best idea from the list.'\n      output :selected_idea\n    end\n\n    step('Basic Factsheet') do\n      input :selected_idea\n      prompt :basic_factsheet\n      output :basic_factsheet\n    end\n\n    step('Video ideas') do\n      input :idea\n      input :basic_factsheet\n      prompt :video_ideas\n      output :video_ideas\n      output :basic_factsheet\n    end\n\n    step('Select Video Idea') do\n      input :video_ideas\n      # action 'Select the best video idea from the list.'\n      output :video_idea\n    end\n\n    step('Expanded Factsheet') do\n      input :idea\n      input :basic_factsheet\n      input :video_idea\n      prompt :expanded_factsheet\n      output :expanded_factsheet\n    end\n\n    step('Video Meta Data') do\n      input :idea\n      input :video_idea\n      input :expanded_factsheet\n      prompt :meta_data\n      output :meta_engaging_titles\n      output :meta_keywords\n      output :meta_topics\n    end\n  end\n\n  section('Develop Script') do\n    step('Write Script') do\n      input :video_idea\n      input :expanded_factsheet\n      # action 'Write a script for the video.'\n      output :script\n    end\n  end\nend\n\nfile = '/Users/davidcruwys/dev/sites/working-with-sean/gpt-agents/src/content/gpt-workflows/youtube-script-writer.json'\ndsl\n  .save\n  .save_json(file)\n\nputs \"Time taken: #{Time.now - start_time} seconds\"\n",
+      "description": null,
+      "title": "Workflow Dsl"
+    }
+  }
+}

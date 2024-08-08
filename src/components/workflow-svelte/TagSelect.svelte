@@ -1,4 +1,3 @@
-<!-- Select.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
   import TomSelect from 'tom-select';
@@ -36,4 +35,4 @@
   const dispatch = createEventDispatcher();
 </script>
 
-  <select bind:this={selectElement} multiple></select>
+<select bind:this={selectElement} multiple></select>

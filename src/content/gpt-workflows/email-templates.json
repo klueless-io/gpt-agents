@@ -1,0 +1,188 @@
+{
+  "name": "email_templates",
+  "title": "Email Templates",
+  "description": "This workflow generates email bodies for different scenarios.",
+  "settings": {
+    "prompt_path": {
+      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/email_templates",
+      "description": null,
+      "title": "Prompt Path"
+    },
+    "default_llm": {
+      "value": "gpt4o",
+      "description": null,
+      "title": "Default Llm"
+    }
+  },
+  "sections": [
+    {
+      "name": "Email Templates",
+      "title": "Email Templates",
+      "order": 1,
+      "description": null,
+      "steps": [
+        {
+          "name": "Complaint",
+          "title": "Complaint",
+          "order": 1,
+          "description": null,
+          "prompt": "Can you create an a professional complaint email based on:\n\n---\n[email_context]\n---\n\nInstructions for Drafting a Professional Complaint Email\n\nObjective:  \nCreate a professional and respectful complaint email based on the provided transcript. The email should be clear, concise, and focus on resolving the issue without personal attacks.\n\nKey Elements That Can Be Chosen From:\n\n1. Subject Line:\n   - Craft a clear and specific subject line that indicates the nature of the complaint.\n\n2. Introduction:\n   - Briefly introduce yourself and provide any necessary context about your relationship to the recipient (e.g., customer, client, tenant).\n   - State the purpose of the email clearly.\n\n3. Body:\n\n   - Background Information:\n     - Summarize the key points from the transcript that provide relevant background information.\n     - Include dates, times, and specific events that led to the complaint.\n\n   - Detailed Description of the Issue:\n     - Describe the main issues or grievances in a structured and logical manner.\n     - Use bullet points or numbered lists for clarity if necessary.\n\n   - Evidence and Documentation:\n     - Reference any evidence or documentation that supports your complaint (e.g., receipts, emails, photos).\n     - Attach these documents to the email if possible.\n\n   - Impact of the Issue:\n     - Explain how the issue has affected you, your business, or your rights.\n     - Be factual and avoid emotional language.\n\n   - Resolution Sought:\n     - Clearly state what resolution or action you are seeking.\n     - Be specific about what you expect from the recipient (e.g., refund, apology, corrective action).\n\n4. Closing:\n   - Reiterate the importance of the issue and the desired resolution.\n   - Provide your contact information for further communication.\n   - End with a professional closing (e.g., \"Sincerely,\" \"Best regards\").\n\n5. Professional Tone:\n   - Maintain a formal and respectful tone throughout the email.\n   - Avoid personal attacks, derogatory language, or overly emotional statements.\n\nAdditional Notes:\n- Ensure the email is well-organized and easy to read.\n- Proofread the email for grammar, spelling, and clarity.\n- Keep the email concise, ideally no longer than one page.\n\nAttachments:\n- Include any relevant documents, photos, or evidence that support your complaint.\n",
+          "input_attributes": [
+            {
+              "name": "email_context",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Email Context"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "email_body",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Email Body"
+            }
+          ],
+          "llm": "gpt4o"
+        },
+        {
+          "name": "Sponsorship Request",
+          "title": "Sponsorship Request",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "email_context",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Email Context"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "email_body",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Email Body"
+            }
+          ],
+          "llm": "gpt4o"
+        }
+      ]
+    },
+    {
+      "name": "Email Styles",
+      "title": "Email Styles",
+      "order": 2,
+      "description": null,
+      "steps": [
+        {
+          "name": "Professional Tone",
+          "title": "Professional Tone",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "email_body",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Email Body"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "improved_email_body",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Improved Email Body"
+            }
+          ],
+          "llm": "gpt4o"
+        },
+        {
+          "name": "Personal Tone",
+          "title": "Personal Tone",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "email_body",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Email Body"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "improved_email_body",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Improved Email Body"
+            }
+          ],
+          "llm": "gpt4o"
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "email_context": {
+      "name": "email_context",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Email Context"
+    },
+    "email_body": {
+      "name": "email_body",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Email Body"
+    },
+    "improved_email_body": {
+      "name": "improved_email_body",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Improved Email Body"
+    }
+  },
+  "prompts": {
+    "complaint_email": {
+      "name": "complaint_email",
+      "content": "Can you create an a professional complaint email based on:\n\n---\n[email_context]\n---\n\nInstructions for Drafting a Professional Complaint Email\n\nObjective:  \nCreate a professional and respectful complaint email based on the provided transcript. The email should be clear, concise, and focus on resolving the issue without personal attacks.\n\nKey Elements That Can Be Chosen From:\n\n1. Subject Line:\n   - Craft a clear and specific subject line that indicates the nature of the complaint.\n\n2. Introduction:\n   - Briefly introduce yourself and provide any necessary context about your relationship to the recipient (e.g., customer, client, tenant).\n   - State the purpose of the email clearly.\n\n3. Body:\n\n   - Background Information:\n     - Summarize the key points from the transcript that provide relevant background information.\n     - Include dates, times, and specific events that led to the complaint.\n\n   - Detailed Description of the Issue:\n     - Describe the main issues or grievances in a structured and logical manner.\n     - Use bullet points or numbered lists for clarity if necessary.\n\n   - Evidence and Documentation:\n     - Reference any evidence or documentation that supports your complaint (e.g., receipts, emails, photos).\n     - Attach these documents to the email if possible.\n\n   - Impact of the Issue:\n     - Explain how the issue has affected you, your business, or your rights.\n     - Be factual and avoid emotional language.\n\n   - Resolution Sought:\n     - Clearly state what resolution or action you are seeking.\n     - Be specific about what you expect from the recipient (e.g., refund, apology, corrective action).\n\n4. Closing:\n   - Reiterate the importance of the issue and the desired resolution.\n   - Provide your contact information for further communication.\n   - End with a professional closing (e.g., \"Sincerely,\" \"Best regards\").\n\n5. Professional Tone:\n   - Maintain a formal and respectful tone throughout the email.\n   - Avoid personal attacks, derogatory language, or overly emotional statements.\n\nAdditional Notes:\n- Ensure the email is well-organized and easy to read.\n- Proofread the email for grammar, spelling, and clarity.\n- Keep the email concise, ideally no longer than one page.\n\nAttachments:\n- Include any relevant documents, photos, or evidence that support your complaint.\n",
+      "description": null,
+      "title": "Complaint Email"
+    },
+    "sponsorship_request": {
+      "name": "sponsorship_request",
+      "content": "",
+      "description": null,
+      "title": "Sponsorship Request"
+    },
+    "professional_tone": {
+      "name": "professional_tone",
+      "content": "",
+      "description": null,
+      "title": "Professional Tone"
+    },
+    "personal_tone": {
+      "name": "personal_tone",
+      "content": "",
+      "description": null,
+      "title": "Personal Tone"
+    }
+  }
+}
