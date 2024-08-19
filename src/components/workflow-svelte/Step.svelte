@@ -2,12 +2,12 @@
   import { stateStore } from '../../stateStore';
   import type { Section, Step, Workflow } from '../../types';
   import { providers } from '../../types';
-
-  import TagSelect from './TagSelect.svelte';
+  
   import LeftArrowIcon from './icons/LeftArrowIcon.svelte';
   import LeftUpArrowIcon from './icons/LeftUpArrowIcon.svelte';
   import RightArrowIcon from './icons/RightArrowIcon.svelte';
   import RightDownArrowIcon from './icons/RightDownArrowIcon.svelte';
+  import TagSelect from './TagSelect.svelte';
 
   export let workflow: Workflow;
   export let currentSection: Section;
@@ -15,13 +15,59 @@
 
   let options: string[] = [];
   let selectedOptions: string[] = currentStep.language_models;
-  console.log('Step::Selected Options:', selectedOptions);
-  console.log('STEP::Providers:', providers);
+  let interpolatedPrompt: string = currentStep.prompt;
+  
+  let isCollapsed: boolean = true; // To manage the collapsible state
+
+  // Populate options for language models
   options = providers.flatMap(provider => provider.models.map(model => model.apiCode));
-  console.log('Step::Options:', options);
+
+  // Function to update the interpolated prompt
+  function updateInterpolatedPrompt(prompt: string) {
+    interpolatedPrompt = prompt.replace(/\[([^\]]+)\]/g, (_, placeholder) => {
+      const matchingAttr = currentStep.input_attributes.find(attr => attr.name === placeholder);
+      const inputElement = document.getElementById(placeholder) as HTMLInputElement;
+      return matchingAttr && inputElement ? inputElement.value : `[${placeholder}]`;
+    });
+  }
+
+  // Call the update function whenever the input fields change
+  $: currentStep.input_attributes, updateInterpolatedPrompt(currentStep.prompt);
 
   function handleSelectionChange(event) {
     selectedOptions = event.detail;
+  }
+
+  function handlePromptChange(event) {
+    currentStep.prompt = event.target.value;
+    updateInterpolatedPrompt(currentStep.prompt);
+  }
+
+  function handleInputChange() {
+    updateInterpolatedPrompt(currentStep.prompt);
+  }
+
+  function toggleCollapse() {
+    isCollapsed = !isCollapsed;
+  }
+
+  function copyToClipboard() {
+    navigator.clipboard.writeText(interpolatedPrompt).then(() => {
+      stateStore.update(state => ({
+        ...state,
+        toastMessage: 'Copied to clipboard!',
+        toastVisible: true,
+      }));
+
+      setTimeout(() => {
+        stateStore.update(state => ({
+          ...state,
+          toastVisible: false,
+        }));
+      }, 3000);
+    }).catch(err => {
+      console.error('Failed to copy text: ', err);
+    });
   }
 
   function goToPreviousStep() {
@@ -61,11 +107,6 @@
       currentStep: step,
     }));
   }
-
-  // Debugging statements
-  // console.log('Step::Workflow:', workflow);
-  // console.log('Step::Current Section:', currentSection);
-  // console.log('Step::Current Step:', currentStep);
 </script>
 
 <div class="w-full bg-white shadow-md rounded-md overflow-hidden my-4 flex flex-col p-6 py-16">
@@ -85,9 +126,39 @@
               id={attr.name}
               name={attr.name}
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-dark focus:border-primary-dark sm:text-sm"
+              on:input={handleInputChange}
             />
           </div>
         {/each}
+      </div>
+
+      <!-- Collapsible Interpolated Prompt -->
+      <div class="mt-4">
+        <div class="flex items-center justify-between">
+          <button
+            class="text-sm font-medium text-gray-700 mb-2 focus:outline-none"
+            on:click={toggleCollapse}
+          >
+            {isCollapsed ? 'Show' : 'Hide'} Interpolated Prompt
+          </button>
+          <button
+            class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-2 rounded"
+            on:click={copyToClipboard}
+          >
+            Copy
+          </button>
+        </div>
+        {#if !isCollapsed}
+          <div class="mt-2">
+            <textarea
+              id="interpolated-prompt"
+              name="interpolated-prompt"
+              rows="10"
+              class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-dark focus:border-primary-dark sm:text-sm"
+              readonly
+            >{interpolatedPrompt}</textarea>
+          </div>
+        {/if}
       </div>
     </div>
 
@@ -99,6 +170,7 @@
         name="prompt"
         rows="20"
         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-dark focus:border-primary-dark sm:text-sm"
+        on:input={handlePromptChange}
       >{currentStep.prompt}</textarea>
 
       <!-- Output Attributes (Below Prompt) -->

@@ -21,7 +21,7 @@ interface GptProps {
 
 const { gpt } = Astro.props as { gpt: GptProps };
 const settingsArray = Object.entries(gpt.settings).map(([name, value]) => ({ name, value }));
-const currentStep = 5;
+const currentStep = 2;
 ---
 <div x-data="{ open: false, currentComponent: 'Research', activeMenuItem: 'sections' }" @menu-click.window="currentComponent = $event.detail" @keydown.window.escape="open = false">
   <SidebarMobileContainer>

@@ -9,6 +9,8 @@ export interface AppState {
   currentComponent: string;
   currentSection: Section | null;
   currentStep: Step | null;
+  toastVisible: boolean;
+  toastMessage: string;
 }
 
 export interface AppStateProps {

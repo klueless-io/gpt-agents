@@ -9,7 +9,9 @@ const initialState: AppState = {
   currentComponent: "Overview",
   currentSection: null,
   currentStep: null,
-  providers: []
+  providers: [],
+  toastVisible: false,
+  toastMessage: ''
 };
 
 export const stateStore = writable(initialState);

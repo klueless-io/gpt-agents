@@ -22,30 +22,37 @@
   }
 
   function toggleQuickAccessPanel() {
+    console.log('Toggling Quick Access Panel:', showQuickAccessPanel); // Debug statement
     showQuickAccessPanel = !showQuickAccessPanel;
   }
 
   function handleOpenDebugMonitor() {
+    console.log('Opening Debug Monitor');  // Debug statement
     showDebugMonitor = true;
   }
 
   function handleCloseDebugMonitor() {
+    console.log('Closing Debug Monitor');  // Debug statement
     showDebugMonitor = false;
+    showQuickAccessPanel = false;
   }
 
   function handleKeyPress(event: KeyboardEvent) {
+    console.log('Key Pressed:', event.key);  // Debug statement
     if (event.key === 'q' || event.key === 'Q') {
-      showQuickAccessPanel = !showQuickAccessPanel;
+      toggleQuickAccessPanel();
     }
   }
 
   onMount(() => {
+    console.log('SidebarDesktop::Component mounted');  // Debug statement
     if (typeof window !== 'undefined') {
       window.addEventListener('keydown', handleKeyPress);
     }
   });
 
   onDestroy(() => {
+    console.log('SidebarDesktop::Component being destroyed');  // Debug statement
     if (typeof window !== 'undefined') {
       window.removeEventListener('keydown', handleKeyPress);
     }
@@ -96,7 +103,9 @@
       </li>
     </ul>
   </nav>
-  <QuickAccess visible={showQuickAccessPanel} on:close={() => showQuickAccessPanel = false} on:openDebugMonitor={handleOpenDebugMonitor} />
+  {#if showQuickAccessPanel}
+    <QuickAccess visible={showQuickAccessPanel} on:close={() => showQuickAccessPanel = false} on:openDebugMonitor={handleOpenDebugMonitor} />
+  {/if}
   {#if showDebugMonitor}
     <DebugMonitor visible={showDebugMonitor} on:close={handleCloseDebugMonitor} />
   {/if}

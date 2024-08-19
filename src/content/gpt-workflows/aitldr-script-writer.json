@@ -1,0 +1,517 @@
+{
+  "name": "aitldr_script_writer",
+  "title": "Aitldr Script Writer",
+  "description": "Create YouTube scripts for AITLDR",
+  "settings": {
+    "prompt_path": {
+      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/aitldr_script_writer",
+      "description": null,
+      "title": "Prompt Path"
+    },
+    "default_llm": {
+      "value": "gpt4o",
+      "description": null,
+      "title": "Default Llm"
+    }
+  },
+  "sections": [
+    {
+      "name": "Video Research",
+      "title": "Video Research",
+      "order": 1,
+      "description": null,
+      "steps": [
+        {
+          "name": "Basic Factsheet",
+          "title": "Basic Factsheet",
+          "order": 1,
+          "description": null,
+          "prompt": "# Develop basic factsheet for video project\n\nI need you to gather detailed and reliable information about the \"[topic]\"\n\nHere is a simple description from what I already know about [topic]:\n\n[topic_description]\n\n## Guidelines:\n\nThe information should be based on recent discussions, reviews, and credible sources available on the internet.\nPlease ensure that the data is comprehensive and unbiased, providing enough detail to generate well-informed articles.\n\nThe information should include the following:\nOverview: A brief description of the product, including its purpose and main features.\nCompany Background: Information about the company that developed the product, including its history and reputation.\nUser Reviews: Summarized insights from user reviews and testimonials, highlighting common praises and complaints.\nPricing: Details about the pricing plans and any available free trials or discounts.\nComparison: A comparison with similar products in the market, noting any unique selling points or disadvantages.\nUse Cases: Examples of how different types of users or businesses are utilizing the product.\nUpdates and Roadmap: Information about recent updates and future plans for the product.\nExpert Opinions: Insights from industry experts or notable publications.\nCommunity and Support: Details about the community support, forums, and customer service quality.\nPlease ensure that all information is up-to-date and from credible sources, avoiding any hallucinations or unverified.\n",
+          "input_attributes": [
+            {
+              "name": "topic",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Topic"
+            },
+            {
+              "name": "topic_description",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Topic Description"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "basic_factsheet",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Basic Factsheet"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Perplexity Expansion",
+          "title": "Perplexity Expansion",
+          "order": 2,
+          "description": null,
+          "prompt": "Can you validate this information?\n\nTopic \"[topic]\":\n\n[basic_factsheet]\n",
+          "input_attributes": [
+            {
+              "name": "topic",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Topic"
+            },
+            {
+              "name": "basic_factsheet",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Basic Factsheet"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "expanded_factsheet",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Expanded Factsheet"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Consolidated Factsheet",
+          "title": "Consolidated Factsheet",
+          "order": 3,
+          "description": null,
+          "prompt": "Consolidate the information from these three data sources into a single factsheet in markdown in a code block.\n\nDo not loose any information from the three sources.\n\nTopic \"[topic]\":\n\n1. Topic description from futuretools.io:\n\n[topic_description]\n\n2. Basic factsheet:\n\n[basic_factsheet]\n\n3. Facsheet expanded with perplexity:\n\n[expanded_factsheet]\n\n",
+          "input_attributes": [
+            {
+              "name": "topic",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Topic"
+            },
+            {
+              "name": "topic_description",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Topic Description"
+            },
+            {
+              "name": "basic_factsheet",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Basic Factsheet"
+            },
+            {
+              "name": "expanded_factsheet",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Expanded Factsheet"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "consolidated_factsheet",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Consolidated Factsheet"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Project Details",
+          "title": "Project Details",
+          "order": 4,
+          "description": null,
+          "prompt": "I need to create meta data for our video project.\n\nThe information that I will be looking for, is potential project names/titles, video types and topics.\n\nI will give you instructions on how to format each of these outputs.\nI will give you my starting topic and a detailed fact sheet the end:\n\nInstructions:\n\nWe need to come up with the following for lists\n\nCreate 5 topics that we could talk about for [topic]\nCreate 5 vide types that couul appliy [topic]\nCreate 5 simple project titles\nEach title should be three to seven words long\n\nCan you create fours lists in a single code block.\n\n1. 5x topics'\n2. 5x video types\n3. 5x project titles using title case\n2. 5x project names using dash notation\n\nA project name will generally be a short phrase that includes the product or topic that we're going to be talking about, and maybe one or two action style keywords that help us understand the direction or the type of video that is inside the project.\n\nHere previous project name examples:\n\nflivideo-video-asset-managment\nkajabi-gpt-appydave\nsop-in-kajabi-with-loom\nprompt-engineering-writing-story\nbuy-me-a-coffee\nmj-alternatives-shorts\nbanned-from-midjourney\nmidjourney-alternatives\nagent-workflow\nwebsim.ai\nwebsim.ai-10-games\nagent-workflow-poc\n\nOutput format should look like\n\n\nTitles\n  - Title 1\n  - Title 2\n  - Title 3\n  - Title 4\n  - Title 5\n\n\nNames\n  - name-1\n  - name-2\n  - name-3\n  - name-4\n  - name-5\n\nHere is detailed factsheet on the \"[topic]\":\n\n[consolidated_factsheet]\n\n\n\n",
+          "input_attributes": [
+            {
+              "name": "topic",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Topic"
+            },
+            {
+              "name": "consolidated_factsheet",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Consolidated Factsheet"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "ideas_topic",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Ideas Topic"
+            },
+            {
+              "name": "ideas_video_type",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Ideas Video Type"
+            },
+            {
+              "name": "ideas_project_name",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Ideas Project Name"
+            },
+            {
+              "name": "ideas_project_title",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Ideas Project Title"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Select Ideas to Focus On",
+          "title": "Select Ideas To Focus On",
+          "order": 5,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "ideas_topic",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Ideas Topic"
+            },
+            {
+              "name": "ideas_video_type",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Ideas Video Type"
+            },
+            {
+              "name": "ideas_project_name",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Ideas Project Name"
+            },
+            {
+              "name": "ideas_project_title",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Ideas Project Title"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "video_topic",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Topic"
+            },
+            {
+              "name": "video_type",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Type"
+            },
+            {
+              "name": "project_name",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Project Name"
+            },
+            {
+              "name": "project_title",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Project Title"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Factsheet for Video Type",
+          "title": "Factsheet For Video Type",
+          "order": 6,
+          "description": null,
+          "prompt": "Expand the factsheet so that you have all the information you need for a specific type of video on a topic.\n\nVideo Type: [video_type]\nVideo Topic: [video_topic]\n\nFactsheet:\n\n[consolidated_factsheet]\n",
+          "input_attributes": [
+            {
+              "name": "video_topic",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Topic"
+            },
+            {
+              "name": "video_type",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Type"
+            },
+            {
+              "name": "consolidated_factsheet",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Consolidated Factsheet"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "video_factsheet",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Factsheet"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Script Writing",
+      "title": "Script Writing",
+      "order": 2,
+      "description": null,
+      "steps": [
+        {
+          "name": "Write Script",
+          "title": "Write Script",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "video_topic",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Topic"
+            },
+            {
+              "name": "video_type",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Type"
+            },
+            {
+              "name": "project_title",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Project Title"
+            },
+            {
+              "name": "video_factsheet",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Factsheet"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "script",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Script"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "topic": {
+      "name": "topic",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Topic"
+    },
+    "topic_description": {
+      "name": "topic_description",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Topic Description"
+    },
+    "basic_factsheet": {
+      "name": "basic_factsheet",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Basic Factsheet"
+    },
+    "expanded_factsheet": {
+      "name": "expanded_factsheet",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Expanded Factsheet"
+    },
+    "consolidated_factsheet": {
+      "name": "consolidated_factsheet",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Consolidated Factsheet"
+    },
+    "video_factsheet": {
+      "name": "video_factsheet",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Video Factsheet"
+    },
+    "ideas_topic": {
+      "name": "ideas_topic",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Ideas Topic"
+    },
+    "ideas_video_type": {
+      "name": "ideas_video_type",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Ideas Video Type"
+    },
+    "ideas_project_name": {
+      "name": "ideas_project_name",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Ideas Project Name"
+    },
+    "ideas_project_title": {
+      "name": "ideas_project_title",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Ideas Project Title"
+    },
+    "detailed_topic": {
+      "name": "detailed_topic",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Detailed Topic"
+    },
+    "video_type": {
+      "name": "video_type",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Video Type"
+    },
+    "project_name": {
+      "name": "project_name",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Project Name"
+    },
+    "project_title": {
+      "name": "project_title",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Project Title"
+    },
+    "video_topic": {
+      "name": "video_topic",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Video Topic"
+    },
+    "script": {
+      "name": "script",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Script"
+    }
+  },
+  "prompts": {
+    "video_basic_factsheet": {
+      "name": "video_basic_factsheet",
+      "content": "# Develop basic factsheet for video project\n\nI need you to gather detailed and reliable information about the \"[topic]\"\n\nHere is a simple description from what I already know about [topic]:\n\n[topic_description]\n\n## Guidelines:\n\nThe information should be based on recent discussions, reviews, and credible sources available on the internet.\nPlease ensure that the data is comprehensive and unbiased, providing enough detail to generate well-informed articles.\n\nThe information should include the following:\nOverview: A brief description of the product, including its purpose and main features.\nCompany Background: Information about the company that developed the product, including its history and reputation.\nUser Reviews: Summarized insights from user reviews and testimonials, highlighting common praises and complaints.\nPricing: Details about the pricing plans and any available free trials or discounts.\nComparison: A comparison with similar products in the market, noting any unique selling points or disadvantages.\nUse Cases: Examples of how different types of users or businesses are utilizing the product.\nUpdates and Roadmap: Information about recent updates and future plans for the product.\nExpert Opinions: Insights from industry experts or notable publications.\nCommunity and Support: Details about the community support, forums, and customer service quality.\nPlease ensure that all information is up-to-date and from credible sources, avoiding any hallucinations or unverified.\n",
+      "description": null,
+      "title": "Video Basic Factsheet"
+    },
+    "perplexity_expansion": {
+      "name": "perplexity_expansion",
+      "content": "Can you validate this information?\n\nTopic \"[topic]\":\n\n[basic_factsheet]\n",
+      "description": null,
+      "title": "Perplexity Expansion"
+    },
+    "consolidated_factsheet": {
+      "name": "consolidated_factsheet",
+      "content": "Consolidate the information from these three data sources into a single factsheet in markdown in a code block.\n\nDo not loose any information from the three sources.\n\nTopic \"[topic]\":\n\n1. Topic description from futuretools.io:\n\n[topic_description]\n\n2. Basic factsheet:\n\n[basic_factsheet]\n\n3. Facsheet expanded with perplexity:\n\n[expanded_factsheet]\n\n",
+      "description": null,
+      "title": "Consolidated Factsheet"
+    },
+    "project_details": {
+      "name": "project_details",
+      "content": "I need to create meta data for our video project.\n\nThe information that I will be looking for, is potential project names/titles, video types and topics.\n\nI will give you instructions on how to format each of these outputs.\nI will give you my starting topic and a detailed fact sheet the end:\n\nInstructions:\n\nWe need to come up with the following for lists\n\nCreate 5 topics that we could talk about for [topic]\nCreate 5 vide types that couul appliy [topic]\nCreate 5 simple project titles\nEach title should be three to seven words long\n\nCan you create fours lists in a single code block.\n\n1. 5x topics'\n2. 5x video types\n3. 5x project titles using title case\n2. 5x project names using dash notation\n\nA project name will generally be a short phrase that includes the product or topic that we're going to be talking about, and maybe one or two action style keywords that help us understand the direction or the type of video that is inside the project.\n\nHere previous project name examples:\n\nflivideo-video-asset-managment\nkajabi-gpt-appydave\nsop-in-kajabi-with-loom\nprompt-engineering-writing-story\nbuy-me-a-coffee\nmj-alternatives-shorts\nbanned-from-midjourney\nmidjourney-alternatives\nagent-workflow\nwebsim.ai\nwebsim.ai-10-games\nagent-workflow-poc\n\nOutput format should look like\n\n\nTitles\n  - Title 1\n  - Title 2\n  - Title 3\n  - Title 4\n  - Title 5\n\n\nNames\n  - name-1\n  - name-2\n  - name-3\n  - name-4\n  - name-5\n\nHere is detailed factsheet on the \"[topic]\":\n\n[consolidated_factsheet]\n\n\n\n",
+      "description": null,
+      "title": "Project Details"
+    },
+    "factsheet_for_video_type": {
+      "name": "factsheet_for_video_type",
+      "content": "Expand the factsheet so that you have all the information you need for a specific type of video on a topic.\n\nVideo Type: [video_type]\nVideo Topic: [video_topic]\n\nFactsheet:\n\n[consolidated_factsheet]\n",
+      "description": null,
+      "title": "Factsheet For Video Type"
+    }
+  }
+}

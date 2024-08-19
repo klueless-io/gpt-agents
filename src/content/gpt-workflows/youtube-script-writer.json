@@ -1,7 +1,7 @@
 {
   "name": "youtube_script_writer",
   "title": "Youtube Script Writer",
-  "description": "This workflow is used to write a script for a YouTube video.",
+  "description": "AppyDave This workflow is used to write a script for a YouTube video.",
   "settings": {
     "prompt_path": {
       "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/youtube/script_writer",
@@ -9,15 +9,15 @@
       "title": "Prompt Path"
     },
     "default_llm": {
-      "value": "gpt4o",
+      "value": "claude",
       "description": null,
       "title": "Default Llm"
     }
   },
   "sections": [
     {
-      "name": "Research",
-      "title": "Research",
+      "name": "Research and Development",
+      "title": "Research And Development",
       "order": 1,
       "description": null,
       "steps": [
@@ -46,7 +46,7 @@
             }
           ],
           "language_models": [
-            "gpt4o"
+            "claude"
           ]
         },
         {
@@ -74,7 +74,7 @@
             }
           ],
           "language_models": [
-            "gpt4o"
+            "claude"
           ]
         },
         {
@@ -102,7 +102,7 @@
             }
           ],
           "language_models": [
-            "gpt4o"
+            "claude"
           ]
         },
         {
@@ -144,7 +144,7 @@
             }
           ],
           "language_models": [
-            "gpt4o"
+            "claude"
           ]
         },
         {
@@ -172,7 +172,7 @@
             }
           ],
           "language_models": [
-            "gpt4o"
+            "claude"
           ]
         },
         {
@@ -214,7 +214,7 @@
             }
           ],
           "language_models": [
-            "gpt4o"
+            "claude"
           ]
         },
         {
@@ -270,7 +270,7 @@
             }
           ],
           "language_models": [
-            "gpt4o"
+            "claude"
           ]
         }
       ]
@@ -313,7 +313,7 @@
             }
           ],
           "language_models": [
-            "gpt4o"
+            "claude"
           ]
         }
       ]

@@ -8,6 +8,7 @@
   import Settings from './workflow-svelte/Settings.svelte';
   import SidebarDesktop from './workflow-svelte/SidebarDesktop.svelte';
   import SidebarDesktopContainer from './workflow-svelte/SidebarDesktopContainer.svelte';
+  import Toast from './workflow-svelte/Toast.svelte';
   import TopBar from './workflow-svelte/TopBar.svelte';
   import WorkflowContainer from './workflow-svelte/Workflow.svelte';
 
@@ -86,4 +87,5 @@
       </div>
     </main>
   </div>
+  <Toast visible={state.toastVisible} message={state.toastMessage} />
 </div>

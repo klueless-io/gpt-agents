@@ -1,0 +1,307 @@
+{
+  "name": "printspeak_tools",
+  "title": "Printspeak Tools",
+  "description": "Rails Upgrade tools for Printspeak",
+  "settings": {
+    "prompt_path": {
+      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/printspeak_tools",
+      "description": null,
+      "title": "Prompt Path"
+    },
+    "default_llm": {
+      "value": "gpt4o",
+      "description": null,
+      "title": "Default Llm"
+    }
+  },
+  "sections": [
+    {
+      "name": "Analyize Ruby Code",
+      "title": "Analyize Ruby Code",
+      "order": 1,
+      "description": null,
+      "steps": [
+        {
+          "name": "Analyize View",
+          "title": "Analyize View",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "view",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "View"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "view_analysis",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "View Analysis"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Query Equivalence",
+          "title": "Query Equivalence",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "old_query",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Old Query"
+            },
+            {
+              "name": "new_query",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "New Query"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "query_equivalence",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Query Equivalence"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "DB Layer",
+      "title": "Db Layer",
+      "order": 2,
+      "description": null,
+      "steps": [
+        {
+          "name": "SQL to Query Object",
+          "title": "Sql To Query Object",
+          "order": 1,
+          "description": null,
+          "prompt": "You will take the following SQL query and convert it into a Ruby Query class that uses Active Relation.\n\nThe SQL provided will either be pure or embedded with other Ruby code, which provides additional context.\n\nWhen converting SQL to a Query class, please consider the following edge cases:\n\nAttribute Accessors:\n\nIf the query involves additional outputs that are not directly part of the main SQL result, \nensure to include these as attribute accessors in the Query class. \nThis will allow the Query class to expose these additional outputs for further use in the application.\n\nExtra Outputs:\n\nFor cases where the query calculates or aggregates values that are not immediately part of the SQL\nbut need to be accessed later (e.g., totals, counts), include these as separate attributes within the Query class.\nSet these attributes within the call method or a dedicated method, ensuring they are accessible after the query execution.\n\nHandling Optional Parameters:\n\nIf the SQL query includes optional parameters that can alter the result set,\nensure these are accounted for in the Query class by making them configurable through the contract method.\nDefault values can be provided where appropriate, but the Query class should be flexible enough to handle variations in input.\n\nIf the calculation logic is complex, you can suggest that the logic be extracted to the presenter.\n\nExpected Name:\n[query_name]\n\nOriginal Query:\n[query]\n\n----\n\nBelow is previous examples showing the old SQL code that was embeded in views and the new new Query Object that replaced it.\n\n# Example 1\n\n## Original SQL/Ruby Script\n```ruby\n<%\n  start_date = Time.zone.now.in_time_zone(@tenant.time_zone).beginning_of_month.strftime('%Y-%m-%d')\n  end_date =  Time.zone.now.in_time_zone(@tenant.time_zone).beginning_of_month.strftime('%Y-%m-%d')\n\n  start_date = params[:date_from] if !params[:date_from].blank?\n  end_date = params[:date_to] if !params[:date_to].blank?\n%>\n\n<% sql =\n      <<~EOF\n\nSET work_mem = '16MB';\nSET max_parallel_workers_per_gather = 4;\n\nSELECT\n--- coalesce(nullif(clearbit_data->'category'->>'subIndustry',''), 'No Category') as category,\nCASE \n  WHEN custom_data -> 'category' ->> 'subIndustry' is DISTINCT from null THEN custom_data -> 'category' ->> 'subIndustry'\n  WHEN clearbit_data -> 'category' ->> 'subIndustry' is DISTINCT from null THEN clearbit_data -> 'category' ->> 'subIndustry'\n  ELSE 'No Category'\nEND as category,\nCOUNT(DISTINCT invoices.tenant_id) tenant_count,\nCOUNT(DISTINCT company_id) company_count,\nsum(grand_total) total\nFROM\n\tinvoices\nJOIN \n\tcompanies on invoices.company_id = companies.id\nJOIN \n  tenants ON invoices.tenant_id = tenants.id\nWHERE \n  tenants.enterprise_id = :enterprise_id\nAND\n\tpickup_date BETWEEN :start_date AND :end_date\n  AND\n  (voided = FALSE\n          OR voided IS NULL)\n          AND invoices.deleted = FALSE\n          AND pickup_date is NOT NULL\nGROUP BY \n\t1;  \nEOF\n\nsql = ActiveRecord::Base.send(:sanitize_sql, [sql, start_date: start_date, end_date: Date.parse(end_date).end_of_month.strftime('%Y-%m-%d'), enterprise_id: current_user.enterprise.id])\n\nresults       = ActiveRecord::Base.connection.execute(sql)\n%>\n```\n\n## Query Class\n```ruby\nmodule Enterprises\n  module Reports\n    class SalesByCompanyCategoryQuery < Common::Query\n      default_scope :invoice\n\n      contract do\n        attribute :enterprise_id, :integer\n        attribute :start_date, :string\n        attribute :end_date, :string\n      end\n\n      def call\n        validate\n        set_pg_settings\n        build_query\n      end\n\n      private\n\n      def set_pg_settings\n        ActiveRecord::Base.connection.execute(\"SET work_mem = '16MB';\")\n        ActiveRecord::Base.connection.execute(\"SET max_parallel_workers_per_gather = 4;\")\n      end\n\n      def build_query\n        self.scope = self.scope\n          .joins(:company, :tenant)\n          .where(\n            tenants: { enterprise_id: opts.enterprise_id },\n            pickup_date: opts.start_date..opts.end_date\n          )\n          .where.not(voided: true)\n          .where(deleted: false)\n          .where.not(pickup_date: nil)\n          .select(<<-SQL.squish)\n            CASE#{' '}\n              WHEN custom_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN custom_data -> 'category' ->> 'subIndustry'\n              WHEN clearbit_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN clearbit_data -> 'category' ->> 'subIndustry'\n              ELSE 'No Category'\n            END AS category,\n            COUNT(DISTINCT invoices.tenant_id) AS tenant_count,\n            COUNT(DISTINCT company_id) AS company_count,\n            SUM(grand_total) AS total\n          SQL\n          .group(\"category\")\n      end\n    end\n  end\nend\n```\n\n# Example 2\n\nThis SQL was in a controller and has now been split moved into two Query Objects\n\n## Original SQL/Ruby Script\n```ruby\n    status_counts_query = %Q{\n      SELECT\n        contacts.tenant_id,\n        SUM(CASE WHEN contacts.needs_email_validation = FALSE THEN 1 ELSE 0 END) AS processed_count,\n        SUM(CASE WHEN contacts.needs_email_validation = TRUE THEN 1 ELSE 0 END) AS unprocessed_count\n      FROM contacts\n      INNER JOIN tenants ON tenants.id = contacts.tenant_id\n      WHERE contacts.unsubscribed = FALSE\n      AND contacts.deleted = FALSE\n      AND contacts.temp = FALSE\n      AND tenants.etl_flag = TRUE\n      AND tenants.training = FALSE\n      AND tenants.demo = FALSE\n      AND tenants.enterprise_id = #{current_user.enterprise_id}\n      AND NOT EXISTS (\n        SELECT null\n        FROM companies\n        WHERE companies.tenant_id = contacts.tenant_id\n        AND companies.id = contacts.company_id\n        AND companies.marketing_do_not_mail = TRUE\n      )\n      GROUP BY contacts.tenant_id\n    }\n    @status_counts = ActiveRecord::Base.connection.execute(status_counts_query)\n    @total_processed = 0\n    @total_uprocessed = 0\n    @status_counts.each do |counts|\n      @total_processed += counts[\"processed_count\"].try(:to_i) || 0\n      @total_uprocessed += counts[\"unprocessed_count\"].try(:to_i) || 0\n    end\n    @status_total = @total_processed + @total_uprocessed\n\n    result_count_query = %Q{\n      SELECT tenant_id,\n             SUM(CASE WHEN code IN (#{EmailValidation.deliverable_codes.map { |s| \"'#{s}'\" }.to_csv}) THEN 1 ELSE 0 END) AS deliverable_count,\n             SUM(CASE WHEN code IN (#{EmailValidation.deliverable_but_unverified_codes.map { |s| \"'#{s}'\" }.to_csv}) THEN 1 ELSE 0 END) AS deliverable_but_unverified_count,\n             SUM(CASE WHEN code IN (#{EmailValidation.unverified_codes.map { |s| \"'#{s}'\" }.to_csv}) THEN 1 ELSE 0 END) AS unverified_count,\n             SUM(CASE WHEN code IN (#{EmailValidation.undeliverable_codes.map { |s| \"'#{s}'\" }.to_csv}) THEN 1 ELSE 0 END) AS undeliverable_count\n      FROM (\n        SELECT\n          DISTINCT ON (email_validations.contact_id)\n          email_validations.tenant_id,\n          email_validations.code,\n          email_validations.created_at\n        FROM email_validations\n        WHERE email_validations.enterprise_id = #{current_user.enterprise_id}\n        ORDER BY email_validations.contact_id ASC, email_validations.created_at DESC\n      ) T\n      GROUP BY T.tenant_id\n    }\n    @result_counts = ActiveRecord::Base.connection.execute(result_count_query)\n    @deliverable_total = 0\n    @deliverable_but_unverified_total = 0\n    @unverified_total = 0\n    @undeliverable_total = 0\n    @result_counts.each do |result|\n      @deliverable_total += result[\"deliverable_count\"].try(:to_i) || 0\n      @deliverable_but_unverified_total += result[\"deliverable_but_unverified_count\"].try(:to_i) || 0\n      @unverified_total += result[\"unverified_count\"].try(:to_i) || 0\n      @undeliverable_total += result[\"undeliverable_count\"].try(:to_i) || 0\n    end\n    @result_total = @deliverable_total + @deliverable_but_unverified_total + @unverified_total + @undeliverable_total\n```\n\n## Query Class 1\n\n```ruby\nclass Enterprises::EmailValidationStatusQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    self.scope = self.scope\n      .select(\n        \"contacts.tenant_id,\n        SUM(CASE WHEN contacts.needs_email_validation = FALSE THEN 1 ELSE 0 END) AS processed_count,\n        SUM(CASE WHEN contacts.needs_email_validation = TRUE THEN 1 ELSE 0 END) AS unprocessed_count\"\n      )\n      .joins(:tenant)\n      .where(\n        contacts: {\n          unsubscribed: false,\n          deleted: false,\n          temp: false\n        },\n        tenants: {\n          etl_flag: true,\n          training: false,\n          demo: false,\n          enterprise_id: opts.enterprise_id\n        }\n      )\n      .where(\n        \"NOT EXISTS (\n          SELECT null\n          FROM companies\n          WHERE companies.tenant_id = contacts.tenant_id\n          AND companies.id = contacts.company_id\n          AND companies.marketing_do_not_mail = TRUE\n        )\"\n      )\n      .group(\"contacts.tenant_id\")\n  end\nend\n```\n\n## Query Class 2\n\n```ruby\nclass Enterprises::EmailValidationResultQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    deliverable_codes = quote_and_join_list(EmailValidation.deliverable_codes)\n    deliverable_but_unverified_codes = quote_and_join_list(EmailValidation.deliverable_but_unverified_codes)\n    unverified_codes = quote_and_join_list(EmailValidation.unverified_codes)\n    undeliverable_codes = quote_and_join_list(EmailValidation.undeliverable_codes)\n\n    self.scope = self.scope\n      .select(\n        \"tenant_id,\n        SUM(CASE WHEN code IN (#{deliverable_codes}) THEN 1 ELSE 0 END) AS deliverable_count,\n        SUM(CASE WHEN code IN (#{deliverable_but_unverified_codes}) THEN 1 ELSE 0 END) AS deliverable_but_unverified_count,\n        SUM(CASE WHEN code IN (#{unverified_codes}) THEN 1 ELSE 0 END) AS unverified_count,\n        SUM(CASE WHEN code IN (#{undeliverable_codes}) THEN 1 ELSE 0 END) AS undeliverable_count\"\n      )\n      .from(email_validations_subquery, :T)\n      .group(\"tenant_id\")\n  end\n\n  def email_validations_subquery\n    EmailValidation\n      .select(\"DISTINCT ON (contact_id) tenant_id, code, created_at\")\n      .where(enterprise_id: opts.enterprise_id)\n      .order(\"contact_id ASC, created_at DESC\")\n  end\nend\n```\n\n## Query Class 2\n```ruby\nclass Enterprises::EmailValidationStatusQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    self.scope = self.scope\n      .select(\n        \"contacts.tenant_id,\n        SUM(CASE WHEN contacts.needs_email_validation = FALSE THEN 1 ELSE 0 END) AS processed_count,\n        SUM(CASE WHEN contacts.needs_email_validation = TRUE THEN 1 ELSE 0 END) AS unprocessed_count\"\n      )\n      .joins(:tenant)\n      .where(\n        contacts: {\n          unsubscribed: false,\n          deleted: false,\n          temp: false\n        },\n        tenants: {\n          etl_flag: true,\n          training: false,\n          demo: false,\n          enterprise_id: opts.enterprise_id\n        }\n      )\n      .where(\n        \"NOT EXISTS (\n          SELECT null\n          FROM companies\n          WHERE companies.tenant_id = contacts.tenant_id\n          AND companies.id = contacts.company_id\n          AND companies.marketing_do_not_mail = TRUE\n        )\"\n      )\n      .group(\"contacts.tenant_id\")\n  end\nend\n```\n\nExample 3\n\nThe following SQL/Ruby was in a view with extra calculations.,\nWhen moved to Query Object the calculated properties used a simple named attribute per calulation instead of multi dimensional arrays.\n\n## Original SQL\n```ruby\nsql_totals =\n  <<~EOF\n  SET work_mem = '16MB';\n  SET max_parallel_workers_per_gather = 4;\n\n  SELECT  (CASE coalesce(nullif(nullif(companies.clearbit_data->>'tags', 'null'), '[]'), '-') WHEN '-' THEN '-' ELSE 'tag' end) tag,\n            COUNT(DISTINCT invoices.tenant_id) tenant_count,\n            COUNT(DISTINCT companies.id) company_count,\n            SUM(invoices.grand_total) total\n  FROM invoices\n  JOIN companies ON invoices.company_id = companies.id\n  JOIN tenants ON invoices.tenant_id = tenants.id\n  WHERE \n    tenants.enterprise_id = :enterprise_id AND\n    invoices.pickup_date BETWEEN :start_date AND :end_date\n    AND invoices.voided IS DISTINCT FROM TRUE\n    AND invoices.deleted = FALSE\n    AND invoices.pickup_date is NOT NULL\n    AND companies.walk_in = false\n    GROUP BY 1\n    ;\nEOF\n\n\nsql_totals = ActiveRecord::Base.send(:sanitize_sql, [sql_totals, start_date: start_date, end_date: Date.parse(end_date).end_of_month.strftime('%Y-%m-%d'), enterprise_id: current_user.enterprise.id])\nresult_totals    = ActiveRecord::Base.connection.execute(sql_totals).to_a\n\ncompany_totals = [[\"Untagged Companies\", 0], [\"Tagged Companies\", 0]]\nsales_totals = [[\"Untagged Sales\", 0.0], [\"Tagged Sales\", 0.0]]\n\nif !result_totals.empty?\n  result_totals.each do |x|\n    case x['tag']\n    when '-'\n      company_totals[0][1] = x['company_count'].to_i\n      sales_totals[0][1] = x['total'].to_f\n    when 'tag'\n      company_totals[1][1] = x['company_count'].to_i\n      sales_totals[1][1] = x['total'].to_f\n    end\n  end\nend\n```\n\n## Query Class\n```ruby\nmodule Enterprises\n  module Reports\n    class SalesByTagTotalQuery < Common::Query\n      default_scope :invoice\n\n      attr_accessor :untagged_companies, :tagged_companies, :untagged_sales, :tagged_sales\n\n      contract do\n        attribute :enterprise_id, :integer\n        attribute :start_date, :string\n        attribute :end_date, :string\n      end\n\n      def call\n        validate\n        set_pg_settings\n        build_query\n        calculate_totals\n      end\n\n      private\n\n      def set_pg_settings\n        ActiveRecord::Base.connection.execute(\"SET work_mem = '16MB';\")\n        ActiveRecord::Base.connection.execute(\"SET max_parallel_workers_per_gather = 4;\")\n      end\n\n      def build_query\n        self.scope = self.scope\n          .joins(:company, :tenant)\n          .where(\n            tenants: { enterprise_id: opts.enterprise_id },\n            pickup_date: opts.start_date..opts.end_date\n          )\n          .where.not(voided: true)\n          .where(deleted: false)\n          .where.not(pickup_date: nil)\n          .where(companies: { walk_in: false })\n          .select(<<-SQL.squish)\n            (CASE COALESCE(\n              NULLIF(NULLIF(companies.clearbit_data->>'tags', 'null'), '[]'),\n              '-'\n            )\n            WHEN '-' THEN '-'\n            ELSE 'tag'\n            END) AS tag,\n            COUNT(DISTINCT invoices.tenant_id) AS tenant_count,\n            COUNT(DISTINCT companies.id) AS company_count,\n            SUM(invoices.grand_total) AS total\n          SQL\n          .group(\"1\")\n      end\n\n      def calculate_totals\n        self.untagged_companies = 0\n        self.tagged_companies = 0\n        self.untagged_sales = 0.0\n        self.tagged_sales = 0.0\n\n        self.scope.each do |result|\n          case result[\"tag\"]\n          when \"-\"\n            self.untagged_companies = result[\"company_count\"].to_i\n            self.untagged_sales = result[\"total\"].to_f\n          when \"tag\"\n            self.tagged_companies = result[\"company_count\"].to_i\n            self.tagged_sales = result[\"total\"].to_f\n          end\n        end\n      end\n    end\n  end\nend\n```\n\n# Common query class\n\n```ruby\n# Base class for query objects\n#\n# Use Query to provide complex query expressions using single responsibility principal.\nmodule Common\n  class Query\n    attr_accessor :scope\n    attr_reader :opts\n    attr_accessor :contract\n\n    class << self\n      # Run the query and return the query instance\n      #\n      # Use this technique when the query is producing more that one scope\n      def query(scope = nil, **opts)\n        new(scope, **opts).tap(&:call)\n      end\n\n      # Run the query and return an ActiveRecord scope\n      #\n      # Use this technique when the query is producing a single scope\n      def query_as_scope(scope = nil, **opts)\n        query(scope, **opts).scope\n      end\n\n      def scope\n        return @scope if defined? @scope\n        @scope = nil\n      end\n\n      def default_scope(name = nil)\n        @scope = if name.nil?\n                   yield if block_given?\n                  else\n                    begin\n                      name.to_s.classify.constantize.all\n                    rescue StandardError\n                      nil\n                    end\n                  end\n      end\n\n      def contract(&block)\n        return @contract if defined? @contract\n\n        @contract = Common::Contract.new\n        @contract.instance_eval(&block) if block_given?\n        @contract\n      end\n    end\n\n    def initialize(scope, **opts)\n      @contract = self.class.contract\n      @scope = scope || self.class.scope\n      @opts  = OpenStruct.new(opts)\n      raise ArgumentError, \"scope is required\" if @scope.nil?\n    end\n\n    def call\n      raise NoMethodError, \"implement the call method in your query object\"\n    end\n\n    def validate\n      contract.apply(opts)\n    end\n\n    # HELPERS\n\n    def clean_sort_direction(direction)\n      return \"\" if direction.nil? || %w[asc desc].none?(direction.to_s.downcase)\n      direction.to_s.upcase\n    end\n\n    def paginate\n      self.scope = scope.page(opts.page).per(opts.page_size)\n    end\n\n    # This method takes an array of items, quotes each item, and\n    # joins them with a comma, making it ready for use in an SQL query.\n    def quote_and_join_list(list)\n      list.map { |item| ActiveRecord::Base.connection.quote(item) }.join(\", \")\n    end\n\n    def sanitize_sql(sql, args = {})\n      ActiveRecord::Base.send(:sanitize_sql, [sql, args])\n    end\n  end\nend\n```\n",
+          "input_attributes": [
+            {
+              "name": "query_name",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Query Name"
+            },
+            {
+              "name": "query",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Query"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "query_class",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Query Class"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Check SQL/Active Record Equivalence",
+          "title": "Check Sql Active Record Equivalence",
+          "order": 2,
+          "description": null,
+          "prompt": "Compare the SQL to the Ruby ActiveRecord Query and tell me if they are functionally the same?\n\nSQL:\n[sql]\n\nRuby ActiveRecord:\n[query]\n\n",
+          "input_attributes": [
+            {
+              "name": "sql",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Sql"
+            },
+            {
+              "name": "query",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Query"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "sql_active_record_compare",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Sql Active Record Compare"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Creation Query Spec",
+          "title": "Creation Query Spec",
+          "order": 3,
+          "description": null,
+          "prompt": "You generate an rspec unit test for the provided Query class.\nDo not produce any extra output.\n\nWe are only testing SQL output, not the data and generally we only need to test based on conditionally logic or incoming paramaters\nif condition is true then a SQL fragment should be present in the output, it should not be present if the condition is false.\n\nExpected Name:\n[query_class]\n\n----\n\nBelow you will find pairs of Query Classes and their corresponding Unit Test.\n\n# Example 1\n\n## Query Class\n```ruby\nclass Enterprises::EmailValidationResultQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    deliverable_codes = quote_and_join_list(EmailValidation.deliverable_codes)\n    deliverable_but_unverified_codes = quote_and_join_list(EmailValidation.deliverable_but_unverified_codes)\n    unverified_codes = quote_and_join_list(EmailValidation.unverified_codes)\n    undeliverable_codes = quote_and_join_list(EmailValidation.undeliverable_codes)\n\n    self.scope = self.scope\n      .select(\n        \"tenant_id,\n        SUM(CASE WHEN code IN (#{deliverable_codes}) THEN 1 ELSE 0 END) AS deliverable_count,\n        SUM(CASE WHEN code IN (#{deliverable_but_unverified_codes}) THEN 1 ELSE 0 END) AS deliverable_but_unverified_count,\n        SUM(CASE WHEN code IN (#{unverified_codes}) THEN 1 ELSE 0 END) AS unverified_count,\n        SUM(CASE WHEN code IN (#{undeliverable_codes}) THEN 1 ELSE 0 END) AS undeliverable_count\"\n      )\n      .from(email_validations_subquery, :T)\n      .group(\"tenant_id\")\n  end\n\n  def email_validations_subquery\n    EmailValidation\n      .select(\"DISTINCT ON (contact_id) tenant_id, code, created_at\")\n      .where(enterprise_id: opts.enterprise_id)\n      .order(\"contact_id ASC, created_at DESC\")\n  end\nend\n```\n\n## Unit Test\n```ruby\n# frozen_string_literal: true\n\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::EmailValidationResultQuery, type: :query do\n  before(:each) do\n    FactoryBot.reload\n  end\n\n  subject { sql }\n\n  let(:run_query) { described_class.query(default_scope, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:default_scope) { EmailValidation.all }\n  let(:query_params) do\n    {\n      enterprise_id: 5\n    }\n  end\n\n  it { is_expected.to include(\"email_validations.enterprise_id = 5\") }\n  # it { puts sql }\nend\n```\n\n# Example 2\n\n## Query Class\n```ruby\nclass Enterprises::EmailValidationStatusQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    self.scope = self.scope\n      .select(\n        \"contacts.tenant_id,\n        SUM(CASE WHEN contacts.needs_email_validation = FALSE THEN 1 ELSE 0 END) AS processed_count,\n        SUM(CASE WHEN contacts.needs_email_validation = TRUE THEN 1 ELSE 0 END) AS unprocessed_count\"\n      )\n      .joins(:tenant)\n      .where(\n        contacts: {\n          unsubscribed: false,\n          deleted: false,\n          temp: false\n        },\n        tenants: {\n          etl_flag: true,\n          training: false,\n          demo: false,\n          enterprise_id: opts.enterprise_id\n        }\n      )\n      .where(\n        \"NOT EXISTS (\n          SELECT null\n          FROM companies\n          WHERE companies.tenant_id = contacts.tenant_id\n          AND companies.id = contacts.company_id\n          AND companies.marketing_do_not_mail = TRUE\n        )\"\n      )\n      .group(\"contacts.tenant_id\")\n  end\nend\n```\n\n## Unit Test\n```ruby\n# frozen_string_literal: true\n\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::EmailValidationStatusQuery, type: :query do\n  before(:each) do\n    FactoryBot.reload\n  end\n\n  subject { sql }\n\n  let(:run_query) { described_class.query(default_scope, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:default_scope) { Contact.all }\n  let(:query_params) do\n    {\n      enterprise_id: 5\n    }\n  end\n\n  it { is_expected.to include(\"tenants.enterprise_id = 5\") }\n  # it { puts sql }\nend\n```\n\n# Example 3\n\n## Query Class\n```ruby\nmodule Enterprises\n  module Reports\n    class SalesByCompanyCategoryQuery < Common::Query\n      default_scope :invoice\n\n      contract do\n        attribute :enterprise_id, :integer\n        attribute :start_date, :string\n        attribute :end_date, :string\n      end\n\n      def call\n        validate\n        set_pg_settings\n        build_query\n      end\n\n      private\n\n      def set_pg_settings\n        ActiveRecord::Base.connection.execute(\"SET work_mem = '16MB';\")\n        ActiveRecord::Base.connection.execute(\"SET max_parallel_workers_per_gather = 4;\")\n      end\n\n      def build_query\n        self.scope = self.scope\n          .joins(:company, :tenant)\n          .where(\n            tenants: { enterprise_id: opts.enterprise_id },\n            pickup_date: opts.start_date..opts.end_date\n          )\n          .where.not(voided: true)\n          .where(deleted: false)\n          .where.not(pickup_date: nil)\n          .select(<<-SQL.squish)\n            CASE#{' '}\n              WHEN custom_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN custom_data -> 'category' ->> 'subIndustry'\n              WHEN clearbit_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN clearbit_data -> 'category' ->> 'subIndustry'\n              ELSE 'No Category'\n            END AS category,\n            COUNT(DISTINCT invoices.tenant_id) AS tenant_count,\n            COUNT(DISTINCT company_id) AS company_count,\n            SUM(grand_total) AS total\n          SQL\n          .group(\"category\")\n      end\n    end\n  end\nend\n```\n\n## Unit Test\n```ruby\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::Reports::SalesByCompanyCategoryQuery, type: :query do\n  subject { sql }\n\n  let(:run_query) { described_class.query(Invoice, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:start_date) { Date.parse(\"2023-06-01\") }\n  let(:end_date) { Date.parse(\"2023-06-30\") }\n  let(:enterprise_id) { 5 }\n  let(:query_params) do\n    {\n      enterprise_id: enterprise_id,\n      start_date: start_date,\n      end_date: end_date\n    }\n  end\n\n  describe \".scope\" do\n    context \"when valid parameters are provided\" do\n      it do\n        is_expected\n          .to include(\"tenants.enterprise_id = 5\")\n          .and include(\"pickup_date BETWEEN '2023-06-01' AND '2023-06-30'\")\n      end\n    end\n  end\nend\n```",
+          "input_attributes": [
+            {
+              "name": "query_class",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Query Class"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "query_class_spec",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Query Class Spec"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "view": {
+      "name": "view",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "View"
+    },
+    "view_analysis": {
+      "name": "view_analysis",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "View Analysis"
+    },
+    "old_query": {
+      "name": "old_query",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Old Query"
+    },
+    "new_query": {
+      "name": "new_query",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "New Query"
+    },
+    "query_name": {
+      "name": "query_name",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Query Name"
+    },
+    "query": {
+      "name": "query",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Query"
+    },
+    "query_class": {
+      "name": "query_class",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Query Class"
+    },
+    "sql": {
+      "name": "sql",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Sql"
+    },
+    "sql_active_record_compare": {
+      "name": "sql_active_record_compare",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Sql Active Record Compare"
+    },
+    "query_equivalence": {
+      "name": "query_equivalence",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Query Equivalence"
+    },
+    "query_class_spec": {
+      "name": "query_class_spec",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Query Class Spec"
+    }
+  },
+  "prompts": {
+    "analyize_view": {
+      "name": "analyize_view",
+      "content": "",
+      "description": null,
+      "title": "Analyize View"
+    },
+    "query_equivalence": {
+      "name": "query_equivalence",
+      "content": "",
+      "description": null,
+      "title": "Query Equivalence"
+    },
+    "sql_to_query_class": {
+      "name": "sql_to_query_class",
+      "content": "You will take the following SQL query and convert it into a Ruby Query class that uses Active Relation.\n\nThe SQL provided will either be pure or embedded with other Ruby code, which provides additional context.\n\nWhen converting SQL to a Query class, please consider the following edge cases:\n\nAttribute Accessors:\n\nIf the query involves additional outputs that are not directly part of the main SQL result, \nensure to include these as attribute accessors in the Query class. \nThis will allow the Query class to expose these additional outputs for further use in the application.\n\nExtra Outputs:\n\nFor cases where the query calculates or aggregates values that are not immediately part of the SQL\nbut need to be accessed later (e.g., totals, counts), include these as separate attributes within the Query class.\nSet these attributes within the call method or a dedicated method, ensuring they are accessible after the query execution.\n\nHandling Optional Parameters:\n\nIf the SQL query includes optional parameters that can alter the result set,\nensure these are accounted for in the Query class by making them configurable through the contract method.\nDefault values can be provided where appropriate, but the Query class should be flexible enough to handle variations in input.\n\nIf the calculation logic is complex, you can suggest that the logic be extracted to the presenter.\n\nExpected Name:\n[query_name]\n\nOriginal Query:\n[query]\n\n----\n\nBelow is previous examples showing the old SQL code that was embeded in views and the new new Query Object that replaced it.\n\n# Example 1\n\n## Original SQL/Ruby Script\n```ruby\n<%\n  start_date = Time.zone.now.in_time_zone(@tenant.time_zone).beginning_of_month.strftime('%Y-%m-%d')\n  end_date =  Time.zone.now.in_time_zone(@tenant.time_zone).beginning_of_month.strftime('%Y-%m-%d')\n\n  start_date = params[:date_from] if !params[:date_from].blank?\n  end_date = params[:date_to] if !params[:date_to].blank?\n%>\n\n<% sql =\n      <<~EOF\n\nSET work_mem = '16MB';\nSET max_parallel_workers_per_gather = 4;\n\nSELECT\n--- coalesce(nullif(clearbit_data->'category'->>'subIndustry',''), 'No Category') as category,\nCASE \n  WHEN custom_data -> 'category' ->> 'subIndustry' is DISTINCT from null THEN custom_data -> 'category' ->> 'subIndustry'\n  WHEN clearbit_data -> 'category' ->> 'subIndustry' is DISTINCT from null THEN clearbit_data -> 'category' ->> 'subIndustry'\n  ELSE 'No Category'\nEND as category,\nCOUNT(DISTINCT invoices.tenant_id) tenant_count,\nCOUNT(DISTINCT company_id) company_count,\nsum(grand_total) total\nFROM\n\tinvoices\nJOIN \n\tcompanies on invoices.company_id = companies.id\nJOIN \n  tenants ON invoices.tenant_id = tenants.id\nWHERE \n  tenants.enterprise_id = :enterprise_id\nAND\n\tpickup_date BETWEEN :start_date AND :end_date\n  AND\n  (voided = FALSE\n          OR voided IS NULL)\n          AND invoices.deleted = FALSE\n          AND pickup_date is NOT NULL\nGROUP BY \n\t1;  \nEOF\n\nsql = ActiveRecord::Base.send(:sanitize_sql, [sql, start_date: start_date, end_date: Date.parse(end_date).end_of_month.strftime('%Y-%m-%d'), enterprise_id: current_user.enterprise.id])\n\nresults       = ActiveRecord::Base.connection.execute(sql)\n%>\n```\n\n## Query Class\n```ruby\nmodule Enterprises\n  module Reports\n    class SalesByCompanyCategoryQuery < Common::Query\n      default_scope :invoice\n\n      contract do\n        attribute :enterprise_id, :integer\n        attribute :start_date, :string\n        attribute :end_date, :string\n      end\n\n      def call\n        validate\n        set_pg_settings\n        build_query\n      end\n\n      private\n\n      def set_pg_settings\n        ActiveRecord::Base.connection.execute(\"SET work_mem = '16MB';\")\n        ActiveRecord::Base.connection.execute(\"SET max_parallel_workers_per_gather = 4;\")\n      end\n\n      def build_query\n        self.scope = self.scope\n          .joins(:company, :tenant)\n          .where(\n            tenants: { enterprise_id: opts.enterprise_id },\n            pickup_date: opts.start_date..opts.end_date\n          )\n          .where.not(voided: true)\n          .where(deleted: false)\n          .where.not(pickup_date: nil)\n          .select(<<-SQL.squish)\n            CASE#{' '}\n              WHEN custom_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN custom_data -> 'category' ->> 'subIndustry'\n              WHEN clearbit_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN clearbit_data -> 'category' ->> 'subIndustry'\n              ELSE 'No Category'\n            END AS category,\n            COUNT(DISTINCT invoices.tenant_id) AS tenant_count,\n            COUNT(DISTINCT company_id) AS company_count,\n            SUM(grand_total) AS total\n          SQL\n          .group(\"category\")\n      end\n    end\n  end\nend\n```\n\n# Example 2\n\nThis SQL was in a controller and has now been split moved into two Query Objects\n\n## Original SQL/Ruby Script\n```ruby\n    status_counts_query = %Q{\n      SELECT\n        contacts.tenant_id,\n        SUM(CASE WHEN contacts.needs_email_validation = FALSE THEN 1 ELSE 0 END) AS processed_count,\n        SUM(CASE WHEN contacts.needs_email_validation = TRUE THEN 1 ELSE 0 END) AS unprocessed_count\n      FROM contacts\n      INNER JOIN tenants ON tenants.id = contacts.tenant_id\n      WHERE contacts.unsubscribed = FALSE\n      AND contacts.deleted = FALSE\n      AND contacts.temp = FALSE\n      AND tenants.etl_flag = TRUE\n      AND tenants.training = FALSE\n      AND tenants.demo = FALSE\n      AND tenants.enterprise_id = #{current_user.enterprise_id}\n      AND NOT EXISTS (\n        SELECT null\n        FROM companies\n        WHERE companies.tenant_id = contacts.tenant_id\n        AND companies.id = contacts.company_id\n        AND companies.marketing_do_not_mail = TRUE\n      )\n      GROUP BY contacts.tenant_id\n    }\n    @status_counts = ActiveRecord::Base.connection.execute(status_counts_query)\n    @total_processed = 0\n    @total_uprocessed = 0\n    @status_counts.each do |counts|\n      @total_processed += counts[\"processed_count\"].try(:to_i) || 0\n      @total_uprocessed += counts[\"unprocessed_count\"].try(:to_i) || 0\n    end\n    @status_total = @total_processed + @total_uprocessed\n\n    result_count_query = %Q{\n      SELECT tenant_id,\n             SUM(CASE WHEN code IN (#{EmailValidation.deliverable_codes.map { |s| \"'#{s}'\" }.to_csv}) THEN 1 ELSE 0 END) AS deliverable_count,\n             SUM(CASE WHEN code IN (#{EmailValidation.deliverable_but_unverified_codes.map { |s| \"'#{s}'\" }.to_csv}) THEN 1 ELSE 0 END) AS deliverable_but_unverified_count,\n             SUM(CASE WHEN code IN (#{EmailValidation.unverified_codes.map { |s| \"'#{s}'\" }.to_csv}) THEN 1 ELSE 0 END) AS unverified_count,\n             SUM(CASE WHEN code IN (#{EmailValidation.undeliverable_codes.map { |s| \"'#{s}'\" }.to_csv}) THEN 1 ELSE 0 END) AS undeliverable_count\n      FROM (\n        SELECT\n          DISTINCT ON (email_validations.contact_id)\n          email_validations.tenant_id,\n          email_validations.code,\n          email_validations.created_at\n        FROM email_validations\n        WHERE email_validations.enterprise_id = #{current_user.enterprise_id}\n        ORDER BY email_validations.contact_id ASC, email_validations.created_at DESC\n      ) T\n      GROUP BY T.tenant_id\n    }\n    @result_counts = ActiveRecord::Base.connection.execute(result_count_query)\n    @deliverable_total = 0\n    @deliverable_but_unverified_total = 0\n    @unverified_total = 0\n    @undeliverable_total = 0\n    @result_counts.each do |result|\n      @deliverable_total += result[\"deliverable_count\"].try(:to_i) || 0\n      @deliverable_but_unverified_total += result[\"deliverable_but_unverified_count\"].try(:to_i) || 0\n      @unverified_total += result[\"unverified_count\"].try(:to_i) || 0\n      @undeliverable_total += result[\"undeliverable_count\"].try(:to_i) || 0\n    end\n    @result_total = @deliverable_total + @deliverable_but_unverified_total + @unverified_total + @undeliverable_total\n```\n\n## Query Class 1\n\n```ruby\nclass Enterprises::EmailValidationStatusQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    self.scope = self.scope\n      .select(\n        \"contacts.tenant_id,\n        SUM(CASE WHEN contacts.needs_email_validation = FALSE THEN 1 ELSE 0 END) AS processed_count,\n        SUM(CASE WHEN contacts.needs_email_validation = TRUE THEN 1 ELSE 0 END) AS unprocessed_count\"\n      )\n      .joins(:tenant)\n      .where(\n        contacts: {\n          unsubscribed: false,\n          deleted: false,\n          temp: false\n        },\n        tenants: {\n          etl_flag: true,\n          training: false,\n          demo: false,\n          enterprise_id: opts.enterprise_id\n        }\n      )\n      .where(\n        \"NOT EXISTS (\n          SELECT null\n          FROM companies\n          WHERE companies.tenant_id = contacts.tenant_id\n          AND companies.id = contacts.company_id\n          AND companies.marketing_do_not_mail = TRUE\n        )\"\n      )\n      .group(\"contacts.tenant_id\")\n  end\nend\n```\n\n## Query Class 2\n\n```ruby\nclass Enterprises::EmailValidationResultQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    deliverable_codes = quote_and_join_list(EmailValidation.deliverable_codes)\n    deliverable_but_unverified_codes = quote_and_join_list(EmailValidation.deliverable_but_unverified_codes)\n    unverified_codes = quote_and_join_list(EmailValidation.unverified_codes)\n    undeliverable_codes = quote_and_join_list(EmailValidation.undeliverable_codes)\n\n    self.scope = self.scope\n      .select(\n        \"tenant_id,\n        SUM(CASE WHEN code IN (#{deliverable_codes}) THEN 1 ELSE 0 END) AS deliverable_count,\n        SUM(CASE WHEN code IN (#{deliverable_but_unverified_codes}) THEN 1 ELSE 0 END) AS deliverable_but_unverified_count,\n        SUM(CASE WHEN code IN (#{unverified_codes}) THEN 1 ELSE 0 END) AS unverified_count,\n        SUM(CASE WHEN code IN (#{undeliverable_codes}) THEN 1 ELSE 0 END) AS undeliverable_count\"\n      )\n      .from(email_validations_subquery, :T)\n      .group(\"tenant_id\")\n  end\n\n  def email_validations_subquery\n    EmailValidation\n      .select(\"DISTINCT ON (contact_id) tenant_id, code, created_at\")\n      .where(enterprise_id: opts.enterprise_id)\n      .order(\"contact_id ASC, created_at DESC\")\n  end\nend\n```\n\n## Query Class 2\n```ruby\nclass Enterprises::EmailValidationStatusQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    self.scope = self.scope\n      .select(\n        \"contacts.tenant_id,\n        SUM(CASE WHEN contacts.needs_email_validation = FALSE THEN 1 ELSE 0 END) AS processed_count,\n        SUM(CASE WHEN contacts.needs_email_validation = TRUE THEN 1 ELSE 0 END) AS unprocessed_count\"\n      )\n      .joins(:tenant)\n      .where(\n        contacts: {\n          unsubscribed: false,\n          deleted: false,\n          temp: false\n        },\n        tenants: {\n          etl_flag: true,\n          training: false,\n          demo: false,\n          enterprise_id: opts.enterprise_id\n        }\n      )\n      .where(\n        \"NOT EXISTS (\n          SELECT null\n          FROM companies\n          WHERE companies.tenant_id = contacts.tenant_id\n          AND companies.id = contacts.company_id\n          AND companies.marketing_do_not_mail = TRUE\n        )\"\n      )\n      .group(\"contacts.tenant_id\")\n  end\nend\n```\n\nExample 3\n\nThe following SQL/Ruby was in a view with extra calculations.,\nWhen moved to Query Object the calculated properties used a simple named attribute per calulation instead of multi dimensional arrays.\n\n## Original SQL\n```ruby\nsql_totals =\n  <<~EOF\n  SET work_mem = '16MB';\n  SET max_parallel_workers_per_gather = 4;\n\n  SELECT  (CASE coalesce(nullif(nullif(companies.clearbit_data->>'tags', 'null'), '[]'), '-') WHEN '-' THEN '-' ELSE 'tag' end) tag,\n            COUNT(DISTINCT invoices.tenant_id) tenant_count,\n            COUNT(DISTINCT companies.id) company_count,\n            SUM(invoices.grand_total) total\n  FROM invoices\n  JOIN companies ON invoices.company_id = companies.id\n  JOIN tenants ON invoices.tenant_id = tenants.id\n  WHERE \n    tenants.enterprise_id = :enterprise_id AND\n    invoices.pickup_date BETWEEN :start_date AND :end_date\n    AND invoices.voided IS DISTINCT FROM TRUE\n    AND invoices.deleted = FALSE\n    AND invoices.pickup_date is NOT NULL\n    AND companies.walk_in = false\n    GROUP BY 1\n    ;\nEOF\n\n\nsql_totals = ActiveRecord::Base.send(:sanitize_sql, [sql_totals, start_date: start_date, end_date: Date.parse(end_date).end_of_month.strftime('%Y-%m-%d'), enterprise_id: current_user.enterprise.id])\nresult_totals    = ActiveRecord::Base.connection.execute(sql_totals).to_a\n\ncompany_totals = [[\"Untagged Companies\", 0], [\"Tagged Companies\", 0]]\nsales_totals = [[\"Untagged Sales\", 0.0], [\"Tagged Sales\", 0.0]]\n\nif !result_totals.empty?\n  result_totals.each do |x|\n    case x['tag']\n    when '-'\n      company_totals[0][1] = x['company_count'].to_i\n      sales_totals[0][1] = x['total'].to_f\n    when 'tag'\n      company_totals[1][1] = x['company_count'].to_i\n      sales_totals[1][1] = x['total'].to_f\n    end\n  end\nend\n```\n\n## Query Class\n```ruby\nmodule Enterprises\n  module Reports\n    class SalesByTagTotalQuery < Common::Query\n      default_scope :invoice\n\n      attr_accessor :untagged_companies, :tagged_companies, :untagged_sales, :tagged_sales\n\n      contract do\n        attribute :enterprise_id, :integer\n        attribute :start_date, :string\n        attribute :end_date, :string\n      end\n\n      def call\n        validate\n        set_pg_settings\n        build_query\n        calculate_totals\n      end\n\n      private\n\n      def set_pg_settings\n        ActiveRecord::Base.connection.execute(\"SET work_mem = '16MB';\")\n        ActiveRecord::Base.connection.execute(\"SET max_parallel_workers_per_gather = 4;\")\n      end\n\n      def build_query\n        self.scope = self.scope\n          .joins(:company, :tenant)\n          .where(\n            tenants: { enterprise_id: opts.enterprise_id },\n            pickup_date: opts.start_date..opts.end_date\n          )\n          .where.not(voided: true)\n          .where(deleted: false)\n          .where.not(pickup_date: nil)\n          .where(companies: { walk_in: false })\n          .select(<<-SQL.squish)\n            (CASE COALESCE(\n              NULLIF(NULLIF(companies.clearbit_data->>'tags', 'null'), '[]'),\n              '-'\n            )\n            WHEN '-' THEN '-'\n            ELSE 'tag'\n            END) AS tag,\n            COUNT(DISTINCT invoices.tenant_id) AS tenant_count,\n            COUNT(DISTINCT companies.id) AS company_count,\n            SUM(invoices.grand_total) AS total\n          SQL\n          .group(\"1\")\n      end\n\n      def calculate_totals\n        self.untagged_companies = 0\n        self.tagged_companies = 0\n        self.untagged_sales = 0.0\n        self.tagged_sales = 0.0\n\n        self.scope.each do |result|\n          case result[\"tag\"]\n          when \"-\"\n            self.untagged_companies = result[\"company_count\"].to_i\n            self.untagged_sales = result[\"total\"].to_f\n          when \"tag\"\n            self.tagged_companies = result[\"company_count\"].to_i\n            self.tagged_sales = result[\"total\"].to_f\n          end\n        end\n      end\n    end\n  end\nend\n```\n\n# Common query class\n\n```ruby\n# Base class for query objects\n#\n# Use Query to provide complex query expressions using single responsibility principal.\nmodule Common\n  class Query\n    attr_accessor :scope\n    attr_reader :opts\n    attr_accessor :contract\n\n    class << self\n      # Run the query and return the query instance\n      #\n      # Use this technique when the query is producing more that one scope\n      def query(scope = nil, **opts)\n        new(scope, **opts).tap(&:call)\n      end\n\n      # Run the query and return an ActiveRecord scope\n      #\n      # Use this technique when the query is producing a single scope\n      def query_as_scope(scope = nil, **opts)\n        query(scope, **opts).scope\n      end\n\n      def scope\n        return @scope if defined? @scope\n        @scope = nil\n      end\n\n      def default_scope(name = nil)\n        @scope = if name.nil?\n                   yield if block_given?\n                  else\n                    begin\n                      name.to_s.classify.constantize.all\n                    rescue StandardError\n                      nil\n                    end\n                  end\n      end\n\n      def contract(&block)\n        return @contract if defined? @contract\n\n        @contract = Common::Contract.new\n        @contract.instance_eval(&block) if block_given?\n        @contract\n      end\n    end\n\n    def initialize(scope, **opts)\n      @contract = self.class.contract\n      @scope = scope || self.class.scope\n      @opts  = OpenStruct.new(opts)\n      raise ArgumentError, \"scope is required\" if @scope.nil?\n    end\n\n    def call\n      raise NoMethodError, \"implement the call method in your query object\"\n    end\n\n    def validate\n      contract.apply(opts)\n    end\n\n    # HELPERS\n\n    def clean_sort_direction(direction)\n      return \"\" if direction.nil? || %w[asc desc].none?(direction.to_s.downcase)\n      direction.to_s.upcase\n    end\n\n    def paginate\n      self.scope = scope.page(opts.page).per(opts.page_size)\n    end\n\n    # This method takes an array of items, quotes each item, and\n    # joins them with a comma, making it ready for use in an SQL query.\n    def quote_and_join_list(list)\n      list.map { |item| ActiveRecord::Base.connection.quote(item) }.join(\", \")\n    end\n\n    def sanitize_sql(sql, args = {})\n      ActiveRecord::Base.send(:sanitize_sql, [sql, args])\n    end\n  end\nend\n```\n",
+      "description": null,
+      "title": "Sql To Query Class"
+    },
+    "sql_active_record_compare": {
+      "name": "sql_active_record_compare",
+      "content": "Compare the SQL to the Ruby ActiveRecord Query and tell me if they are functionally the same?\n\nSQL:\n[sql]\n\nRuby ActiveRecord:\n[query]\n\n",
+      "description": null,
+      "title": "Sql Active Record Compare"
+    },
+    "query_class_spec": {
+      "name": "query_class_spec",
+      "content": "You generate an rspec unit test for the provided Query class.\nDo not produce any extra output.\n\nWe are only testing SQL output, not the data and generally we only need to test based on conditionally logic or incoming paramaters\nif condition is true then a SQL fragment should be present in the output, it should not be present if the condition is false.\n\nExpected Name:\n[query_class]\n\n----\n\nBelow you will find pairs of Query Classes and their corresponding Unit Test.\n\n# Example 1\n\n## Query Class\n```ruby\nclass Enterprises::EmailValidationResultQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    deliverable_codes = quote_and_join_list(EmailValidation.deliverable_codes)\n    deliverable_but_unverified_codes = quote_and_join_list(EmailValidation.deliverable_but_unverified_codes)\n    unverified_codes = quote_and_join_list(EmailValidation.unverified_codes)\n    undeliverable_codes = quote_and_join_list(EmailValidation.undeliverable_codes)\n\n    self.scope = self.scope\n      .select(\n        \"tenant_id,\n        SUM(CASE WHEN code IN (#{deliverable_codes}) THEN 1 ELSE 0 END) AS deliverable_count,\n        SUM(CASE WHEN code IN (#{deliverable_but_unverified_codes}) THEN 1 ELSE 0 END) AS deliverable_but_unverified_count,\n        SUM(CASE WHEN code IN (#{unverified_codes}) THEN 1 ELSE 0 END) AS unverified_count,\n        SUM(CASE WHEN code IN (#{undeliverable_codes}) THEN 1 ELSE 0 END) AS undeliverable_count\"\n      )\n      .from(email_validations_subquery, :T)\n      .group(\"tenant_id\")\n  end\n\n  def email_validations_subquery\n    EmailValidation\n      .select(\"DISTINCT ON (contact_id) tenant_id, code, created_at\")\n      .where(enterprise_id: opts.enterprise_id)\n      .order(\"contact_id ASC, created_at DESC\")\n  end\nend\n```\n\n## Unit Test\n```ruby\n# frozen_string_literal: true\n\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::EmailValidationResultQuery, type: :query do\n  before(:each) do\n    FactoryBot.reload\n  end\n\n  subject { sql }\n\n  let(:run_query) { described_class.query(default_scope, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:default_scope) { EmailValidation.all }\n  let(:query_params) do\n    {\n      enterprise_id: 5\n    }\n  end\n\n  it { is_expected.to include(\"email_validations.enterprise_id = 5\") }\n  # it { puts sql }\nend\n```\n\n# Example 2\n\n## Query Class\n```ruby\nclass Enterprises::EmailValidationStatusQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    self.scope = self.scope\n      .select(\n        \"contacts.tenant_id,\n        SUM(CASE WHEN contacts.needs_email_validation = FALSE THEN 1 ELSE 0 END) AS processed_count,\n        SUM(CASE WHEN contacts.needs_email_validation = TRUE THEN 1 ELSE 0 END) AS unprocessed_count\"\n      )\n      .joins(:tenant)\n      .where(\n        contacts: {\n          unsubscribed: false,\n          deleted: false,\n          temp: false\n        },\n        tenants: {\n          etl_flag: true,\n          training: false,\n          demo: false,\n          enterprise_id: opts.enterprise_id\n        }\n      )\n      .where(\n        \"NOT EXISTS (\n          SELECT null\n          FROM companies\n          WHERE companies.tenant_id = contacts.tenant_id\n          AND companies.id = contacts.company_id\n          AND companies.marketing_do_not_mail = TRUE\n        )\"\n      )\n      .group(\"contacts.tenant_id\")\n  end\nend\n```\n\n## Unit Test\n```ruby\n# frozen_string_literal: true\n\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::EmailValidationStatusQuery, type: :query do\n  before(:each) do\n    FactoryBot.reload\n  end\n\n  subject { sql }\n\n  let(:run_query) { described_class.query(default_scope, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:default_scope) { Contact.all }\n  let(:query_params) do\n    {\n      enterprise_id: 5\n    }\n  end\n\n  it { is_expected.to include(\"tenants.enterprise_id = 5\") }\n  # it { puts sql }\nend\n```\n\n# Example 3\n\n## Query Class\n```ruby\nmodule Enterprises\n  module Reports\n    class SalesByCompanyCategoryQuery < Common::Query\n      default_scope :invoice\n\n      contract do\n        attribute :enterprise_id, :integer\n        attribute :start_date, :string\n        attribute :end_date, :string\n      end\n\n      def call\n        validate\n        set_pg_settings\n        build_query\n      end\n\n      private\n\n      def set_pg_settings\n        ActiveRecord::Base.connection.execute(\"SET work_mem = '16MB';\")\n        ActiveRecord::Base.connection.execute(\"SET max_parallel_workers_per_gather = 4;\")\n      end\n\n      def build_query\n        self.scope = self.scope\n          .joins(:company, :tenant)\n          .where(\n            tenants: { enterprise_id: opts.enterprise_id },\n            pickup_date: opts.start_date..opts.end_date\n          )\n          .where.not(voided: true)\n          .where(deleted: false)\n          .where.not(pickup_date: nil)\n          .select(<<-SQL.squish)\n            CASE#{' '}\n              WHEN custom_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN custom_data -> 'category' ->> 'subIndustry'\n              WHEN clearbit_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN clearbit_data -> 'category' ->> 'subIndustry'\n              ELSE 'No Category'\n            END AS category,\n            COUNT(DISTINCT invoices.tenant_id) AS tenant_count,\n            COUNT(DISTINCT company_id) AS company_count,\n            SUM(grand_total) AS total\n          SQL\n          .group(\"category\")\n      end\n    end\n  end\nend\n```\n\n## Unit Test\n```ruby\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::Reports::SalesByCompanyCategoryQuery, type: :query do\n  subject { sql }\n\n  let(:run_query) { described_class.query(Invoice, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:start_date) { Date.parse(\"2023-06-01\") }\n  let(:end_date) { Date.parse(\"2023-06-30\") }\n  let(:enterprise_id) { 5 }\n  let(:query_params) do\n    {\n      enterprise_id: enterprise_id,\n      start_date: start_date,\n      end_date: end_date\n    }\n  end\n\n  describe \".scope\" do\n    context \"when valid parameters are provided\" do\n      it do\n        is_expected\n          .to include(\"tenants.enterprise_id = 5\")\n          .and include(\"pickup_date BETWEEN '2023-06-01' AND '2023-06-30'\")\n      end\n    end\n  end\nend\n```",
+      "description": null,
+      "title": "Query Class Spec"
+    }
+  }
+}
