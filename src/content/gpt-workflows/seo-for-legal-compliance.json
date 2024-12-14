@@ -1,0 +1,446 @@
+{
+  "name": "seo_for_legal_compliance",
+  "title": "Seo For Legal Compliance",
+  "description": "This workflow is for an SEO agency specializing in content marketing for lawyers focused on statutory compliance.",
+  "settings": {
+    "prompt_path": {
+      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/seo/legal_compliance",
+      "description": null,
+      "title": "Prompt Path"
+    },
+    "default_llm": {
+      "value": "gpt4o",
+      "description": null,
+      "title": "Default Llm"
+    }
+  },
+  "sections": [
+    {
+      "name": "Research and Planning",
+      "title": "Research And Planning",
+      "order": 1,
+      "description": null,
+      "steps": [
+        {
+          "name": "Identify Topics",
+          "title": "Identify Topics",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "current_trends",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Current Trends"
+            },
+            {
+              "name": "legal_documents",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Legal Documents"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "compliance_topics",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Compliance Topics"
+            },
+            {
+              "name": "abc",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Abc"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Research Keywords",
+          "title": "Research Keywords",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "compliance_topics",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Compliance Topics"
+            },
+            {
+              "name": "search_data",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Search Data"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "trending_keywords",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Trending Keywords"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Draft Outlines",
+          "title": "Draft Outlines",
+          "order": 3,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "compliance_topics",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Compliance Topics"
+            },
+            {
+              "name": "trending_keywords",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Trending Keywords"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "content_outlines",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Content Outlines"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Content Creation",
+      "title": "Content Creation",
+      "order": 2,
+      "description": null,
+      "steps": [
+        {
+          "name": "Generate Content",
+          "title": "Generate Content",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "content_outlines",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Content Outlines"
+            },
+            {
+              "name": "trending_keywords",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Trending Keywords"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "draft_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Draft Content"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Review Accuracy",
+          "title": "Review Accuracy",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "draft_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Draft Content"
+            },
+            {
+              "name": "legal_documents",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Legal Documents"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "verified_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Verified Content"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Optimization and Publishing",
+      "title": "Optimization And Publishing",
+      "order": 3,
+      "description": null,
+      "steps": [
+        {
+          "name": "Optimize Content",
+          "title": "Optimize Content",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "verified_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Verified Content"
+            },
+            {
+              "name": "seo_metrics",
+              "type": "hash",
+              "is_array": false,
+              "description": null,
+              "title": "Seo Metrics"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "optimized_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Optimized Content"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Publish Content",
+          "title": "Publish Content",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "optimized_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Optimized Content"
+            },
+            {
+              "name": "publishing_tools",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Publishing Tools"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "published_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Published Content"
+            },
+            {
+              "name": "performance_data",
+              "type": "hash",
+              "is_array": false,
+              "description": null,
+              "title": "Performance Data"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "current_trends": {
+      "name": "current_trends",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Current Trends"
+    },
+    "legal_documents": {
+      "name": "legal_documents",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Legal Documents"
+    },
+    "compliance_topics": {
+      "name": "compliance_topics",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Compliance Topics"
+    },
+    "search_data": {
+      "name": "search_data",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Search Data"
+    },
+    "trending_keywords": {
+      "name": "trending_keywords",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Trending Keywords"
+    },
+    "content_outlines": {
+      "name": "content_outlines",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Content Outlines"
+    },
+    "draft_content": {
+      "name": "draft_content",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Draft Content"
+    },
+    "verified_content": {
+      "name": "verified_content",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Verified Content"
+    },
+    "seo_metrics": {
+      "name": "seo_metrics",
+      "type": "hash",
+      "is_array": false,
+      "description": null,
+      "title": "Seo Metrics"
+    },
+    "optimized_content": {
+      "name": "optimized_content",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Optimized Content"
+    },
+    "publishing_tools": {
+      "name": "publishing_tools",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Publishing Tools"
+    },
+    "performance_data": {
+      "name": "performance_data",
+      "type": "hash",
+      "is_array": false,
+      "description": null,
+      "title": "Performance Data"
+    },
+    "abc": {
+      "name": "abc",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Abc"
+    },
+    "published_content": {
+      "name": "published_content",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Published Content"
+    }
+  },
+  "prompts": {
+    "identify_topics": {
+      "name": "identify_topics",
+      "content": "",
+      "description": null,
+      "title": "Identify Topics"
+    },
+    "research_keywords": {
+      "name": "research_keywords",
+      "content": "",
+      "description": null,
+      "title": "Research Keywords"
+    },
+    "draft_outlines": {
+      "name": "draft_outlines",
+      "content": "",
+      "description": null,
+      "title": "Draft Outlines"
+    },
+    "generate_content": {
+      "name": "generate_content",
+      "content": "",
+      "description": null,
+      "title": "Generate Content"
+    },
+    "review_accuracy": {
+      "name": "review_accuracy",
+      "content": "",
+      "description": null,
+      "title": "Review Accuracy"
+    },
+    "optimize_content": {
+      "name": "optimize_content",
+      "content": "",
+      "description": null,
+      "title": "Optimize Content"
+    },
+    "publish_content": {
+      "name": "publish_content",
+      "content": "",
+      "description": null,
+      "title": "Publish Content"
+    }
+  }
+}

@@ -1,0 +1,383 @@
+{
+  "name": "klueless_dsl_creator",
+  "title": "Klueless Dsl Creator",
+  "description": "This workflow will create a Ruby-like DSL for modeling hierarchical structures, including validation and output generation.",
+  "settings": {
+    "prompt_path": {
+      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/klueless/dsl_creator",
+      "description": null,
+      "title": "Prompt Path"
+    },
+    "default_llm": {
+      "value": "gpt4o",
+      "description": null,
+      "title": "Default Llm"
+    }
+  },
+  "sections": [
+    {
+      "name": "Build DSL",
+      "title": "Build Dsl",
+      "order": 1,
+      "description": null,
+      "steps": [
+        {
+          "name": "Configure Name",
+          "title": "Configure Name",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "dsl",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl"
+            },
+            {
+              "name": "project_requirements",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Project Requirements"
+            },
+            {
+              "name": "schema_rules",
+              "type": "array",
+              "is_array": true,
+              "description": null,
+              "title": "Schema Rules"
+            },
+            {
+              "name": "schema_examples",
+              "type": "array",
+              "is_array": true,
+              "description": null,
+              "title": "Schema Examples"
+            },
+            {
+              "name": "json_rules",
+              "type": "array",
+              "is_array": true,
+              "description": null,
+              "title": "Json Rules"
+            },
+            {
+              "name": "json_examples",
+              "type": "array",
+              "is_array": true,
+              "description": null,
+              "title": "Json Examples"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "dsl_name",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl Name"
+            },
+            {
+              "name": "dsl_description",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl Description"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Create Sample DSL",
+          "title": "Create Sample Dsl",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "dsl_name",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl Name"
+            },
+            {
+              "name": "dsl_description",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl Description"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "dsl",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Create DSL Schema",
+          "title": "Create Dsl Schema",
+          "order": 3,
+          "description": null,
+          "prompt": "I need you to create a schema for a DSl.\nI have very specific rules around schemas which I provide.\nI also have examples for you to use:\n\nCan you create a new schema based on my DSL\n\n<schema_rules>\n[schema_rules]\n<schema_rules>\n\n<schema_examples>\n[schema_examples]\n<schema_examples>\n\nHere is my DSL:\n\n[dsl]",
+          "input_attributes": [
+            {
+              "name": "dsl",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl"
+            },
+            {
+              "name": "schema_rules",
+              "type": "array",
+              "is_array": true,
+              "description": null,
+              "title": "Schema Rules"
+            },
+            {
+              "name": "schema_examples",
+              "type": "array",
+              "is_array": true,
+              "description": null,
+              "title": "Schema Examples"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "dsl_schema",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl Schema"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Compare DSL to DSL Schema",
+          "title": "Compare Dsl To Dsl Schema",
+          "order": 4,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "dsl",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl"
+            },
+            {
+              "name": "dsl_schema",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl Schema"
+            },
+            {
+              "name": "schema_rules",
+              "type": "array",
+              "is_array": true,
+              "description": null,
+              "title": "Schema Rules"
+            },
+            {
+              "name": "schema_examples",
+              "type": "array",
+              "is_array": true,
+              "description": null,
+              "title": "Schema Examples"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "dsl_inconcistencies",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl Inconcistencies"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Generate Output",
+          "title": "Generate Output",
+          "order": 5,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "dsl",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl"
+            },
+            {
+              "name": "dsl_schema",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl Schema"
+            },
+            {
+              "name": "json_rules",
+              "type": "array",
+              "is_array": true,
+              "description": null,
+              "title": "Json Rules"
+            },
+            {
+              "name": "json_examples",
+              "type": "array",
+              "is_array": true,
+              "description": null,
+              "title": "Json Examples"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "dsl_json",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl Json"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "project_requirements": {
+      "name": "project_requirements",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Project Requirements"
+    },
+    "dsl_name": {
+      "name": "dsl_name",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Dsl Name"
+    },
+    "dsl_description": {
+      "name": "dsl_description",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Dsl Description"
+    },
+    "dsl": {
+      "name": "dsl",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Dsl"
+    },
+    "dsl_schema": {
+      "name": "dsl_schema",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Dsl Schema"
+    },
+    "dsl_json": {
+      "name": "dsl_json",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Dsl Json"
+    },
+    "dsl_inconcistencies": {
+      "name": "dsl_inconcistencies",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Dsl Inconcistencies"
+    },
+    "schema_rules": {
+      "name": "schema_rules",
+      "type": "array",
+      "is_array": true,
+      "description": null,
+      "title": "Schema Rules"
+    },
+    "schema_examples": {
+      "name": "schema_examples",
+      "type": "array",
+      "is_array": true,
+      "description": null,
+      "title": "Schema Examples"
+    },
+    "json_rules": {
+      "name": "json_rules",
+      "type": "array",
+      "is_array": true,
+      "description": null,
+      "title": "Json Rules"
+    },
+    "json_examples": {
+      "name": "json_examples",
+      "type": "array",
+      "is_array": true,
+      "description": null,
+      "title": "Json Examples"
+    }
+  },
+  "prompts": {
+    "dsl_name_description": {
+      "name": "dsl_name_description",
+      "content": "",
+      "description": null,
+      "title": "Dsl Name Description"
+    },
+    "dsl_creation": {
+      "name": "dsl_creation",
+      "content": "",
+      "description": null,
+      "title": "Dsl Creation"
+    },
+    "create_schema": {
+      "name": "create_schema",
+      "content": "I need you to create a schema for a DSl.\nI have very specific rules around schemas which I provide.\nI also have examples for you to use:\n\nCan you create a new schema based on my DSL\n\n<schema_rules>\n[schema_rules]\n<schema_rules>\n\n<schema_examples>\n[schema_examples]\n<schema_examples>\n\nHere is my DSL:\n\n[dsl]",
+      "description": null,
+      "title": "Create Schema"
+    },
+    "compare_dsl_to_schema": {
+      "name": "compare_dsl_to_schema",
+      "content": "",
+      "description": null,
+      "title": "Compare Dsl To Schema"
+    },
+    "generate_output": {
+      "name": "generate_output",
+      "content": "",
+      "description": null,
+      "title": "Generate Output"
+    }
+  }
+}

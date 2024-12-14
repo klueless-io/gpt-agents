@@ -1,0 +1,182 @@
+{
+  "name": "youtube_outro_booster",
+  "title": "Youtube Outro Booster",
+  "description": "This workflow designs compelling YouTube video endings to boost engagement and watch time.",
+  "settings": {
+    "prompt_path": {
+      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/youtube/youtube_outro_booster",
+      "description": null,
+      "title": "Prompt Path"
+    },
+    "default_llm": {
+      "value": "gpt4o",
+      "description": null,
+      "title": "Default Llm"
+    }
+  },
+  "sections": [
+    {
+      "name": "YouTube Outro Bridge",
+      "title": "You Tube Outro Bridge",
+      "order": 1,
+      "description": null,
+      "steps": [
+        {
+          "name": "Content Analysis",
+          "title": "Content Analysis",
+          "order": 1,
+          "description": null,
+          "prompt": "You are tasked with creating a compelling YouTube outro that will seamlessly transition from the current video to the next, increasing watch time and viewer engagement. Your goal is to analyze the content of the current video and create guidelines for a transition that incorporates the topic of the next video.\n\nFirst, carefully read the abridgment of the current video:\n\n<current_video_abridgement>  \n[current_video_abridgement]  \n</current_video_abridgement>\n\nNow, consider the topic of the next video:\n\n<next_video_goal>  \n{{next_video_goal}}  \n</next_video_goal>\n\nAnalyze the content of the current video abridgment and identify 2-3 key themes or main points. These will serve as potential connection points to the next video.\n\nNext, create guidelines for a transition using the following three-step framework:\n\n1. **The Bridge:** Identify a way to connect one of the key themes from the current video to the topic of the next video. This should feel like a natural progression or extension of the current content, ensuring the next video is seen as a logical continuation.\n\n2. **Curiosity Hook:** Develop an intriguing statement or question directly tied to the next video's topic that will pique the viewer's interest. This should hint at valuable information or insights that the viewer doesn’t yet know but would want to learn, creating anticipation for the next video.\n\n3. **Promise of Transformation:** Craft a compelling promise about what the viewer will gain from watching the next video. This should address a desire or need of the target audience, making the next video feel essential for achieving a specific outcome or understanding.\n\nPresent your analysis and transition guidelines in the following format:\n\n# Key Themes  \n1. [First key theme from current video]  \n2. [Second key theme from current video]  \n3. [Third key theme from current video (if applicable)]  \n</key_themes>\n\n# Bridge  \n[Guidelines for connecting a key theme to the next video topic]\n\n# Curiosity Hook  \n[Guidelines for creating an intriguing statement or question directly related to the next video]\n\n# Transformation Promise  \n[Guidelines for crafting a compelling promise about the next video]\n\nEnsure that your guidelines are specific enough to guide the creation of an engaging outro, but flexible enough to allow for creative expression in the final script.\n",
+          "input_attributes": [
+            {
+              "name": "abridgement",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Abridgement"
+            },
+            {
+              "name": "next_video_goal",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Next Video Goal"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "content_analysis",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Content Analysis"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Write Outro Script",
+          "title": "Write Outro Script",
+          "order": 2,
+          "description": null,
+          "prompt": "You are tasked with creating an engaging outro script for a video that will effectively transition viewers to the next video in the series. \n\nThis outro should follow a three-step framework: The Bridge, Curiosity Hook, and Promise of Transformation.\n\nYour goal is to create a compelling call-to-action that encourages viewers to continue watching, thereby increasing watch time and channel growth.\n\nFirst, review the content analysis of the current video:\n<content_analysis>\n[content_analysis]\n</content_analysis>\n\nNow, consider the goal of the next video in the series:\n<next_video_goal>\n[next_video_goal]\n</next_video_goal>\n\nUsing this information, create an outro script following these steps:\n\n1. The Bridge: \nCreate a seamless transition from the current video to the next. Reference a key point from the current video and connect it to the topic of the next video. This should be 1-2 sentences long.\n\n2. Curiosity Hook:\nDevelop an intriguing statement or question that piques the viewer's interest in the next video. This should relate to the next_video_goal and be something unexpected or exciting. Aim for 1-2 sentences.\n\n3. Promise of Transformation:\nCraft a clear, compelling promise of what viewers will gain from watching the next video. This should directly address the viewer's desires or needs, making it irresistible for them to continue watching. Keep this to 1-2 impactful sentences.\n\nCombine these elements into a cohesive outro script, ensuring a smooth flow between each part. The entire outro should be concise, typically 3-5 sentences in total.\n\nThe format should be outro script followed by explanation:\n\n\n# Outro Script\n\n[your outro script goes here]\n\n# Explanation\n\n[provide a brief explanation (2-3 sentences) of how your outro incorporates the three-step framework and addresses the next_video_goal]\n\nRemember to make the outro engaging, personal, and focused on the viewer's interests and goals. Use language that creates a sense of urgency and excitement about the upcoming content.",
+          "input_attributes": [
+            {
+              "name": "next_video_goal",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Next Video Goal"
+            },
+            {
+              "name": "content_analysis",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Content Analysis"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "outro_script",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Outro Script"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Script + CUE Points",
+          "title": "Script Cue Points",
+          "order": 3,
+          "description": null,
+          "prompt": "outro_qa_prompt",
+          "input_attributes": [
+            {
+              "name": "outro_script",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Outro Script"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "outro_script_cue_points",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Outro Script Cue Points"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "abridgement": {
+      "name": "abridgement",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Abridgement"
+    },
+    "next_video_goal": {
+      "name": "next_video_goal",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Next Video Goal"
+    },
+    "content_analysis": {
+      "name": "content_analysis",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Content Analysis"
+    },
+    "outro_script": {
+      "name": "outro_script",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Outro Script"
+    },
+    "outro_script_cue_points": {
+      "name": "outro_script_cue_points",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Outro Script Cue Points"
+    }
+  },
+  "prompts": {
+    "content_analysis_prompt": {
+      "name": "content_analysis_prompt",
+      "content": "You are tasked with creating a compelling YouTube outro that will seamlessly transition from the current video to the next, increasing watch time and viewer engagement. Your goal is to analyze the content of the current video and create guidelines for a transition that incorporates the topic of the next video.\n\nFirst, carefully read the abridgment of the current video:\n\n<current_video_abridgement>  \n[current_video_abridgement]  \n</current_video_abridgement>\n\nNow, consider the topic of the next video:\n\n<next_video_goal>  \n{{next_video_goal}}  \n</next_video_goal>\n\nAnalyze the content of the current video abridgment and identify 2-3 key themes or main points. These will serve as potential connection points to the next video.\n\nNext, create guidelines for a transition using the following three-step framework:\n\n1. **The Bridge:** Identify a way to connect one of the key themes from the current video to the topic of the next video. This should feel like a natural progression or extension of the current content, ensuring the next video is seen as a logical continuation.\n\n2. **Curiosity Hook:** Develop an intriguing statement or question directly tied to the next video's topic that will pique the viewer's interest. This should hint at valuable information or insights that the viewer doesn’t yet know but would want to learn, creating anticipation for the next video.\n\n3. **Promise of Transformation:** Craft a compelling promise about what the viewer will gain from watching the next video. This should address a desire or need of the target audience, making the next video feel essential for achieving a specific outcome or understanding.\n\nPresent your analysis and transition guidelines in the following format:\n\n# Key Themes  \n1. [First key theme from current video]  \n2. [Second key theme from current video]  \n3. [Third key theme from current video (if applicable)]  \n</key_themes>\n\n# Bridge  \n[Guidelines for connecting a key theme to the next video topic]\n\n# Curiosity Hook  \n[Guidelines for creating an intriguing statement or question directly related to the next video]\n\n# Transformation Promise  \n[Guidelines for crafting a compelling promise about the next video]\n\nEnsure that your guidelines are specific enough to guide the creation of an engaging outro, but flexible enough to allow for creative expression in the final script.\n",
+      "description": null,
+      "title": "Content Analysis Prompt"
+    },
+    "outro_script_prompt": {
+      "name": "outro_script_prompt",
+      "content": "You are tasked with creating an engaging outro script for a video that will effectively transition viewers to the next video in the series. \n\nThis outro should follow a three-step framework: The Bridge, Curiosity Hook, and Promise of Transformation.\n\nYour goal is to create a compelling call-to-action that encourages viewers to continue watching, thereby increasing watch time and channel growth.\n\nFirst, review the content analysis of the current video:\n<content_analysis>\n[content_analysis]\n</content_analysis>\n\nNow, consider the goal of the next video in the series:\n<next_video_goal>\n[next_video_goal]\n</next_video_goal>\n\nUsing this information, create an outro script following these steps:\n\n1. The Bridge: \nCreate a seamless transition from the current video to the next. Reference a key point from the current video and connect it to the topic of the next video. This should be 1-2 sentences long.\n\n2. Curiosity Hook:\nDevelop an intriguing statement or question that piques the viewer's interest in the next video. This should relate to the next_video_goal and be something unexpected or exciting. Aim for 1-2 sentences.\n\n3. Promise of Transformation:\nCraft a clear, compelling promise of what viewers will gain from watching the next video. This should directly address the viewer's desires or needs, making it irresistible for them to continue watching. Keep this to 1-2 impactful sentences.\n\nCombine these elements into a cohesive outro script, ensuring a smooth flow between each part. The entire outro should be concise, typically 3-5 sentences in total.\n\nThe format should be outro script followed by explanation:\n\n\n# Outro Script\n\n[your outro script goes here]\n\n# Explanation\n\n[provide a brief explanation (2-3 sentences) of how your outro incorporates the three-step framework and addresses the next_video_goal]\n\nRemember to make the outro engaging, personal, and focused on the viewer's interests and goals. Use language that creates a sense of urgency and excitement about the upcoming content.",
+      "description": null,
+      "title": "Outro Script Prompt"
+    },
+    "outro_script_cue_points_prompt": {
+      "name": "outro_script_cue_points_prompt",
+      "content": "",
+      "description": null,
+      "title": "Outro Script Cue Points Prompt"
+    }
+  }
+}

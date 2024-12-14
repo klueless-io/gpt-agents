@@ -1,0 +1,424 @@
+{
+  "name": "brandprint_design_insights",
+  "title": "Brandprint Design Insights",
+  "description": "This workflow generates tailored print design recommendations using client data and industry trends.",
+  "settings": {
+    "prompt_path": {
+      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/brandprint/design_insights",
+      "description": null,
+      "title": "Prompt Path"
+    },
+    "default_llm": {
+      "value": "gpt4o",
+      "description": null,
+      "title": "Default Llm"
+    }
+  },
+  "sections": [
+    {
+      "name": "Client Data and Trend Analysis",
+      "title": "Client Data And Trend Analysis",
+      "order": 1,
+      "description": null,
+      "steps": [
+        {
+          "name": "Gather Brand Guidelines",
+          "title": "Gather Brand Guidelines",
+          "order": 1,
+          "description": null,
+          "prompt": "You are working with a client named [client_id]. \n\nTheir brand focuses on [brand_guidelines]. \n\nPlease provide a summary of their brand guidelines, \nincluding their preferred colors, fonts, logo usage, \nand any key design principles. Additionally, \ngather any relevant design ideas that align with their brand identity and appeal to their target audience\n",
+          "input_attributes": [
+            {
+              "name": "client_id",
+              "type": "integer",
+              "is_array": false,
+              "description": null,
+              "title": "Client"
+            },
+            {
+              "name": "brand_guidelines",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Brand Guidelines"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "brand_guidelines",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Brand Guidelines"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Analyze Past Orders",
+          "title": "Analyze Past Orders",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "client_id",
+              "type": "integer",
+              "is_array": false,
+              "description": null,
+              "title": "Client"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "order_history",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Order History"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Identify Design Preferences",
+          "title": "Identify Design Preferences",
+          "order": 3,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "client_id",
+              "type": "integer",
+              "is_array": false,
+              "description": null,
+              "title": "Client"
+            },
+            {
+              "name": "order_history",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Order History"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "design_preferences",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Design Preferences"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Review Industry Trends",
+          "title": "Review Industry Trends",
+          "order": 4,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "design_preferences",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Design Preferences"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "trend_data",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Trend Data"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Design Suggestions and Optimization",
+      "title": "Design Suggestions And Optimization",
+      "order": 2,
+      "description": null,
+      "steps": [
+        {
+          "name": "Generate Design Suggestions",
+          "title": "Generate Design Suggestions",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "brand_guidelines",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Brand Guidelines"
+            },
+            {
+              "name": "design_preferences",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Design Preferences"
+            },
+            {
+              "name": "trend_data",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Trend Data"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "design_suggestions",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Design Suggestions"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Recommend Fonts, Layouts, Colors",
+          "title": "Recommend Fonts Layouts Colors",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "design_suggestions",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Design Suggestions"
+            },
+            {
+              "name": "trend_data",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Trend Data"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "recommended_fonts",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Recommended Fonts"
+            },
+            {
+              "name": "recommended_layouts",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Recommended Layouts"
+            },
+            {
+              "name": "recommended_colors",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Recommended Colors"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Optimize Based on Feedback",
+          "title": "Optimize Based On Feedback",
+          "order": 3,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "client_feedback",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Client Feedback"
+            },
+            {
+              "name": "recommended_fonts",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Recommended Fonts"
+            },
+            {
+              "name": "recommended_layouts",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Recommended Layouts"
+            },
+            {
+              "name": "recommended_colors",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Recommended Colors"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "optimized_design_suggestions",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Optimized Design Suggestions"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "client_id": {
+      "name": "client_id",
+      "type": "integer",
+      "is_array": false,
+      "description": null,
+      "title": "Client"
+    },
+    "brand_guidelines": {
+      "name": "brand_guidelines",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Brand Guidelines"
+    },
+    "order_history": {
+      "name": "order_history",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Order History"
+    },
+    "design_preferences": {
+      "name": "design_preferences",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Design Preferences"
+    },
+    "trend_data": {
+      "name": "trend_data",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Trend Data"
+    },
+    "design_suggestions": {
+      "name": "design_suggestions",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Design Suggestions"
+    },
+    "recommended_fonts": {
+      "name": "recommended_fonts",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Recommended Fonts"
+    },
+    "recommended_layouts": {
+      "name": "recommended_layouts",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Recommended Layouts"
+    },
+    "recommended_colors": {
+      "name": "recommended_colors",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Recommended Colors"
+    },
+    "client_feedback": {
+      "name": "client_feedback",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Client Feedback"
+    },
+    "optimized_design_suggestions": {
+      "name": "optimized_design_suggestions",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Optimized Design Suggestions"
+    }
+  },
+  "prompts": {
+    "gather_guidelines": {
+      "name": "gather_guidelines",
+      "content": "You are working with a client named [client_id]. \n\nTheir brand focuses on [brand_guidelines]. \n\nPlease provide a summary of their brand guidelines, \nincluding their preferred colors, fonts, logo usage, \nand any key design principles. Additionally, \ngather any relevant design ideas that align with their brand identity and appeal to their target audience\n",
+      "description": null,
+      "title": "Gather Guidelines"
+    },
+    "analyze_orders": {
+      "name": "analyze_orders",
+      "content": "",
+      "description": null,
+      "title": "Analyze Orders"
+    },
+    "identify_preferences": {
+      "name": "identify_preferences",
+      "content": "",
+      "description": null,
+      "title": "Identify Preferences"
+    },
+    "review_trends": {
+      "name": "review_trends",
+      "content": "",
+      "description": null,
+      "title": "Review Trends"
+    },
+    "generate_suggestions": {
+      "name": "generate_suggestions",
+      "content": "",
+      "description": null,
+      "title": "Generate Suggestions"
+    },
+    "recommend_designs": {
+      "name": "recommend_designs",
+      "content": "",
+      "description": null,
+      "title": "Recommend Designs"
+    },
+    "optimize_feedback": {
+      "name": "optimize_feedback",
+      "content": "",
+      "description": null,
+      "title": "Optimize Feedback"
+    }
+  }
+}

@@ -2,7 +2,8 @@
   import { stateStore } from '../../stateStore';
   import type { Section, Step, Workflow } from '../../types';
   import { providers } from '../../types';
-  
+  import { workflowStore } from '../../workflowStore';
+
   import LeftArrowIcon from './icons/LeftArrowIcon.svelte';
   import LeftUpArrowIcon from './icons/LeftUpArrowIcon.svelte';
   import RightArrowIcon from './icons/RightArrowIcon.svelte';
@@ -16,7 +17,7 @@
   let options: string[] = [];
   let selectedOptions: string[] = currentStep.language_models;
   let interpolatedPrompt: string = currentStep.prompt;
-  
+
   let isCollapsed: boolean = true; // To manage the collapsible state
 
   // Populate options for language models
@@ -25,9 +26,8 @@
   // Function to update the interpolated prompt
   function updateInterpolatedPrompt(prompt: string) {
     interpolatedPrompt = prompt.replace(/\[([^\]]+)\]/g, (_, placeholder) => {
-      const matchingAttr = currentStep.input_attributes.find(attr => attr.name === placeholder);
-      const inputElement = document.getElementById(placeholder) as HTMLInputElement;
-      return matchingAttr && inputElement ? inputElement.value : `[${placeholder}]`;
+      const matchingAttr = workflow.attributes[placeholder];
+      return matchingAttr && matchingAttr.value ? matchingAttr.value : `[${placeholder}]`;
     });
   }
 
@@ -43,7 +43,17 @@
     updateInterpolatedPrompt(currentStep.prompt);
   }
 
-  function handleInputChange() {
+  function handleInputChange(event, attrName) {
+    const newValue = event.target.value;
+
+    // Update the corresponding attribute's value in the workflow store
+    workflowStore.update(workflow => {
+      if (workflow.attributes[attrName]) {
+        workflow.attributes[attrName].value = newValue;
+      }
+      return workflow;
+    });
+
     updateInterpolatedPrompt(currentStep.prompt);
   }
 
@@ -125,8 +135,9 @@
               type="text"
               id={attr.name}
               name={attr.name}
+              value={workflow.attributes[attr.name]?.value || ''}
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-dark focus:border-primary-dark sm:text-sm"
-              on:input={handleInputChange}
+              on:input={(event) => handleInputChange(event, attr.name)}
             />
           </div>
         {/each}

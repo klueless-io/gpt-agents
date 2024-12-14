@@ -41,6 +41,7 @@ export interface Attribute {
   name: string;
   type: string;
   is_array: boolean;
+  value: string | null;
 }
 
 export interface AttributeProps {
@@ -165,6 +166,14 @@ export const providers: Provider[] = [
       { name: "Grok Ultra", apiCode: "grok-ultra" },
       { name: "Grok Pro", apiCode: "grok-pro" },
       { name: "Grok Lite", apiCode: "grok-lite" }
+    ]
+  },
+  {
+    name: "Future Models",
+    models: [
+      { name: "CriticAI", apiCode: "critic-ai" },
+      { name: "Perplixity", apiCode: "perplixity" },
+      { name: "PsychicAI", apiCode: "psychic-ai" },
     ]
   }
 ];

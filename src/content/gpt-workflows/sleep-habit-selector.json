@@ -1,0 +1,383 @@
+{
+  "name": "sleep_habit_selector",
+  "title": "Sleep Habit Selector",
+  "description": "This workflow helps select and track a daily habit to improve sleep quality.",
+  "settings": {
+    "prompt_path": {
+      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/sleep/sleep_habit_selector",
+      "description": null,
+      "title": "Prompt Path"
+    },
+    "default_llm": {
+      "value": "gpt4o",
+      "description": null,
+      "title": "Default Llm"
+    }
+  },
+  "sections": [
+    {
+      "name": "Sleep Analysis and Improvement",
+      "title": "Sleep Analysis And Improvement",
+      "order": 1,
+      "description": null,
+      "steps": [
+        {
+          "name": "Analyze Sleep Patterns",
+          "title": "Analyze Sleep Patterns",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "sleep_data",
+              "type": "hash",
+              "is_array": false,
+              "description": null,
+              "title": "Sleep Data"
+            },
+            {
+              "name": "routine_data",
+              "type": "hash",
+              "is_array": false,
+              "description": null,
+              "title": "Routine Data"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "sleep_pattern_analysis",
+              "type": "hash",
+              "is_array": false,
+              "description": null,
+              "title": "Sleep Pattern Analysis"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Identify Improvements",
+          "title": "Identify Improvements",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "sleep_pattern_analysis",
+              "type": "hash",
+              "is_array": false,
+              "description": null,
+              "title": "Sleep Pattern Analysis"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "improvement_opportunities",
+              "type": "hash",
+              "is_array": false,
+              "description": null,
+              "title": "Improvement Opportunities"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Habit Proposal, Selection, and Implementation",
+      "title": "Habit Proposal Selection And Implementation",
+      "order": 2,
+      "description": null,
+      "steps": [
+        {
+          "name": "Propose Sleep Habits",
+          "title": "Propose Sleep Habits",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "improvement_opportunities",
+              "type": "hash",
+              "is_array": false,
+              "description": null,
+              "title": "Improvement Opportunities"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "proposed_sleep_habits",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Proposed Sleep Habits"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Evaluate Habit Impact",
+          "title": "Evaluate Habit Impact",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "proposed_sleep_habits",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Proposed Sleep Habits"
+            },
+            {
+              "name": "sleep_data",
+              "type": "hash",
+              "is_array": false,
+              "description": null,
+              "title": "Sleep Data"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "habit_impact_assessment",
+              "type": "hash",
+              "is_array": false,
+              "description": null,
+              "title": "Habit Impact Assessment"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Select Optimal Habit",
+          "title": "Select Optimal Habit",
+          "order": 3,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "habit_impact_assessment",
+              "type": "hash",
+              "is_array": false,
+              "description": null,
+              "title": "Habit Impact Assessment"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "selected_sleep_habit",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Selected Sleep Habit"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Implement Habit Tracking",
+          "title": "Implement Habit Tracking",
+          "order": 4,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "selected_sleep_habit",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Selected Sleep Habit"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "habit_tracking_system",
+              "type": "hash",
+              "is_array": false,
+              "description": null,
+              "title": "Habit Tracking System"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Monitoring and Adjustment",
+      "title": "Monitoring And Adjustment",
+      "order": 3,
+      "description": null,
+      "steps": [
+        {
+          "name": "Monitor and Adjust",
+          "title": "Monitor And Adjust",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "habit_tracking_system",
+              "type": "hash",
+              "is_array": false,
+              "description": null,
+              "title": "Habit Tracking System"
+            },
+            {
+              "name": "sleep_data",
+              "type": "hash",
+              "is_array": false,
+              "description": null,
+              "title": "Sleep Data"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "updated_sleep_habit",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Updated Sleep Habit"
+            },
+            {
+              "name": "progress_report",
+              "type": "hash",
+              "is_array": false,
+              "description": null,
+              "title": "Progress Report"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "sleep_data": {
+      "name": "sleep_data",
+      "type": "hash",
+      "is_array": false,
+      "description": null,
+      "title": "Sleep Data"
+    },
+    "routine_data": {
+      "name": "routine_data",
+      "type": "hash",
+      "is_array": false,
+      "description": null,
+      "title": "Routine Data"
+    },
+    "sleep_pattern_analysis": {
+      "name": "sleep_pattern_analysis",
+      "type": "hash",
+      "is_array": false,
+      "description": null,
+      "title": "Sleep Pattern Analysis"
+    },
+    "improvement_opportunities": {
+      "name": "improvement_opportunities",
+      "type": "hash",
+      "is_array": false,
+      "description": null,
+      "title": "Improvement Opportunities"
+    },
+    "proposed_sleep_habits": {
+      "name": "proposed_sleep_habits",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Proposed Sleep Habits"
+    },
+    "habit_impact_assessment": {
+      "name": "habit_impact_assessment",
+      "type": "hash",
+      "is_array": false,
+      "description": null,
+      "title": "Habit Impact Assessment"
+    },
+    "selected_sleep_habit": {
+      "name": "selected_sleep_habit",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Selected Sleep Habit"
+    },
+    "habit_tracking_system": {
+      "name": "habit_tracking_system",
+      "type": "hash",
+      "is_array": false,
+      "description": null,
+      "title": "Habit Tracking System"
+    },
+    "progress_report": {
+      "name": "progress_report",
+      "type": "hash",
+      "is_array": false,
+      "description": null,
+      "title": "Progress Report"
+    },
+    "updated_sleep_habit": {
+      "name": "updated_sleep_habit",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Updated Sleep Habit"
+    }
+  },
+  "prompts": {
+    "analyze_sleep_patterns": {
+      "name": "analyze_sleep_patterns",
+      "content": "",
+      "description": null,
+      "title": "Analyze Sleep Patterns"
+    },
+    "identify_improvements": {
+      "name": "identify_improvements",
+      "content": "",
+      "description": null,
+      "title": "Identify Improvements"
+    },
+    "propose_sleep_habits": {
+      "name": "propose_sleep_habits",
+      "content": "",
+      "description": null,
+      "title": "Propose Sleep Habits"
+    },
+    "evaluate_habit_impact": {
+      "name": "evaluate_habit_impact",
+      "content": "",
+      "description": null,
+      "title": "Evaluate Habit Impact"
+    },
+    "select_optimal_habit": {
+      "name": "select_optimal_habit",
+      "content": "",
+      "description": null,
+      "title": "Select Optimal Habit"
+    },
+    "implement_habit_tracking": {
+      "name": "implement_habit_tracking",
+      "content": "",
+      "description": null,
+      "title": "Implement Habit Tracking"
+    },
+    "monitor_and_adjust": {
+      "name": "monitor_and_adjust",
+      "content": "",
+      "description": null,
+      "title": "Monitor And Adjust"
+    }
+  }
+}

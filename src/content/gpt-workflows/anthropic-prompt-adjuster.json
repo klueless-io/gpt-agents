@@ -1,0 +1,120 @@
+{
+  "name": "anthropic_prompt_adjuster",
+  "title": "Anthropic Prompt Adjuster",
+  "description": "This workflow refines and reformats an Anthropic-generated prompt to meet specific formatting and stylistic preferences.",
+  "settings": {
+    "prompt_path": {
+      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/agent_engineering/anthropic_prompt_adjuster",
+      "description": null,
+      "title": "Prompt Path"
+    },
+    "default_llm": {
+      "value": "gpt4o",
+      "description": null,
+      "title": "Default Llm"
+    }
+  },
+  "sections": [
+    {
+      "name": "Style and Structure Adjustment",
+      "title": "Style And Structure Adjustment",
+      "order": 1,
+      "description": null,
+      "steps": [
+        {
+          "name": "Reformat Prompt",
+          "title": "Reformat Prompt",
+          "order": 1,
+          "description": "Take in Anthropic-generated prompt",
+          "prompt": "You are tasked with transforming a given prompt to improve its structure and clarity.\nThe prompts you will be modifying may have issues related to token formatting, input/output separation, and overly verbose instructions.\nFollow these guidelines for cleaning up and transforming the prompt:\n\nInput Token Formatting:\n\n- Change the format of input tokens from {{NAME_OF_INPUT}} to [name_of_input] (all lowercase and surrounded by square brackets).\n- Input sections should use surrounding token names like <name_of_input> and </name_of_input>, but the variable itself should remain in square brackets [name_of_input].\n\nInput/Output Formatting:\n\n- Input sections should retain token formatting with <name_of_input> and </name_of_input> tags surrounding the variable [name_of_input].\n- Output sections should not use any token formatting. They should be introduced with a clear label like Cleaned Output and no brackets around the output text.\n- If you have multple outputs then then each output should just be a heading with colon followed by the output\n\n\nExample Structure:\n\n- For input, retain token formatting but modify it to [name_of_input] and surround it with the correct tags. Add a label such as **Input** to introduce the text.\n- For output, provide the cleaned-up text with no tokens, introduced by a simple label such as **Cleaned Output**.\n\nFinal Instruction Cleanup:\n\n- Modify lines like \"Now, please clean up the provided text...\" so they are concise and clear. Remove any references to tokens in outputs and end the instruction with a colon and label the section clearly.\n\nHere is the prompt to transform:\n\n<anthropic_prompt>\n[anthropic_prompt]\n</anthropic_prompt>\n\nPlease write the transformed prompt in a code block:\n",
+          "input_attributes": [
+            {
+              "name": "anthropic_prompt",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Anthropic Prompt"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "updated_prompt",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Updated Prompt"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Clean Up Prompt",
+          "title": "Clean Up Prompt",
+          "order": 2,
+          "description": "Fix common issues with Anthropic prompts",
+          "prompt": "Review the updated prompt and clean up based on guidelines.\n\n1. XML-style tags should only be used for input parameters. These input parameters should appear earlier in the prompt.\n2. If there is an XML-style tag for an output parameter, remove it and replace it with a title followed by a colon, ensuring the output appears on the next line.\n\nExammple\n\n<some-type-of-output>\n[some type of output goes hear]\n</some-type-of-output>\n\nShould become\n\nSome type of output:\n[some type of output goes hear]\n\nIf you encounter additional instructions meant to reinforce earlier guidelines, summarize them concisely so they have an impact without reducing the overall quality of the prompt.\n\nPlease improve the following:\n\n\n<updated_prompt>\n[updated_prompt]\n</updated_prompt>\n",
+          "input_attributes": [
+            {
+              "name": "updated_prompt",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Updated Prompt"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "clean_prompt",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Clean Prompt"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "anthropic_prompt": {
+      "name": "anthropic_prompt",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Anthropic Prompt"
+    },
+    "updated_prompt": {
+      "name": "updated_prompt",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Updated Prompt"
+    },
+    "clean_prompt": {
+      "name": "clean_prompt",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Clean Prompt"
+    }
+  },
+  "prompts": {
+    "reformat_prompt": {
+      "name": "reformat_prompt",
+      "content": "You are tasked with transforming a given prompt to improve its structure and clarity.\nThe prompts you will be modifying may have issues related to token formatting, input/output separation, and overly verbose instructions.\nFollow these guidelines for cleaning up and transforming the prompt:\n\nInput Token Formatting:\n\n- Change the format of input tokens from {{NAME_OF_INPUT}} to [name_of_input] (all lowercase and surrounded by square brackets).\n- Input sections should use surrounding token names like <name_of_input> and </name_of_input>, but the variable itself should remain in square brackets [name_of_input].\n\nInput/Output Formatting:\n\n- Input sections should retain token formatting with <name_of_input> and </name_of_input> tags surrounding the variable [name_of_input].\n- Output sections should not use any token formatting. They should be introduced with a clear label like Cleaned Output and no brackets around the output text.\n- If you have multple outputs then then each output should just be a heading with colon followed by the output\n\n\nExample Structure:\n\n- For input, retain token formatting but modify it to [name_of_input] and surround it with the correct tags. Add a label such as **Input** to introduce the text.\n- For output, provide the cleaned-up text with no tokens, introduced by a simple label such as **Cleaned Output**.\n\nFinal Instruction Cleanup:\n\n- Modify lines like \"Now, please clean up the provided text...\" so they are concise and clear. Remove any references to tokens in outputs and end the instruction with a colon and label the section clearly.\n\nHere is the prompt to transform:\n\n<anthropic_prompt>\n[anthropic_prompt]\n</anthropic_prompt>\n\nPlease write the transformed prompt in a code block:\n",
+      "description": null,
+      "title": "Reformat Prompt"
+    },
+    "clean_up_prompt": {
+      "name": "clean_up_prompt",
+      "content": "Review the updated prompt and clean up based on guidelines.\n\n1. XML-style tags should only be used for input parameters. These input parameters should appear earlier in the prompt.\n2. If there is an XML-style tag for an output parameter, remove it and replace it with a title followed by a colon, ensuring the output appears on the next line.\n\nExammple\n\n<some-type-of-output>\n[some type of output goes hear]\n</some-type-of-output>\n\nShould become\n\nSome type of output:\n[some type of output goes hear]\n\nIf you encounter additional instructions meant to reinforce earlier guidelines, summarize them concisely so they have an impact without reducing the overall quality of the prompt.\n\nPlease improve the following:\n\n\n<updated_prompt>\n[updated_prompt]\n</updated_prompt>\n",
+      "description": null,
+      "title": "Clean Up Prompt"
+    }
+  }
+}

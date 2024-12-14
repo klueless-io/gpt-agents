@@ -1,0 +1,273 @@
+{
+  "name": "keywords_topic_clusters_and_intent",
+  "title": "Keywords Topic Clusters And Intent",
+  "description": "This workflow facilitates collaboration between GPT agents to analyze data, identify high-impact keywords, and organize them into topic clusters for optimizing brand positioning and search intent.",
+  "settings": {
+    "prompt_path": {
+      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/growth_hackers/keywords_topic_clusters_and_intent",
+      "description": null,
+      "title": "Prompt Path"
+    },
+    "default_llm": {
+      "value": "gpt4o",
+      "description": null,
+      "title": "Default Llm"
+    }
+  },
+  "sections": [
+    {
+      "name": "Define Goals and Data Sources",
+      "title": "Define Goals And Data Sources",
+      "order": 1,
+      "description": "Collect client goals and analyze market trends.",
+      "steps": [
+        {
+          "name": "Collect Client Goals",
+          "title": "Collect Client Goals",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "client_info",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Client Info"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "client_goals",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Client Goals"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Collect Market Data",
+          "title": "Collect Market Data",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "external_data_sources",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "External Data Sources"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "market_trends",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Market Trends"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Keyword Analysis and Clustering",
+      "title": "Keyword Analysis And Clustering",
+      "order": 2,
+      "description": "Identify high-impact keywords and organize them into topic clusters.",
+      "steps": [
+        {
+          "name": "Identify Keywords",
+          "title": "Identify Keywords",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "client_goals",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Client Goals"
+            },
+            {
+              "name": "market_trends",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Market Trends"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "high_impact_keywords",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "High Impact Keywords"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Group Keywords",
+          "title": "Group Keywords",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "high_impact_keywords",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "High Impact Keywords"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "keyword_clusters",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Keyword Clusters"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Establish Topical Authority",
+      "title": "Establish Topical Authority",
+      "order": 3,
+      "description": "Analyze topical authority for identified keyword clusters.",
+      "steps": [
+        {
+          "name": "Identify Authority",
+          "title": "Identify Authority",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "keyword_clusters",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Keyword Clusters"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "topical_authority",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Topical Authority"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "client_info": {
+      "name": "client_info",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Client Info"
+    },
+    "client_goals": {
+      "name": "client_goals",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Client Goals"
+    },
+    "external_data_sources": {
+      "name": "external_data_sources",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "External Data Sources"
+    },
+    "market_trends": {
+      "name": "market_trends",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Market Trends"
+    },
+    "high_impact_keywords": {
+      "name": "high_impact_keywords",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "High Impact Keywords"
+    },
+    "keyword_clusters": {
+      "name": "keyword_clusters",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Keyword Clusters"
+    },
+    "topical_authority": {
+      "name": "topical_authority",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Topical Authority"
+    }
+  },
+  "prompts": {
+    "client_goals": {
+      "name": "client_goals",
+      "content": "",
+      "description": null,
+      "title": "Client Goals"
+    },
+    "market_data": {
+      "name": "market_data",
+      "content": "",
+      "description": null,
+      "title": "Market Data"
+    },
+    "high_impact_keywords": {
+      "name": "high_impact_keywords",
+      "content": "",
+      "description": null,
+      "title": "High Impact Keywords"
+    },
+    "keyword_clustering": {
+      "name": "keyword_clustering",
+      "content": "",
+      "description": null,
+      "title": "Keyword Clustering"
+    },
+    "topical_authority_analysis": {
+      "name": "topical_authority_analysis",
+      "content": "",
+      "description": null,
+      "title": "Topical Authority Analysis"
+    }
+  }
+}

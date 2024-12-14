@@ -1,0 +1,910 @@
+{
+  "name": "docflow_ai_assistant",
+  "title": "Docflow Ai Assistant",
+  "description": "This workflow is designed to assist with code documentation, visualization, and generating useful documentation tools.",
+  "settings": {
+    "prompt_path": {
+      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/application_development/docflow_ai_assistant",
+      "description": null,
+      "title": "Prompt Path"
+    },
+    "default_llm": {
+      "value": "gpt4o",
+      "description": null,
+      "title": "Default Llm"
+    }
+  },
+  "sections": [
+    {
+      "name": "Planning and Initialization",
+      "title": "Planning And Initialization",
+      "order": 1,
+      "description": "Set project objectives and analyze the existing codebase.",
+      "steps": [
+        {
+          "name": "Define Scope",
+          "title": "Define Scope",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "project_overview",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Project Overview"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "defined_scope",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Defined Scope"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Analyze Codebase",
+          "title": "Analyze Codebase",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "defined_scope",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Defined Scope"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "codebase_structure",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Codebase Structure"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Identify Components",
+          "title": "Identify Components",
+          "order": 3,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "codebase_structure",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Codebase Structure"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "identified_components",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Identified Components"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Map Interactions",
+          "title": "Map Interactions",
+          "order": 4,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "identified_components",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Identified Components"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "component_interactions",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Component Interactions"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Review System Overview",
+          "title": "Review System Overview",
+          "order": 5,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "component_interactions",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Component Interactions"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "system_overview",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "System Overview"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Identification and Analysis",
+      "title": "Identification And Analysis",
+      "order": 2,
+      "description": "Identify and analyze system patterns, functionality, business logic, and testing methodologies.",
+      "steps": [
+        {
+          "name": "Identify Patterns",
+          "title": "Identify Patterns",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "system_overview",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "System Overview"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "identified_patterns",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Identified Patterns"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Document Functionality",
+          "title": "Document Functionality",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "identified_patterns",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Identified Patterns"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "documented_functionality",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Documented Functionality"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Analyze Business Logic",
+          "title": "Analyze Business Logic",
+          "order": 3,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "documented_functionality",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Documented Functionality"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "documented_business_logic",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Documented Business Logic"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Analyze Testing Patterns",
+          "title": "Analyze Testing Patterns",
+          "order": 4,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "documented_business_logic",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Documented Business Logic"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "testing_patterns",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Testing Patterns"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Documentation and Visualization",
+      "title": "Documentation And Visualization",
+      "order": 3,
+      "description": "Generate code examples, logic walkthroughs, and create visual aids.",
+      "steps": [
+        {
+          "name": "Generate Code Examples",
+          "title": "Generate Code Examples",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "documented_functionality",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Documented Functionality"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "code_examples",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Code Examples"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Walkthrough Key Logic",
+          "title": "Walkthrough Key Logic",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "code_examples",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Code Examples"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "logic_walkthroughs",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Logic Walkthroughs"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Create Visual Aids",
+          "title": "Create Visual Aids",
+          "order": 3,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "system_overview",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "System Overview"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "erd",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Erd"
+            },
+            {
+              "name": "dfd",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dfd"
+            },
+            {
+              "name": "class_diagrams",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Class Diagrams"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Documentation Creation Tool",
+      "title": "Documentation Creation Tool",
+      "order": 4,
+      "description": "Generate user stories, tables, diagrams, and various templates for documentation.",
+      "steps": [
+        {
+          "name": "User Story Generator",
+          "title": "User Story Generator",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "code_examples",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Code Examples"
+            },
+            {
+              "name": "documented_functionality",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Documented Functionality"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "user_stories",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "User Stories"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Table Designer",
+          "title": "Table Designer",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "system_overview",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "System Overview"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "data_tables",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Data Tables"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Code Example Generator",
+          "title": "Code Example Generator",
+          "order": 3,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "documented_functionality",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Documented Functionality"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "example_templates",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Example Templates"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Class Diagram Generator",
+          "title": "Class Diagram Generator",
+          "order": 4,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "component_interactions",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Component Interactions"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "class_diagrams",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Class Diagrams"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Algorithm Explanation Template",
+          "title": "Algorithm Explanation Template",
+          "order": 5,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "documented_business_logic",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Documented Business Logic"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "algorithm_templates",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Algorithm Templates"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Test Case Documentation Tool",
+          "title": "Test Case Documentation Tool",
+          "order": 6,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "testing_patterns",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Testing Patterns"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "test_case_docs",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Test Case Docs"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Use Case Diagram Generator",
+          "title": "Use Case Diagram Generator",
+          "order": 7,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "identified_patterns",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Identified Patterns"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "use_case_diagrams",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Use Case Diagrams"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Data Flow Diagram Generator",
+          "title": "Data Flow Diagram Generator",
+          "order": 8,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "system_overview",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "System Overview"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "data_flow_diagrams",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Data Flow Diagrams"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "project_overview": {
+      "name": "project_overview",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Project Overview"
+    },
+    "defined_scope": {
+      "name": "defined_scope",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Defined Scope"
+    },
+    "codebase_structure": {
+      "name": "codebase_structure",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Codebase Structure"
+    },
+    "identified_components": {
+      "name": "identified_components",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Identified Components"
+    },
+    "component_interactions": {
+      "name": "component_interactions",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Component Interactions"
+    },
+    "system_overview": {
+      "name": "system_overview",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "System Overview"
+    },
+    "identified_patterns": {
+      "name": "identified_patterns",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Identified Patterns"
+    },
+    "documented_functionality": {
+      "name": "documented_functionality",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Documented Functionality"
+    },
+    "documented_business_logic": {
+      "name": "documented_business_logic",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Documented Business Logic"
+    },
+    "testing_patterns": {
+      "name": "testing_patterns",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Testing Patterns"
+    },
+    "code_examples": {
+      "name": "code_examples",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Code Examples"
+    },
+    "logic_walkthroughs": {
+      "name": "logic_walkthroughs",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Logic Walkthroughs"
+    },
+    "erd": {
+      "name": "erd",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Erd"
+    },
+    "dfd": {
+      "name": "dfd",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Dfd"
+    },
+    "class_diagrams": {
+      "name": "class_diagrams",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Class Diagrams"
+    },
+    "user_stories": {
+      "name": "user_stories",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "User Stories"
+    },
+    "data_tables": {
+      "name": "data_tables",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Data Tables"
+    },
+    "example_templates": {
+      "name": "example_templates",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Example Templates"
+    },
+    "algorithm_templates": {
+      "name": "algorithm_templates",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Algorithm Templates"
+    },
+    "test_case_docs": {
+      "name": "test_case_docs",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Test Case Docs"
+    },
+    "use_case_diagrams": {
+      "name": "use_case_diagrams",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Use Case Diagrams"
+    },
+    "data_flow_diagrams": {
+      "name": "data_flow_diagrams",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Data Flow Diagrams"
+    }
+  },
+  "prompts": {
+    "project_scope": {
+      "name": "project_scope",
+      "content": "",
+      "description": null,
+      "title": "Project Scope"
+    },
+    "codebase_analysis": {
+      "name": "codebase_analysis",
+      "content": "",
+      "description": null,
+      "title": "Codebase Analysis"
+    },
+    "component_identification": {
+      "name": "component_identification",
+      "content": "",
+      "description": null,
+      "title": "Component Identification"
+    },
+    "interaction_mapping": {
+      "name": "interaction_mapping",
+      "content": "",
+      "description": null,
+      "title": "Interaction Mapping"
+    },
+    "system_overview": {
+      "name": "system_overview",
+      "content": "",
+      "description": null,
+      "title": "System Overview"
+    },
+    "pattern_identification": {
+      "name": "pattern_identification",
+      "content": "",
+      "description": null,
+      "title": "Pattern Identification"
+    },
+    "functionality_document": {
+      "name": "functionality_document",
+      "content": "",
+      "description": null,
+      "title": "Functionality Document"
+    },
+    "business_logic_analysis": {
+      "name": "business_logic_analysis",
+      "content": "",
+      "description": null,
+      "title": "Business Logic Analysis"
+    },
+    "testing_patterns_analysis": {
+      "name": "testing_patterns_analysis",
+      "content": "",
+      "description": null,
+      "title": "Testing Patterns Analysis"
+    },
+    "code_examples": {
+      "name": "code_examples",
+      "content": "",
+      "description": null,
+      "title": "Code Examples"
+    },
+    "logic_walkthrough": {
+      "name": "logic_walkthrough",
+      "content": "",
+      "description": null,
+      "title": "Logic Walkthrough"
+    },
+    "visual_aids": {
+      "name": "visual_aids",
+      "content": "",
+      "description": null,
+      "title": "Visual Aids"
+    },
+    "user_story_generator": {
+      "name": "user_story_generator",
+      "content": "",
+      "description": null,
+      "title": "User Story Generator"
+    },
+    "table_designer": {
+      "name": "table_designer",
+      "content": "",
+      "description": null,
+      "title": "Table Designer"
+    },
+    "code_example_generator": {
+      "name": "code_example_generator",
+      "content": "",
+      "description": null,
+      "title": "Code Example Generator"
+    },
+    "class_diagram_generator": {
+      "name": "class_diagram_generator",
+      "content": "",
+      "description": null,
+      "title": "Class Diagram Generator"
+    },
+    "algorithm_explanation": {
+      "name": "algorithm_explanation",
+      "content": "",
+      "description": null,
+      "title": "Algorithm Explanation"
+    },
+    "test_case_documentation": {
+      "name": "test_case_documentation",
+      "content": "",
+      "description": null,
+      "title": "Test Case Documentation"
+    },
+    "use_case_diagram_generator": {
+      "name": "use_case_diagram_generator",
+      "content": "",
+      "description": null,
+      "title": "Use Case Diagram Generator"
+    },
+    "data_flow_diagram_generator": {
+      "name": "data_flow_diagram_generator",
+      "content": "",
+      "description": null,
+      "title": "Data Flow Diagram Generator"
+    }
+  }
+}

@@ -1,0 +1,440 @@
+{
+  "name": "youtube_script_booster",
+  "title": "Youtube Script Booster",
+  "description": "This workflow designs compelling YouTube video intros & outros to boost engagement and watch time.",
+  "settings": {
+    "prompt_path": {
+      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/youtube/script_booster",
+      "description": null,
+      "title": "Prompt Path"
+    },
+    "default_llm": {
+      "value": "gpt4o",
+      "description": null,
+      "title": "Default Llm"
+    }
+  },
+  "sections": [
+    {
+      "name": "Intro Hook",
+      "title": "Intro Hook",
+      "order": 1,
+      "description": null,
+      "steps": [
+        {
+          "name": "Hook Ideas",
+          "title": "Hook Ideas",
+          "order": 1,
+          "description": null,
+          "prompt": "You are tasked with suggesting appropriate YouTube video intro hooks based on a given scenario.\n\nYour goal is to analyze the scenario and recommend 3 hook types that would be most effective for engaging viewers.\n\nHere are ten different types of intro styles often used by successful YouTube channels to hook viewers right away: \n\n1. The Question Hook: Start with a thought-provoking or curiosity-inducing question.\n2. The What-If Scenario: Pose a hypothetical situation that grabs attention and sparks the imagination.\n3. The Bold Statement: Begin with a surprising or bold claim that challenges expectations or knowledge.\n4. The Challenge: Present a challenge that encourages viewers to see if they can do it or overcome it by watching the video.\n5. The Relatable Problem: Highlight a common problem or frustration the audience faces, followed by a promise to solve it.\n6. The Teaser: Hint at something exciting or valuable that's coming later in the video, but don't reveal it yet.\n7. The Story Intro: Start by telling a quick, personal, or relatable story to draw in viewers emotionally.\n8. The Demonstration: Immediately show something in action—something that will intrigue viewers and make them want to learn how it was done.\n9. The Stat or Fact Hook: Use an interesting or shocking statistic or fact to capture attention.\n10. The Controversial Take: Open with a contrarian or unpopular opinion to spark debate and curiosity.\n\nNow, consider the goal of the YouTube video and the intro scenario: \n\n<current_video_goal>\n[current_video_goal]\n</current_video_goal>\n\n<intro_scenario>\n[intro_scenario]\n</intro_scenario>\n\nAnalyze the given scenario and select the 3 most appropriate hook types from the list above.\nFor each selected hook type, provide a brief explanation of why it would be effective for this particular video scenario.\nAfter presenting your 3 recommended hook types with explanations, provide a short list of the other hook types that were not selected, in case the content creator prefers a different style.\n\nPresent your response in the following format:\n\n[Hook Type Name 1]\n\n[Explanation of why this hook type is appropriate for the scenario]\n\n---\n\n[Hook Type Name 2]\n\n[Explanation of why this hook type is appropriate for the scenario]\n\n---\n\n[Hook Type Name 3]\n\n[Explanation of why this hook type is appropriate for the scenario]\n\n[List of the remaining hook types not selected] \n\nEnsure that your explanations are concise yet informative, directly relating the hook type to the specific elements of the given scenario.\n",
+          "input_attributes": [
+            {
+              "name": "current_video_goal",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Current Video Goal"
+            },
+            {
+              "name": "intro_scenario",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Intro Scenario"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "intro_hook_ideas",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Intro Hook Ideas"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Write Intro Hook",
+          "title": "Write Intro Hook",
+          "order": 2,
+          "description": null,
+          "prompt": "You are tasked with creating engaging YouTube intro hooks based on a given scenario and provided hook ideas.\n\nFor each hook idea in the list, create a unique and captivating intro hook that relates to the given scenario. \n\nFollow these guidelines:\n\n1. Keep each hook brief, ideally 1-2 sentences long.\n2. Ensure the hook is attention-grabbing and relevant to the scenario.\n3. Adapt the hook idea to fit the specific context of the scenario.\n4. Use language that is appropriate for a YouTube audience.\n5. Make the hook intriguing enough to make viewers want to watch more.\n\nHere's the scenario you'll be working with:\n\n<intro_scenario>\n[intro_scenario]\n</intro_scenario>\n\nAnd here are the hook ideas to use:\n\n<hook_ideas>\n[hook_idea1]\n[hook_idea2]\n[hook_idea3]\n</hook_ideas>\n\n\nPresent your hooks in the following format:\n\n[Hook Idea]\n\n[Hook]\n\n---\n\n[Repeat for each idea provided]\n\nRemember to be creative and engaging while staying true to the scenario and the essence of each hook idea.",
+          "input_attributes": [
+            {
+              "name": "intro_hook_idea1",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Intro Hook Idea1"
+            },
+            {
+              "name": "intro_hook_idea2",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Intro Hook Idea2"
+            },
+            {
+              "name": "intro_hook_idea3",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Intro Hook Idea3"
+            },
+            {
+              "name": "intro_scenario",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Intro Scenario"
+            },
+            {
+              "name": "audience",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Audience"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "intro_hook",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Intro Hook"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Last Episode Recap Bridge",
+      "title": "Last Episode Recap Bridge",
+      "order": 2,
+      "description": null,
+      "steps": [
+        {
+          "name": "Intro Recap Content Analysis",
+          "title": "Intro Recap Content Analysis",
+          "order": 1,
+          "description": null,
+          "prompt": "You are tasked with creating an engaging YouTube intro that briefly recaps the previous video's content and effectively sets the stage for the current video.\n\nYour goal is to analyze the content of the last video and create guidelines for an introduction that connects it to the current video's goal.\n\nFirst, carefully read the abridgment of the last video:\n\n<last_video_abridgement>\n[last_video_abridgement]\n</last_video_abridgement>\n\nNow, consider the goal of the current video:\n\n<current_video_goal>\n[current_video_goal]\n</current_video_goal>\n\nAnalyze the content of the last video abridgement and identify 2-3 key themes or main points. These will serve as connection points to the current video.\n\nNext, create guidelines for an introduction using the following two-step framework:\n\n1. **Recap of the Previous Video:** Summarize the key themes or main points from the last video in 1-2 sentences. This should refresh the viewer's memory and provide context.\n\n2. **Transition to the Current Video's Goal:** Create a natural segue that links the recap to the current video's goal. This should highlight how the current video builds upon or complements the previous content.\n\nPresent your analysis and introduction guidelines in the following format:\n\n# Key Themes\n1. [First key theme from last video]\n2. [Second key theme from last video]\n3. [Third key theme from last video (if applicable)]\n</key_themes>\n\n# Recap\n[Guidelines for summarizing the last video]\n\n# Transition\n[Guidelines for connecting the recap to the current video's goal]\n\nEnsure that your guidelines are specific enough to guide the creation of an engaging intro, but concise enough to keep the introduction brief.\n",
+          "input_attributes": [
+            {
+              "name": "last_video_abridgement",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Last Video Abridgement"
+            },
+            {
+              "name": "current_video_goal",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Current Video Goal"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "intro_recap_content_analysis",
+              "type": "array",
+              "is_array": true,
+              "description": null,
+              "title": "Intro Recap Content Analysis"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Write Intro Recap Script",
+          "title": "Write Intro Recap Script",
+          "order": 2,
+          "description": null,
+          "prompt": "You are tasked with creating an engaging intro script for a video that briefly recaps the previous video and sets the stage for the current content.\n\nThis intro should follow a two-step framework: Recap and Transition.\n\nYour goal is to create a compelling introduction that refreshes the viewer's memory and piques their interest in the current video.\n\nFirst, review the content analysis of the last video:\n\n<intro_episode_recap_script>\n[intro_episode_recap_script]\n</intro_episode_recap_script>\n\nNow, consider the goal of the current video:\n\n<current_video_goal>\n[current_video_goal]\n</current_video_goal>\n\nUsing this information, create an intro script following these steps:\n\n1. **Recap:**\nSummarize the key points from the last video in 1-2 sentences. This should remind the viewer of what they learned previously.\n\n2. **Transition:**\nCreate a smooth segue into the current video's topic, highlighting how it builds upon or relates to the last video. This should be 1-2 sentences long.\n\nCombine these elements into a cohesive intro script, ensuring a smooth flow between each part. The entire intro should be concise, typically 2-4 sentences in total.\n\nThe format should be intro script followed by explanation:\n\n# Intro Script\n\n[your intro script goes here]\n\n# Explanation\n\n[provide a brief explanation (2-3 sentences) of how your intro incorporates the two-step framework and addresses the current_video_goal]\n\nRemember to make the intro engaging, relevant, and focused on setting the stage for the current content. Use language that creates continuity and anticipation for what's to come.\n",
+          "input_attributes": [
+            {
+              "name": "current_video_goal",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Current Video Goal"
+            },
+            {
+              "name": "intro_episode_recap_analysis",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Intro Episode Recap Analysis"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "intro_episode_recap_script",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Intro Episode Recap Script"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Next Episode Outro Bridge",
+      "title": "Next Episode Outro Bridge",
+      "order": 3,
+      "description": null,
+      "steps": [
+        {
+          "name": "Outro Content Analysis",
+          "title": "Outro Content Analysis",
+          "order": 1,
+          "description": null,
+          "prompt": "You are tasked with creating a compelling YouTube outro that will seamlessly transition from the current video to the next, increasing watch time and viewer engagement. Your goal is to analyze the content of the current video and create guidelines for a transition that incorporates the topic of the next video.\n\nFirst, carefully read the abridgment of the current video:\n\n<current_video_abridgement>  \n[current_video_abridgement]  \n</current_video_abridgement>\n\nNow, consider the topic of the next video:\n\n<next_video_goal>  \n{{next_video_goal}}  \n</next_video_goal>\n\nAnalyze the content of the current video abridgment and identify 2-3 key themes or main points. These will serve as potential connection points to the next video.\n\nNext, create guidelines for a transition using the following three-step framework:\n\n1. **The Bridge:** Identify a way to connect one of the key themes from the current video to the topic of the next video. This should feel like a natural progression or extension of the current content, ensuring the next video is seen as a logical continuation.\n\n2. **Curiosity Hook:** Develop an intriguing statement or question directly tied to the next video's topic that will pique the viewer's interest. This should hint at valuable information or insights that the viewer doesn’t yet know but would want to learn, creating anticipation for the next video.\n\n3. **Promise of Transformation:** Craft a compelling promise about what the viewer will gain from watching the next video. This should address a desire or need of the target audience, making the next video feel essential for achieving a specific outcome or understanding.\n\nPresent your analysis and transition guidelines in the following format:\n\n# Key Themes  \n1. [First key theme from current video]  \n2. [Second key theme from current video]  \n3. [Third key theme from current video (if applicable)]  \n</key_themes>\n\n# Bridge  \n[Guidelines for connecting a key theme to the next video topic]\n\n# Curiosity Hook  \n[Guidelines for creating an intriguing statement or question directly related to the next video]\n\n# Transformation Promise  \n[Guidelines for crafting a compelling promise about the next video]\n\nEnsure that your guidelines are specific enough to guide the creation of an engaging outro, but flexible enough to allow for creative expression in the final script.\n",
+          "input_attributes": [
+            {
+              "name": "current_video_abridgement",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Current Video Abridgement"
+            },
+            {
+              "name": "next_video_goal",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Next Video Goal"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "outro_bridge_content_analysis",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Outro Bridge Content Analysis"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Outro Booster Script",
+          "title": "Outro Booster Script",
+          "order": 2,
+          "description": null,
+          "prompt": "You are tasked with creating an engaging outro script for a video that will effectively transition viewers to the next video in the series. \n\nThis outro should follow a three-step framework: The Bridge, Curiosity Hook, and Promise of Transformation.\n\nYour goal is to create a compelling call-to-action that encourages viewers to continue watching, thereby increasing watch time and channel growth.\n\nFirst, review the content analysis of the current video:\n<content_analysis>\n[content_analysis]\n</content_analysis>\n\nNow, consider the goal of the next video in the series:\n<next_video_goal>\n[next_video_goal]\n</next_video_goal>\n\nUsing this information, create an outro script following these steps:\n\n1. The Bridge: \nCreate a seamless transition from the current video to the next. Reference a key point from the current video and connect it to the topic of the next video. This should be 1-2 sentences long.\n\n2. Curiosity Hook:\nDevelop an intriguing statement or question that piques the viewer's interest in the next video. This should relate to the next_video_goal and be something unexpected or exciting. Aim for 1-2 sentences.\n\n3. Promise of Transformation:\nCraft a clear, compelling promise of what viewers will gain from watching the next video. This should directly address the viewer's desires or needs, making it irresistible for them to continue watching. Keep this to 1-2 impactful sentences.\n\nCombine these elements into a cohesive outro script, ensuring a smooth flow between each part. The entire outro should be concise, typically 3-5 sentences in total.\n\nThe format should be outro script followed by explanation:\n\n\n# Outro Script\n\n[your outro script goes here]\n\n# Explanation\n\n[provide a brief explanation (2-3 sentences) of how your outro incorporates the three-step framework and addresses the next_video_goal]\n\nRemember to make the outro engaging, personal, and focused on the viewer's interests and goals. Use language that creates a sense of urgency and excitement about the upcoming content.",
+          "input_attributes": [
+            {
+              "name": "next_video_goal",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Next Video Goal"
+            },
+            {
+              "name": "outro_bridge_content_analysis",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Outro Bridge Content Analysis"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "outro_bridge_script",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Outro Bridge Script"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "audience": {
+      "name": "audience",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Audience"
+    },
+    "current_video_goal": {
+      "name": "current_video_goal",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Current Video Goal"
+    },
+    "current_video_abridgement": {
+      "name": "current_video_abridgement",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Current Video Abridgement"
+    },
+    "intro_scenario": {
+      "name": "intro_scenario",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Intro Scenario"
+    },
+    "intro_hook_idea1": {
+      "name": "intro_hook_idea1",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Intro Hook Idea1"
+    },
+    "intro_hook_idea2": {
+      "name": "intro_hook_idea2",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Intro Hook Idea2"
+    },
+    "intro_hook_idea3": {
+      "name": "intro_hook_idea3",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Intro Hook Idea3"
+    },
+    "intro_hook_ideas": {
+      "name": "intro_hook_ideas",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Intro Hook Ideas"
+    },
+    "next_video_goal": {
+      "name": "next_video_goal",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Next Video Goal"
+    },
+    "next_video_abridgment": {
+      "name": "next_video_abridgment",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Next Video Abridgment"
+    },
+    "last_video_abridgement": {
+      "name": "last_video_abridgement",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Last Video Abridgement"
+    },
+    "last_goal": {
+      "name": "last_goal",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Last Goal"
+    },
+    "outro_bridge_content_analysis": {
+      "name": "outro_bridge_content_analysis",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Outro Bridge Content Analysis"
+    },
+    "outro_bridge_script": {
+      "name": "outro_bridge_script",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Outro Bridge Script"
+    },
+    "intro_episode_recap_analysis": {
+      "name": "intro_episode_recap_analysis",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Intro Episode Recap Analysis"
+    },
+    "intro_episode_recap_script": {
+      "name": "intro_episode_recap_script",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Intro Episode Recap Script"
+    },
+    "intro_hook": {
+      "name": "intro_hook",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Intro Hook"
+    },
+    "intro_recap_content_analysis": {
+      "name": "intro_recap_content_analysis",
+      "type": "array",
+      "is_array": true,
+      "description": null,
+      "title": "Intro Recap Content Analysis"
+    }
+  },
+  "prompts": {
+    "intro_hook_ideas_prompt": {
+      "name": "intro_hook_ideas_prompt",
+      "content": "You are tasked with suggesting appropriate YouTube video intro hooks based on a given scenario.\n\nYour goal is to analyze the scenario and recommend 3 hook types that would be most effective for engaging viewers.\n\nHere are ten different types of intro styles often used by successful YouTube channels to hook viewers right away: \n\n1. The Question Hook: Start with a thought-provoking or curiosity-inducing question.\n2. The What-If Scenario: Pose a hypothetical situation that grabs attention and sparks the imagination.\n3. The Bold Statement: Begin with a surprising or bold claim that challenges expectations or knowledge.\n4. The Challenge: Present a challenge that encourages viewers to see if they can do it or overcome it by watching the video.\n5. The Relatable Problem: Highlight a common problem or frustration the audience faces, followed by a promise to solve it.\n6. The Teaser: Hint at something exciting or valuable that's coming later in the video, but don't reveal it yet.\n7. The Story Intro: Start by telling a quick, personal, or relatable story to draw in viewers emotionally.\n8. The Demonstration: Immediately show something in action—something that will intrigue viewers and make them want to learn how it was done.\n9. The Stat or Fact Hook: Use an interesting or shocking statistic or fact to capture attention.\n10. The Controversial Take: Open with a contrarian or unpopular opinion to spark debate and curiosity.\n\nNow, consider the goal of the YouTube video and the intro scenario: \n\n<current_video_goal>\n[current_video_goal]\n</current_video_goal>\n\n<intro_scenario>\n[intro_scenario]\n</intro_scenario>\n\nAnalyze the given scenario and select the 3 most appropriate hook types from the list above.\nFor each selected hook type, provide a brief explanation of why it would be effective for this particular video scenario.\nAfter presenting your 3 recommended hook types with explanations, provide a short list of the other hook types that were not selected, in case the content creator prefers a different style.\n\nPresent your response in the following format:\n\n[Hook Type Name 1]\n\n[Explanation of why this hook type is appropriate for the scenario]\n\n---\n\n[Hook Type Name 2]\n\n[Explanation of why this hook type is appropriate for the scenario]\n\n---\n\n[Hook Type Name 3]\n\n[Explanation of why this hook type is appropriate for the scenario]\n\n[List of the remaining hook types not selected] \n\nEnsure that your explanations are concise yet informative, directly relating the hook type to the specific elements of the given scenario.\n",
+      "description": null,
+      "title": "Intro Hook Ideas Prompt"
+    },
+    "intro_hooks_prompt": {
+      "name": "intro_hooks_prompt",
+      "content": "You are tasked with creating engaging YouTube intro hooks based on a given scenario and provided hook ideas.\n\nFor each hook idea in the list, create a unique and captivating intro hook that relates to the given scenario. \n\nFollow these guidelines:\n\n1. Keep each hook brief, ideally 1-2 sentences long.\n2. Ensure the hook is attention-grabbing and relevant to the scenario.\n3. Adapt the hook idea to fit the specific context of the scenario.\n4. Use language that is appropriate for a YouTube audience.\n5. Make the hook intriguing enough to make viewers want to watch more.\n\nHere's the scenario you'll be working with:\n\n<intro_scenario>\n[intro_scenario]\n</intro_scenario>\n\nAnd here are the hook ideas to use:\n\n<hook_ideas>\n[hook_idea1]\n[hook_idea2]\n[hook_idea3]\n</hook_ideas>\n\n\nPresent your hooks in the following format:\n\n[Hook Idea]\n\n[Hook]\n\n---\n\n[Repeat for each idea provided]\n\nRemember to be creative and engaging while staying true to the scenario and the essence of each hook idea.",
+      "description": null,
+      "title": "Intro Hooks Prompt"
+    },
+    "intro_episode_recap_analysis_prompt": {
+      "name": "intro_episode_recap_analysis_prompt",
+      "content": "You are tasked with creating an engaging YouTube intro that briefly recaps the previous video's content and effectively sets the stage for the current video.\n\nYour goal is to analyze the content of the last video and create guidelines for an introduction that connects it to the current video's goal.\n\nFirst, carefully read the abridgment of the last video:\n\n<last_video_abridgement>\n[last_video_abridgement]\n</last_video_abridgement>\n\nNow, consider the goal of the current video:\n\n<current_video_goal>\n[current_video_goal]\n</current_video_goal>\n\nAnalyze the content of the last video abridgement and identify 2-3 key themes or main points. These will serve as connection points to the current video.\n\nNext, create guidelines for an introduction using the following two-step framework:\n\n1. **Recap of the Previous Video:** Summarize the key themes or main points from the last video in 1-2 sentences. This should refresh the viewer's memory and provide context.\n\n2. **Transition to the Current Video's Goal:** Create a natural segue that links the recap to the current video's goal. This should highlight how the current video builds upon or complements the previous content.\n\nPresent your analysis and introduction guidelines in the following format:\n\n# Key Themes\n1. [First key theme from last video]\n2. [Second key theme from last video]\n3. [Third key theme from last video (if applicable)]\n</key_themes>\n\n# Recap\n[Guidelines for summarizing the last video]\n\n# Transition\n[Guidelines for connecting the recap to the current video's goal]\n\nEnsure that your guidelines are specific enough to guide the creation of an engaging intro, but concise enough to keep the introduction brief.\n",
+      "description": null,
+      "title": "Intro Episode Recap Analysis Prompt"
+    },
+    "intro_episode_recap_script_prompt": {
+      "name": "intro_episode_recap_script_prompt",
+      "content": "You are tasked with creating an engaging intro script for a video that briefly recaps the previous video and sets the stage for the current content.\n\nThis intro should follow a two-step framework: Recap and Transition.\n\nYour goal is to create a compelling introduction that refreshes the viewer's memory and piques their interest in the current video.\n\nFirst, review the content analysis of the last video:\n\n<intro_episode_recap_script>\n[intro_episode_recap_script]\n</intro_episode_recap_script>\n\nNow, consider the goal of the current video:\n\n<current_video_goal>\n[current_video_goal]\n</current_video_goal>\n\nUsing this information, create an intro script following these steps:\n\n1. **Recap:**\nSummarize the key points from the last video in 1-2 sentences. This should remind the viewer of what they learned previously.\n\n2. **Transition:**\nCreate a smooth segue into the current video's topic, highlighting how it builds upon or relates to the last video. This should be 1-2 sentences long.\n\nCombine these elements into a cohesive intro script, ensuring a smooth flow between each part. The entire intro should be concise, typically 2-4 sentences in total.\n\nThe format should be intro script followed by explanation:\n\n# Intro Script\n\n[your intro script goes here]\n\n# Explanation\n\n[provide a brief explanation (2-3 sentences) of how your intro incorporates the two-step framework and addresses the current_video_goal]\n\nRemember to make the intro engaging, relevant, and focused on setting the stage for the current content. Use language that creates continuity and anticipation for what's to come.\n",
+      "description": null,
+      "title": "Intro Episode Recap Script Prompt"
+    },
+    "outro_bridge_content_analysis_prompt": {
+      "name": "outro_bridge_content_analysis_prompt",
+      "content": "You are tasked with creating a compelling YouTube outro that will seamlessly transition from the current video to the next, increasing watch time and viewer engagement. Your goal is to analyze the content of the current video and create guidelines for a transition that incorporates the topic of the next video.\n\nFirst, carefully read the abridgment of the current video:\n\n<current_video_abridgement>  \n[current_video_abridgement]  \n</current_video_abridgement>\n\nNow, consider the topic of the next video:\n\n<next_video_goal>  \n{{next_video_goal}}  \n</next_video_goal>\n\nAnalyze the content of the current video abridgment and identify 2-3 key themes or main points. These will serve as potential connection points to the next video.\n\nNext, create guidelines for a transition using the following three-step framework:\n\n1. **The Bridge:** Identify a way to connect one of the key themes from the current video to the topic of the next video. This should feel like a natural progression or extension of the current content, ensuring the next video is seen as a logical continuation.\n\n2. **Curiosity Hook:** Develop an intriguing statement or question directly tied to the next video's topic that will pique the viewer's interest. This should hint at valuable information or insights that the viewer doesn’t yet know but would want to learn, creating anticipation for the next video.\n\n3. **Promise of Transformation:** Craft a compelling promise about what the viewer will gain from watching the next video. This should address a desire or need of the target audience, making the next video feel essential for achieving a specific outcome or understanding.\n\nPresent your analysis and transition guidelines in the following format:\n\n# Key Themes  \n1. [First key theme from current video]  \n2. [Second key theme from current video]  \n3. [Third key theme from current video (if applicable)]  \n</key_themes>\n\n# Bridge  \n[Guidelines for connecting a key theme to the next video topic]\n\n# Curiosity Hook  \n[Guidelines for creating an intriguing statement or question directly related to the next video]\n\n# Transformation Promise  \n[Guidelines for crafting a compelling promise about the next video]\n\nEnsure that your guidelines are specific enough to guide the creation of an engaging outro, but flexible enough to allow for creative expression in the final script.\n",
+      "description": null,
+      "title": "Outro Bridge Content Analysis Prompt"
+    },
+    "outro_bridge_script_prompt": {
+      "name": "outro_bridge_script_prompt",
+      "content": "You are tasked with creating an engaging outro script for a video that will effectively transition viewers to the next video in the series. \n\nThis outro should follow a three-step framework: The Bridge, Curiosity Hook, and Promise of Transformation.\n\nYour goal is to create a compelling call-to-action that encourages viewers to continue watching, thereby increasing watch time and channel growth.\n\nFirst, review the content analysis of the current video:\n<content_analysis>\n[content_analysis]\n</content_analysis>\n\nNow, consider the goal of the next video in the series:\n<next_video_goal>\n[next_video_goal]\n</next_video_goal>\n\nUsing this information, create an outro script following these steps:\n\n1. The Bridge: \nCreate a seamless transition from the current video to the next. Reference a key point from the current video and connect it to the topic of the next video. This should be 1-2 sentences long.\n\n2. Curiosity Hook:\nDevelop an intriguing statement or question that piques the viewer's interest in the next video. This should relate to the next_video_goal and be something unexpected or exciting. Aim for 1-2 sentences.\n\n3. Promise of Transformation:\nCraft a clear, compelling promise of what viewers will gain from watching the next video. This should directly address the viewer's desires or needs, making it irresistible for them to continue watching. Keep this to 1-2 impactful sentences.\n\nCombine these elements into a cohesive outro script, ensuring a smooth flow between each part. The entire outro should be concise, typically 3-5 sentences in total.\n\nThe format should be outro script followed by explanation:\n\n\n# Outro Script\n\n[your outro script goes here]\n\n# Explanation\n\n[provide a brief explanation (2-3 sentences) of how your outro incorporates the three-step framework and addresses the next_video_goal]\n\nRemember to make the outro engaging, personal, and focused on the viewer's interests and goals. Use language that creates a sense of urgency and excitement about the upcoming content.",
+      "description": null,
+      "title": "Outro Bridge Script Prompt"
+    }
+  }
+}

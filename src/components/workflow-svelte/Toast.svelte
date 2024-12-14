@@ -13,7 +13,7 @@
   }
 </script>
 
-<div class={`fixed bottom-4 right-4 z-50 transition-opacity duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
+<div class={`fixed bottom-4 left-4 z-50 transition-opacity duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
   <div class="bg-yellow text-primary-dark px-4 py-2 rounded shadow-md">
     {message}
   </div>

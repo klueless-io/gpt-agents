@@ -1,0 +1,1018 @@
+{
+  "name": "ten_prompts",
+  "title": "Ten Prompts",
+  "description": "This workflow provides simple access to 10 prompts sourced from a YouTube channel.",
+  "settings": {
+    "prompt_path": {
+      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/youtube/ten_prompts",
+      "description": null,
+      "title": "Prompt Path"
+    },
+    "default_llm": {
+      "value": "gpt4o",
+      "description": null,
+      "title": "Default Llm"
+    }
+  },
+  "sections": [
+    {
+      "name": "Utilities",
+      "title": "Utilities",
+      "order": 1,
+      "description": null,
+      "steps": [
+        {
+          "name": "Chat Summarizer",
+          "title": "Chat Summarizer",
+          "order": 1,
+          "description": null,
+          "prompt": "I have forgotten what this chat is about.\n\nWhat is this chat about, read all details, give a 50 word summery plus list of bullet points to clarify, work form the idea that you need to refresh my brain with the ideas in this chat. Do not wory about existing code examples when write out the response\n\nFormat\n\n## [Give me a useful title, 5 - 7 words]\n\n[50 word summary]\n\n[Bullet points]\n\n[Any closing statement]\n\nWrite your response as markdown in a code block\n\n",
+          "input_attributes": [
+
+          ],
+          "output_attributes": [
+
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Content Identification and Extraction",
+      "title": "Content Identification And Extraction",
+      "order": 2,
+      "description": null,
+      "steps": [
+        {
+          "name": "Newsletter Breakdown",
+          "title": "Newsletter Breakdown",
+          "order": 1,
+          "description": null,
+          "prompt": "Role: Expert [newsletter_topic] Analyst and Content Strategist\nTask: Conduct a comprehensive analysis of the provided [newsletter_type_of_content] about [newsletter_topic]. \n\nBreak down its structure, content, and strategy to extract valuable insights and actionable takeaways. \n\nContext: You are an experienced content strategist specializing in [newsletter_industry].\n\nYour expertise allows you to dissect and interpret [newsletter_type_of_content] to uncover underlying strategies, audience engagement techniques, and effective communication methods. \n\nAnalysis Structure:\n\n[Overview/Introduction]\n\nBriefly summarize the [newsletter_type_of_content]\n\nIdentify the main theme or purpose\n\n[Content Breakdown]\n\nAnalyze the structure and organization\n\nIdentify key sections and their purposes\n\n[Key Insights]\n\nExtract main points or arguments\n\nHighlight unique perspectives or approaches\n\n[Audience Analysis]\n\nIdentify the target audience\n\nAnalyze how the content caters to this audience\n\n[Communication Techniques]\n\nExamine the tone and style of writing\n\nIdentify persuasive or engaging elements\n\n[Visual Elements] (if applicable)\n\nAnalyze any graphics, images, or formatting choices\n\nDiscuss their impact on the overall message\n\n[Call-to-Action Analysis]\n\nIdentify any calls-to-action\n\nEvaluate their effectiveness and placement\n\n[Strengths and Areas for Improvement]\n\nHighlight particularly effective elements\n\nSuggest potential improvements or enhancements\n\n[Actionable Takeaways]\n\nProvide practical lessons or strategies that can be applied\n\nOffer suggestions for implementing similar techniques Instructions:\n\nAnalyze the provided [newsletter_type_of_content] thoroughly, addressing each section of the analysis structure.\n\nProvide clear, concise, and insightful commentary for each section.\n\nUse specific examples from the [newsletter_type_of_content] to support your analysis.\n\nOffer practical and actionable advice based on your findings.\n\nMaintain a professional and objective tone throughout the analysis.\n\nNews Letter Example\n[newsletter_example]",
+          "input_attributes": [
+            {
+              "name": "newsletter_topic",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Newsletter Topic"
+            },
+            {
+              "name": "newsletter_type_of_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Newsletter Type Of Content"
+            },
+            {
+              "name": "newsletter_industry",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Newsletter Industry"
+            },
+            {
+              "name": "newsletter_example",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Newsletter Example"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "newsletter_breakdown",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Newsletter Breakdown"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Newsletter Breakdown - Followup",
+          "title": "Newsletter Breakdown   Followup",
+          "order": 2,
+          "description": null,
+          "prompt": "Now based on this information, help me create an email that breaks everything into sections. This newsletter breakdown should be around 700-900 words. use simple and straightforward english. \n\nMy company [newsletter_brandcompany]\n\nMy reading level [newsletter_readinglevel]",
+          "input_attributes": [
+            {
+              "name": "newsletter_brandcompany",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Newsletter Brandcompany"
+            },
+            {
+              "name": "newsletter_readinglevel",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Newsletter Readinglevel"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "newsletter_breakdown",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Newsletter Breakdown"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Product Description",
+          "title": "Product Description",
+          "order": 3,
+          "description": null,
+          "prompt": "You are a Product Description Specialist with expertise in crafting compelling and informative product descriptions.\nYour task is to create a quick yet detailed product description for [product_type] based on the information provided.\nThe description should be engaging, highlight key features, and appeal to the target audience of [product_target_demographic].\nUse simple and plain English throughout the description to ensure clarity and accessibility for all readers.\n\nPlease format the product description as follows:\n\n[product_name]\n\n[Product overview: Provide a 100-word summary of the product, its main features, and its primary use case.]\n\nKey Benefits:\n\n[Benefit 1 in 5 words]\n\n[Benefit 2 in 5 words]\n\n[Benefit 3 in 5 words]\n\n[Benefit 4 in 5 words]\n\n[Benefit 5 in 5 words] [Add up to 2 more bullet points if necessary]\n\nMy Take:\n\n[Write a 50-word personal opinion or recommendation about the product, highlighting its unique selling points or how it stands out in the market.]\n\nBefore we begin, please provide the following information:\n\nWhat is the specific product name?\n\nWhat is the product type or category?\n\nWho is the target demographic for this product?\n\nWhat is your experience with this product?\n\nOnce you provide this information, I'll create a product description tailored to your needs, using simple and plain English.",
+          "input_attributes": [
+            {
+              "name": "product_image",
+              "type": "image",
+              "is_array": false,
+              "description": null,
+              "title": "Product Image"
+            },
+            {
+              "name": "product_name",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Product Name"
+            },
+            {
+              "name": "product_type",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Product Type"
+            },
+            {
+              "name": "product_target_demographic",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Product Target Demographic"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "product_description",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Product Description"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "FAQ Creation",
+          "title": "Faq Creation",
+          "order": 4,
+          "description": null,
+          "prompt": "Blog Post FAQs: [faq_title] Create a list of 5 Frequently Asked Questions (FAQs) and answers (under 350 characters) relevant to my blog post on [faq_title]. \n\nFocus on providing actionable insights and practical advice. Use a conversational tone and avoid technical jargon. Aim for questions that cover your target audience's common pain points and key concerns. \n\nAdditionally, for each FAQ, briefly suggest 1-2 relevant keywords that someone might use to search for that information. \n\nExample: Q: What type of content ranks well? (Keywords: SEO content, high-ranking content) A: Content that answers specific questions & solves problems for your audience. Think helpful guides & in-depth analyses.",
+          "input_attributes": [
+            {
+              "name": "faq_title",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Faq Title"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "faq",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Faq"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "VSL Script Outline",
+          "title": "Vsl Script Outline",
+          "order": 5,
+          "description": null,
+          "prompt": "Role\n\nYou are an expert copywriter and video sales letter (VSL) strategist with years of experience in crafting compelling and high-converting video scripts for various industries.\n\nTask\n\nYour task is to create a comprehensive outline for a video sales letter script for [vsl_product_service_name]. \nThe outline should follow proven VSL structures and persuasion techniques to maximize conversions.\n\nContext\n\nThe video sales letter will be used to promote [vsl_product_service_name] to [target_audience]. The primary goal is to [main objective, e.g., generate sales, increase sign-ups, etc.].\n\nInput Requirements\n\nProduct/Service Name:: [vsl_product_service_name]\n\nTarget Audience: [vsl_describe_ideal_customer]\n\nMain Pain Points: [vsl_key_problems_solved]\n\nUnique Selling Proposition (USP): [vsl_usp]\n\nKey Benefits: [vsl_main_benefits]\n\nCall to Action (CTA): [vsl_cta]\n\nPrice Point: [vsl_price_or_range]\n\nAny specific regulations or compliance issues to consider: [vsl_regs_or_compliance_issues]\n\nOutput Structure\n\nAttention-Grabbing Hook\n\n[vsl_opening_hook_elements]\n\nIdentify the Problem\n\n[vsl_pain_points_presentation]\n\nAgitate the Problem\n\n[vsl_emphasize_consequences]\n\nPresent the Solution\n\n[vsl_solution_introduction]\n\nExplain Key Benefits\n\n[vsl_main_benefits_presentation]\n\nProvide Social Proof\n\n[vsl_testimonials_or_case_studies]\n\nHandle Objections\n\n[vsl_objections_handling]\n\nPresent the Offer\n\n[vsl_offer_presentation_structure]\n\nAdd Urgency/Scarcity\n\n[Describe techniques to create a sense of urgency]\n\nCall to Action\n\n[vsl_compelling_cta_crafting]\n\nRisk Reversal\n\n[vsl_guarantees_or_risk_reduction]\n\nRecap and Final CTA\n\n[vsl_summary_and_cta_reinforcement]\n\nAdditional Guidelines\n\nKeep the tone [vsl_desired_tone]\n\nAim for a video length of approximately [vsl_desired_length]\n\n\nInclude [vsl_specific_elements_techniques]\n\nTotal words: 900-1200\n\nPlease use this structure to create a detailed outline for the video sales letter script, filling in each section with persuasive copy points and strategic elements tailored to the specific product/service and target audience.\n\n[ask the user for information]",
+          "input_attributes": [
+            {
+              "name": "vsl_product_service_name",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Product Service Name"
+            },
+            {
+              "name": "vsl_target_audience",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Target Audience"
+            },
+            {
+              "name": "vsl_describe_ideal_customer",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Describe Ideal Customer"
+            },
+            {
+              "name": "vsl_key_problems_solved",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Key Problems Solved"
+            },
+            {
+              "name": "vsl_usp",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Usp"
+            },
+            {
+              "name": "vsl_main_benefits",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Main Benefits"
+            },
+            {
+              "name": "vsl_cta",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Cta"
+            },
+            {
+              "name": "vsl_price_or_range",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Price Or Range"
+            },
+            {
+              "name": "vsl_regs_or_compliance_issues",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Regs Or Compliance Issues"
+            },
+            {
+              "name": "vsl_opening_hook_elements",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Opening Hook Elements"
+            },
+            {
+              "name": "vsl_pain_points_presentation",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Pain Points Presentation"
+            },
+            {
+              "name": "vsl_emphasize_consequences",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Emphasize Consequences"
+            },
+            {
+              "name": "vsl_solution_introduction",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Solution Introduction"
+            },
+            {
+              "name": "vsl_main_benefits_presentation",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Main Benefits Presentation"
+            },
+            {
+              "name": "vsl_testimonials_or_case_studies",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Testimonials Or Case Studies"
+            },
+            {
+              "name": "vsl_objections_handling",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Objections Handling"
+            },
+            {
+              "name": "vsl_offer_presentation_structure",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Offer Presentation Structure"
+            },
+            {
+              "name": "vsl_compelling_cta_crafting",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Compelling Cta Crafting"
+            },
+            {
+              "name": "vsl_guarantees_or_risk_reduction",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Guarantees Or Risk Reduction"
+            },
+            {
+              "name": "vsl_summary_and_cta_reinforcement",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Summary And Cta Reinforcement"
+            },
+            {
+              "name": "vsl_desired_tone",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Desired Tone"
+            },
+            {
+              "name": "vsl_desired_length",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Desired Length"
+            },
+            {
+              "name": "vsl_specific_elements_techniques",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl Specific Elements Techniques"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "vsl",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Vsl"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Content Creation and Optimization",
+      "title": "Content Creation And Optimization",
+      "order": 3,
+      "description": null,
+      "steps": [
+        {
+          "name": "Viral Title Generation",
+          "title": "Viral Title Generation",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "viral_topic",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Viral Topic"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "viral_title_suggestions",
+              "type": "array",
+              "is_array": true,
+              "description": null,
+              "title": "Viral Title Suggestions"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Shorts Script Writing",
+          "title": "Shorts Script Writing",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "shorts_topic",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Shorts Topic"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "shorts_script",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Shorts Script"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "ICP and Offer Creation",
+          "title": "Icp And Offer Creation",
+          "order": 3,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "icp_data",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Icp Data"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "icp_profile",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Icp Profile"
+            },
+            {
+              "name": "offer_strategy",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Offer Strategy"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Topical Map Generation",
+          "title": "Topical Map Generation",
+          "order": 4,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "topical_data",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Topical Data"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "topical_map",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Topical Map"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Content Refinement and Simplification",
+      "title": "Content Refinement And Simplification",
+      "order": 4,
+      "description": null,
+      "steps": [
+        {
+          "name": "Humanize Text",
+          "title": "Humanize Text",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "content_to_humanize",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Content To Humanize"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "humanized_text",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Humanized Text"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Content Rewrite",
+          "title": "Content Rewrite",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "content_to_rewrite",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Content To Rewrite"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "simplified_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Simplified Content"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "newsletter_topic": {
+      "name": "newsletter_topic",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Newsletter Topic"
+    },
+    "newsletter_type_of_content": {
+      "name": "newsletter_type_of_content",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Newsletter Type Of Content"
+    },
+    "newsletter_industry": {
+      "name": "newsletter_industry",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Newsletter Industry"
+    },
+    "newsletter_example": {
+      "name": "newsletter_example",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Newsletter Example"
+    },
+    "product_image": {
+      "name": "product_image",
+      "type": "image",
+      "is_array": false,
+      "description": null,
+      "title": "Product Image"
+    },
+    "product_name": {
+      "name": "product_name",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Product Name"
+    },
+    "product_type": {
+      "name": "product_type",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Product Type"
+    },
+    "product_target_demographic": {
+      "name": "product_target_demographic",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Product Target Demographic"
+    },
+    "faq_title": {
+      "name": "faq_title",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Faq Title"
+    },
+    "vsl_product_service_name": {
+      "name": "vsl_product_service_name",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Product Service Name"
+    },
+    "vsl_target_audience": {
+      "name": "vsl_target_audience",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Target Audience"
+    },
+    "vsl_describe_ideal_customer": {
+      "name": "vsl_describe_ideal_customer",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Describe Ideal Customer"
+    },
+    "vsl_key_problems_solved": {
+      "name": "vsl_key_problems_solved",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Key Problems Solved"
+    },
+    "vsl_usp": {
+      "name": "vsl_usp",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Usp"
+    },
+    "vsl_main_benefits": {
+      "name": "vsl_main_benefits",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Main Benefits"
+    },
+    "vsl_cta": {
+      "name": "vsl_cta",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Cta"
+    },
+    "vsl_price_or_range": {
+      "name": "vsl_price_or_range",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Price Or Range"
+    },
+    "vsl_regs_or_compliance_issues": {
+      "name": "vsl_regs_or_compliance_issues",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Regs Or Compliance Issues"
+    },
+    "vsl_opening_hook_elements": {
+      "name": "vsl_opening_hook_elements",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Opening Hook Elements"
+    },
+    "vsl_pain_points_presentation": {
+      "name": "vsl_pain_points_presentation",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Pain Points Presentation"
+    },
+    "vsl_emphasize_consequences": {
+      "name": "vsl_emphasize_consequences",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Emphasize Consequences"
+    },
+    "vsl_solution_introduction": {
+      "name": "vsl_solution_introduction",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Solution Introduction"
+    },
+    "vsl_main_benefits_presentation": {
+      "name": "vsl_main_benefits_presentation",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Main Benefits Presentation"
+    },
+    "vsl_testimonials_or_case_studies": {
+      "name": "vsl_testimonials_or_case_studies",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Testimonials Or Case Studies"
+    },
+    "vsl_objections_handling": {
+      "name": "vsl_objections_handling",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Objections Handling"
+    },
+    "vsl_offer_presentation_structure": {
+      "name": "vsl_offer_presentation_structure",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Offer Presentation Structure"
+    },
+    "vsl_compelling_cta_crafting": {
+      "name": "vsl_compelling_cta_crafting",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Compelling Cta Crafting"
+    },
+    "vsl_guarantees_or_risk_reduction": {
+      "name": "vsl_guarantees_or_risk_reduction",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Guarantees Or Risk Reduction"
+    },
+    "vsl_summary_and_cta_reinforcement": {
+      "name": "vsl_summary_and_cta_reinforcement",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Summary And Cta Reinforcement"
+    },
+    "vsl_desired_tone": {
+      "name": "vsl_desired_tone",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Desired Tone"
+    },
+    "vsl_desired_length": {
+      "name": "vsl_desired_length",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Desired Length"
+    },
+    "vsl_specific_elements_techniques": {
+      "name": "vsl_specific_elements_techniques",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl Specific Elements Techniques"
+    },
+    "viral_topic": {
+      "name": "viral_topic",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Viral Topic"
+    },
+    "shorts_topic": {
+      "name": "shorts_topic",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Shorts Topic"
+    },
+    "icp_data": {
+      "name": "icp_data",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Icp Data"
+    },
+    "topical_data": {
+      "name": "topical_data",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Topical Data"
+    },
+    "content_to_humanize": {
+      "name": "content_to_humanize",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Content To Humanize"
+    },
+    "content_to_rewrite": {
+      "name": "content_to_rewrite",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Content To Rewrite"
+    },
+    "newsletter_breakdown": {
+      "name": "newsletter_breakdown",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Newsletter Breakdown"
+    },
+    "newsletter_brandcompany": {
+      "name": "newsletter_brandcompany",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Newsletter Brandcompany"
+    },
+    "newsletter_readinglevel": {
+      "name": "newsletter_readinglevel",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Newsletter Readinglevel"
+    },
+    "product_description": {
+      "name": "product_description",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Product Description"
+    },
+    "faq": {
+      "name": "faq",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Faq"
+    },
+    "vsl": {
+      "name": "vsl",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Vsl"
+    },
+    "viral_title_suggestions": {
+      "name": "viral_title_suggestions",
+      "type": "array",
+      "is_array": true,
+      "description": null,
+      "title": "Viral Title Suggestions"
+    },
+    "shorts_script": {
+      "name": "shorts_script",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Shorts Script"
+    },
+    "icp_profile": {
+      "name": "icp_profile",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Icp Profile"
+    },
+    "offer_strategy": {
+      "name": "offer_strategy",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Offer Strategy"
+    },
+    "topical_map": {
+      "name": "topical_map",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Topical Map"
+    },
+    "humanized_text": {
+      "name": "humanized_text",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Humanized Text"
+    },
+    "simplified_content": {
+      "name": "simplified_content",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Simplified Content"
+    }
+  },
+  "prompts": {
+    "newsletter_breakdown_prompt": {
+      "name": "newsletter_breakdown_prompt",
+      "content": "Role: Expert [newsletter_topic] Analyst and Content Strategist\nTask: Conduct a comprehensive analysis of the provided [newsletter_type_of_content] about [newsletter_topic]. \n\nBreak down its structure, content, and strategy to extract valuable insights and actionable takeaways. \n\nContext: You are an experienced content strategist specializing in [newsletter_industry].\n\nYour expertise allows you to dissect and interpret [newsletter_type_of_content] to uncover underlying strategies, audience engagement techniques, and effective communication methods. \n\nAnalysis Structure:\n\n[Overview/Introduction]\n\nBriefly summarize the [newsletter_type_of_content]\n\nIdentify the main theme or purpose\n\n[Content Breakdown]\n\nAnalyze the structure and organization\n\nIdentify key sections and their purposes\n\n[Key Insights]\n\nExtract main points or arguments\n\nHighlight unique perspectives or approaches\n\n[Audience Analysis]\n\nIdentify the target audience\n\nAnalyze how the content caters to this audience\n\n[Communication Techniques]\n\nExamine the tone and style of writing\n\nIdentify persuasive or engaging elements\n\n[Visual Elements] (if applicable)\n\nAnalyze any graphics, images, or formatting choices\n\nDiscuss their impact on the overall message\n\n[Call-to-Action Analysis]\n\nIdentify any calls-to-action\n\nEvaluate their effectiveness and placement\n\n[Strengths and Areas for Improvement]\n\nHighlight particularly effective elements\n\nSuggest potential improvements or enhancements\n\n[Actionable Takeaways]\n\nProvide practical lessons or strategies that can be applied\n\nOffer suggestions for implementing similar techniques Instructions:\n\nAnalyze the provided [newsletter_type_of_content] thoroughly, addressing each section of the analysis structure.\n\nProvide clear, concise, and insightful commentary for each section.\n\nUse specific examples from the [newsletter_type_of_content] to support your analysis.\n\nOffer practical and actionable advice based on your findings.\n\nMaintain a professional and objective tone throughout the analysis.\n\nNews Letter Example\n[newsletter_example]",
+      "description": null,
+      "title": "Newsletter Breakdown Prompt"
+    },
+    "newsletter_breakdown_followup_prompt": {
+      "name": "newsletter_breakdown_followup_prompt",
+      "content": "Now based on this information, help me create an email that breaks everything into sections. This newsletter breakdown should be around 700-900 words. use simple and straightforward english. \n\nMy company [newsletter_brandcompany]\n\nMy reading level [newsletter_readinglevel]",
+      "description": null,
+      "title": "Newsletter Breakdown Followup Prompt"
+    },
+    "product_description_prompt": {
+      "name": "product_description_prompt",
+      "content": "You are a Product Description Specialist with expertise in crafting compelling and informative product descriptions.\nYour task is to create a quick yet detailed product description for [product_type] based on the information provided.\nThe description should be engaging, highlight key features, and appeal to the target audience of [product_target_demographic].\nUse simple and plain English throughout the description to ensure clarity and accessibility for all readers.\n\nPlease format the product description as follows:\n\n[product_name]\n\n[Product overview: Provide a 100-word summary of the product, its main features, and its primary use case.]\n\nKey Benefits:\n\n[Benefit 1 in 5 words]\n\n[Benefit 2 in 5 words]\n\n[Benefit 3 in 5 words]\n\n[Benefit 4 in 5 words]\n\n[Benefit 5 in 5 words] [Add up to 2 more bullet points if necessary]\n\nMy Take:\n\n[Write a 50-word personal opinion or recommendation about the product, highlighting its unique selling points or how it stands out in the market.]\n\nBefore we begin, please provide the following information:\n\nWhat is the specific product name?\n\nWhat is the product type or category?\n\nWho is the target demographic for this product?\n\nWhat is your experience with this product?\n\nOnce you provide this information, I'll create a product description tailored to your needs, using simple and plain English.",
+      "description": null,
+      "title": "Product Description Prompt"
+    },
+    "faq_creation_prompt": {
+      "name": "faq_creation_prompt",
+      "content": "Blog Post FAQs: [faq_title] Create a list of 5 Frequently Asked Questions (FAQs) and answers (under 350 characters) relevant to my blog post on [faq_title]. \n\nFocus on providing actionable insights and practical advice. Use a conversational tone and avoid technical jargon. Aim for questions that cover your target audience's common pain points and key concerns. \n\nAdditionally, for each FAQ, briefly suggest 1-2 relevant keywords that someone might use to search for that information. \n\nExample: Q: What type of content ranks well? (Keywords: SEO content, high-ranking content) A: Content that answers specific questions & solves problems for your audience. Think helpful guides & in-depth analyses.",
+      "description": null,
+      "title": "Faq Creation Prompt"
+    },
+    "vsl_script_outline_prompt": {
+      "name": "vsl_script_outline_prompt",
+      "content": "Role\n\nYou are an expert copywriter and video sales letter (VSL) strategist with years of experience in crafting compelling and high-converting video scripts for various industries.\n\nTask\n\nYour task is to create a comprehensive outline for a video sales letter script for [vsl_product_service_name]. \nThe outline should follow proven VSL structures and persuasion techniques to maximize conversions.\n\nContext\n\nThe video sales letter will be used to promote [vsl_product_service_name] to [target_audience]. The primary goal is to [main objective, e.g., generate sales, increase sign-ups, etc.].\n\nInput Requirements\n\nProduct/Service Name:: [vsl_product_service_name]\n\nTarget Audience: [vsl_describe_ideal_customer]\n\nMain Pain Points: [vsl_key_problems_solved]\n\nUnique Selling Proposition (USP): [vsl_usp]\n\nKey Benefits: [vsl_main_benefits]\n\nCall to Action (CTA): [vsl_cta]\n\nPrice Point: [vsl_price_or_range]\n\nAny specific regulations or compliance issues to consider: [vsl_regs_or_compliance_issues]\n\nOutput Structure\n\nAttention-Grabbing Hook\n\n[vsl_opening_hook_elements]\n\nIdentify the Problem\n\n[vsl_pain_points_presentation]\n\nAgitate the Problem\n\n[vsl_emphasize_consequences]\n\nPresent the Solution\n\n[vsl_solution_introduction]\n\nExplain Key Benefits\n\n[vsl_main_benefits_presentation]\n\nProvide Social Proof\n\n[vsl_testimonials_or_case_studies]\n\nHandle Objections\n\n[vsl_objections_handling]\n\nPresent the Offer\n\n[vsl_offer_presentation_structure]\n\nAdd Urgency/Scarcity\n\n[Describe techniques to create a sense of urgency]\n\nCall to Action\n\n[vsl_compelling_cta_crafting]\n\nRisk Reversal\n\n[vsl_guarantees_or_risk_reduction]\n\nRecap and Final CTA\n\n[vsl_summary_and_cta_reinforcement]\n\nAdditional Guidelines\n\nKeep the tone [vsl_desired_tone]\n\nAim for a video length of approximately [vsl_desired_length]\n\n\nInclude [vsl_specific_elements_techniques]\n\nTotal words: 900-1200\n\nPlease use this structure to create a detailed outline for the video sales letter script, filling in each section with persuasive copy points and strategic elements tailored to the specific product/service and target audience.\n\n[ask the user for information]",
+      "description": null,
+      "title": "Vsl Script Outline Prompt"
+    },
+    "viral_title_generation_prompt": {
+      "name": "viral_title_generation_prompt",
+      "content": "",
+      "description": null,
+      "title": "Viral Title Generation Prompt"
+    },
+    "shorts_script_writer_prompt": {
+      "name": "shorts_script_writer_prompt",
+      "content": "",
+      "description": null,
+      "title": "Shorts Script Writer Prompt"
+    },
+    "icp_offer_creation_prompt": {
+      "name": "icp_offer_creation_prompt",
+      "content": "",
+      "description": null,
+      "title": "Icp Offer Creation Prompt"
+    },
+    "topical_map_generator_prompt": {
+      "name": "topical_map_generator_prompt",
+      "content": "",
+      "description": null,
+      "title": "Topical Map Generator Prompt"
+    },
+    "humanize_text_prompt": {
+      "name": "humanize_text_prompt",
+      "content": "",
+      "description": null,
+      "title": "Humanize Text Prompt"
+    },
+    "content_rewrite_prompt": {
+      "name": "content_rewrite_prompt",
+      "content": "",
+      "description": null,
+      "title": "Content Rewrite Prompt"
+    },
+    "chat_summarizer_prompt": {
+      "name": "chat_summarizer_prompt",
+      "content": "I have forgotten what this chat is about.\n\nWhat is this chat about, read all details, give a 50 word summery plus list of bullet points to clarify, work form the idea that you need to refresh my brain with the ideas in this chat. Do not wory about existing code examples when write out the response\n\nFormat\n\n## [Give me a useful title, 5 - 7 words]\n\n[50 word summary]\n\n[Bullet points]\n\n[Any closing statement]\n\nWrite your response as markdown in a code block\n\n",
+      "description": null,
+      "title": "Chat Summarizer Prompt"
+    }
+  }
+}

@@ -1,0 +1,420 @@
+{
+  "name": "dsl_architect",
+  "title": "Dsl Architect",
+  "description": "This workflow guides GPT agents to design, transform, and architect Domain Specific Languages (DSLs) and their schemas or outputs.",
+  "settings": {
+    "prompt_path": {
+      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/agent_engineering/dsl_architect",
+      "description": null,
+      "title": "Prompt Path"
+    },
+    "default_llm": {
+      "value": "gpt4o",
+      "description": null,
+      "title": "Default Llm"
+    }
+  },
+  "sections": [
+    {
+      "name": "Language Design",
+      "title": "Language Design",
+      "order": 1,
+      "description": "Define problem and create initial DSL structure",
+      "steps": [
+        {
+          "name": "Define Problem",
+          "title": "Define Problem",
+          "order": 1,
+          "description": null,
+          "prompt": "You are tasked with defining a problem and creating an initial Domain-Specific Language (DSL) brief.\n\nYour goal is to analyze the given problem and domain requirements, then produce a concise domain brief that will serve as a foundation for further DSL development. \n\nFirst, carefully read the problem description:  \n<problem> [problem] </problem> \n\nNext, review the domain requirements:  \n<domain_requirements> [domain_requirements] </domain_requirements>  \n\nTo complete this task, follow these steps:  \n1. Analyze the problem description and domain requirements thoroughly.  \n2. Identify the key elements, constraints, and objectives of the problem.  \n3. Determine the essential concepts and relationships within the domain.  \n4. Consider any specific terminology or jargon used in the problem domain.  \n5. Reflect on how the domain requirements might influence the DSL structure.  \n\nBased on your analysis, create a concise domain brief that summarizes the problem and outlines the initial DSL structure. Your brief should:  \n- Clearly state the problem in 1-2 sentences  \n- List the main concepts and entities involved  \n- Highlight key relationships between concepts  \n- Mention any important constraints or rules  \n- Suggest potential high-level language constructs for the DSL  \n\nProvide your domain brief in the following format:  \n\nProblem Statement: [concise_problem_statement]  \nKey Concepts:  \n- [concept_1]  \n- [concept_2]  \n- ...  \n\nRelationships:  \n- [relationship_1]  \n- [relationship_2]  \n- ...  \n\nConstraints/Rules:  \n- [constraint_rule_1]  \n- [constraint_rule_2]  \n- ...  \n\nPotential DSL Constructs:  \n- [construct_1]  \n- [construct_2]  \n- ...  \n</domain_brief>  \n\nEnsure that your domain brief is clear, concise, and provides a solid foundation for further DSL development.\nFocus on capturing the essence of the problem and domain without going into unnecessary detail.\n",
+          "input_attributes": [
+            {
+              "name": "problem",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Problem"
+            },
+            {
+              "name": "domain_requirements",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Domain Requirements"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "domain_brief",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Domain Brief"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Configure DSL Guidelines",
+          "title": "Configure Dsl Guidelines",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "dsl_rules",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl Rules"
+            },
+            {
+              "name": "dsl_examples",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl Examples"
+            }
+          ],
+          "output_attributes": [
+
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Propose DSL Structure",
+          "title": "Propose Dsl Structure",
+          "order": 3,
+          "description": null,
+          "prompt": "You are tasked with creating a potential Domain-Specific Language (DSL) structure based on three inputs: general DSL rules, guidelines with examples from previous DSLs, and a custom domain brief. Your goal is to synthesize this information and produce a coherent DSL structure that addresses the specific domain requirements.\n\nFirst, review the general DSL rules: \n<dsl_rules> [dsl_rules] </dsl_rules>\n\nNext, examine the DSL guidelines and examples from previous DSLs: \n<dsl_guidelines> [dsl_guidelines] </dsl_guidelines>\n\nNow, consider the custom domain brief: \n<domain_brief> [domain_brief] </domain_brief>\n\nTo create the DSL structure, follow these steps:\n\n1. Analyze the domain brief:\n2. Work out a DSL structure based on the examples and the rules for my DSLs.\n",
+          "input_attributes": [
+            {
+              "name": "domain_brief",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Domain Brief"
+            },
+            {
+              "name": "dsl_rules",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl Rules"
+            },
+            {
+              "name": "dsl_examples",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl Examples"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "dsl",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Schema Design and Output Generation",
+      "title": "Schema Design And Output Generation",
+      "order": 2,
+      "description": "Design schema for DSL and generate sample output",
+      "steps": [
+        {
+          "name": "Design Schema",
+          "title": "Design Schema",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "dsl",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl"
+            },
+            {
+              "name": "schema_rules",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Schema Rules"
+            },
+            {
+              "name": "schema_examples",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Schema Examples"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "schema",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Schema"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Generate Sample Output",
+          "title": "Generate Sample Output",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "dsl",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl"
+            },
+            {
+              "name": "schema",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Schema"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "json_output",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Json Output"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "DSL Tools",
+      "title": "Dsl Tools",
+      "order": 3,
+      "description": "Transform DSL and validate outputs",
+      "steps": [
+        {
+          "name": "Transform DSL",
+          "title": "Transform Dsl",
+          "order": 1,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "old_dsl",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Old Dsl"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "dsl",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Validate Accuracy",
+          "title": "Validate Accuracy",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "dsl",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Dsl"
+            },
+            {
+              "name": "schema",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Schema"
+            },
+            {
+              "name": "json_output",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Json Output"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "validation_report",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Validation Report"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "problem": {
+      "name": "problem",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Problem"
+    },
+    "domain_requirements": {
+      "name": "domain_requirements",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Domain Requirements"
+    },
+    "domain_brief": {
+      "name": "domain_brief",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Domain Brief"
+    },
+    "dsl_rules": {
+      "name": "dsl_rules",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Dsl Rules"
+    },
+    "dsl_examples": {
+      "name": "dsl_examples",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Dsl Examples"
+    },
+    "dsl": {
+      "name": "dsl",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Dsl"
+    },
+    "schema_rules": {
+      "name": "schema_rules",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Schema Rules"
+    },
+    "schema_examples": {
+      "name": "schema_examples",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Schema Examples"
+    },
+    "schema": {
+      "name": "schema",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Schema"
+    },
+    "json_output": {
+      "name": "json_output",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Json Output"
+    },
+    "old_dsl": {
+      "name": "old_dsl",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Old Dsl"
+    },
+    "validation_report": {
+      "name": "validation_report",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Validation Report"
+    }
+  },
+  "prompts": {
+    "problem_definition": {
+      "name": "problem_definition",
+      "content": "You are tasked with defining a problem and creating an initial Domain-Specific Language (DSL) brief.\n\nYour goal is to analyze the given problem and domain requirements, then produce a concise domain brief that will serve as a foundation for further DSL development. \n\nFirst, carefully read the problem description:  \n<problem> [problem] </problem> \n\nNext, review the domain requirements:  \n<domain_requirements> [domain_requirements] </domain_requirements>  \n\nTo complete this task, follow these steps:  \n1. Analyze the problem description and domain requirements thoroughly.  \n2. Identify the key elements, constraints, and objectives of the problem.  \n3. Determine the essential concepts and relationships within the domain.  \n4. Consider any specific terminology or jargon used in the problem domain.  \n5. Reflect on how the domain requirements might influence the DSL structure.  \n\nBased on your analysis, create a concise domain brief that summarizes the problem and outlines the initial DSL structure. Your brief should:  \n- Clearly state the problem in 1-2 sentences  \n- List the main concepts and entities involved  \n- Highlight key relationships between concepts  \n- Mention any important constraints or rules  \n- Suggest potential high-level language constructs for the DSL  \n\nProvide your domain brief in the following format:  \n\nProblem Statement: [concise_problem_statement]  \nKey Concepts:  \n- [concept_1]  \n- [concept_2]  \n- ...  \n\nRelationships:  \n- [relationship_1]  \n- [relationship_2]  \n- ...  \n\nConstraints/Rules:  \n- [constraint_rule_1]  \n- [constraint_rule_2]  \n- ...  \n\nPotential DSL Constructs:  \n- [construct_1]  \n- [construct_2]  \n- ...  \n</domain_brief>  \n\nEnsure that your domain brief is clear, concise, and provides a solid foundation for further DSL development.\nFocus on capturing the essence of the problem and domain without going into unnecessary detail.\n",
+      "description": null,
+      "title": "Problem Definition"
+    },
+    "dsl_structure": {
+      "name": "dsl_structure",
+      "content": "You are tasked with creating a potential Domain-Specific Language (DSL) structure based on three inputs: general DSL rules, guidelines with examples from previous DSLs, and a custom domain brief. Your goal is to synthesize this information and produce a coherent DSL structure that addresses the specific domain requirements.\n\nFirst, review the general DSL rules: \n<dsl_rules> [dsl_rules] </dsl_rules>\n\nNext, examine the DSL guidelines and examples from previous DSLs: \n<dsl_guidelines> [dsl_guidelines] </dsl_guidelines>\n\nNow, consider the custom domain brief: \n<domain_brief> [domain_brief] </domain_brief>\n\nTo create the DSL structure, follow these steps:\n\n1. Analyze the domain brief:\n2. Work out a DSL structure based on the examples and the rules for my DSLs.\n",
+      "description": null,
+      "title": "Dsl Structure"
+    },
+    "schema_design": {
+      "name": "schema_design",
+      "content": "",
+      "description": null,
+      "title": "Schema Design"
+    },
+    "generate_sample_output": {
+      "name": "generate_sample_output",
+      "content": "",
+      "description": null,
+      "title": "Generate Sample Output"
+    },
+    "transform_dsl": {
+      "name": "transform_dsl",
+      "content": "",
+      "description": null,
+      "title": "Transform Dsl"
+    },
+    "validate_output": {
+      "name": "validate_output",
+      "content": "",
+      "description": null,
+      "title": "Validate Output"
+    }
+  }
+}

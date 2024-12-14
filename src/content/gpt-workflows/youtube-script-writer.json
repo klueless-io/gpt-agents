@@ -1,7 +1,7 @@
 {
   "name": "youtube_script_writer",
   "title": "Youtube Script Writer",
-  "description": "AppyDave This workflow is used to write a script for a YouTube video.",
+  "description": "AppyDave This workflow is used to write a script for a YouTube video for AI-TLDR.",
   "settings": {
     "prompt_path": {
       "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/youtube/script_writer",

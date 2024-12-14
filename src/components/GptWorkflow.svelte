@@ -24,6 +24,21 @@
 
   let state: AppState;
 
+  function processAttributes(attributes: Record<string, Attribute>): Record<string, Attribute> {
+    const processedAttributes = {};
+
+    for (const key in attributes) {
+      if (attributes.hasOwnProperty(key)) {
+        processedAttributes[key] = {
+          ...attributes[key],
+          value: attributes[key].value !== undefined ? attributes[key].value : null, // Add value if it doesn't exist
+        };
+      }
+    }
+
+    return processedAttributes;
+  }
+  
   $: workflowStore.set(gpt);
   $: stateStore.subscribe(value => {
     state = value;
@@ -35,7 +50,7 @@
     workflow = value;
     sections = workflow.sections;
     settings = workflow.settings;
-    attributes = workflow.attributes;
+    attributes = processAttributes(workflow.attributes);
     prompts = workflow.prompts;
   });
 

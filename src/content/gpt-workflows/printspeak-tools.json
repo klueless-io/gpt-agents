@@ -4,7 +4,7 @@
   "description": "Rails Upgrade tools for Printspeak",
   "settings": {
     "prompt_path": {
-      "value": "/Users/davidcruwys/dev/kgems/ad-agent_architecture/prompts/printspeak_tools",
+      "value": "/Users/davidcruwys/dev/ad/agent-workflow-builder/ad-agent_architecture/prompts/printspeak_tools",
       "description": null,
       "title": "Prompt Path"
     },
@@ -16,17 +16,125 @@
   },
   "sections": [
     {
-      "name": "Analyize Ruby Code",
-      "title": "Analyize Ruby Code",
+      "name": "Analyse Reports",
+      "title": "Analyse Reports",
       "order": 1,
       "description": null,
       "steps": [
         {
-          "name": "Analyize View",
-          "title": "Analyize View",
+          "name": "Setup Route",
+          "title": "Setup Route",
           "order": 1,
           "description": null,
+          "prompt": "You are helping to refactor routes by moving them from a bloated controller into single-responsibility namespaced controllers.\n\nWe have a reports controller and an enterprises controller that I am extracting actions out into tenant and enterprise level namespaces with one controller per report\n\nYour role is to adapt existing routes to the new structure, suggesting the appropriate new controller names and share any potential edge cases you notice.\n\nHere is a list of 5 routes that I have already moved into the new structure.\n\n```old_routes\nget '/enterprises/sales_by_company_tag', to: 'enterprises#sales_by_company_tag', as: 'sales_by_company_tag'\nget 'enterprises/email_validation', to: 'enterprises#email_validation'\nget '/enterprises/sales_by_company_category', to: 'enterprises#sales_by_company_category', as: 'sales_by_company_category'\nget '/enterprises/sales_by_company_tag', to: 'enterprises#sales_by_company_tag', as: 'sales_by_company_tag'\nget 'reports/sales_by_company_tag', to: 'reports#sales_by_company_tag', as: 'reports_sales_by_company_tag'\n```\n\nYour primary instruction is to move the existing route into the current route file. You will have to decide if the route is for reports namespace or the enterprise/reports namespace.\n\nExisting route:\n\n[existing_route]\n\nLatest config/routes/reports.rb file\n\n[report_routes]\n\n",
+          "input_attributes": [
+            {
+              "name": "existing_route",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Existing Route"
+            },
+            {
+              "name": "report_routes",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Report Routes"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "report_routes",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Report Routes"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Extras",
+          "title": "Extras",
+          "order": 2,
+          "description": null,
+          "prompt": "Continue the routes refactor.\n\nRoute being migrated: [existing_route]\n\n1. I need you to adapt exising menus to use a helper function and put in code block\n2. I need you to suggest new location for unit test and the code with the new path in a code block\n\nHere is the existing menu:\n\n[existing_menu]\n\n## Examples of previous menu refactors\n\n### Example 1\n\n**Old**\n\n```ruby\n <% if current_user.is_enterprise_marketing_user? %>\n  <li <%= ' class=active' if current_page?(sales_by_company_category_path) ||  current_page?(sales_by_company_tag_path) %>>\n    <a href=\"/enterprises/sales_by_company_category\" class=\"d-flex align-items-center\">\n    <div><span class=\"list-icon\"><%= material_icon({ name: 'lens', size: 10 })%></span>\n      <span class=\"list-title\">Industry Sales</span>\n    </div>\n    </a>\n  </li>\n<% end %>\n```\n\n**New**\n\n```ruby\n<% if current_user.is_enterprise_marketing_user? %>\n    <%= side_menu_item(enterprises_reports_sales_by_company_category_path, 'Industry Sales', current_page?(enterprises_reports_sales_by_company_category_path) || current_page?(enterprises_reports_sales_by_company_tag_path)) %>\n<% end %>\n```\n\n### Example 2\n\n**Old**\n\n```ruby\n<li <%= ' class=active' if current_page?(enterprises_email_validation_path) %>>\n  <a href=\"<%= enterprises_email_validation_path %>\" class=\"d-flex align-items-center\">\n    <div><span class=\"list-icon\"><%= material_icon({ name: 'lens', size: 10 })%></span>\n    <span class=\"list-title\">Email Validation</span>\n    </div>\n  </a>\n</li>\n```\n\n**New**\n\n```ruby\n<%= side_menu_item(enterprises_reports_email_validation_path, 'Email Validation') %>\n```\n\n## Test Refactor\n\nKeep in mind that when I moved the contact_list_export, I got a request spec error and had to remember to move test from the old request spec to the new one, so you might want to remind me to move the specific test.\n\nFailures:\n\n  1) EnterprisesController when signed in #contact_list_export GET /enterprises/contact_list_export succeeds with status 200\n     Failure/Error: I18n.with_locale(locale, &action)\n\n     ActionController::MissingExactTemplate:\n       EnterprisesController#contact_list_export is missing a template for request formats: text/html\n     # ./app/controllers/application_controller.rb:249:in `resolve_locale'\n     # ./app/controllers/application_controller.rb:512:in `block in controller_application_name'\n     # ./app/controllers/application_controller.rb:509:in `controller_application_name'\n     # ./spec/requests/enterprises_spec.rb:143:in `block (5 levels) in <top (required)>'\n\nAnd I had to move \n\nfrom: spec/requests/enterprises_spec.rb\n\n```ruby\ndescribe \"#contact_list_export\" do\n  context \"GET /enterprises/contact_list_export\" do\n    it \"succeeds with status 200\" do\n      get enterprises_contact_list_export_path(), params: {  }, headers: {  }\n      log_unexpected(response, self)\n      expect(response).to have_http_status(200)\n    end\n  end\nend\n```\n\nto: spec/requests/enterprises/reports/reports_spec.rb\n\n```ruby\ndescribe \"#contact_list_export\" do\n  context \"GET /enterprises/contact_list_export\" do\n    it \"succeeds with status 200\" do\n      get enterprises_reports_contact_list_export_path(), params: {  }, headers: {  }\n      log_unexpected(response, self)\n      expect(response).to have_http_status(200)\n    end\n  end\nend\n```",
+          "input_attributes": [
+            {
+              "name": "existing_route",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Existing Route"
+            },
+            {
+              "name": "existing_menu",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Existing Menu"
+            }
+          ],
+          "output_attributes": [
+
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Analyse Controller",
+          "title": "Analyse Controller",
+          "order": 3,
+          "description": null,
+          "prompt": "You will analyse the old controller or action and make suggestions for how the new controller could be created based on the provided presenter, query objects, active record queries etc.\n\nGuidelines:\nBaseController will default to reports section automatically, so don't add @section = \"reports\"\nI prefer the Struct technique if you have not received information on the presenter\nI like to define Struct near the top of the controller using keyword_init: true\nI don't like to use before_actions in SRP controllers as I only have one action, if the action is to complex I will break it up into smaller private methods\nI don't need any instance variables in the controller accept for the presenter as I will be migrating all old instance variables to the presenter\nMake sure you analyse the base controller for helper methods that could be used in the new controller\n\n### Old controller or action\n\n```ruby\n[old_controller]\n```\n\n\n# Base classes used by report controllers\n```ruby\nclass Enterprises::Reports::BaseController < Reports::BaseController\n  before_action :set_section\n\n  def set_section\n    @section = \"reports\"\n  end\n\n  def get_group()\n    @group = @groups.includes(:tenants).find(params[:groups])\n  end\nend\n\nclass Reports::BaseController < ApplicationController\n  before_action :set_month_range\n\n  attr_reader :presenter\n\n  helper_method :presenter\n\n  def enterprise\n    @enterprise ||= current_user.enterprise\n  end\n\n  def current_tenant\n    @tenant\n  end\n\n  def set_month_range\n    @month_range = (Date.parse(\"2019-01-01\").beginning_of_month..(Time.now + 1.month).beginning_of_month).map { |d| d.beginning_of_month }.uniq\n  end\n\n  # Group related helpers\n  def current_groups\n    current_user.enterprise.groups\n  end\n\n  def active_group_id(groups)\n    groups.where(default: true).pluck(:id).first || groups.first.id\n  end\n\n  def find_group(groups, group_id)\n    groups.includes(:tenants).find(group_id)\n  end\nend\n```\n\n# Examples of previous refactored controllers\n\n```ruby\nclass Enterprises::Reports::SalesByCompanyTagController < Enterprises::Reports::BaseController\n  def index\n    @presenter = Enterprises::Reports::SalesByCompanyTagPresenter.present(\n      \"enterprise\",\n      enterprise,\n      current_tenant,\n      params[:date_from],\n      params[:date_to]\n    )\n  end\nend\n\nclass Enterprises::Reports::SalesByCompanyCategoryController < Enterprises::Reports::BaseController\n  def index\n    @presenter = Enterprises::Reports::SalesByCompanyCategoryPresenter.present(\n      enterprise,\n      current_tenant,\n      params[:date_from],\n      params[:date_to]\n    )\n  end\nend\n\nclass Enterprises::Reports::EmailValidationController < Enterprises::Reports::BaseController\n  def index\n    @presenter = Enterprises::Reports::EmailValidationPresenter.present(enterprise)\n  end\nend\n\nclass Enterprises::Reports::ContactListExportController < Enterprises::Reports::BaseController\n  Presenter = Struct.new(:list_id, :lists, keyword_init: true)\n\n  def index\n    @section = \"marketing\"\n\n    lists = ContactList.where(enterprise_id: current_user.enterprise_id, global: true).order(:name)\n\n    list_id = params.fetch(:contact_list_id, lists.first&.id || 0)\n\n    @presenter = Presenter.new(list_id: list_id, lists: lists)\n  end\nend\n\nclass Enterprises::Reports::ArBalanceController < Enterprises::Reports::BaseController\n  Presenter = Struct.new(:group, :groups, :active_group)\n\n  def index\n    groups = current_user.enterprise.groups\n    active_group = groups.where(default: true).pluck(:id).first || groups.first.id\n    group = groups.includes(:tenants).find(params[:groups] || active_group.to_s)\n\n    @presenter = Presenter.new(group, groups, active_group)\n  end\nend\n\n\n# This examples is at the tenant level\nclass Reports::SalesByCompanyTagController < Enterprises::Reports::BaseController\n  def index\n    @presenter = Enterprises::Reports::SalesByCompanyTagPresenter.present(\n      \"tenant\",\n      enterprise,\n      current_tenant,\n      params[:date_from],\n      params[:date_to]\n    )\n  end\nend\n```\n\n",
+          "input_attributes": [
+            {
+              "name": "old_controller",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Old Controller"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "controller",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Controller"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Analyse Presenter",
+          "title": "Analyse Presenter",
+          "order": 4,
+          "description": null,
           "prompt": "",
+          "input_attributes": [
+
+          ],
+          "output_attributes": [
+
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Analyse View",
+          "title": "Analyse View",
+          "order": 5,
+          "description": null,
+          "prompt": "Analyze the following view.\n\nIdentify and put into code block and SQL you find, give the block a name as it will help me create a query class.\nIf there are two or more SQL blocks, give them different names for each\nIdentify any parameters that are being used in the SQL.\nIdentify any extra calculations that are being done in the view.\n\n[view]\n",
           "input_attributes": [
             {
               "name": "view",
@@ -50,34 +158,55 @@
           ]
         },
         {
-          "name": "Query Equivalence",
-          "title": "Query Equivalence",
-          "order": 2,
+          "name": "Make View Improvements",
+          "title": "Make View Improvements",
+          "order": 6,
           "description": null,
-          "prompt": "",
+          "prompt": "I'm going to give you a old view, and you were going to look at the examples of how old views have been converted to new views.\n\nThe main thing to notice is that a lot of the instance variables have been prefixed by a presenter method.\n\nI will also give you the updated controller and how it is querying and presenting data.\n\nOptionally I will give you a query &/or presenter class for guidance\n\nDo not change anything else about the code, Here is the code I want you to work on:\n\n<view>\n[view]\n</view>\n\n<controller_class>\n[controller_class]\n</controller_class>\n\n<presenter_class>\n[presenter_class]\n</presenter_class>\n\n<query_class>\n[query_class]\n</query_class>\n\n# Old #1\n```ruby\n<%= render '_partials/page_header_enterprise', title: 'Enterprise', margin_none: true %>\n<div class=\"layout\">\n  <%= render 'sidebar' %>\n  <div class=\"content\">\n    <div class=\"container-fluid\">\n      <h3 class=\"m-b-4\"><%= t(\"contact_list_export\") %></h3>\n      <% if !notice.blank? %><div class=\"alert alert-success\"><%= notice %></div> <% end %>\n      <%= form_tag enterprises_contact_list_export_path, :method => 'get', id: \"contact_list\" do %>\n        <div class=\"form-group form-inline\">\n          <label><%= t(\"choose_list\") %>:</label>\n          <%= select_tag :contact_list_id, options_for_select(@lists.map{|list| [list.name, list.id]}, @list_id), class: 'form-control' %>\n        </div>\n      <% end %>\n    </div>\n\n    <table class=\"table table-striped border-top\">\n      <thead>\n        <tr>\n          <th class=\"text-center p-a-0\" style=\"width: 50px;\">\n            <label class=\"c-input c-checkbox\">\n              <input id=\"selectAll\" type=\"checkbox\">\n              <span class=\"c-indicator\"></span>\n            </label>\n          </th>\n          <th><%= t(\"tenant\") %></th>\n          <th class=\"text-right\">\n            <div class=\"btn-group\">\n                <button type=\"button\" class=\"btn btn-primary dropdown-toggle bulk-action disabled\" style=\"\" data-toggle=\"dropdown\">\n                    <%= t(\"bulk_action\") %> <span class=\"caret\"></span>\n                    <span class=\"sr-only\">Toggle Dropdown</span>\n                </button>\n                <ul class=\"dropdown-menu pull-right\" role=\"menu\">\n                  <li>\n                    <a data-toggle=\"ajaxModal\" data-dynamic=\"exportSelectedPath\" href=\"#\">\n                      <%= t(\"export_selected\") %>\n                    </a>\n                  </li>\n                  <li>\n                    <a data-toggle=\"ajaxModal\" data-dynamic=\"exportCombinedPath\" href=\"#\">\n                      <%= t(\"export_combined\") %>\n                    </a>\n                  </li>\n                </ul>\n              </div>\n          </th>\n        </tr>\n      </thead>\n      <% current_user.tenants.real.order(name: :asc).each do |tenant| %>\n      <tr>\n        <td class=\"text-center p-a-0\">\n          <label class=\"c-input c-checkbox\">\n            <%= check_box_tag 'target_ids[]',  tenant.id.to_s, false, class: 'checkbox1',  id: \"target_id_#{tenant.id}\" %>\n            <span class=\"c-indicator\"></span>\n          </label>\n        </td>\n        <td>\n          <%= tenant.name %>\n        </td>\n        <td class=\"text-right\">\n          <a data-toggle=\"ajaxModal\" href=\"<%= contact_list_export_path(@list_id, tenant_id: tenant.id) %>\"><button class=\"btn btn-xs btn-default\"><%= t(\"export_csv\") %></button></a>\n        </td>\n      </tr>\n      <% end %>\n    </table>\n  </div>\n</div>\n\n<% content_for :page_scripts do %>\n  <script type=\"text/javascript\">\n    setTargetLimit(1000);\n\n    $('#contact_list_id').change(function() {\n      $(\"#contact_list\").submit();\n    });\n\n    function exportSelectedPath()\n    {\n      return '<%=j contact_list_export_path(@list_id).html_safe %>?target_ids=' + getTargetIds();\n    }\n\n    function exportCombinedPath()\n    {\n      return '<%=j contact_list_export_path(@list_id, combined: true).html_safe %>&target_ids=' + getTargetIds();\n    }\n  </script>\n<% end %>\n```\n\n# New #1\n```ruby\n<%= render '_partials/page_header_enterprise', title: 'Enterprise', margin_none: true %>\n<div class=\"layout\">\n  <%= render 'enterprises/sidebar' %>\n  <div class=\"content\">\n    <div class=\"container-fluid\">\n      <h3 class=\"m-b-4\"><%= t(\"contact_list_export\") %></h3>\n      <% if !notice.blank? %><div class=\"alert alert-success\"><%= notice %></div> <% end %>\n      <%= form_tag enterprises_contact_list_export_path, :method => 'get', id: \"contact_list\" do %>\n        <div class=\"form-group form-inline\">\n          <label><%= t(\"choose_list\") %>:</label>\n          <%= select_tag :contact_list_id, options_for_select(presenter.lists.map{|list| [list.name, list.id]}, presenter.list_id), class: 'form-control' %>\n        </div>\n      <% end %>\n    </div>\n\n    <table class=\"table table-striped border-top\">\n      <thead>\n        <tr>\n          <th class=\"text-center p-a-0\" style=\"width: 50px;\">\n            <label class=\"c-input c-checkbox\">\n              <input id=\"selectAll\" type=\"checkbox\">\n              <span class=\"c-indicator\"></span>\n            </label>\n          </th>\n          <th><%= t(\"tenant\") %></th>\n          <th class=\"text-right\">\n            <div class=\"btn-group\">\n                <button type=\"button\" class=\"btn btn-primary dropdown-toggle bulk-action disabled\" style=\"\" data-toggle=\"dropdown\">\n                    <%= t(\"bulk_action\") %> <span class=\"caret\"></span>\n                    <span class=\"sr-only\">Toggle Dropdown</span>\n                </button>\n                <ul class=\"dropdown-menu pull-right\" role=\"menu\">\n                  <li>\n                    <a data-toggle=\"ajaxModal\" data-dynamic=\"exportSelectedPath\" href=\"#\">\n                      <%= t(\"export_selected\") %>\n                    </a>\n                  </li>\n                  <li>\n                    <a data-toggle=\"ajaxModal\" data-dynamic=\"exportCombinedPath\" href=\"#\">\n                      <%= t(\"export_combined\") %>\n                    </a>\n                  </li>\n                </ul>\n              </div>\n          </th>\n        </tr>\n      </thead>\n      <% current_user.tenants.real.order(name: :asc).each do |tenant| %>\n      <tr>\n        <td class=\"text-center p-a-0\">\n          <label class=\"c-input c-checkbox\">\n            <%= check_box_tag 'target_ids[]',  tenant.id.to_s, false, class: 'checkbox1',  id: \"target_id_#{tenant.id}\" %>\n            <span class=\"c-indicator\"></span>\n          </label>\n        </td>\n        <td>\n          <%= tenant.name %>\n        </td>\n        <td class=\"text-right\">\n          <a data-toggle=\"ajaxModal\" href=\"<%= contact_list_export_path(presenter.list_id, tenant_id: tenant.id) %>\"><button class=\"btn btn-xs btn-default\"><%= t(\"export_csv\") %></button></a>\n        </td>\n      </tr>\n      <% end %>\n    </table>\n  </div>\n</div>\n\n<% content_for :page_scripts do %>\n  <script type=\"text/javascript\">\n    setTargetLimit(1000);\n\n    $('#contact_list_id').change(function() {\n      $(\"#contact_list\").submit();\n    });\n\n    function exportSelectedPath()\n    {\n      return '<%=j contact_list_export_path(presenter.list_id).html_safe %>?target_ids=' + getTargetIds();\n    }\n\n    function exportCombinedPath()\n    {\n      return '<%=j contact_list_export_path(presenter.list_id, combined: true).html_safe %>&target_ids=' + getTargetIds();\n    }\n  </script>\n<% end %>\n```\n\n\n\n",
           "input_attributes": [
             {
-              "name": "old_query",
+              "name": "view",
               "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Old Query"
+              "title": "View"
             },
             {
-              "name": "new_query",
+              "name": "view_analysis",
               "type": "string",
               "is_array": false,
               "description": null,
-              "title": "New Query"
+              "title": "View Analysis"
+            },
+            {
+              "name": "controller_class",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Controller Class"
+            },
+            {
+              "name": "presenter_class",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Presenter Class"
+            },
+            {
+              "name": "query_class",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Query Class"
             }
           ],
           "output_attributes": [
             {
-              "name": "query_equivalence",
+              "name": "view",
               "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Query Equivalence"
+              "title": "View"
             }
           ],
           "language_models": [
@@ -87,8 +216,8 @@
       ]
     },
     {
-      "name": "DB Layer",
-      "title": "Db Layer",
+      "name": "DB Conversion",
+      "title": "Db Conversion",
       "order": 2,
       "description": null,
       "steps": [
@@ -161,11 +290,103 @@
           "language_models": [
             "gpt4o"
           ]
+        }
+      ]
+    },
+    {
+      "name": "Generate Code",
+      "title": "Generate Code",
+      "order": 3,
+      "description": null,
+      "steps": [
+        {
+          "name": "Create Query",
+          "title": "Create Query",
+          "order": 1,
+          "description": null,
+          "prompt": "You generate an rspec unit test for the provided Query class.\nDo not produce any extra output.\n\nWe are only testing SQL output, not the data and generally we only need to test based on conditionally logic or incoming paramaters\nif condition is true then a SQL fragment should be present in the output, it should not be present if the condition is false.\n\nExpected Name:\n[query_class]\n\n----\n\nBelow you will find pairs of Query Classes and their corresponding Unit Test.\n\n# Example 1\n\n## Query Class\n```ruby\nclass Enterprises::EmailValidationResultQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    deliverable_codes = quote_and_join_list(EmailValidation.deliverable_codes)\n    deliverable_but_unverified_codes = quote_and_join_list(EmailValidation.deliverable_but_unverified_codes)\n    unverified_codes = quote_and_join_list(EmailValidation.unverified_codes)\n    undeliverable_codes = quote_and_join_list(EmailValidation.undeliverable_codes)\n\n    self.scope = self.scope\n      .select(\n        \"tenant_id,\n        SUM(CASE WHEN code IN (#{deliverable_codes}) THEN 1 ELSE 0 END) AS deliverable_count,\n        SUM(CASE WHEN code IN (#{deliverable_but_unverified_codes}) THEN 1 ELSE 0 END) AS deliverable_but_unverified_count,\n        SUM(CASE WHEN code IN (#{unverified_codes}) THEN 1 ELSE 0 END) AS unverified_count,\n        SUM(CASE WHEN code IN (#{undeliverable_codes}) THEN 1 ELSE 0 END) AS undeliverable_count\"\n      )\n      .from(email_validations_subquery, :T)\n      .group(\"tenant_id\")\n  end\n\n  def email_validations_subquery\n    EmailValidation\n      .select(\"DISTINCT ON (contact_id) tenant_id, code, created_at\")\n      .where(enterprise_id: opts.enterprise_id)\n      .order(\"contact_id ASC, created_at DESC\")\n  end\nend\n```\n\n## Unit Test\n```ruby\n# frozen_string_literal: true\n\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::EmailValidationResultQuery, type: :query do\n  before(:each) do\n    FactoryBot.reload\n  end\n\n  subject { sql }\n\n  let(:run_query) { described_class.query(default_scope, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:default_scope) { EmailValidation.all }\n  let(:query_params) do\n    {\n      enterprise_id: 5\n    }\n  end\n\n  it { is_expected.to include(\"email_validations.enterprise_id = 5\") }\n  # it { puts sql }\nend\n```\n\n# Example 2\n\n## Query Class\n```ruby\nclass Enterprises::EmailValidationStatusQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    self.scope = self.scope\n      .select(\n        \"contacts.tenant_id,\n        SUM(CASE WHEN contacts.needs_email_validation = FALSE THEN 1 ELSE 0 END) AS processed_count,\n        SUM(CASE WHEN contacts.needs_email_validation = TRUE THEN 1 ELSE 0 END) AS unprocessed_count\"\n      )\n      .joins(:tenant)\n      .where(\n        contacts: {\n          unsubscribed: false,\n          deleted: false,\n          temp: false\n        },\n        tenants: {\n          etl_flag: true,\n          training: false,\n          demo: false,\n          enterprise_id: opts.enterprise_id\n        }\n      )\n      .where(\n        \"NOT EXISTS (\n          SELECT null\n          FROM companies\n          WHERE companies.tenant_id = contacts.tenant_id\n          AND companies.id = contacts.company_id\n          AND companies.marketing_do_not_mail = TRUE\n        )\"\n      )\n      .group(\"contacts.tenant_id\")\n  end\nend\n```\n\n## Unit Test\n```ruby\n# frozen_string_literal: true\n\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::EmailValidationStatusQuery, type: :query do\n  before(:each) do\n    FactoryBot.reload\n  end\n\n  subject { sql }\n\n  let(:run_query) { described_class.query(default_scope, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:default_scope) { Contact.all }\n  let(:query_params) do\n    {\n      enterprise_id: 5\n    }\n  end\n\n  it { is_expected.to include(\"tenants.enterprise_id = 5\") }\n  # it { puts sql }\nend\n```\n\n# Example 3\n\n## Query Class\n```ruby\nmodule Enterprises\n  module Reports\n    class SalesByCompanyCategoryQuery < Common::Query\n      default_scope :invoice\n\n      contract do\n        attribute :enterprise_id, :integer\n        attribute :start_date, :string\n        attribute :end_date, :string\n      end\n\n      def call\n        validate\n        set_pg_settings\n        build_query\n      end\n\n      private\n\n      def set_pg_settings\n        ActiveRecord::Base.connection.execute(\"SET work_mem = '16MB';\")\n        ActiveRecord::Base.connection.execute(\"SET max_parallel_workers_per_gather = 4;\")\n      end\n\n      def build_query\n        self.scope = self.scope\n          .joins(:company, :tenant)\n          .where(\n            tenants: { enterprise_id: opts.enterprise_id },\n            pickup_date: opts.start_date..opts.end_date\n          )\n          .where.not(voided: true)\n          .where(deleted: false)\n          .where.not(pickup_date: nil)\n          .select(<<-SQL.squish)\n            CASE#{' '}\n              WHEN custom_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN custom_data -> 'category' ->> 'subIndustry'\n              WHEN clearbit_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN clearbit_data -> 'category' ->> 'subIndustry'\n              ELSE 'No Category'\n            END AS category,\n            COUNT(DISTINCT invoices.tenant_id) AS tenant_count,\n            COUNT(DISTINCT company_id) AS company_count,\n            SUM(grand_total) AS total\n          SQL\n          .group(\"category\")\n      end\n    end\n  end\nend\n```\n\n## Unit Test\n```ruby\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::Reports::SalesByCompanyCategoryQuery, type: :query do\n  subject { sql }\n\n  let(:run_query) { described_class.query(Invoice, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:start_date) { Date.parse(\"2023-06-01\") }\n  let(:end_date) { Date.parse(\"2023-06-30\") }\n  let(:enterprise_id) { 5 }\n  let(:query_params) do\n    {\n      enterprise_id: enterprise_id,\n      start_date: start_date,\n      end_date: end_date\n    }\n  end\n\n  describe \".scope\" do\n    context \"when valid parameters are provided\" do\n      it do\n        is_expected\n          .to include(\"tenants.enterprise_id = 5\")\n          .and include(\"pickup_date BETWEEN '2023-06-01' AND '2023-06-30'\")\n      end\n    end\n  end\nend\n```",
+          "input_attributes": [
+            {
+              "name": "query_class",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Query Class"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "query_class_spec",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Query Class Spec"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
         },
         {
-          "name": "Creation Query Spec",
-          "title": "Creation Query Spec",
+          "name": "Create Query Spec",
+          "title": "Create Query Spec",
+          "order": 2,
+          "description": null,
+          "prompt": "You generate an rspec unit test for the provided Query class.\nDo not produce any extra output.\n\nWe are only testing SQL output, not the data and generally we only need to test based on conditionally logic or incoming paramaters\nif condition is true then a SQL fragment should be present in the output, it should not be present if the condition is false.\n\nExpected Name:\n[query_class]\n\n----\n\nBelow you will find pairs of Query Classes and their corresponding Unit Test.\n\n# Example 1\n\n## Query Class\n```ruby\nclass Enterprises::EmailValidationResultQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    deliverable_codes = quote_and_join_list(EmailValidation.deliverable_codes)\n    deliverable_but_unverified_codes = quote_and_join_list(EmailValidation.deliverable_but_unverified_codes)\n    unverified_codes = quote_and_join_list(EmailValidation.unverified_codes)\n    undeliverable_codes = quote_and_join_list(EmailValidation.undeliverable_codes)\n\n    self.scope = self.scope\n      .select(\n        \"tenant_id,\n        SUM(CASE WHEN code IN (#{deliverable_codes}) THEN 1 ELSE 0 END) AS deliverable_count,\n        SUM(CASE WHEN code IN (#{deliverable_but_unverified_codes}) THEN 1 ELSE 0 END) AS deliverable_but_unverified_count,\n        SUM(CASE WHEN code IN (#{unverified_codes}) THEN 1 ELSE 0 END) AS unverified_count,\n        SUM(CASE WHEN code IN (#{undeliverable_codes}) THEN 1 ELSE 0 END) AS undeliverable_count\"\n      )\n      .from(email_validations_subquery, :T)\n      .group(\"tenant_id\")\n  end\n\n  def email_validations_subquery\n    EmailValidation\n      .select(\"DISTINCT ON (contact_id) tenant_id, code, created_at\")\n      .where(enterprise_id: opts.enterprise_id)\n      .order(\"contact_id ASC, created_at DESC\")\n  end\nend\n```\n\n## Unit Test\n```ruby\n# frozen_string_literal: true\n\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::EmailValidationResultQuery, type: :query do\n  before(:each) do\n    FactoryBot.reload\n  end\n\n  subject { sql }\n\n  let(:run_query) { described_class.query(default_scope, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:default_scope) { EmailValidation.all }\n  let(:query_params) do\n    {\n      enterprise_id: 5\n    }\n  end\n\n  it { is_expected.to include(\"email_validations.enterprise_id = 5\") }\n  # it { puts sql }\nend\n```\n\n# Example 2\n\n## Query Class\n```ruby\nclass Enterprises::EmailValidationStatusQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    self.scope = self.scope\n      .select(\n        \"contacts.tenant_id,\n        SUM(CASE WHEN contacts.needs_email_validation = FALSE THEN 1 ELSE 0 END) AS processed_count,\n        SUM(CASE WHEN contacts.needs_email_validation = TRUE THEN 1 ELSE 0 END) AS unprocessed_count\"\n      )\n      .joins(:tenant)\n      .where(\n        contacts: {\n          unsubscribed: false,\n          deleted: false,\n          temp: false\n        },\n        tenants: {\n          etl_flag: true,\n          training: false,\n          demo: false,\n          enterprise_id: opts.enterprise_id\n        }\n      )\n      .where(\n        \"NOT EXISTS (\n          SELECT null\n          FROM companies\n          WHERE companies.tenant_id = contacts.tenant_id\n          AND companies.id = contacts.company_id\n          AND companies.marketing_do_not_mail = TRUE\n        )\"\n      )\n      .group(\"contacts.tenant_id\")\n  end\nend\n```\n\n## Unit Test\n```ruby\n# frozen_string_literal: true\n\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::EmailValidationStatusQuery, type: :query do\n  before(:each) do\n    FactoryBot.reload\n  end\n\n  subject { sql }\n\n  let(:run_query) { described_class.query(default_scope, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:default_scope) { Contact.all }\n  let(:query_params) do\n    {\n      enterprise_id: 5\n    }\n  end\n\n  it { is_expected.to include(\"tenants.enterprise_id = 5\") }\n  # it { puts sql }\nend\n```\n\n# Example 3\n\n## Query Class\n```ruby\nmodule Enterprises\n  module Reports\n    class SalesByCompanyCategoryQuery < Common::Query\n      default_scope :invoice\n\n      contract do\n        attribute :enterprise_id, :integer\n        attribute :start_date, :string\n        attribute :end_date, :string\n      end\n\n      def call\n        validate\n        set_pg_settings\n        build_query\n      end\n\n      private\n\n      def set_pg_settings\n        ActiveRecord::Base.connection.execute(\"SET work_mem = '16MB';\")\n        ActiveRecord::Base.connection.execute(\"SET max_parallel_workers_per_gather = 4;\")\n      end\n\n      def build_query\n        self.scope = self.scope\n          .joins(:company, :tenant)\n          .where(\n            tenants: { enterprise_id: opts.enterprise_id },\n            pickup_date: opts.start_date..opts.end_date\n          )\n          .where.not(voided: true)\n          .where(deleted: false)\n          .where.not(pickup_date: nil)\n          .select(<<-SQL.squish)\n            CASE#{' '}\n              WHEN custom_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN custom_data -> 'category' ->> 'subIndustry'\n              WHEN clearbit_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN clearbit_data -> 'category' ->> 'subIndustry'\n              ELSE 'No Category'\n            END AS category,\n            COUNT(DISTINCT invoices.tenant_id) AS tenant_count,\n            COUNT(DISTINCT company_id) AS company_count,\n            SUM(grand_total) AS total\n          SQL\n          .group(\"category\")\n      end\n    end\n  end\nend\n```\n\n## Unit Test\n```ruby\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::Reports::SalesByCompanyCategoryQuery, type: :query do\n  subject { sql }\n\n  let(:run_query) { described_class.query(Invoice, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:start_date) { Date.parse(\"2023-06-01\") }\n  let(:end_date) { Date.parse(\"2023-06-30\") }\n  let(:enterprise_id) { 5 }\n  let(:query_params) do\n    {\n      enterprise_id: enterprise_id,\n      start_date: start_date,\n      end_date: end_date\n    }\n  end\n\n  describe \".scope\" do\n    context \"when valid parameters are provided\" do\n      it do\n        is_expected\n          .to include(\"tenants.enterprise_id = 5\")\n          .and include(\"pickup_date BETWEEN '2023-06-01' AND '2023-06-30'\")\n      end\n    end\n  end\nend\n```",
+          "input_attributes": [
+            {
+              "name": "query_class",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Query Class"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "query_class_spec",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Query Class Spec"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Create Presenter",
+          "title": "Create Presenter",
           "order": 3,
+          "description": null,
+          "prompt": "You generate an rspec unit test for the provided Query class.\nDo not produce any extra output.\n\nWe are only testing SQL output, not the data and generally we only need to test based on conditionally logic or incoming paramaters\nif condition is true then a SQL fragment should be present in the output, it should not be present if the condition is false.\n\nExpected Name:\n[query_class]\n\n----\n\nBelow you will find pairs of Query Classes and their corresponding Unit Test.\n\n# Example 1\n\n## Query Class\n```ruby\nclass Enterprises::EmailValidationResultQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    deliverable_codes = quote_and_join_list(EmailValidation.deliverable_codes)\n    deliverable_but_unverified_codes = quote_and_join_list(EmailValidation.deliverable_but_unverified_codes)\n    unverified_codes = quote_and_join_list(EmailValidation.unverified_codes)\n    undeliverable_codes = quote_and_join_list(EmailValidation.undeliverable_codes)\n\n    self.scope = self.scope\n      .select(\n        \"tenant_id,\n        SUM(CASE WHEN code IN (#{deliverable_codes}) THEN 1 ELSE 0 END) AS deliverable_count,\n        SUM(CASE WHEN code IN (#{deliverable_but_unverified_codes}) THEN 1 ELSE 0 END) AS deliverable_but_unverified_count,\n        SUM(CASE WHEN code IN (#{unverified_codes}) THEN 1 ELSE 0 END) AS unverified_count,\n        SUM(CASE WHEN code IN (#{undeliverable_codes}) THEN 1 ELSE 0 END) AS undeliverable_count\"\n      )\n      .from(email_validations_subquery, :T)\n      .group(\"tenant_id\")\n  end\n\n  def email_validations_subquery\n    EmailValidation\n      .select(\"DISTINCT ON (contact_id) tenant_id, code, created_at\")\n      .where(enterprise_id: opts.enterprise_id)\n      .order(\"contact_id ASC, created_at DESC\")\n  end\nend\n```\n\n## Unit Test\n```ruby\n# frozen_string_literal: true\n\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::EmailValidationResultQuery, type: :query do\n  before(:each) do\n    FactoryBot.reload\n  end\n\n  subject { sql }\n\n  let(:run_query) { described_class.query(default_scope, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:default_scope) { EmailValidation.all }\n  let(:query_params) do\n    {\n      enterprise_id: 5\n    }\n  end\n\n  it { is_expected.to include(\"email_validations.enterprise_id = 5\") }\n  # it { puts sql }\nend\n```\n\n# Example 2\n\n## Query Class\n```ruby\nclass Enterprises::EmailValidationStatusQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    self.scope = self.scope\n      .select(\n        \"contacts.tenant_id,\n        SUM(CASE WHEN contacts.needs_email_validation = FALSE THEN 1 ELSE 0 END) AS processed_count,\n        SUM(CASE WHEN contacts.needs_email_validation = TRUE THEN 1 ELSE 0 END) AS unprocessed_count\"\n      )\n      .joins(:tenant)\n      .where(\n        contacts: {\n          unsubscribed: false,\n          deleted: false,\n          temp: false\n        },\n        tenants: {\n          etl_flag: true,\n          training: false,\n          demo: false,\n          enterprise_id: opts.enterprise_id\n        }\n      )\n      .where(\n        \"NOT EXISTS (\n          SELECT null\n          FROM companies\n          WHERE companies.tenant_id = contacts.tenant_id\n          AND companies.id = contacts.company_id\n          AND companies.marketing_do_not_mail = TRUE\n        )\"\n      )\n      .group(\"contacts.tenant_id\")\n  end\nend\n```\n\n## Unit Test\n```ruby\n# frozen_string_literal: true\n\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::EmailValidationStatusQuery, type: :query do\n  before(:each) do\n    FactoryBot.reload\n  end\n\n  subject { sql }\n\n  let(:run_query) { described_class.query(default_scope, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:default_scope) { Contact.all }\n  let(:query_params) do\n    {\n      enterprise_id: 5\n    }\n  end\n\n  it { is_expected.to include(\"tenants.enterprise_id = 5\") }\n  # it { puts sql }\nend\n```\n\n# Example 3\n\n## Query Class\n```ruby\nmodule Enterprises\n  module Reports\n    class SalesByCompanyCategoryQuery < Common::Query\n      default_scope :invoice\n\n      contract do\n        attribute :enterprise_id, :integer\n        attribute :start_date, :string\n        attribute :end_date, :string\n      end\n\n      def call\n        validate\n        set_pg_settings\n        build_query\n      end\n\n      private\n\n      def set_pg_settings\n        ActiveRecord::Base.connection.execute(\"SET work_mem = '16MB';\")\n        ActiveRecord::Base.connection.execute(\"SET max_parallel_workers_per_gather = 4;\")\n      end\n\n      def build_query\n        self.scope = self.scope\n          .joins(:company, :tenant)\n          .where(\n            tenants: { enterprise_id: opts.enterprise_id },\n            pickup_date: opts.start_date..opts.end_date\n          )\n          .where.not(voided: true)\n          .where(deleted: false)\n          .where.not(pickup_date: nil)\n          .select(<<-SQL.squish)\n            CASE#{' '}\n              WHEN custom_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN custom_data -> 'category' ->> 'subIndustry'\n              WHEN clearbit_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN clearbit_data -> 'category' ->> 'subIndustry'\n              ELSE 'No Category'\n            END AS category,\n            COUNT(DISTINCT invoices.tenant_id) AS tenant_count,\n            COUNT(DISTINCT company_id) AS company_count,\n            SUM(grand_total) AS total\n          SQL\n          .group(\"category\")\n      end\n    end\n  end\nend\n```\n\n## Unit Test\n```ruby\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::Reports::SalesByCompanyCategoryQuery, type: :query do\n  subject { sql }\n\n  let(:run_query) { described_class.query(Invoice, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:start_date) { Date.parse(\"2023-06-01\") }\n  let(:end_date) { Date.parse(\"2023-06-30\") }\n  let(:enterprise_id) { 5 }\n  let(:query_params) do\n    {\n      enterprise_id: enterprise_id,\n      start_date: start_date,\n      end_date: end_date\n    }\n  end\n\n  describe \".scope\" do\n    context \"when valid parameters are provided\" do\n      it do\n        is_expected\n          .to include(\"tenants.enterprise_id = 5\")\n          .and include(\"pickup_date BETWEEN '2023-06-01' AND '2023-06-30'\")\n      end\n    end\n  end\nend\n```",
+          "input_attributes": [
+            {
+              "name": "query_class",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Query Class"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "query_class_spec",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Query Class Spec"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Create Controller",
+          "title": "Create Controller",
+          "order": 4,
           "description": null,
           "prompt": "You generate an rspec unit test for the provided Query class.\nDo not produce any extra output.\n\nWe are only testing SQL output, not the data and generally we only need to test based on conditionally logic or incoming paramaters\nif condition is true then a SQL fragment should be present in the output, it should not be present if the condition is false.\n\nExpected Name:\n[query_class]\n\n----\n\nBelow you will find pairs of Query Classes and their corresponding Unit Test.\n\n# Example 1\n\n## Query Class\n```ruby\nclass Enterprises::EmailValidationResultQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    deliverable_codes = quote_and_join_list(EmailValidation.deliverable_codes)\n    deliverable_but_unverified_codes = quote_and_join_list(EmailValidation.deliverable_but_unverified_codes)\n    unverified_codes = quote_and_join_list(EmailValidation.unverified_codes)\n    undeliverable_codes = quote_and_join_list(EmailValidation.undeliverable_codes)\n\n    self.scope = self.scope\n      .select(\n        \"tenant_id,\n        SUM(CASE WHEN code IN (#{deliverable_codes}) THEN 1 ELSE 0 END) AS deliverable_count,\n        SUM(CASE WHEN code IN (#{deliverable_but_unverified_codes}) THEN 1 ELSE 0 END) AS deliverable_but_unverified_count,\n        SUM(CASE WHEN code IN (#{unverified_codes}) THEN 1 ELSE 0 END) AS unverified_count,\n        SUM(CASE WHEN code IN (#{undeliverable_codes}) THEN 1 ELSE 0 END) AS undeliverable_count\"\n      )\n      .from(email_validations_subquery, :T)\n      .group(\"tenant_id\")\n  end\n\n  def email_validations_subquery\n    EmailValidation\n      .select(\"DISTINCT ON (contact_id) tenant_id, code, created_at\")\n      .where(enterprise_id: opts.enterprise_id)\n      .order(\"contact_id ASC, created_at DESC\")\n  end\nend\n```\n\n## Unit Test\n```ruby\n# frozen_string_literal: true\n\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::EmailValidationResultQuery, type: :query do\n  before(:each) do\n    FactoryBot.reload\n  end\n\n  subject { sql }\n\n  let(:run_query) { described_class.query(default_scope, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:default_scope) { EmailValidation.all }\n  let(:query_params) do\n    {\n      enterprise_id: 5\n    }\n  end\n\n  it { is_expected.to include(\"email_validations.enterprise_id = 5\") }\n  # it { puts sql }\nend\n```\n\n# Example 2\n\n## Query Class\n```ruby\nclass Enterprises::EmailValidationStatusQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    self.scope = self.scope\n      .select(\n        \"contacts.tenant_id,\n        SUM(CASE WHEN contacts.needs_email_validation = FALSE THEN 1 ELSE 0 END) AS processed_count,\n        SUM(CASE WHEN contacts.needs_email_validation = TRUE THEN 1 ELSE 0 END) AS unprocessed_count\"\n      )\n      .joins(:tenant)\n      .where(\n        contacts: {\n          unsubscribed: false,\n          deleted: false,\n          temp: false\n        },\n        tenants: {\n          etl_flag: true,\n          training: false,\n          demo: false,\n          enterprise_id: opts.enterprise_id\n        }\n      )\n      .where(\n        \"NOT EXISTS (\n          SELECT null\n          FROM companies\n          WHERE companies.tenant_id = contacts.tenant_id\n          AND companies.id = contacts.company_id\n          AND companies.marketing_do_not_mail = TRUE\n        )\"\n      )\n      .group(\"contacts.tenant_id\")\n  end\nend\n```\n\n## Unit Test\n```ruby\n# frozen_string_literal: true\n\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::EmailValidationStatusQuery, type: :query do\n  before(:each) do\n    FactoryBot.reload\n  end\n\n  subject { sql }\n\n  let(:run_query) { described_class.query(default_scope, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:default_scope) { Contact.all }\n  let(:query_params) do\n    {\n      enterprise_id: 5\n    }\n  end\n\n  it { is_expected.to include(\"tenants.enterprise_id = 5\") }\n  # it { puts sql }\nend\n```\n\n# Example 3\n\n## Query Class\n```ruby\nmodule Enterprises\n  module Reports\n    class SalesByCompanyCategoryQuery < Common::Query\n      default_scope :invoice\n\n      contract do\n        attribute :enterprise_id, :integer\n        attribute :start_date, :string\n        attribute :end_date, :string\n      end\n\n      def call\n        validate\n        set_pg_settings\n        build_query\n      end\n\n      private\n\n      def set_pg_settings\n        ActiveRecord::Base.connection.execute(\"SET work_mem = '16MB';\")\n        ActiveRecord::Base.connection.execute(\"SET max_parallel_workers_per_gather = 4;\")\n      end\n\n      def build_query\n        self.scope = self.scope\n          .joins(:company, :tenant)\n          .where(\n            tenants: { enterprise_id: opts.enterprise_id },\n            pickup_date: opts.start_date..opts.end_date\n          )\n          .where.not(voided: true)\n          .where(deleted: false)\n          .where.not(pickup_date: nil)\n          .select(<<-SQL.squish)\n            CASE#{' '}\n              WHEN custom_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN custom_data -> 'category' ->> 'subIndustry'\n              WHEN clearbit_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN clearbit_data -> 'category' ->> 'subIndustry'\n              ELSE 'No Category'\n            END AS category,\n            COUNT(DISTINCT invoices.tenant_id) AS tenant_count,\n            COUNT(DISTINCT company_id) AS company_count,\n            SUM(grand_total) AS total\n          SQL\n          .group(\"category\")\n      end\n    end\n  end\nend\n```\n\n## Unit Test\n```ruby\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::Reports::SalesByCompanyCategoryQuery, type: :query do\n  subject { sql }\n\n  let(:run_query) { described_class.query(Invoice, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:start_date) { Date.parse(\"2023-06-01\") }\n  let(:end_date) { Date.parse(\"2023-06-30\") }\n  let(:enterprise_id) { 5 }\n  let(:query_params) do\n    {\n      enterprise_id: enterprise_id,\n      start_date: start_date,\n      end_date: end_date\n    }\n  end\n\n  describe \".scope\" do\n    context \"when valid parameters are provided\" do\n      it do\n        is_expected\n          .to include(\"tenants.enterprise_id = 5\")\n          .and include(\"pickup_date BETWEEN '2023-06-01' AND '2023-06-30'\")\n      end\n    end\n  end\nend\n```",
           "input_attributes": [
@@ -191,9 +412,108 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Generate Tests",
+      "title": "Generate Tests",
+      "order": 4,
+      "description": null,
+      "steps": [
+        {
+          "name": "Create Any Spec",
+          "title": "Create Any Spec",
+          "order": 1,
+          "description": null,
+          "prompt": "Your task is to create unit tests in a Rails 8 application.\n\nCreate a unit spec for the following file(s)\n\nMake sure you understand the type of file/unit test you are creating and let me know.\n\nHere is the list of files to create tests for:\n\n<code>[code_content]</code>\n\n<tests>\n  <info>\n    <type>[type of test goes here]</type>\n    <considerations>[considerations and your thought process goes here]</considerations>\n    <code_file_name>[code file name goes here]</code_file_name>\n    <test_file_name>[test file name goes here]</test_file_name>\n  </info>\n  <test>\n    [test code goes here]\n  </test>\n  ... repeat for each file ...\n</tests>\n",
+          "input_attributes": [
+            {
+              "name": "code_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Code Content"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "spec_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Spec Content"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Update Any Spec",
+          "title": "Update Any Spec",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "any_spec_intruction",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Any Spec Intruction"
+            },
+            {
+              "name": "code_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Code Content"
+            },
+            {
+              "name": "spec_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Spec Content"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "spec_content",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Spec Content"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
     }
   ],
   "attributes": {
+    "existing_route": {
+      "name": "existing_route",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Existing Route"
+    },
+    "existing_menu": {
+      "name": "existing_menu",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Existing Menu"
+    },
+    "report_routes": {
+      "name": "report_routes",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Report Routes"
+    },
     "view": {
       "name": "view",
       "type": "string",
@@ -243,6 +563,20 @@
       "description": null,
       "title": "Query Class"
     },
+    "controller_class": {
+      "name": "controller_class",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Controller Class"
+    },
+    "presenter_class": {
+      "name": "presenter_class",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Presenter Class"
+    },
     "sql": {
       "name": "sql",
       "type": "string",
@@ -257,12 +591,40 @@
       "description": null,
       "title": "Sql Active Record Compare"
     },
-    "query_equivalence": {
-      "name": "query_equivalence",
+    "code_content": {
+      "name": "code_content",
       "type": "string",
       "is_array": false,
       "description": null,
-      "title": "Query Equivalence"
+      "title": "Code Content"
+    },
+    "spec_content": {
+      "name": "spec_content",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Spec Content"
+    },
+    "any_spec_intruction": {
+      "name": "any_spec_intruction",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Any Spec Intruction"
+    },
+    "old_controller": {
+      "name": "old_controller",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Old Controller"
+    },
+    "controller": {
+      "name": "controller",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Controller"
     },
     "query_class_spec": {
       "name": "query_class_spec",
@@ -273,11 +635,35 @@
     }
   },
   "prompts": {
-    "analyize_view": {
-      "name": "analyize_view",
-      "content": "",
+    "new_route_prompt": {
+      "name": "new_route_prompt",
+      "content": "You are helping to refactor routes by moving them from a bloated controller into single-responsibility namespaced controllers.\n\nWe have a reports controller and an enterprises controller that I am extracting actions out into tenant and enterprise level namespaces with one controller per report\n\nYour role is to adapt existing routes to the new structure, suggesting the appropriate new controller names and share any potential edge cases you notice.\n\nHere is a list of 5 routes that I have already moved into the new structure.\n\n```old_routes\nget '/enterprises/sales_by_company_tag', to: 'enterprises#sales_by_company_tag', as: 'sales_by_company_tag'\nget 'enterprises/email_validation', to: 'enterprises#email_validation'\nget '/enterprises/sales_by_company_category', to: 'enterprises#sales_by_company_category', as: 'sales_by_company_category'\nget '/enterprises/sales_by_company_tag', to: 'enterprises#sales_by_company_tag', as: 'sales_by_company_tag'\nget 'reports/sales_by_company_tag', to: 'reports#sales_by_company_tag', as: 'reports_sales_by_company_tag'\n```\n\nYour primary instruction is to move the existing route into the current route file. You will have to decide if the route is for reports namespace or the enterprise/reports namespace.\n\nExisting route:\n\n[existing_route]\n\nLatest config/routes/reports.rb file\n\n[report_routes]\n\n",
       "description": null,
-      "title": "Analyize View"
+      "title": "New Route Prompt"
+    },
+    "extras_prompt": {
+      "name": "extras_prompt",
+      "content": "Continue the routes refactor.\n\nRoute being migrated: [existing_route]\n\n1. I need you to adapt exising menus to use a helper function and put in code block\n2. I need you to suggest new location for unit test and the code with the new path in a code block\n\nHere is the existing menu:\n\n[existing_menu]\n\n## Examples of previous menu refactors\n\n### Example 1\n\n**Old**\n\n```ruby\n <% if current_user.is_enterprise_marketing_user? %>\n  <li <%= ' class=active' if current_page?(sales_by_company_category_path) ||  current_page?(sales_by_company_tag_path) %>>\n    <a href=\"/enterprises/sales_by_company_category\" class=\"d-flex align-items-center\">\n    <div><span class=\"list-icon\"><%= material_icon({ name: 'lens', size: 10 })%></span>\n      <span class=\"list-title\">Industry Sales</span>\n    </div>\n    </a>\n  </li>\n<% end %>\n```\n\n**New**\n\n```ruby\n<% if current_user.is_enterprise_marketing_user? %>\n    <%= side_menu_item(enterprises_reports_sales_by_company_category_path, 'Industry Sales', current_page?(enterprises_reports_sales_by_company_category_path) || current_page?(enterprises_reports_sales_by_company_tag_path)) %>\n<% end %>\n```\n\n### Example 2\n\n**Old**\n\n```ruby\n<li <%= ' class=active' if current_page?(enterprises_email_validation_path) %>>\n  <a href=\"<%= enterprises_email_validation_path %>\" class=\"d-flex align-items-center\">\n    <div><span class=\"list-icon\"><%= material_icon({ name: 'lens', size: 10 })%></span>\n    <span class=\"list-title\">Email Validation</span>\n    </div>\n  </a>\n</li>\n```\n\n**New**\n\n```ruby\n<%= side_menu_item(enterprises_reports_email_validation_path, 'Email Validation') %>\n```\n\n## Test Refactor\n\nKeep in mind that when I moved the contact_list_export, I got a request spec error and had to remember to move test from the old request spec to the new one, so you might want to remind me to move the specific test.\n\nFailures:\n\n  1) EnterprisesController when signed in #contact_list_export GET /enterprises/contact_list_export succeeds with status 200\n     Failure/Error: I18n.with_locale(locale, &action)\n\n     ActionController::MissingExactTemplate:\n       EnterprisesController#contact_list_export is missing a template for request formats: text/html\n     # ./app/controllers/application_controller.rb:249:in `resolve_locale'\n     # ./app/controllers/application_controller.rb:512:in `block in controller_application_name'\n     # ./app/controllers/application_controller.rb:509:in `controller_application_name'\n     # ./spec/requests/enterprises_spec.rb:143:in `block (5 levels) in <top (required)>'\n\nAnd I had to move \n\nfrom: spec/requests/enterprises_spec.rb\n\n```ruby\ndescribe \"#contact_list_export\" do\n  context \"GET /enterprises/contact_list_export\" do\n    it \"succeeds with status 200\" do\n      get enterprises_contact_list_export_path(), params: {  }, headers: {  }\n      log_unexpected(response, self)\n      expect(response).to have_http_status(200)\n    end\n  end\nend\n```\n\nto: spec/requests/enterprises/reports/reports_spec.rb\n\n```ruby\ndescribe \"#contact_list_export\" do\n  context \"GET /enterprises/contact_list_export\" do\n    it \"succeeds with status 200\" do\n      get enterprises_reports_contact_list_export_path(), params: {  }, headers: {  }\n      log_unexpected(response, self)\n      expect(response).to have_http_status(200)\n    end\n  end\nend\n```",
+      "description": null,
+      "title": "Extras Prompt"
+    },
+    "analyse_controller_prompt": {
+      "name": "analyse_controller_prompt",
+      "content": "You will analyse the old controller or action and make suggestions for how the new controller could be created based on the provided presenter, query objects, active record queries etc.\n\nGuidelines:\nBaseController will default to reports section automatically, so don't add @section = \"reports\"\nI prefer the Struct technique if you have not received information on the presenter\nI like to define Struct near the top of the controller using keyword_init: true\nI don't like to use before_actions in SRP controllers as I only have one action, if the action is to complex I will break it up into smaller private methods\nI don't need any instance variables in the controller accept for the presenter as I will be migrating all old instance variables to the presenter\nMake sure you analyse the base controller for helper methods that could be used in the new controller\n\n### Old controller or action\n\n```ruby\n[old_controller]\n```\n\n\n# Base classes used by report controllers\n```ruby\nclass Enterprises::Reports::BaseController < Reports::BaseController\n  before_action :set_section\n\n  def set_section\n    @section = \"reports\"\n  end\n\n  def get_group()\n    @group = @groups.includes(:tenants).find(params[:groups])\n  end\nend\n\nclass Reports::BaseController < ApplicationController\n  before_action :set_month_range\n\n  attr_reader :presenter\n\n  helper_method :presenter\n\n  def enterprise\n    @enterprise ||= current_user.enterprise\n  end\n\n  def current_tenant\n    @tenant\n  end\n\n  def set_month_range\n    @month_range = (Date.parse(\"2019-01-01\").beginning_of_month..(Time.now + 1.month).beginning_of_month).map { |d| d.beginning_of_month }.uniq\n  end\n\n  # Group related helpers\n  def current_groups\n    current_user.enterprise.groups\n  end\n\n  def active_group_id(groups)\n    groups.where(default: true).pluck(:id).first || groups.first.id\n  end\n\n  def find_group(groups, group_id)\n    groups.includes(:tenants).find(group_id)\n  end\nend\n```\n\n# Examples of previous refactored controllers\n\n```ruby\nclass Enterprises::Reports::SalesByCompanyTagController < Enterprises::Reports::BaseController\n  def index\n    @presenter = Enterprises::Reports::SalesByCompanyTagPresenter.present(\n      \"enterprise\",\n      enterprise,\n      current_tenant,\n      params[:date_from],\n      params[:date_to]\n    )\n  end\nend\n\nclass Enterprises::Reports::SalesByCompanyCategoryController < Enterprises::Reports::BaseController\n  def index\n    @presenter = Enterprises::Reports::SalesByCompanyCategoryPresenter.present(\n      enterprise,\n      current_tenant,\n      params[:date_from],\n      params[:date_to]\n    )\n  end\nend\n\nclass Enterprises::Reports::EmailValidationController < Enterprises::Reports::BaseController\n  def index\n    @presenter = Enterprises::Reports::EmailValidationPresenter.present(enterprise)\n  end\nend\n\nclass Enterprises::Reports::ContactListExportController < Enterprises::Reports::BaseController\n  Presenter = Struct.new(:list_id, :lists, keyword_init: true)\n\n  def index\n    @section = \"marketing\"\n\n    lists = ContactList.where(enterprise_id: current_user.enterprise_id, global: true).order(:name)\n\n    list_id = params.fetch(:contact_list_id, lists.first&.id || 0)\n\n    @presenter = Presenter.new(list_id: list_id, lists: lists)\n  end\nend\n\nclass Enterprises::Reports::ArBalanceController < Enterprises::Reports::BaseController\n  Presenter = Struct.new(:group, :groups, :active_group)\n\n  def index\n    groups = current_user.enterprise.groups\n    active_group = groups.where(default: true).pluck(:id).first || groups.first.id\n    group = groups.includes(:tenants).find(params[:groups] || active_group.to_s)\n\n    @presenter = Presenter.new(group, groups, active_group)\n  end\nend\n\n\n# This examples is at the tenant level\nclass Reports::SalesByCompanyTagController < Enterprises::Reports::BaseController\n  def index\n    @presenter = Enterprises::Reports::SalesByCompanyTagPresenter.present(\n      \"tenant\",\n      enterprise,\n      current_tenant,\n      params[:date_from],\n      params[:date_to]\n    )\n  end\nend\n```\n\n",
+      "description": null,
+      "title": "Analyse Controller Prompt"
+    },
+    "analyse_view_prompt": {
+      "name": "analyse_view_prompt",
+      "content": "Analyze the following view.\n\nIdentify and put into code block and SQL you find, give the block a name as it will help me create a query class.\nIf there are two or more SQL blocks, give them different names for each\nIdentify any parameters that are being used in the SQL.\nIdentify any extra calculations that are being done in the view.\n\n[view]\n",
+      "description": null,
+      "title": "Analyse View Prompt"
+    },
+    "improve_view_prompt": {
+      "name": "improve_view_prompt",
+      "content": "I'm going to give you a old view, and you were going to look at the examples of how old views have been converted to new views.\n\nThe main thing to notice is that a lot of the instance variables have been prefixed by a presenter method.\n\nI will also give you the updated controller and how it is querying and presenting data.\n\nOptionally I will give you a query &/or presenter class for guidance\n\nDo not change anything else about the code, Here is the code I want you to work on:\n\n<view>\n[view]\n</view>\n\n<controller_class>\n[controller_class]\n</controller_class>\n\n<presenter_class>\n[presenter_class]\n</presenter_class>\n\n<query_class>\n[query_class]\n</query_class>\n\n# Old #1\n```ruby\n<%= render '_partials/page_header_enterprise', title: 'Enterprise', margin_none: true %>\n<div class=\"layout\">\n  <%= render 'sidebar' %>\n  <div class=\"content\">\n    <div class=\"container-fluid\">\n      <h3 class=\"m-b-4\"><%= t(\"contact_list_export\") %></h3>\n      <% if !notice.blank? %><div class=\"alert alert-success\"><%= notice %></div> <% end %>\n      <%= form_tag enterprises_contact_list_export_path, :method => 'get', id: \"contact_list\" do %>\n        <div class=\"form-group form-inline\">\n          <label><%= t(\"choose_list\") %>:</label>\n          <%= select_tag :contact_list_id, options_for_select(@lists.map{|list| [list.name, list.id]}, @list_id), class: 'form-control' %>\n        </div>\n      <% end %>\n    </div>\n\n    <table class=\"table table-striped border-top\">\n      <thead>\n        <tr>\n          <th class=\"text-center p-a-0\" style=\"width: 50px;\">\n            <label class=\"c-input c-checkbox\">\n              <input id=\"selectAll\" type=\"checkbox\">\n              <span class=\"c-indicator\"></span>\n            </label>\n          </th>\n          <th><%= t(\"tenant\") %></th>\n          <th class=\"text-right\">\n            <div class=\"btn-group\">\n                <button type=\"button\" class=\"btn btn-primary dropdown-toggle bulk-action disabled\" style=\"\" data-toggle=\"dropdown\">\n                    <%= t(\"bulk_action\") %> <span class=\"caret\"></span>\n                    <span class=\"sr-only\">Toggle Dropdown</span>\n                </button>\n                <ul class=\"dropdown-menu pull-right\" role=\"menu\">\n                  <li>\n                    <a data-toggle=\"ajaxModal\" data-dynamic=\"exportSelectedPath\" href=\"#\">\n                      <%= t(\"export_selected\") %>\n                    </a>\n                  </li>\n                  <li>\n                    <a data-toggle=\"ajaxModal\" data-dynamic=\"exportCombinedPath\" href=\"#\">\n                      <%= t(\"export_combined\") %>\n                    </a>\n                  </li>\n                </ul>\n              </div>\n          </th>\n        </tr>\n      </thead>\n      <% current_user.tenants.real.order(name: :asc).each do |tenant| %>\n      <tr>\n        <td class=\"text-center p-a-0\">\n          <label class=\"c-input c-checkbox\">\n            <%= check_box_tag 'target_ids[]',  tenant.id.to_s, false, class: 'checkbox1',  id: \"target_id_#{tenant.id}\" %>\n            <span class=\"c-indicator\"></span>\n          </label>\n        </td>\n        <td>\n          <%= tenant.name %>\n        </td>\n        <td class=\"text-right\">\n          <a data-toggle=\"ajaxModal\" href=\"<%= contact_list_export_path(@list_id, tenant_id: tenant.id) %>\"><button class=\"btn btn-xs btn-default\"><%= t(\"export_csv\") %></button></a>\n        </td>\n      </tr>\n      <% end %>\n    </table>\n  </div>\n</div>\n\n<% content_for :page_scripts do %>\n  <script type=\"text/javascript\">\n    setTargetLimit(1000);\n\n    $('#contact_list_id').change(function() {\n      $(\"#contact_list\").submit();\n    });\n\n    function exportSelectedPath()\n    {\n      return '<%=j contact_list_export_path(@list_id).html_safe %>?target_ids=' + getTargetIds();\n    }\n\n    function exportCombinedPath()\n    {\n      return '<%=j contact_list_export_path(@list_id, combined: true).html_safe %>&target_ids=' + getTargetIds();\n    }\n  </script>\n<% end %>\n```\n\n# New #1\n```ruby\n<%= render '_partials/page_header_enterprise', title: 'Enterprise', margin_none: true %>\n<div class=\"layout\">\n  <%= render 'enterprises/sidebar' %>\n  <div class=\"content\">\n    <div class=\"container-fluid\">\n      <h3 class=\"m-b-4\"><%= t(\"contact_list_export\") %></h3>\n      <% if !notice.blank? %><div class=\"alert alert-success\"><%= notice %></div> <% end %>\n      <%= form_tag enterprises_contact_list_export_path, :method => 'get', id: \"contact_list\" do %>\n        <div class=\"form-group form-inline\">\n          <label><%= t(\"choose_list\") %>:</label>\n          <%= select_tag :contact_list_id, options_for_select(presenter.lists.map{|list| [list.name, list.id]}, presenter.list_id), class: 'form-control' %>\n        </div>\n      <% end %>\n    </div>\n\n    <table class=\"table table-striped border-top\">\n      <thead>\n        <tr>\n          <th class=\"text-center p-a-0\" style=\"width: 50px;\">\n            <label class=\"c-input c-checkbox\">\n              <input id=\"selectAll\" type=\"checkbox\">\n              <span class=\"c-indicator\"></span>\n            </label>\n          </th>\n          <th><%= t(\"tenant\") %></th>\n          <th class=\"text-right\">\n            <div class=\"btn-group\">\n                <button type=\"button\" class=\"btn btn-primary dropdown-toggle bulk-action disabled\" style=\"\" data-toggle=\"dropdown\">\n                    <%= t(\"bulk_action\") %> <span class=\"caret\"></span>\n                    <span class=\"sr-only\">Toggle Dropdown</span>\n                </button>\n                <ul class=\"dropdown-menu pull-right\" role=\"menu\">\n                  <li>\n                    <a data-toggle=\"ajaxModal\" data-dynamic=\"exportSelectedPath\" href=\"#\">\n                      <%= t(\"export_selected\") %>\n                    </a>\n                  </li>\n                  <li>\n                    <a data-toggle=\"ajaxModal\" data-dynamic=\"exportCombinedPath\" href=\"#\">\n                      <%= t(\"export_combined\") %>\n                    </a>\n                  </li>\n                </ul>\n              </div>\n          </th>\n        </tr>\n      </thead>\n      <% current_user.tenants.real.order(name: :asc).each do |tenant| %>\n      <tr>\n        <td class=\"text-center p-a-0\">\n          <label class=\"c-input c-checkbox\">\n            <%= check_box_tag 'target_ids[]',  tenant.id.to_s, false, class: 'checkbox1',  id: \"target_id_#{tenant.id}\" %>\n            <span class=\"c-indicator\"></span>\n          </label>\n        </td>\n        <td>\n          <%= tenant.name %>\n        </td>\n        <td class=\"text-right\">\n          <a data-toggle=\"ajaxModal\" href=\"<%= contact_list_export_path(presenter.list_id, tenant_id: tenant.id) %>\"><button class=\"btn btn-xs btn-default\"><%= t(\"export_csv\") %></button></a>\n        </td>\n      </tr>\n      <% end %>\n    </table>\n  </div>\n</div>\n\n<% content_for :page_scripts do %>\n  <script type=\"text/javascript\">\n    setTargetLimit(1000);\n\n    $('#contact_list_id').change(function() {\n      $(\"#contact_list\").submit();\n    });\n\n    function exportSelectedPath()\n    {\n      return '<%=j contact_list_export_path(presenter.list_id).html_safe %>?target_ids=' + getTargetIds();\n    }\n\n    function exportCombinedPath()\n    {\n      return '<%=j contact_list_export_path(presenter.list_id, combined: true).html_safe %>&target_ids=' + getTargetIds();\n    }\n  </script>\n<% end %>\n```\n\n\n\n",
+      "description": null,
+      "title": "Improve View Prompt"
     },
     "query_equivalence": {
       "name": "query_equivalence",
@@ -302,6 +688,18 @@
       "content": "You generate an rspec unit test for the provided Query class.\nDo not produce any extra output.\n\nWe are only testing SQL output, not the data and generally we only need to test based on conditionally logic or incoming paramaters\nif condition is true then a SQL fragment should be present in the output, it should not be present if the condition is false.\n\nExpected Name:\n[query_class]\n\n----\n\nBelow you will find pairs of Query Classes and their corresponding Unit Test.\n\n# Example 1\n\n## Query Class\n```ruby\nclass Enterprises::EmailValidationResultQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    deliverable_codes = quote_and_join_list(EmailValidation.deliverable_codes)\n    deliverable_but_unverified_codes = quote_and_join_list(EmailValidation.deliverable_but_unverified_codes)\n    unverified_codes = quote_and_join_list(EmailValidation.unverified_codes)\n    undeliverable_codes = quote_and_join_list(EmailValidation.undeliverable_codes)\n\n    self.scope = self.scope\n      .select(\n        \"tenant_id,\n        SUM(CASE WHEN code IN (#{deliverable_codes}) THEN 1 ELSE 0 END) AS deliverable_count,\n        SUM(CASE WHEN code IN (#{deliverable_but_unverified_codes}) THEN 1 ELSE 0 END) AS deliverable_but_unverified_count,\n        SUM(CASE WHEN code IN (#{unverified_codes}) THEN 1 ELSE 0 END) AS unverified_count,\n        SUM(CASE WHEN code IN (#{undeliverable_codes}) THEN 1 ELSE 0 END) AS undeliverable_count\"\n      )\n      .from(email_validations_subquery, :T)\n      .group(\"tenant_id\")\n  end\n\n  def email_validations_subquery\n    EmailValidation\n      .select(\"DISTINCT ON (contact_id) tenant_id, code, created_at\")\n      .where(enterprise_id: opts.enterprise_id)\n      .order(\"contact_id ASC, created_at DESC\")\n  end\nend\n```\n\n## Unit Test\n```ruby\n# frozen_string_literal: true\n\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::EmailValidationResultQuery, type: :query do\n  before(:each) do\n    FactoryBot.reload\n  end\n\n  subject { sql }\n\n  let(:run_query) { described_class.query(default_scope, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:default_scope) { EmailValidation.all }\n  let(:query_params) do\n    {\n      enterprise_id: 5\n    }\n  end\n\n  it { is_expected.to include(\"email_validations.enterprise_id = 5\") }\n  # it { puts sql }\nend\n```\n\n# Example 2\n\n## Query Class\n```ruby\nclass Enterprises::EmailValidationStatusQuery < Common::Query\n  contract do\n    attribute :enterprise_id, :integer\n  end\n\n  def call\n    validate\n    build_query\n  end\n\n  private\n\n  def build_query\n    self.scope = self.scope\n      .select(\n        \"contacts.tenant_id,\n        SUM(CASE WHEN contacts.needs_email_validation = FALSE THEN 1 ELSE 0 END) AS processed_count,\n        SUM(CASE WHEN contacts.needs_email_validation = TRUE THEN 1 ELSE 0 END) AS unprocessed_count\"\n      )\n      .joins(:tenant)\n      .where(\n        contacts: {\n          unsubscribed: false,\n          deleted: false,\n          temp: false\n        },\n        tenants: {\n          etl_flag: true,\n          training: false,\n          demo: false,\n          enterprise_id: opts.enterprise_id\n        }\n      )\n      .where(\n        \"NOT EXISTS (\n          SELECT null\n          FROM companies\n          WHERE companies.tenant_id = contacts.tenant_id\n          AND companies.id = contacts.company_id\n          AND companies.marketing_do_not_mail = TRUE\n        )\"\n      )\n      .group(\"contacts.tenant_id\")\n  end\nend\n```\n\n## Unit Test\n```ruby\n# frozen_string_literal: true\n\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::EmailValidationStatusQuery, type: :query do\n  before(:each) do\n    FactoryBot.reload\n  end\n\n  subject { sql }\n\n  let(:run_query) { described_class.query(default_scope, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:default_scope) { Contact.all }\n  let(:query_params) do\n    {\n      enterprise_id: 5\n    }\n  end\n\n  it { is_expected.to include(\"tenants.enterprise_id = 5\") }\n  # it { puts sql }\nend\n```\n\n# Example 3\n\n## Query Class\n```ruby\nmodule Enterprises\n  module Reports\n    class SalesByCompanyCategoryQuery < Common::Query\n      default_scope :invoice\n\n      contract do\n        attribute :enterprise_id, :integer\n        attribute :start_date, :string\n        attribute :end_date, :string\n      end\n\n      def call\n        validate\n        set_pg_settings\n        build_query\n      end\n\n      private\n\n      def set_pg_settings\n        ActiveRecord::Base.connection.execute(\"SET work_mem = '16MB';\")\n        ActiveRecord::Base.connection.execute(\"SET max_parallel_workers_per_gather = 4;\")\n      end\n\n      def build_query\n        self.scope = self.scope\n          .joins(:company, :tenant)\n          .where(\n            tenants: { enterprise_id: opts.enterprise_id },\n            pickup_date: opts.start_date..opts.end_date\n          )\n          .where.not(voided: true)\n          .where(deleted: false)\n          .where.not(pickup_date: nil)\n          .select(<<-SQL.squish)\n            CASE#{' '}\n              WHEN custom_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN custom_data -> 'category' ->> 'subIndustry'\n              WHEN clearbit_data -> 'category' ->> 'subIndustry' IS DISTINCT FROM null THEN clearbit_data -> 'category' ->> 'subIndustry'\n              ELSE 'No Category'\n            END AS category,\n            COUNT(DISTINCT invoices.tenant_id) AS tenant_count,\n            COUNT(DISTINCT company_id) AS company_count,\n            SUM(grand_total) AS total\n          SQL\n          .group(\"category\")\n      end\n    end\n  end\nend\n```\n\n## Unit Test\n```ruby\nrequire \"rails_helper\"\n\nRSpec.describe Enterprises::Reports::SalesByCompanyCategoryQuery, type: :query do\n  subject { sql }\n\n  let(:run_query) { described_class.query(Invoice, **query_params) }\n  let(:query) { run_query.scope }\n  let(:sql) { query.to_sql.gsub(/\"/, \"\") }\n\n  let(:start_date) { Date.parse(\"2023-06-01\") }\n  let(:end_date) { Date.parse(\"2023-06-30\") }\n  let(:enterprise_id) { 5 }\n  let(:query_params) do\n    {\n      enterprise_id: enterprise_id,\n      start_date: start_date,\n      end_date: end_date\n    }\n  end\n\n  describe \".scope\" do\n    context \"when valid parameters are provided\" do\n      it do\n        is_expected\n          .to include(\"tenants.enterprise_id = 5\")\n          .and include(\"pickup_date BETWEEN '2023-06-01' AND '2023-06-30'\")\n      end\n    end\n  end\nend\n```",
       "description": null,
       "title": "Query Class Spec"
+    },
+    "create_any_spec_prompt": {
+      "name": "create_any_spec_prompt",
+      "content": "Your task is to create unit tests in a Rails 8 application.\n\nCreate a unit spec for the following file(s)\n\nMake sure you understand the type of file/unit test you are creating and let me know.\n\nHere is the list of files to create tests for:\n\n<code>[code_content]</code>\n\n<tests>\n  <info>\n    <type>[type of test goes here]</type>\n    <considerations>[considerations and your thought process goes here]</considerations>\n    <code_file_name>[code file name goes here]</code_file_name>\n    <test_file_name>[test file name goes here]</test_file_name>\n  </info>\n  <test>\n    [test code goes here]\n  </test>\n  ... repeat for each file ...\n</tests>\n",
+      "description": null,
+      "title": "Create Any Spec Prompt"
+    },
+    "update_any_spec_prompt": {
+      "name": "update_any_spec_prompt",
+      "content": "",
+      "description": null,
+      "title": "Update Any Spec Prompt"
     }
   }
 }

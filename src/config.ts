@@ -52,5 +52,13 @@ export const providers: Provider[] = [
       { name: "Grok Pro", apiCode: "grok-pro" },
       { name: "Grok Lite", apiCode: "grok-lite" }
     ]
+  },
+  {
+    name: "Future Models":,
+    models: [
+      { name: "CriticAI", apiCode: "critic-ai" },
+      { name: "Perplixity", apiCode: "perplixity" },
+      { name: "PyschicAI", apiCode: "psychic-ai" },
+    ]
   }
 ];

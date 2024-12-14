@@ -38,8 +38,8 @@
   }
 
   function handleKeyPress(event: KeyboardEvent) {
-    console.log('Key Pressed:', event.key);  // Debug statement
     if (event.key === 'q' || event.key === 'Q') {
+      console.log('Key Pressed:', event.key);  // Debug statement
       toggleQuickAccessPanel();
     }
   }
