@@ -64,6 +64,13 @@
               "title": "Video Title"
             },
             {
+              "name": "title_ideas",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Title Ideas"
+            },
+            {
               "name": "video_url",
               "type": "string",
               "is_array": false,
