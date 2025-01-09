@@ -4,6 +4,7 @@
   import InfoCard from './InfoCard.svelte';
   import WorkflowSectionProgress from './SectionProgress.svelte';
   import WorkflowStep from './Step.svelte';
+  import WorkflowSectionHeader from './SectionHeader.svelte';
 
   export let workflow: Workflow;
   export let currentSection: Section;
@@ -25,7 +26,7 @@
 
 {#if currentSection && currentStep}
 <div class="container mx-auto mt-8 px-4">
-  <h2 class="text-2xl font-semibold text-white mb-4">{currentSection.title}</h2>
+  <WorkflowSectionHeader {currentSection} />
   <WorkflowSectionProgress {currentSection} {currentStep} on:step-select={handleStepSelect} />
   <WorkflowStep {workflow} {currentSection} {currentStep} />
   <div>
