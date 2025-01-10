@@ -6,6 +6,7 @@
   import SectionIcon from './icons/SectionIcon.svelte';
   import MenuItem from './MenuItem.svelte';
   import QuickAccess from './QuickAccess.svelte';
+  import { workflowActions } from '../../stores/workflowActionStore';
 
   export let sections = [];
   export let currentComponent: string;
@@ -16,9 +17,26 @@
 
   const dispatch = createEventDispatcher();
 
-  function handleMenuClick(component: string) {
-    console.log('Sidebar Menu Clicked:', component.detail);  // Debug statement
-    dispatch('menu-click', component.detail);
+  function handleMenuClick(event) {
+    const component = event.detail;
+    
+    // Handle workflow actions
+    switch (component) {
+      case 'SaveClipboard':
+        workflowActions.saveToClipboard();
+        return;
+      case 'LoadClipboard':
+        workflowActions.loadFromClipboard();
+        return;
+      case 'Save':
+        workflowActions.saveToFile();
+        return;
+      case 'Load':
+        workflowActions.loadFromFile();
+        return;
+      default:
+        dispatch('menu-click', component);
+    }
   }
 
   function toggleQuickAccessPanel() {
@@ -89,6 +107,12 @@
           <MenuItem name="Attributes" letter="A" active={activeMenuItem === 'Attributes'} component="Attributes" on:menu-click={handleMenuClick} />
           <MenuItem name="Prompts" letter="P" active={activeMenuItem === 'Prompts'} component="Prompts" on:menu-click={handleMenuClick} />
           <MenuItem name="Settings" letter="S" active={activeMenuItem === 'Settings'} component="Settings" on:menu-click={handleMenuClick} />
+          
+          <div class="text-xs font-semibold leading-6 text-primary-dark mt-4">Workflow</div>
+          <MenuItem name="Load" letter="L" active={activeMenuItem === 'Load'} component="Load" on:menu-click={handleMenuClick} />
+          <MenuItem name="Save" letter="S" active={activeMenuItem === 'Save'} component="Save" on:menu-click={handleMenuClick} />
+          <MenuItem name="Save Clipboard" letter="C" active={activeMenuItem === 'SaveClipboard'} component="SaveClipboard" on:menu-click={handleMenuClick} />
+          <MenuItem name="Load Clipboard" letter="V" active={activeMenuItem === 'LoadClipboard'} component="LoadClipboard" on:menu-click={handleMenuClick} />
         </ul>
       </li>
       <li class="mt-auto">

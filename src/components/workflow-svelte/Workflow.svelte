@@ -26,7 +26,11 @@
 
 {#if currentSection && currentStep}
 <div class="container mx-auto mt-8 px-4">
-  <WorkflowSectionHeader {currentSection} />
+  <WorkflowSectionHeader 
+    workflow={workflow} 
+    {currentSection} 
+    {currentStep} 
+  />
   <WorkflowSectionProgress {currentSection} {currentStep} on:step-select={handleStepSelect} />
   <WorkflowStep {workflow} {currentSection} {currentStep} />
   <div>

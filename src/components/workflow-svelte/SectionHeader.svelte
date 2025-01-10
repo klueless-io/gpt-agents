@@ -1,16 +1,18 @@
 <script lang="ts">
-  import type { Section } from '../../types';
+  import type { Section, Step, Workflow } from '../../types';
+  import SectionHeaderTools from './SectionHeaderTools.svelte';
+
+  export let workflow: Workflow;
   export let currentSection: Section;
+  export let currentStep: Step;
+
+  // Debug log to check if props are received
+  $: console.log('SectionHeader props:', { workflow, currentSection, currentStep });
 </script>
 
 <div class="flex justify-between items-center mb-4">
   <h2 class="text-2xl font-semibold text-white">{currentSection.title}</h2>
-  <div class="flex gap-2">
-    <button class="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-white rounded">
-      Share
-    </button>
-    <button class="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-white rounded">
-      Export
-    </button>
-  </div>
+  {#if workflow && currentSection && currentStep}
+    <SectionHeaderTools {workflow} {currentSection} {currentStep} />
+  {/if}
 </div> 
