@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher, onDestroy } from 'svelte';
-  import { stateStore } from '../../stateStore';
+  import { stateStore } from '../../stores/stateStore';
 
   const dispatch = createEventDispatcher();
 

@@ -1,10 +1,14 @@
 import { writable } from 'svelte/store';
-import type { Section, Step } from './types';
+import type { Section, Step } from '../types';
 
+/**
+ * Manages the current application state including the active section, step, and attributes
+ * This store handles temporary/runtime state that changes as users navigate through the workflow
+ */
 interface State {
-  currentSection: Section | null;
-  currentStep: Step | null;
-  attributes: Record<string, any>;
+  currentSection: Section | null;  // Currently active section
+  currentStep: Step | null;        // Currently active step
+  attributes: Record<string, any>; // Dynamic attributes for the current state
 }
 
 const initialState: State = {

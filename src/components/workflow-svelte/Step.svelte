@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { stateStore } from '../../stateStore';
+  import { stateStore } from '../../stores/stateStore';
   import type { Section, Step, Workflow } from '../../types';
   import { providers } from '../../types';
   import { workflowStore } from '../../workflowStore';

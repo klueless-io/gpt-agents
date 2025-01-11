@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Section, Step, Workflow } from '../../types';
   import StepControls from './StepControls.svelte';
-  import { stateStore } from '../../stateStore';
+  import { stateStore } from '../../stores/stateStore';
 
   export let workflow: Workflow;
   export let currentSection: Section;

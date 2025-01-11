@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Section, Step, Workflow } from '../../types';
-  import { stateStore } from '../../stateStore';
+  import { stateStore } from '../../stores/stateStore';
   import LeftArrowIcon from './icons/LeftArrowIcon.svelte';
   import LeftUpArrowIcon from './icons/LeftUpArrowIcon.svelte';
   import RightArrowIcon from './icons/RightArrowIcon.svelte';

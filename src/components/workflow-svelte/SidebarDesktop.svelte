@@ -7,7 +7,7 @@
   import MenuItem from './MenuItem.svelte';
   import QuickAccess from './QuickAccess.svelte';
   import { workflowActions } from '../../stores/workflowActionStore';
-  import { stateStore } from '../../stateStore';
+  import { stateStore } from '../../stores/stateStore';
   import { get } from 'svelte/store';
 
   export let sections = [];

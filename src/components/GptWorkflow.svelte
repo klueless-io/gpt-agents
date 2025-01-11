@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { stateStore, type AppState } from '../stateStore';
   import type { Workflow } from '../types';
+  import { stateStore, type AppState } from '../stores/stateStore';
   import { workflowStore } from '../workflowStore';
   import Attributes from './workflow-svelte/Attributes.svelte';
   import Overview from './workflow-svelte/Overview.svelte';

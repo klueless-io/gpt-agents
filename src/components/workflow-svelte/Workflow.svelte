@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { stateStore } from '../../stateStore';
+  import { stateStore } from '../../stores/stateStore';
   import type { Section, Step, Workflow } from '../../types';
   import InfoCard from './InfoCard.svelte';
   import WorkflowSectionProgress from './SectionProgress.svelte';
@@ -8,19 +8,13 @@
 
   // Export the workflow prop
   export let workflow: Workflow;
-  
-  // Initialize state variables
-  let currentSection: Section | null = null;
-  let currentStep: Step | null = null;
-  
-  // Subscribe to the state store
-  stateStore.subscribe(state => {
-    if (state) {
-      currentSection = state.currentSection;
-      currentStep = state.currentStep;
-      console.log('Workflow component state updated:', { currentSection, currentStep });
-    }
-  });
+  export let currentSection: Section;
+  export let currentStep: Step;
+
+  // Debugging statements
+  // console.log('1:Current Workflow:', workflow);
+  // console.log('1:Current Section:', currentSection);
+  // console.log('1:Current Step:', currentStep);
 
   function handleStepSelect(event) {
     const { step, attributes } = event.detail;

@@ -1,7 +1,11 @@
 import { get } from 'svelte/store';
-import { stateStore } from '../stateStore';
 import { workflowStore } from '../workflowStore';
+import { stateStore } from './stateStore';
 
+/**
+ * Provides actions/operations that can be performed on workflow data
+ * This store contains utility functions for importing/exporting workflow state
+ */
 export const workflowActions = {
   async saveToClipboard() {
     const state = get(stateStore);

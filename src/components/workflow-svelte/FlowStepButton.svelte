@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { stateStore } from '../../stateStore';
+  import { stateStore } from '../../stores/stateStore';
   import type { Section, Step } from '../../types';
   export let section: Section;
   export let step: Step;
