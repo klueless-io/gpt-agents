@@ -7,6 +7,8 @@
   import MenuItem from './MenuItem.svelte';
   import QuickAccess from './QuickAccess.svelte';
   import { workflowActions } from '../../stores/workflowActionStore';
+  import { stateStore } from '../../stateStore';
+  import { get } from 'svelte/store';
 
   export let sections = [];
   export let currentComponent: string;
@@ -15,10 +17,23 @@
   let showQuickAccessPanel = false;
   let showDebugMonitor = false;
 
+  // Subscribe to state changes
+  stateStore.subscribe(state => {
+    currentComponent = state.currentComponent;
+    activeMenuItem = state.currentMenuItem;
+    console.log('SidebarDesktop state updated:', { currentComponent, activeMenuItem });
+  });
+
   const dispatch = createEventDispatcher();
 
   function handleMenuClick(event) {
     const component = event.detail;
+    console.log('Menu Click:', {
+      clickedComponent: component,
+      sections,
+      currentComponent,
+      activeMenuItem
+    });
     
     // Handle workflow actions
     switch (component) {
@@ -34,8 +49,32 @@
       case 'Load':
         workflowActions.loadFromFile();
         return;
-      default:
-        dispatch('menu-click', component);
+    }
+
+    // Find the section if it exists
+    const selectedSection = sections.find(section => section.name === component);
+    console.log('Selected Section:', selectedSection);
+
+    if (selectedSection) {
+      // Don't dispatch menu-click, just update the state
+      stateStore.update(state => {
+        const newState = {
+          ...state,
+          currentMenuItem: selectedSection.name,
+          currentComponent: 'Workflow',  // Keep this as 'Workflow'
+          currentSection: selectedSection,
+          currentStep: selectedSection.steps[0]
+        };
+        console.log('New State:', newState);
+        return newState;
+      });
+    } else {
+      // For non-section menu items, just update the menu item and component
+      stateStore.update(state => ({
+        ...state,
+        currentMenuItem: component,
+        currentComponent: component
+      }));
     }
   }
 
