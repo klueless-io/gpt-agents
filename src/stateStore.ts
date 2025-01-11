@@ -1,17 +1,35 @@
-// currentComponent:  = 'Attributes'; // ['Attributes', 'Prompts', 'Settings']
-// activeMenuItem: = 'Attributers';
-
 import { writable } from 'svelte/store';
-import type { AppState } from './types';
+import type { Section, Step } from './types';
 
-const initialState: AppState = {
-  currentMenuItem: "Overview",
-  currentComponent: "Overview",
+interface State {
+  currentSection: Section | null;
+  currentStep: Step | null;
+  attributes: Record<string, any>;
+}
+
+const initialState: State = {
   currentSection: null,
   currentStep: null,
-  providers: [],
-  toastVisible: false,
-  toastMessage: ''
+  attributes: {}
 };
 
-export const stateStore = writable(initialState);
+function createStateStore() {
+  const { subscribe, set, update } = writable<State>(initialState);
+
+  return {
+    subscribe,
+    set,
+    update,
+    setStep: (step: Step) => {
+      update(state => ({
+        ...state,
+        currentStep: step,
+        attributes: {
+          ...state.attributes
+        }
+      }));
+    }
+  };
+}
+
+export const stateStore = createStateStore();

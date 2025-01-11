@@ -1,16 +1,21 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
+  import { get } from 'svelte/store';
   import type { Section, Step } from '../../types';
+  import { stateStore } from '../../stateStore';
 
   export let currentSection: Section;
   export let currentStep: Step;
 
-  // Create an event dispatcher
   const dispatch = createEventDispatcher();
 
-  // Dispatch an event when a step is clicked
   function selectStep(step: Step) {
-    dispatch('step-select', step);
+    const currentState = get(stateStore);
+    
+    dispatch('step-select', {
+      step,
+      attributes: currentState?.attributes || {}
+    });
   }
 
   // Debugging statements
