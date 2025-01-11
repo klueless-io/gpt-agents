@@ -7,16 +7,13 @@
   import WorkflowSectionHeader from './SectionHeader.svelte';
 
   export let workflow: Workflow;
-  
-  // Subscribe to the state store
-  let currentSection: Section;
-  let currentStep: Step;
-  
-  stateStore.subscribe(state => {
-    currentSection = state.currentSection;
-    currentStep = state.currentStep;
-    console.log('Workflow component state updated:', { currentSection, currentStep });
-  });
+  export let currentSection: Section;
+  export let currentStep: Step;
+
+  // Debugging statements
+  // console.log('1:Current Workflow:', workflow);
+  // console.log('1:Current Section:', currentSection);
+  // console.log('1:Current Step:', currentStep);
 
   function handleStepSelect(event) {
     const selectedStep = event.detail;
