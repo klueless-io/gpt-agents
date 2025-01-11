@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Workflow } from '../types';
   import { stateStore, type AppState } from '../stores/stateStore';
-  import { workflowStore } from '../workflowStore';
+  import { workflowStore } from '../stores/workflowStore';
   import Attributes from './workflow-svelte/Attributes.svelte';
   import Overview from './workflow-svelte/Overview.svelte';
   import Prompts from './workflow-svelte/Prompts.svelte';

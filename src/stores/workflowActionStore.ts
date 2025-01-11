@@ -1,6 +1,6 @@
 import { get } from 'svelte/store';
-import { workflowStore } from '../workflowStore';
 import { stateStore } from './stateStore';
+import { workflowStore } from './workflowStore';
 
 /**
  * Provides actions/operations that can be performed on workflow data

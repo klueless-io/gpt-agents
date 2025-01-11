@@ -2,7 +2,7 @@
   import { stateStore } from '../../stores/stateStore';
   import type { Section, Step, Workflow } from '../../types';
   import { providers } from '../../types';
-  import { workflowStore } from '../../workflowStore';
+  import { workflowStore } from '../../stores/workflowStore';
 
   import LeftArrowIcon from './icons/LeftArrowIcon.svelte';
   import LeftUpArrowIcon from './icons/LeftUpArrowIcon.svelte';

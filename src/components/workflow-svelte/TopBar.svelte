@@ -1,6 +1,6 @@
 <script lang="ts">
   import { writable } from 'svelte/store';
-  import { workflowStore } from '../../workflowStore';
+  import { workflowStore } from '../../stores/workflowStore';
 
   export let workflow;
   const isOpen = writable(false);

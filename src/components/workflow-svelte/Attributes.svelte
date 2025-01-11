@@ -1,7 +1,7 @@
 <script lang="ts">
   import { writable } from 'svelte/store';
   import type { Attribute } from '../../types';
-  import { workflowStore } from '../../workflowStore';
+  import { workflowStore } from '../../stores/workflowStore';
 
   export let attributes: Record<string, Attribute> = {};
 

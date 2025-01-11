@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import type { Workflow } from "./types";
+import type { Workflow } from "../types";
 
 /**
  * Manages the overall workflow configuration and structure
