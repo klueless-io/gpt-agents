@@ -160,15 +160,36 @@
               "is_array": false,
               "description": null,
               "title": "Outro"
+            },
+            {
+              "name": "srt",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Srt"
             }
           ],
           "output_attributes": [
+            {
+              "name": "project_code",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Project Code"
+            },
             {
               "name": "short_title",
               "type": "string",
               "is_array": false,
               "description": null,
               "title": "Short Title"
+            },
+            {
+              "name": "title_ideas",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Title Ideas"
             }
           ],
           "language_models": [
@@ -358,342 +379,6 @@
               "is_array": false,
               "description": null,
               "title": "Past Video Cta"
-            }
-          ],
-          "language_models": [
-            "gpt4o"
-          ]
-        },
-        {
-          "name": "Outcome Notes",
-          "title": "Outcome Notes",
-          "order": 7,
-          "description": null,
-          "prompt": "# GLING WORDS \nAppyDave\nChatGPT\nFliVideo\nKlueLess\nAgent Workflow Builder\nb-roll\nAI-TLDR\nCursor\nCursor AI\nAider\nAider AI\nGIT\ngit diff\n\n# ChatGPT Reference: [gpt_links]\n\n# Gpt Links\n[gpt_links]\n\n# Project Code\n[project_code]\n\n# Project Folder\n[project_folder]\n\n# YouTube Title:\n\n[video_title]\n\n# YouTube URL\n\n[video_url]\n\n---\n\n# Short Title\n\n[short_title]\n\n# Main Topic\n\n[video_topic_theme]\n\n# Title Ideas/Suggested Titles:\n\n[title_ideas]\n\n# Thumbnail Text Ideas:\n\n[thumbnail_text]\n\n---\n\n# Brand Details\n\n- Name & Pseudonym: David (Pseudonym: AppyDave)\n- Profession: Software Developer, Architect, and YouTube Content Creator\n- Brands & Focus:\n  - @AppyDave: In-depth content on ChatGPT, Coding with GPT, Prompt Engineering, building GPT Agents, and creating automatic YouTube videos or faceless channels.\n  - @AiTLDR: Experiments with YouTube Automation, AI tools, and faceless channel content creation.\n\nSocial:\n- Website: https://appydave.com\n- Twitter: https://twitter.com/appyDave\n\nMy Sites & Channels:\n- AI-TLDR: https://youtube.com/@aitldr\n- Agent Workflow Builder: https://www.appydave.com/opt-in\n\n# Above Fold CTA\n\nAppyDave loves Coffee :) https://buymeacoffee.com/appydave\n\n# Primary CTA\n\nAgent Workflow Builder Early Access:\nhttps://www.appydave.com/opt-in\n\n# Affiliate CTAs\n\nAffiliate Links:\n- Buy Me a Coffee: https://buymeacoffee.com/appydave\n- Kajabi: https://app.kajabi.com/r/jMLhRhFi\n- Gling.AI: https://gling.ai?via=appydave\n- ECamm Live: https://www.ecamm.com/mac/ecammlive/?fp_ref=appydave\n\n# Video Related Links\n\nAgent Workflow Builder (POC): How I Visualize GPT Workflows\nhttps://www.youtube.com/watch?v=h3F18BTUhfE\n\nAgent Workflow Builder (Built in Public)\nhttps://www.youtube.com/watch?v=h3F18BTUhfE&list=PLx0FU01Q5blxxrH7-FCEgx0RTxqujVnkP\n\nBuilding AI Workflows Fast with \"Agent as Code\" (AoC): Proof of Concept\nhttps://www.youtube.com/watch?v=YUQ8_THNjbQ\n\n6 Use Cases: Strawberry vs GPT-4o – Where Each Model Shines\nhttps://www.youtube.com/watch?v=AHso_s_3HrY\n\n# Video Keywords\n\nAI assistants,\nOpenAI Strawberry model\nDomain-specific languages (DSLs),\nAI workflow designer,\nAI Programming languages,\nAI pair programmers,\n\n[video_keywords]\n\n## Content Highlights/Key Takeaways\n\n[content_highlights]\n\n[key_takeaways]\n\n# Chapters\n\n[chapters]\n\n# Video editor instructions\n\n[video_editor_instructions]\n\n# Simple YouTube Description\n\n[video_simple_description]\n\n## YouTube Description\n\n[video_description]\n\n# Intro\n\n[intro]\n\n# Outro\n\n[outro]\n\n# References to other videos\n\n[video_references]\n\n# Abridgment\n\n[abridgement]\n\n# Summary\n\n[summary]\n\n# Transcript\n\n[transcript]\n\n# Intro/Outro design ideas\n\n[intro_outro_design_ideas]\n\n# Design Style\n\n[design_style]\n\n# Content Essence\n\n[analyze_content_essence]\n\n# Audience Engagement\n\n[analyze_audience_engagement]\n\n# CTA/Competitors\n\n[analyze_cta_competitors]\n\n[key_takeaways]\n[video_metadata]\n\n# No place holder yet\n\n[design_eas]\n[editor_brief]\n\n[thumbnail_visual_elements]\n[video_related_links]\n\n[video_pinned_comment]\n",
-          "input_attributes": [
-            {
-              "name": "gpt_links",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Gpt Links"
-            },
-            {
-              "name": "short_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Short Title"
-            },
-            {
-              "name": "short_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Short Title"
-            },
-            {
-              "name": "transcript",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Transcript"
-            },
-            {
-              "name": "intro",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Intro"
-            },
-            {
-              "name": "outro",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outro"
-            },
-            {
-              "name": "video_editor_instructions",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Editor Instructions"
-            },
-            {
-              "name": "intro_outro_design_ideas",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Intro Outro Design Ideas"
-            },
-            {
-              "name": "design_style",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Design Style"
-            },
-            {
-              "name": "design_ideas",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Design Ideas"
-            },
-            {
-              "name": "editor_brief",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Editor Brief"
-            },
-            {
-              "name": "srt",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Srt"
-            },
-            {
-              "name": "summary",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Summary"
-            },
-            {
-              "name": "abridgement",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Abridgement"
-            },
-            {
-              "name": "abridgement_descrepencies",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Abridgement Descrepencies"
-            },
-            {
-              "name": "analyze_content_essence",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Content Essence"
-            },
-            {
-              "name": "analyze_audience_engagement",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Audience Engagement"
-            },
-            {
-              "name": "analyze_cta_competitors",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Cta Competitors"
-            },
-            {
-              "name": "video_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Title"
-            },
-            {
-              "name": "video_url",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Url"
-            },
-            {
-              "name": "video_topic_theme",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Topic Theme"
-            },
-            {
-              "name": "video_related_links",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Video Related Links"
-            },
-            {
-              "name": "video_keywords",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Video Keywords"
-            },
-            {
-              "name": "video_description",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Description"
-            },
-            {
-              "name": "video_description_custom_gpt",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Description Custom Gpt"
-            },
-            {
-              "name": "video_pinned_comment",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Pinned Comment"
-            },
-            {
-              "name": "video_metadata",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Metadata"
-            },
-            {
-              "name": "content_highlights",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Content Highlights"
-            },
-            {
-              "name": "chapters",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Chapters"
-            },
-            {
-              "name": "identify_chapters",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Identify Chapters"
-            },
-            {
-              "name": "chapter_folder_names",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Chapter Folder Names"
-            },
-            {
-              "name": "fold_cta",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Fold Cta"
-            },
-            {
-              "name": "primary_cta",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Primary Cta"
-            },
-            {
-              "name": "affiliate_cta",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Affiliate Cta"
-            },
-            {
-              "name": "brand_info",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Brand Info"
-            },
-            {
-              "name": "title_ideas",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Title Ideas"
-            },
-            {
-              "name": "thumbnail_text",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Text"
-            },
-            {
-              "name": "thumbnail_text_csv",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Text Csv"
-            },
-            {
-              "name": "thumbnail_visual_elements",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Visual Elements"
-            },
-            {
-              "name": "tweet_content",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Tweet Content"
-            },
-            {
-              "name": "facebook_post",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Facebook Post"
-            },
-            {
-              "name": "linkedin_post",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Linkedin Post"
-            },
-            {
-              "name": "shorts_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Shorts Title"
-            },
-            {
-              "name": "shorts_description",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Shorts Description"
-            },
-            {
-              "name": "outcome_notes",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outcome Notes"
-            }
-          ],
-          "output_attributes": [
-            {
-              "name": "outcome_notes",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outcome Notes"
             }
           ],
           "language_models": [
@@ -988,335 +673,6 @@
           "language_models": [
             "gpt4o"
           ]
-        },
-        {
-          "name": "Outcome Notes",
-          "title": "Outcome Notes",
-          "order": 5,
-          "description": null,
-          "prompt": "# GLING WORDS \nAppyDave\nChatGPT\nFliVideo\nKlueLess\nAgent Workflow Builder\nb-roll\nAI-TLDR\nCursor\nCursor AI\nAider\nAider AI\nGIT\ngit diff\n\n# ChatGPT Reference: [gpt_links]\n\n# Gpt Links\n[gpt_links]\n\n# Project Code\n[project_code]\n\n# Project Folder\n[project_folder]\n\n# YouTube Title:\n\n[video_title]\n\n# YouTube URL\n\n[video_url]\n\n---\n\n# Short Title\n\n[short_title]\n\n# Main Topic\n\n[video_topic_theme]\n\n# Title Ideas/Suggested Titles:\n\n[title_ideas]\n\n# Thumbnail Text Ideas:\n\n[thumbnail_text]\n\n---\n\n# Brand Details\n\n- Name & Pseudonym: David (Pseudonym: AppyDave)\n- Profession: Software Developer, Architect, and YouTube Content Creator\n- Brands & Focus:\n  - @AppyDave: In-depth content on ChatGPT, Coding with GPT, Prompt Engineering, building GPT Agents, and creating automatic YouTube videos or faceless channels.\n  - @AiTLDR: Experiments with YouTube Automation, AI tools, and faceless channel content creation.\n\nSocial:\n- Website: https://appydave.com\n- Twitter: https://twitter.com/appyDave\n\nMy Sites & Channels:\n- AI-TLDR: https://youtube.com/@aitldr\n- Agent Workflow Builder: https://www.appydave.com/opt-in\n\n# Above Fold CTA\n\nAppyDave loves Coffee :) https://buymeacoffee.com/appydave\n\n# Primary CTA\n\nAgent Workflow Builder Early Access:\nhttps://www.appydave.com/opt-in\n\n# Affiliate CTAs\n\nAffiliate Links:\n- Buy Me a Coffee: https://buymeacoffee.com/appydave\n- Kajabi: https://app.kajabi.com/r/jMLhRhFi\n- Gling.AI: https://gling.ai?via=appydave\n- ECamm Live: https://www.ecamm.com/mac/ecammlive/?fp_ref=appydave\n\n# Video Related Links\n\nAgent Workflow Builder (POC): How I Visualize GPT Workflows\nhttps://www.youtube.com/watch?v=h3F18BTUhfE\n\nAgent Workflow Builder (Built in Public)\nhttps://www.youtube.com/watch?v=h3F18BTUhfE&list=PLx0FU01Q5blxxrH7-FCEgx0RTxqujVnkP\n\nBuilding AI Workflows Fast with \"Agent as Code\" (AoC): Proof of Concept\nhttps://www.youtube.com/watch?v=YUQ8_THNjbQ\n\n6 Use Cases: Strawberry vs GPT-4o – Where Each Model Shines\nhttps://www.youtube.com/watch?v=AHso_s_3HrY\n\n# Video Keywords\n\nAI assistants,\nOpenAI Strawberry model\nDomain-specific languages (DSLs),\nAI workflow designer,\nAI Programming languages,\nAI pair programmers,\n\n[video_keywords]\n\n## Content Highlights/Key Takeaways\n\n[content_highlights]\n\n[key_takeaways]\n\n# Chapters\n\n[chapters]\n\n# Video editor instructions\n\n[video_editor_instructions]\n\n# Simple YouTube Description\n\n[video_simple_description]\n\n## YouTube Description\n\n[video_description]\n\n# Intro\n\n[intro]\n\n# Outro\n\n[outro]\n\n# References to other videos\n\n[video_references]\n\n# Abridgment\n\n[abridgement]\n\n# Summary\n\n[summary]\n\n# Transcript\n\n[transcript]\n\n# Intro/Outro design ideas\n\n[intro_outro_design_ideas]\n\n# Design Style\n\n[design_style]\n\n# Content Essence\n\n[analyze_content_essence]\n\n# Audience Engagement\n\n[analyze_audience_engagement]\n\n# CTA/Competitors\n\n[analyze_cta_competitors]\n\n[key_takeaways]\n[video_metadata]\n\n# No place holder yet\n\n[design_eas]\n[editor_brief]\n\n[thumbnail_visual_elements]\n[video_related_links]\n\n[video_pinned_comment]\n",
-          "input_attributes": [
-            {
-              "name": "gpt_links",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Gpt Links"
-            },
-            {
-              "name": "short_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Short Title"
-            },
-            {
-              "name": "transcript",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Transcript"
-            },
-            {
-              "name": "intro",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Intro"
-            },
-            {
-              "name": "outro",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outro"
-            },
-            {
-              "name": "video_editor_instructions",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Editor Instructions"
-            },
-            {
-              "name": "intro_outro_design_ideas",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Intro Outro Design Ideas"
-            },
-            {
-              "name": "design_style",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Design Style"
-            },
-            {
-              "name": "design_ideas",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Design Ideas"
-            },
-            {
-              "name": "editor_brief",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Editor Brief"
-            },
-            {
-              "name": "srt",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Srt"
-            },
-            {
-              "name": "summary",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Summary"
-            },
-            {
-              "name": "abridgement",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Abridgement"
-            },
-            {
-              "name": "abridgement_descrepencies",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Abridgement Descrepencies"
-            },
-            {
-              "name": "analyze_content_essence",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Content Essence"
-            },
-            {
-              "name": "analyze_audience_engagement",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Audience Engagement"
-            },
-            {
-              "name": "analyze_cta_competitors",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Cta Competitors"
-            },
-            {
-              "name": "video_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Title"
-            },
-            {
-              "name": "video_url",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Url"
-            },
-            {
-              "name": "video_topic_theme",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Topic Theme"
-            },
-            {
-              "name": "video_related_links",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Video Related Links"
-            },
-            {
-              "name": "video_keywords",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Video Keywords"
-            },
-            {
-              "name": "video_description",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Description"
-            },
-            {
-              "name": "video_description_custom_gpt",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Description Custom Gpt"
-            },
-            {
-              "name": "video_pinned_comment",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Pinned Comment"
-            },
-            {
-              "name": "video_metadata",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Metadata"
-            },
-            {
-              "name": "content_highlights",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Content Highlights"
-            },
-            {
-              "name": "identify_chapters",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Identify Chapters"
-            },
-            {
-              "name": "chapter_folder_names",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Chapter Folder Names"
-            },
-            {
-              "name": "chapters",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Chapters"
-            },
-            {
-              "name": "fold_cta",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Fold Cta"
-            },
-            {
-              "name": "primary_cta",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Primary Cta"
-            },
-            {
-              "name": "affiliate_cta",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Affiliate Cta"
-            },
-            {
-              "name": "brand_info",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Brand Info"
-            },
-            {
-              "name": "title_ideas",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Title Ideas"
-            },
-            {
-              "name": "thumbnail_text",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Text"
-            },
-            {
-              "name": "thumbnail_text_csv",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Text Csv"
-            },
-            {
-              "name": "thumbnail_visual_elements",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Visual Elements"
-            },
-            {
-              "name": "tweet_content",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Tweet Content"
-            },
-            {
-              "name": "facebook_post",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Facebook Post"
-            },
-            {
-              "name": "linkedin_post",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Linkedin Post"
-            },
-            {
-              "name": "shorts_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Shorts Title"
-            },
-            {
-              "name": "shorts_description",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Shorts Description"
-            },
-            {
-              "name": "outcome_notes",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outcome Notes"
-            }
-          ],
-          "output_attributes": [
-            {
-              "name": "outcome_notes",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outcome Notes"
-            }
-          ],
-          "language_models": [
-            "gpt4o"
-          ]
         }
       ]
     },
@@ -1467,335 +823,6 @@
               "is_array": false,
               "description": null,
               "title": "Analyze Cta Competitors"
-            }
-          ],
-          "language_models": [
-            "gpt4o"
-          ]
-        },
-        {
-          "name": "Outcome Notes",
-          "title": "Outcome Notes",
-          "order": 4,
-          "description": null,
-          "prompt": "# GLING WORDS \nAppyDave\nChatGPT\nFliVideo\nKlueLess\nAgent Workflow Builder\nb-roll\nAI-TLDR\nCursor\nCursor AI\nAider\nAider AI\nGIT\ngit diff\n\n# ChatGPT Reference: [gpt_links]\n\n# Gpt Links\n[gpt_links]\n\n# Project Code\n[project_code]\n\n# Project Folder\n[project_folder]\n\n# YouTube Title:\n\n[video_title]\n\n# YouTube URL\n\n[video_url]\n\n---\n\n# Short Title\n\n[short_title]\n\n# Main Topic\n\n[video_topic_theme]\n\n# Title Ideas/Suggested Titles:\n\n[title_ideas]\n\n# Thumbnail Text Ideas:\n\n[thumbnail_text]\n\n---\n\n# Brand Details\n\n- Name & Pseudonym: David (Pseudonym: AppyDave)\n- Profession: Software Developer, Architect, and YouTube Content Creator\n- Brands & Focus:\n  - @AppyDave: In-depth content on ChatGPT, Coding with GPT, Prompt Engineering, building GPT Agents, and creating automatic YouTube videos or faceless channels.\n  - @AiTLDR: Experiments with YouTube Automation, AI tools, and faceless channel content creation.\n\nSocial:\n- Website: https://appydave.com\n- Twitter: https://twitter.com/appyDave\n\nMy Sites & Channels:\n- AI-TLDR: https://youtube.com/@aitldr\n- Agent Workflow Builder: https://www.appydave.com/opt-in\n\n# Above Fold CTA\n\nAppyDave loves Coffee :) https://buymeacoffee.com/appydave\n\n# Primary CTA\n\nAgent Workflow Builder Early Access:\nhttps://www.appydave.com/opt-in\n\n# Affiliate CTAs\n\nAffiliate Links:\n- Buy Me a Coffee: https://buymeacoffee.com/appydave\n- Kajabi: https://app.kajabi.com/r/jMLhRhFi\n- Gling.AI: https://gling.ai?via=appydave\n- ECamm Live: https://www.ecamm.com/mac/ecammlive/?fp_ref=appydave\n\n# Video Related Links\n\nAgent Workflow Builder (POC): How I Visualize GPT Workflows\nhttps://www.youtube.com/watch?v=h3F18BTUhfE\n\nAgent Workflow Builder (Built in Public)\nhttps://www.youtube.com/watch?v=h3F18BTUhfE&list=PLx0FU01Q5blxxrH7-FCEgx0RTxqujVnkP\n\nBuilding AI Workflows Fast with \"Agent as Code\" (AoC): Proof of Concept\nhttps://www.youtube.com/watch?v=YUQ8_THNjbQ\n\n6 Use Cases: Strawberry vs GPT-4o – Where Each Model Shines\nhttps://www.youtube.com/watch?v=AHso_s_3HrY\n\n# Video Keywords\n\nAI assistants,\nOpenAI Strawberry model\nDomain-specific languages (DSLs),\nAI workflow designer,\nAI Programming languages,\nAI pair programmers,\n\n[video_keywords]\n\n## Content Highlights/Key Takeaways\n\n[content_highlights]\n\n[key_takeaways]\n\n# Chapters\n\n[chapters]\n\n# Video editor instructions\n\n[video_editor_instructions]\n\n# Simple YouTube Description\n\n[video_simple_description]\n\n## YouTube Description\n\n[video_description]\n\n# Intro\n\n[intro]\n\n# Outro\n\n[outro]\n\n# References to other videos\n\n[video_references]\n\n# Abridgment\n\n[abridgement]\n\n# Summary\n\n[summary]\n\n# Transcript\n\n[transcript]\n\n# Intro/Outro design ideas\n\n[intro_outro_design_ideas]\n\n# Design Style\n\n[design_style]\n\n# Content Essence\n\n[analyze_content_essence]\n\n# Audience Engagement\n\n[analyze_audience_engagement]\n\n# CTA/Competitors\n\n[analyze_cta_competitors]\n\n[key_takeaways]\n[video_metadata]\n\n# No place holder yet\n\n[design_eas]\n[editor_brief]\n\n[thumbnail_visual_elements]\n[video_related_links]\n\n[video_pinned_comment]\n",
-          "input_attributes": [
-            {
-              "name": "gpt_links",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Gpt Links"
-            },
-            {
-              "name": "short_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Short Title"
-            },
-            {
-              "name": "transcript",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Transcript"
-            },
-            {
-              "name": "intro",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Intro"
-            },
-            {
-              "name": "outro",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outro"
-            },
-            {
-              "name": "video_editor_instructions",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Editor Instructions"
-            },
-            {
-              "name": "intro_outro_design_ideas",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Intro Outro Design Ideas"
-            },
-            {
-              "name": "design_style",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Design Style"
-            },
-            {
-              "name": "design_ideas",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Design Ideas"
-            },
-            {
-              "name": "editor_brief",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Editor Brief"
-            },
-            {
-              "name": "srt",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Srt"
-            },
-            {
-              "name": "summary",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Summary"
-            },
-            {
-              "name": "abridgement",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Abridgement"
-            },
-            {
-              "name": "abridgement_descrepencies",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Abridgement Descrepencies"
-            },
-            {
-              "name": "analyze_content_essence",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Content Essence"
-            },
-            {
-              "name": "analyze_audience_engagement",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Audience Engagement"
-            },
-            {
-              "name": "analyze_cta_competitors",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Cta Competitors"
-            },
-            {
-              "name": "video_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Title"
-            },
-            {
-              "name": "video_url",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Url"
-            },
-            {
-              "name": "video_topic_theme",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Topic Theme"
-            },
-            {
-              "name": "video_related_links",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Video Related Links"
-            },
-            {
-              "name": "video_keywords",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Video Keywords"
-            },
-            {
-              "name": "video_description",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Description"
-            },
-            {
-              "name": "video_description_custom_gpt",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Description Custom Gpt"
-            },
-            {
-              "name": "video_pinned_comment",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Pinned Comment"
-            },
-            {
-              "name": "video_metadata",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Metadata"
-            },
-            {
-              "name": "content_highlights",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Content Highlights"
-            },
-            {
-              "name": "identify_chapters",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Identify Chapters"
-            },
-            {
-              "name": "chapter_folder_names",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Chapter Folder Names"
-            },
-            {
-              "name": "chapters",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Chapters"
-            },
-            {
-              "name": "fold_cta",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Fold Cta"
-            },
-            {
-              "name": "primary_cta",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Primary Cta"
-            },
-            {
-              "name": "affiliate_cta",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Affiliate Cta"
-            },
-            {
-              "name": "brand_info",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Brand Info"
-            },
-            {
-              "name": "title_ideas",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Title Ideas"
-            },
-            {
-              "name": "thumbnail_text",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Text"
-            },
-            {
-              "name": "thumbnail_text_csv",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Text Csv"
-            },
-            {
-              "name": "thumbnail_visual_elements",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Visual Elements"
-            },
-            {
-              "name": "tweet_content",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Tweet Content"
-            },
-            {
-              "name": "facebook_post",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Facebook Post"
-            },
-            {
-              "name": "linkedin_post",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Linkedin Post"
-            },
-            {
-              "name": "shorts_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Shorts Title"
-            },
-            {
-              "name": "shorts_description",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Shorts Description"
-            },
-            {
-              "name": "outcome_notes",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outcome Notes"
-            }
-          ],
-          "output_attributes": [
-            {
-              "name": "outcome_notes",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outcome Notes"
             }
           ],
           "language_models": [
@@ -1981,335 +1008,6 @@
               "is_array": false,
               "description": null,
               "title": "Thumbnail Visual Elements"
-            }
-          ],
-          "language_models": [
-            "gpt4o"
-          ]
-        },
-        {
-          "name": "Outcome Notes",
-          "title": "Outcome Notes",
-          "order": 6,
-          "description": null,
-          "prompt": "# GLING WORDS \nAppyDave\nChatGPT\nFliVideo\nKlueLess\nAgent Workflow Builder\nb-roll\nAI-TLDR\nCursor\nCursor AI\nAider\nAider AI\nGIT\ngit diff\n\n# ChatGPT Reference: [gpt_links]\n\n# Gpt Links\n[gpt_links]\n\n# Project Code\n[project_code]\n\n# Project Folder\n[project_folder]\n\n# YouTube Title:\n\n[video_title]\n\n# YouTube URL\n\n[video_url]\n\n---\n\n# Short Title\n\n[short_title]\n\n# Main Topic\n\n[video_topic_theme]\n\n# Title Ideas/Suggested Titles:\n\n[title_ideas]\n\n# Thumbnail Text Ideas:\n\n[thumbnail_text]\n\n---\n\n# Brand Details\n\n- Name & Pseudonym: David (Pseudonym: AppyDave)\n- Profession: Software Developer, Architect, and YouTube Content Creator\n- Brands & Focus:\n  - @AppyDave: In-depth content on ChatGPT, Coding with GPT, Prompt Engineering, building GPT Agents, and creating automatic YouTube videos or faceless channels.\n  - @AiTLDR: Experiments with YouTube Automation, AI tools, and faceless channel content creation.\n\nSocial:\n- Website: https://appydave.com\n- Twitter: https://twitter.com/appyDave\n\nMy Sites & Channels:\n- AI-TLDR: https://youtube.com/@aitldr\n- Agent Workflow Builder: https://www.appydave.com/opt-in\n\n# Above Fold CTA\n\nAppyDave loves Coffee :) https://buymeacoffee.com/appydave\n\n# Primary CTA\n\nAgent Workflow Builder Early Access:\nhttps://www.appydave.com/opt-in\n\n# Affiliate CTAs\n\nAffiliate Links:\n- Buy Me a Coffee: https://buymeacoffee.com/appydave\n- Kajabi: https://app.kajabi.com/r/jMLhRhFi\n- Gling.AI: https://gling.ai?via=appydave\n- ECamm Live: https://www.ecamm.com/mac/ecammlive/?fp_ref=appydave\n\n# Video Related Links\n\nAgent Workflow Builder (POC): How I Visualize GPT Workflows\nhttps://www.youtube.com/watch?v=h3F18BTUhfE\n\nAgent Workflow Builder (Built in Public)\nhttps://www.youtube.com/watch?v=h3F18BTUhfE&list=PLx0FU01Q5blxxrH7-FCEgx0RTxqujVnkP\n\nBuilding AI Workflows Fast with \"Agent as Code\" (AoC): Proof of Concept\nhttps://www.youtube.com/watch?v=YUQ8_THNjbQ\n\n6 Use Cases: Strawberry vs GPT-4o – Where Each Model Shines\nhttps://www.youtube.com/watch?v=AHso_s_3HrY\n\n# Video Keywords\n\nAI assistants,\nOpenAI Strawberry model\nDomain-specific languages (DSLs),\nAI workflow designer,\nAI Programming languages,\nAI pair programmers,\n\n[video_keywords]\n\n## Content Highlights/Key Takeaways\n\n[content_highlights]\n\n[key_takeaways]\n\n# Chapters\n\n[chapters]\n\n# Video editor instructions\n\n[video_editor_instructions]\n\n# Simple YouTube Description\n\n[video_simple_description]\n\n## YouTube Description\n\n[video_description]\n\n# Intro\n\n[intro]\n\n# Outro\n\n[outro]\n\n# References to other videos\n\n[video_references]\n\n# Abridgment\n\n[abridgement]\n\n# Summary\n\n[summary]\n\n# Transcript\n\n[transcript]\n\n# Intro/Outro design ideas\n\n[intro_outro_design_ideas]\n\n# Design Style\n\n[design_style]\n\n# Content Essence\n\n[analyze_content_essence]\n\n# Audience Engagement\n\n[analyze_audience_engagement]\n\n# CTA/Competitors\n\n[analyze_cta_competitors]\n\n[key_takeaways]\n[video_metadata]\n\n# No place holder yet\n\n[design_eas]\n[editor_brief]\n\n[thumbnail_visual_elements]\n[video_related_links]\n\n[video_pinned_comment]\n",
-          "input_attributes": [
-            {
-              "name": "gpt_links",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Gpt Links"
-            },
-            {
-              "name": "short_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Short Title"
-            },
-            {
-              "name": "transcript",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Transcript"
-            },
-            {
-              "name": "intro",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Intro"
-            },
-            {
-              "name": "outro",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outro"
-            },
-            {
-              "name": "video_editor_instructions",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Editor Instructions"
-            },
-            {
-              "name": "intro_outro_design_ideas",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Intro Outro Design Ideas"
-            },
-            {
-              "name": "design_style",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Design Style"
-            },
-            {
-              "name": "design_ideas",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Design Ideas"
-            },
-            {
-              "name": "editor_brief",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Editor Brief"
-            },
-            {
-              "name": "srt",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Srt"
-            },
-            {
-              "name": "summary",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Summary"
-            },
-            {
-              "name": "abridgement",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Abridgement"
-            },
-            {
-              "name": "abridgement_descrepencies",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Abridgement Descrepencies"
-            },
-            {
-              "name": "analyze_content_essence",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Content Essence"
-            },
-            {
-              "name": "analyze_audience_engagement",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Audience Engagement"
-            },
-            {
-              "name": "analyze_cta_competitors",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Cta Competitors"
-            },
-            {
-              "name": "video_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Title"
-            },
-            {
-              "name": "video_url",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Url"
-            },
-            {
-              "name": "video_topic_theme",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Topic Theme"
-            },
-            {
-              "name": "video_related_links",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Video Related Links"
-            },
-            {
-              "name": "video_keywords",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Video Keywords"
-            },
-            {
-              "name": "video_description",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Description"
-            },
-            {
-              "name": "video_description_custom_gpt",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Description Custom Gpt"
-            },
-            {
-              "name": "video_pinned_comment",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Pinned Comment"
-            },
-            {
-              "name": "video_metadata",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Metadata"
-            },
-            {
-              "name": "content_highlights",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Content Highlights"
-            },
-            {
-              "name": "identify_chapters",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Identify Chapters"
-            },
-            {
-              "name": "chapter_folder_names",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Chapter Folder Names"
-            },
-            {
-              "name": "chapters",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Chapters"
-            },
-            {
-              "name": "fold_cta",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Fold Cta"
-            },
-            {
-              "name": "primary_cta",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Primary Cta"
-            },
-            {
-              "name": "affiliate_cta",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Affiliate Cta"
-            },
-            {
-              "name": "brand_info",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Brand Info"
-            },
-            {
-              "name": "title_ideas",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Title Ideas"
-            },
-            {
-              "name": "thumbnail_text",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Text"
-            },
-            {
-              "name": "thumbnail_text_csv",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Text Csv"
-            },
-            {
-              "name": "thumbnail_visual_elements",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Visual Elements"
-            },
-            {
-              "name": "tweet_content",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Tweet Content"
-            },
-            {
-              "name": "facebook_post",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Facebook Post"
-            },
-            {
-              "name": "linkedin_post",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Linkedin Post"
-            },
-            {
-              "name": "shorts_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Shorts Title"
-            },
-            {
-              "name": "shorts_description",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Shorts Description"
-            },
-            {
-              "name": "outcome_notes",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outcome Notes"
-            }
-          ],
-          "output_attributes": [
-            {
-              "name": "outcome_notes",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outcome Notes"
             }
           ],
           "language_models": [
@@ -2687,335 +1385,6 @@
           "language_models": [
             "gpt4o"
           ]
-        },
-        {
-          "name": "Outcome Notes",
-          "title": "Outcome Notes",
-          "order": 7,
-          "description": null,
-          "prompt": "# GLING WORDS \nAppyDave\nChatGPT\nFliVideo\nKlueLess\nAgent Workflow Builder\nb-roll\nAI-TLDR\nCursor\nCursor AI\nAider\nAider AI\nGIT\ngit diff\n\n# ChatGPT Reference: [gpt_links]\n\n# Gpt Links\n[gpt_links]\n\n# Project Code\n[project_code]\n\n# Project Folder\n[project_folder]\n\n# YouTube Title:\n\n[video_title]\n\n# YouTube URL\n\n[video_url]\n\n---\n\n# Short Title\n\n[short_title]\n\n# Main Topic\n\n[video_topic_theme]\n\n# Title Ideas/Suggested Titles:\n\n[title_ideas]\n\n# Thumbnail Text Ideas:\n\n[thumbnail_text]\n\n---\n\n# Brand Details\n\n- Name & Pseudonym: David (Pseudonym: AppyDave)\n- Profession: Software Developer, Architect, and YouTube Content Creator\n- Brands & Focus:\n  - @AppyDave: In-depth content on ChatGPT, Coding with GPT, Prompt Engineering, building GPT Agents, and creating automatic YouTube videos or faceless channels.\n  - @AiTLDR: Experiments with YouTube Automation, AI tools, and faceless channel content creation.\n\nSocial:\n- Website: https://appydave.com\n- Twitter: https://twitter.com/appyDave\n\nMy Sites & Channels:\n- AI-TLDR: https://youtube.com/@aitldr\n- Agent Workflow Builder: https://www.appydave.com/opt-in\n\n# Above Fold CTA\n\nAppyDave loves Coffee :) https://buymeacoffee.com/appydave\n\n# Primary CTA\n\nAgent Workflow Builder Early Access:\nhttps://www.appydave.com/opt-in\n\n# Affiliate CTAs\n\nAffiliate Links:\n- Buy Me a Coffee: https://buymeacoffee.com/appydave\n- Kajabi: https://app.kajabi.com/r/jMLhRhFi\n- Gling.AI: https://gling.ai?via=appydave\n- ECamm Live: https://www.ecamm.com/mac/ecammlive/?fp_ref=appydave\n\n# Video Related Links\n\nAgent Workflow Builder (POC): How I Visualize GPT Workflows\nhttps://www.youtube.com/watch?v=h3F18BTUhfE\n\nAgent Workflow Builder (Built in Public)\nhttps://www.youtube.com/watch?v=h3F18BTUhfE&list=PLx0FU01Q5blxxrH7-FCEgx0RTxqujVnkP\n\nBuilding AI Workflows Fast with \"Agent as Code\" (AoC): Proof of Concept\nhttps://www.youtube.com/watch?v=YUQ8_THNjbQ\n\n6 Use Cases: Strawberry vs GPT-4o – Where Each Model Shines\nhttps://www.youtube.com/watch?v=AHso_s_3HrY\n\n# Video Keywords\n\nAI assistants,\nOpenAI Strawberry model\nDomain-specific languages (DSLs),\nAI workflow designer,\nAI Programming languages,\nAI pair programmers,\n\n[video_keywords]\n\n## Content Highlights/Key Takeaways\n\n[content_highlights]\n\n[key_takeaways]\n\n# Chapters\n\n[chapters]\n\n# Video editor instructions\n\n[video_editor_instructions]\n\n# Simple YouTube Description\n\n[video_simple_description]\n\n## YouTube Description\n\n[video_description]\n\n# Intro\n\n[intro]\n\n# Outro\n\n[outro]\n\n# References to other videos\n\n[video_references]\n\n# Abridgment\n\n[abridgement]\n\n# Summary\n\n[summary]\n\n# Transcript\n\n[transcript]\n\n# Intro/Outro design ideas\n\n[intro_outro_design_ideas]\n\n# Design Style\n\n[design_style]\n\n# Content Essence\n\n[analyze_content_essence]\n\n# Audience Engagement\n\n[analyze_audience_engagement]\n\n# CTA/Competitors\n\n[analyze_cta_competitors]\n\n[key_takeaways]\n[video_metadata]\n\n# No place holder yet\n\n[design_eas]\n[editor_brief]\n\n[thumbnail_visual_elements]\n[video_related_links]\n\n[video_pinned_comment]\n",
-          "input_attributes": [
-            {
-              "name": "gpt_links",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Gpt Links"
-            },
-            {
-              "name": "short_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Short Title"
-            },
-            {
-              "name": "transcript",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Transcript"
-            },
-            {
-              "name": "intro",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Intro"
-            },
-            {
-              "name": "outro",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outro"
-            },
-            {
-              "name": "video_editor_instructions",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Editor Instructions"
-            },
-            {
-              "name": "intro_outro_design_ideas",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Intro Outro Design Ideas"
-            },
-            {
-              "name": "design_style",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Design Style"
-            },
-            {
-              "name": "design_ideas",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Design Ideas"
-            },
-            {
-              "name": "editor_brief",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Editor Brief"
-            },
-            {
-              "name": "srt",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Srt"
-            },
-            {
-              "name": "summary",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Summary"
-            },
-            {
-              "name": "abridgement",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Abridgement"
-            },
-            {
-              "name": "abridgement_descrepencies",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Abridgement Descrepencies"
-            },
-            {
-              "name": "analyze_content_essence",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Content Essence"
-            },
-            {
-              "name": "analyze_audience_engagement",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Audience Engagement"
-            },
-            {
-              "name": "analyze_cta_competitors",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Cta Competitors"
-            },
-            {
-              "name": "video_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Title"
-            },
-            {
-              "name": "video_url",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Url"
-            },
-            {
-              "name": "video_topic_theme",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Topic Theme"
-            },
-            {
-              "name": "video_related_links",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Video Related Links"
-            },
-            {
-              "name": "video_keywords",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Video Keywords"
-            },
-            {
-              "name": "video_description",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Description"
-            },
-            {
-              "name": "video_description_custom_gpt",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Description Custom Gpt"
-            },
-            {
-              "name": "video_pinned_comment",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Pinned Comment"
-            },
-            {
-              "name": "video_metadata",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Metadata"
-            },
-            {
-              "name": "content_highlights",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Content Highlights"
-            },
-            {
-              "name": "identify_chapters",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Identify Chapters"
-            },
-            {
-              "name": "chapter_folder_names",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Chapter Folder Names"
-            },
-            {
-              "name": "chapters",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Chapters"
-            },
-            {
-              "name": "fold_cta",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Fold Cta"
-            },
-            {
-              "name": "primary_cta",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Primary Cta"
-            },
-            {
-              "name": "affiliate_cta",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Affiliate Cta"
-            },
-            {
-              "name": "brand_info",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Brand Info"
-            },
-            {
-              "name": "title_ideas",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Title Ideas"
-            },
-            {
-              "name": "thumbnail_text",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Text"
-            },
-            {
-              "name": "thumbnail_text_csv",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Text Csv"
-            },
-            {
-              "name": "thumbnail_visual_elements",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Visual Elements"
-            },
-            {
-              "name": "tweet_content",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Tweet Content"
-            },
-            {
-              "name": "facebook_post",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Facebook Post"
-            },
-            {
-              "name": "linkedin_post",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Linkedin Post"
-            },
-            {
-              "name": "shorts_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Shorts Title"
-            },
-            {
-              "name": "shorts_description",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Shorts Description"
-            },
-            {
-              "name": "outcome_notes",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outcome Notes"
-            }
-          ],
-          "output_attributes": [
-            {
-              "name": "outcome_notes",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outcome Notes"
-            }
-          ],
-          "language_models": [
-            "gpt4o"
-          ]
         }
       ]
     },
@@ -3159,123 +1528,18 @@
           ]
         },
         {
-          "name": "Outcome Notes",
-          "title": "Outcome Notes",
+          "name": "Add To Video List",
+          "title": "Add To Video List",
           "order": 4,
           "description": null,
-          "prompt": "# GLING WORDS \nAppyDave\nChatGPT\nFliVideo\nKlueLess\nAgent Workflow Builder\nb-roll\nAI-TLDR\nCursor\nCursor AI\nAider\nAider AI\nGIT\ngit diff\n\n# ChatGPT Reference: [gpt_links]\n\n# Gpt Links\n[gpt_links]\n\n# Project Code\n[project_code]\n\n# Project Folder\n[project_folder]\n\n# YouTube Title:\n\n[video_title]\n\n# YouTube URL\n\n[video_url]\n\n---\n\n# Short Title\n\n[short_title]\n\n# Main Topic\n\n[video_topic_theme]\n\n# Title Ideas/Suggested Titles:\n\n[title_ideas]\n\n# Thumbnail Text Ideas:\n\n[thumbnail_text]\n\n---\n\n# Brand Details\n\n- Name & Pseudonym: David (Pseudonym: AppyDave)\n- Profession: Software Developer, Architect, and YouTube Content Creator\n- Brands & Focus:\n  - @AppyDave: In-depth content on ChatGPT, Coding with GPT, Prompt Engineering, building GPT Agents, and creating automatic YouTube videos or faceless channels.\n  - @AiTLDR: Experiments with YouTube Automation, AI tools, and faceless channel content creation.\n\nSocial:\n- Website: https://appydave.com\n- Twitter: https://twitter.com/appyDave\n\nMy Sites & Channels:\n- AI-TLDR: https://youtube.com/@aitldr\n- Agent Workflow Builder: https://www.appydave.com/opt-in\n\n# Above Fold CTA\n\nAppyDave loves Coffee :) https://buymeacoffee.com/appydave\n\n# Primary CTA\n\nAgent Workflow Builder Early Access:\nhttps://www.appydave.com/opt-in\n\n# Affiliate CTAs\n\nAffiliate Links:\n- Buy Me a Coffee: https://buymeacoffee.com/appydave\n- Kajabi: https://app.kajabi.com/r/jMLhRhFi\n- Gling.AI: https://gling.ai?via=appydave\n- ECamm Live: https://www.ecamm.com/mac/ecammlive/?fp_ref=appydave\n\n# Video Related Links\n\nAgent Workflow Builder (POC): How I Visualize GPT Workflows\nhttps://www.youtube.com/watch?v=h3F18BTUhfE\n\nAgent Workflow Builder (Built in Public)\nhttps://www.youtube.com/watch?v=h3F18BTUhfE&list=PLx0FU01Q5blxxrH7-FCEgx0RTxqujVnkP\n\nBuilding AI Workflows Fast with \"Agent as Code\" (AoC): Proof of Concept\nhttps://www.youtube.com/watch?v=YUQ8_THNjbQ\n\n6 Use Cases: Strawberry vs GPT-4o – Where Each Model Shines\nhttps://www.youtube.com/watch?v=AHso_s_3HrY\n\n# Video Keywords\n\nAI assistants,\nOpenAI Strawberry model\nDomain-specific languages (DSLs),\nAI workflow designer,\nAI Programming languages,\nAI pair programmers,\n\n[video_keywords]\n\n## Content Highlights/Key Takeaways\n\n[content_highlights]\n\n[key_takeaways]\n\n# Chapters\n\n[chapters]\n\n# Video editor instructions\n\n[video_editor_instructions]\n\n# Simple YouTube Description\n\n[video_simple_description]\n\n## YouTube Description\n\n[video_description]\n\n# Intro\n\n[intro]\n\n# Outro\n\n[outro]\n\n# References to other videos\n\n[video_references]\n\n# Abridgment\n\n[abridgement]\n\n# Summary\n\n[summary]\n\n# Transcript\n\n[transcript]\n\n# Intro/Outro design ideas\n\n[intro_outro_design_ideas]\n\n# Design Style\n\n[design_style]\n\n# Content Essence\n\n[analyze_content_essence]\n\n# Audience Engagement\n\n[analyze_audience_engagement]\n\n# CTA/Competitors\n\n[analyze_cta_competitors]\n\n[key_takeaways]\n[video_metadata]\n\n# No place holder yet\n\n[design_eas]\n[editor_brief]\n\n[thumbnail_visual_elements]\n[video_related_links]\n\n[video_pinned_comment]\n",
+          "prompt": "[project_folder]\n[video_title]\n[video_url]\n",
           "input_attributes": [
             {
-              "name": "short_title",
+              "name": "project_folder",
               "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Short Title"
-            },
-            {
-              "name": "transcript",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Transcript"
-            },
-            {
-              "name": "intro",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Intro"
-            },
-            {
-              "name": "outro",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outro"
-            },
-            {
-              "name": "video_editor_instructions",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Editor Instructions"
-            },
-            {
-              "name": "intro_outro_design_ideas",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Intro Outro Design Ideas"
-            },
-            {
-              "name": "design_style",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Design Style"
-            },
-            {
-              "name": "design_ideas",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Design Ideas"
-            },
-            {
-              "name": "editor_brief",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Editor Brief"
-            },
-            {
-              "name": "srt",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Srt"
-            },
-            {
-              "name": "summary",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Summary"
-            },
-            {
-              "name": "abridgement",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Abridgement"
-            },
-            {
-              "name": "abridgement_descrepencies",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Abridgement Descrepencies"
-            },
-            {
-              "name": "analyze_content_essence",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Content Essence"
-            },
-            {
-              "name": "analyze_audience_engagement",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Audience Engagement"
-            },
-            {
-              "name": "analyze_cta_competitors",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Analyze Cta Competitors"
+              "title": "Project Folder"
             },
             {
               "name": "video_title",
@@ -3290,190 +1554,15 @@
               "is_array": false,
               "description": null,
               "title": "Video Url"
-            },
-            {
-              "name": "video_topic_theme",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Topic Theme"
-            },
-            {
-              "name": "video_related_links",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Video Related Links"
-            },
-            {
-              "name": "video_keywords",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Video Keywords"
-            },
-            {
-              "name": "video_description",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Description"
-            },
-            {
-              "name": "video_description_custom_gpt",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Description Custom Gpt"
-            },
-            {
-              "name": "video_pinned_comment",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Pinned Comment"
-            },
-            {
-              "name": "video_metadata",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Video Metadata"
-            },
-            {
-              "name": "content_highlights",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Content Highlights"
-            },
-            {
-              "name": "identify_chapters",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Identify Chapters"
-            },
-            {
-              "name": "chapter_folder_names",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Chapter Folder Names"
-            },
-            {
-              "name": "chapters",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Chapters"
-            },
-            {
-              "name": "fold_cta",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Fold Cta"
-            },
-            {
-              "name": "primary_cta",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Primary Cta"
-            },
-            {
-              "name": "affiliate_cta",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Affiliate Cta"
-            },
-            {
-              "name": "brand_info",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Brand Info"
-            },
-            {
-              "name": "title_ideas",
-              "type": "array",
-              "is_array": false,
-              "description": null,
-              "title": "Title Ideas"
-            },
-            {
-              "name": "thumbnail_text",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Text"
-            },
-            {
-              "name": "thumbnail_text_csv",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Text Csv"
-            },
-            {
-              "name": "thumbnail_visual_elements",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Thumbnail Visual Elements"
-            },
-            {
-              "name": "tweet_content",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Tweet Content"
-            },
-            {
-              "name": "facebook_post",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Facebook Post"
-            },
-            {
-              "name": "linkedin_post",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Linkedin Post"
-            },
-            {
-              "name": "shorts_title",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Shorts Title"
-            },
-            {
-              "name": "shorts_description",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Shorts Description"
-            },
-            {
-              "name": "outcome_notes",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Outcome Notes"
             }
           ],
           "output_attributes": [
             {
-              "name": "outcome_notes",
+              "name": "video_references",
               "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Outcome Notes"
+              "title": "Video References"
             }
           ],
           "language_models": [
@@ -3489,37 +1578,9 @@
       "description": null,
       "steps": [
         {
-          "name": "Shorts Context",
-          "title": "Shorts Context",
-          "order": 1,
-          "description": null,
-          "prompt": "Read and absorb the following abridgement from a long-form video.\n\nYou will be receiving transcripts from shorts that are based on this transcript.\n\nThe shorts transcripts are the priority, but this information will help with context.\n\n<abridgement>\n[abridgement]\n</abridgement>\n",
-          "input_attributes": [
-            {
-              "name": "abridgement",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Abridgement"
-            }
-          ],
-          "output_attributes": [
-            {
-              "name": "shorts_context",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Shorts Context"
-            }
-          ],
-          "language_models": [
-            "gpt4o"
-          ]
-        },
-        {
           "name": "Create Shorts Title",
           "title": "Create Shorts Title",
-          "order": 2,
+          "order": 1,
           "description": null,
           "prompt": "You are a specialist in youtube video title creation for you Shorts\n\nYou will create 10 youtube titles\n\nWhen creating a YouTube title:\n- Keep it under 70 characters for full visibility.\n- Use action verbs at the beginning for engagement.\n- Avoid clickbait; focus on curiosity-driven content.\n- Incorporate relevant keywords and the current year for SEO.\n- Use brackets, numbers, and all caps strategically.\n- Include solutions to pain points with \"how-to\" titles.\n\nUse the shorts transcription:\n\n<short_transcription>\n[short_transcription]\n</short_transcription>\n",
           "input_attributes": [
@@ -3529,13 +1590,6 @@
               "is_array": false,
               "description": null,
               "title": "Short Transcription"
-            },
-            {
-              "name": "abridgement",
-              "type": "string",
-              "is_array": false,
-              "description": null,
-              "title": "Abridgement"
             }
           ],
           "output_attributes": [
@@ -3554,10 +1608,17 @@
         {
           "name": "Create Shorts Description",
           "title": "Create Shorts Description",
-          "order": 3,
+          "order": 2,
           "description": null,
-          "prompt": "Craft engaging YouTube video description for Shorts\n\nSpecializes in creating what a YouTube video is about, focusing on SEO, viewer engagement, and compliance with YouTube guidelines.\nAnalyzes video content to generate relevant and captivating descriptions.\n\nUnderstand key elements of effective YouTube descriptions, including SEO keywords and viewer engagement strategies.\nFormat descriptions with structured layout, including headings and bullet points.\nUse the Title and Keywords to generate a description that captures the essence of the video.\nAdhere to YouTube's content policies to ensure guideline compliance.\nSome keywords can be woven into the description, but do not add a sectiona called keywords.\n\nI need you to create the description based on this title: \"[shorts_title]\"\nDon't include the title in the out output\nKeep the description length to less then 1000 characters\n\nUse the shorts transcription:\n\n<short_transcription>\n[short_transcription]\n</short_transcription>\n",
+          "prompt": "Craft engaging YouTube video description for Shorts\n\nSpecializes in creating what a YouTube video is about, focusing on SEO, viewer engagement, and compliance with YouTube guidelines.\nAnalyzes video content to generate relevant and captivating descriptions.\n\nUnderstand key elements of effective YouTube descriptions, including SEO keywords and viewer engagement strategies.\nFormat descriptions with structured layout, including headings and bullet points.\nUse the Title and Keywords to generate a description that captures the essence of the video.\nAdhere to YouTube's content policies to ensure guideline compliance.\nSome keywords can be woven into the description, but do not add a sectiona called keywords.\n\nI need you to create the description based on this title: \"[shorts_title]\"\nDon't include the title in the out output\nKeep the description length to less then 1000 characters\n\nUse this title for guideline\n\n<shorts_title>\n[shorts_title]\n</shorts_title>\n\nUse the shorts transcription:\n\n<short_transcription>\n[short_transcription]\n</short_transcription>\n\nThese keywords could be woven into the description\n\n<video_keywords>\n[video_keywords]\n</video_keywords>\n",
           "input_attributes": [
+            {
+              "name": "shorts_title",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Shorts Title"
+            },
             {
               "name": "short_transcription",
               "type": "string",
@@ -3566,11 +1627,18 @@
               "title": "Short Transcription"
             },
             {
-              "name": "abridgement",
+              "name": "shorts_video_link",
               "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Abridgement"
+              "title": "Shorts Video Link"
+            },
+            {
+              "name": "shorts_video_keywords",
+              "type": "array",
+              "is_array": true,
+              "description": null,
+              "title": "Shorts Video Keywords"
             }
           ],
           "output_attributes": [
@@ -3581,6 +1649,49 @@
               "description": null,
               "title": "Shorts Description"
             }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Create Tweet",
+          "title": "Create Tweet",
+          "order": 3,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+            {
+              "name": "shorts_title",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Shorts Title"
+            },
+            {
+              "name": "short_transcription",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Short Transcription"
+            },
+            {
+              "name": "shorts_video_link",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Shorts Video Link"
+            },
+            {
+              "name": "shorts_video_keywords",
+              "type": "array",
+              "is_array": true,
+              "description": null,
+              "title": "Shorts Video Keywords"
+            }
+          ],
+          "output_attributes": [
+
           ],
           "language_models": [
             "gpt4o"
@@ -3967,6 +2078,20 @@
       "is_array": false,
       "description": null,
       "title": "Short Transcription"
+    },
+    "shorts_video_link": {
+      "name": "shorts_video_link",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Shorts Video Link"
+    },
+    "shorts_video_keywords": {
+      "name": "shorts_video_keywords",
+      "type": "array",
+      "is_array": true,
+      "description": null,
+      "title": "Shorts Video Keywords"
     }
   },
   "prompts": {
@@ -4144,6 +2269,12 @@
       "description": null,
       "title": "Linkedin Post Prompt"
     },
+    "add_to_video_list_prompt": {
+      "name": "add_to_video_list_prompt",
+      "content": "[project_folder]\n[video_title]\n[video_url]\n",
+      "description": null,
+      "title": "Add To Video List Prompt"
+    },
     "shorts_context_prompt": {
       "name": "shorts_context_prompt",
       "content": "Read and absorb the following abridgement from a long-form video.\n\nYou will be receiving transcripts from shorts that are based on this transcript.\n\nThe shorts transcripts are the priority, but this information will help with context.\n\n<abridgement>\n[abridgement]\n</abridgement>\n",
@@ -4158,27 +2289,15 @@
     },
     "shorts_description_prompt": {
       "name": "shorts_description_prompt",
-      "content": "Craft engaging YouTube video description for Shorts\n\nSpecializes in creating what a YouTube video is about, focusing on SEO, viewer engagement, and compliance with YouTube guidelines.\nAnalyzes video content to generate relevant and captivating descriptions.\n\nUnderstand key elements of effective YouTube descriptions, including SEO keywords and viewer engagement strategies.\nFormat descriptions with structured layout, including headings and bullet points.\nUse the Title and Keywords to generate a description that captures the essence of the video.\nAdhere to YouTube's content policies to ensure guideline compliance.\nSome keywords can be woven into the description, but do not add a sectiona called keywords.\n\nI need you to create the description based on this title: \"[shorts_title]\"\nDon't include the title in the out output\nKeep the description length to less then 1000 characters\n\nUse the shorts transcription:\n\n<short_transcription>\n[short_transcription]\n</short_transcription>\n",
+      "content": "Craft engaging YouTube video description for Shorts\n\nSpecializes in creating what a YouTube video is about, focusing on SEO, viewer engagement, and compliance with YouTube guidelines.\nAnalyzes video content to generate relevant and captivating descriptions.\n\nUnderstand key elements of effective YouTube descriptions, including SEO keywords and viewer engagement strategies.\nFormat descriptions with structured layout, including headings and bullet points.\nUse the Title and Keywords to generate a description that captures the essence of the video.\nAdhere to YouTube's content policies to ensure guideline compliance.\nSome keywords can be woven into the description, but do not add a sectiona called keywords.\n\nI need you to create the description based on this title: \"[shorts_title]\"\nDon't include the title in the out output\nKeep the description length to less then 1000 characters\n\nUse this title for guideline\n\n<shorts_title>\n[shorts_title]\n</shorts_title>\n\nUse the shorts transcription:\n\n<short_transcription>\n[short_transcription]\n</short_transcription>\n\nThese keywords could be woven into the description\n\n<video_keywords>\n[video_keywords]\n</video_keywords>\n",
       "description": null,
       "title": "Shorts Description Prompt"
     },
     "outcome_notes_prompt": {
       "name": "outcome_notes_prompt",
-      "content": "# GLING WORDS \nAppyDave\nChatGPT\nFliVideo\nKlueLess\nAgent Workflow Builder\nb-roll\nAI-TLDR\nCursor\nCursor AI\nAider\nAider AI\nGIT\ngit diff\n\n# ChatGPT Reference: [gpt_links]\n\n# Gpt Links\n[gpt_links]\n\n# Project Code\n[project_code]\n\n# Project Folder\n[project_folder]\n\n# YouTube Title:\n\n[video_title]\n\n# YouTube URL\n\n[video_url]\n\n---\n\n# Short Title\n\n[short_title]\n\n# Main Topic\n\n[video_topic_theme]\n\n# Title Ideas/Suggested Titles:\n\n[title_ideas]\n\n# Thumbnail Text Ideas:\n\n[thumbnail_text]\n\n---\n\n# Brand Details\n\n- Name & Pseudonym: David (Pseudonym: AppyDave)\n- Profession: Software Developer, Architect, and YouTube Content Creator\n- Brands & Focus:\n  - @AppyDave: In-depth content on ChatGPT, Coding with GPT, Prompt Engineering, building GPT Agents, and creating automatic YouTube videos or faceless channels.\n  - @AiTLDR: Experiments with YouTube Automation, AI tools, and faceless channel content creation.\n\nSocial:\n- Website: https://appydave.com\n- Twitter: https://twitter.com/appyDave\n\nMy Sites & Channels:\n- AI-TLDR: https://youtube.com/@aitldr\n- Agent Workflow Builder: https://www.appydave.com/opt-in\n\n# Above Fold CTA\n\nAppyDave loves Coffee :) https://buymeacoffee.com/appydave\n\n# Primary CTA\n\nAgent Workflow Builder Early Access:\nhttps://www.appydave.com/opt-in\n\n# Affiliate CTAs\n\nAffiliate Links:\n- Buy Me a Coffee: https://buymeacoffee.com/appydave\n- Kajabi: https://app.kajabi.com/r/jMLhRhFi\n- Gling.AI: https://gling.ai?via=appydave\n- ECamm Live: https://www.ecamm.com/mac/ecammlive/?fp_ref=appydave\n\n# Video Related Links\n\nAgent Workflow Builder (POC): How I Visualize GPT Workflows\nhttps://www.youtube.com/watch?v=h3F18BTUhfE\n\nAgent Workflow Builder (Built in Public)\nhttps://www.youtube.com/watch?v=h3F18BTUhfE&list=PLx0FU01Q5blxxrH7-FCEgx0RTxqujVnkP\n\nBuilding AI Workflows Fast with \"Agent as Code\" (AoC): Proof of Concept\nhttps://www.youtube.com/watch?v=YUQ8_THNjbQ\n\n6 Use Cases: Strawberry vs GPT-4o – Where Each Model Shines\nhttps://www.youtube.com/watch?v=AHso_s_3HrY\n\n# Video Keywords\n\nAI assistants,\nOpenAI Strawberry model\nDomain-specific languages (DSLs),\nAI workflow designer,\nAI Programming languages,\nAI pair programmers,\n\n[video_keywords]\n\n## Content Highlights/Key Takeaways\n\n[content_highlights]\n\n[key_takeaways]\n\n# Chapters\n\n[chapters]\n\n# Video editor instructions\n\n[video_editor_instructions]\n\n# Simple YouTube Description\n\n[video_simple_description]\n\n## YouTube Description\n\n[video_description]\n\n# Intro\n\n[intro]\n\n# Outro\n\n[outro]\n\n# References to other videos\n\n[video_references]\n\n# Abridgment\n\n[abridgement]\n\n# Summary\n\n[summary]\n\n# Transcript\n\n[transcript]\n\n# Intro/Outro design ideas\n\n[intro_outro_design_ideas]\n\n# Design Style\n\n[design_style]\n\n# Content Essence\n\n[analyze_content_essence]\n\n# Audience Engagement\n\n[analyze_audience_engagement]\n\n# CTA/Competitors\n\n[analyze_cta_competitors]\n\n[key_takeaways]\n[video_metadata]\n\n# No place holder yet\n\n[design_eas]\n[editor_brief]\n\n[thumbnail_visual_elements]\n[video_related_links]\n\n[video_pinned_comment]\n",
+      "content": "# GLING WORDS \nAppyDave\nChatGPT\nFliVideo\nKlueLess\nAgent Workflow Builder\nb-roll\nAI TLDR\nCursor\nCursor AI\nAider\nAider AI\nGIT\ngit diff\nJSON\n\n# ChatGPT Reference: [gpt_links]\n\n# Gpt Links\n[gpt_links]\n\n# Project Code\n[project_code]\n\n# Project Folder\n[project_folder]\n\n# YouTube Title:\n\n[video_title]\n\n# YouTube URL\n\n[video_url]\n\n---\n\n# Short Title\n\n[short_title]\n\n# Main Topic\n\n[video_topic_theme]\n\n# Title Ideas/Suggested Titles:\n\n[title_ideas]\n\n# Thumbnail Text Ideas:\n\n[thumbnail_text]\n\n---\n\n# Brand Details\n\n- Name & Pseudonym: David (Pseudonym: AppyDave)\n- Profession: Software Developer, Architect, and YouTube Content Creator\n- Brands & Focus:\n  - @AppyDave: In-depth content on ChatGPT, Coding with GPT, Prompt Engineering, building GPT Agents, and creating automatic YouTube videos or faceless channels.\n  - @AiTLDR: Experiments with YouTube Automation, AI tools, and faceless channel content creation.\n  - @WinningPrompts: One-shot prompts for Workflows & MicroApps\n\nSocial:\n- Website: https://appydave.com\n- Twitter: https://twitter.com/appyDave\n\nMy Sites & Channels:\n- Agent Workflow Builder: https://www.appydave.com/opt-in\n- AI-TLDR: https://youtube.com/@aitldr\n- WinningPrompts: https://youtube.com/@winningprompts\n\n# Above Fold CTA\n\nAgent Workflow Builder Early Access:\nhttps://www.appydave.com/opt-in\n\n# Primary CTA\n\nAppyDave loves Coffee :) https://buymeacoffee.com/appydave\n\n# Affiliate CTAs\n\nAffiliate Links:\n- Buy Me a Coffee: https://buymeacoffee.com/appydave\n- Kajabi: https://app.kajabi.com/r/jMLhRhFi\n- Gling.AI: https://gling.ai?via=appydave\n- ECamm Live: https://www.ecamm.com/mac/ecammlive/?fp_ref=appydave\n\n# Video Related Links\n\nAgent Workflow Builder (POC): How I Visualize GPT Workflows\nhttps://www.youtube.com/watch?v=h3F18BTUhfE\n\nAgent Workflow Builder (Built in Public)\nhttps://www.youtube.com/watch?v=h3F18BTUhfE&list=PLx0FU01Q5blxxrH7-FCEgx0RTxqujVnkP\n\nBuilding AI Workflows Fast with \"Agent as Code\" (AoC): Proof of Concept\nhttps://www.youtube.com/watch?v=YUQ8_THNjbQ\n\n6 Use Cases: Strawberry vs GPT-4o – Where Each Model Shines\nhttps://www.youtube.com/watch?v=AHso_s_3HrY\n\n# Video Keywords\n\nAI assistants,\nDomain-specific languages (DSLs),\nAI workflow designer,\nAI Programming languages,\nAI pair programmers,\n\n[video_keywords]\n\n## Content Highlights/Key Takeaways\n\n[content_highlights]\n\n[key_takeaways]\n\n# Chapters\n\n[chapters]\n\n# Video editor instructions\n\n[video_editor_instructions]\n\n# Simple YouTube Description\n\n[video_simple_description]\n\n## YouTube Description\n\n[video_description]\n\n# Intro\n\n[intro]\n\n# Outro\n\n[outro]\n\n# References to other videos\n\n[video_references]\n\n# Abridgment\n\n[abridgement]\n\n# Summary\n\n[summary]\n\n# Transcript\n\n[transcript]\n\n# Intro/Outro design ideas\n\n[intro_outro_design_ideas]\n\n# Design Style\n\n[design_style]\n\n# Content Essence\n\n[analyze_content_essence]\n\n# Audience Engagement\n\n[analyze_audience_engagement]\n\n# CTA/Competitors\n\n[analyze_cta_competitors]\n\n[key_takeaways]\n[video_metadata]\n\n# No place holder yet\n\n[design_eas]\n[editor_brief]\n\n[thumbnail_visual_elements]\n[video_related_links]\n\n[video_pinned_comment]\n",
       "description": null,
       "title": "Outcome Notes Prompt"
-    },
-    "outcome_social_prompt": {
-      "name": "outcome_social_prompt",
-      "content": "",
-      "description": null,
-      "title": "Outcome Social Prompt"
-    },
-    "outcome_thumbnail_prompt": {
-      "name": "outcome_thumbnail_prompt",
-      "content": "",
-      "description": null,
-      "title": "Outcome Thumbnail Prompt"
     }
   }
 }

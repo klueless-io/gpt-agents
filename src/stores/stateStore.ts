@@ -32,6 +32,26 @@ function createStateStore() {
           ...state.attributes
         }
       }));
+    },
+    setCurrentStep(stepIndex: number) {
+      update(state => {
+        const currentSection = state.currentSection;
+        if (!currentSection || !currentSection.steps) {
+          console.warn('Cannot set step: No current section or steps found');
+          return state;
+        }
+
+        // Ensure the step index is within bounds
+        if (stepIndex < 0 || stepIndex >= currentSection.steps.length) {
+          console.warn('Step index out of bounds');
+          return state;
+        }
+
+        return {
+          ...state,
+          currentStep: currentSection.steps[stepIndex]
+        };
+      });
     }
   };
 }

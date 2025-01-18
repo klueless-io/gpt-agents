@@ -8,11 +8,11 @@
 
   const dispatch = createEventDispatcher();
 
-  const activeClass = "bg-primary-dark text-white";
-  const inactiveClass = "text-primary-dark hover:text-primary-light hover:bg-primary-dark";
+  const activeClass = "bg-primary-dark text-white focus:text-white border-1 border-primary-dark";
+  const inactiveClass = "text-primary-dark hover:text-primary-light hover:bg-primary-dark focus:text-primary-light";
 
   function handleClick() {
-    console.log(`MenuItem clicked: component=${component}`); // Debug statement
+    console.log(`MenuItem clicked: component=${component}`);
     dispatch('menu-click', component);
   }
 </script>
@@ -24,7 +24,14 @@
     on:click|preventDefault={handleClick}
   >
     {#if letter}
-      <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-primary-light bg-primary-dark text-[0.625rem] font-medium text-white">{letter}</span>
+      <span class={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border 
+        ${active 
+          ? 'border-white bg-primary-dark text-white focus:text-white' 
+          : 'border-primary-light bg-primary-dark text-white hover:border-white focus:border-white focus:text-white'
+        } text-[0.625rem] font-medium`}
+      >
+        {letter}
+      </span>
     {/if}
     <slot />
     <span class="truncate">{name}</span>
