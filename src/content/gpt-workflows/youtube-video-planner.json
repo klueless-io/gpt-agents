@@ -26,8 +26,15 @@
           "title": "Video Idea",
           "order": 1,
           "description": "Collect video purpose and audience details.",
-          "prompt": "You are tasked with refining the purpose and target audience for a new video project. Your goal is to provide a more focused and detailed description of both the video's purpose and its intended audience based on the initial information provided.\n\nHere is the initial video purpose:\n<initial_purpose>\n[initial_purpose]\n</initial_purpose>\n\nHere is the initial target audience:\n<initial_audience>\n[initial_audience]\n</initial_audience>\n\nTo refine the video purpose:\n1. Analyze the initial purpose and identify its core objectives.\n2. Consider how the purpose can be made more specific, actionable, and measurable.\n3. Think about potential outcomes or results that the video should achieve.\n4. Incorporate elements that will resonate with the target audience.\n\nTo refine the target audience:\n1. Examine the initial audience description and identify key characteristics.\n2. Consider demographic factors such as age range, gender, occupation, and location if applicable.\n3. Think about psychographic factors like interests, values, behaviors, and pain points.\n4. Narrow down the audience to a more specific segment that will benefit most from the video.\n\nEnsure that both the refined purpose and audience are more specific, detailed, and actionable than the initial descriptions provided.\n\nCreate two code blocks with raw text and put a heading before each codeblock.\n\nYou don't need to start the sentences with \"The purpose\" or the \"The Target Audience\" because that is implied by the headings.\n\n### Video Purpose\n\n[Provide your refined video purpose and target audience in a code block as raw text]\n\n### Target Audience\n\n[Provide the refined, more detailed target audience description here in raw text in code block]\n\n",
+          "prompt": "You are tasked with refining the purpose and target audience for a new video project. Your goal is to provide a more focused and detailed description of both the video's purpose and its intended audience based on the initial information provided.\n\nHere is the initial video purpose:\n<initial_purpose>\n[initial_purpose]\n</initial_purpose>\n\nHere is the initial target audience:\n<initial_audience>\n[initial_audience]\n</initial_audience>\n\nTo refine the video purpose:\n1. Analyze the initial purpose and identify its core objectives.\n2. Consider how the purpose can be made more specific, actionable, and measurable.\n3. Think about potential outcomes or results that the video should achieve.\n4. Incorporate elements that will resonate with the target audience.\n\nTo refine the target audience:\n1. Examine the initial audience description and identify key characteristics.\n2. Consider demographic factors such as age range, gender, occupation, and location if applicable.\n3. Think about psychographic factors like interests, values, behaviors, and pain points.\n4. Narrow down the audience to a more specific segment that will benefit most from the video.\n\nEnsure that both the refined purpose and audience are more specific, detailed, and actionable than the initial descriptions provided.\n\nCreate two code blocks with raw text and put a heading before each codeblock.\n\nYou don't need to start the sentences with \"The purpose\" or the \"The Target Audience\" because that is implied by the headings.\n\n### Video Purpose\n\n[Provide your refined video purpose and target audience in a code block as raw text]\n\n### Target Audience\n\n[Provide the refined, more detailed target audience description here in raw text in code block]\n\nFinally follow up with this question.\n\nIs there anything you would like me to change about the video purpose or video audience, or should we move on?\n\n",
           "input_attributes": [
+            {
+              "name": "gpt_links",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Gpt Links"
+            },
             {
               "name": "project_code",
               "type": "string",
@@ -75,7 +82,7 @@
           "title": "Define Video Goal",
           "order": 2,
           "description": "Clarify the primary goal and concept.",
-          "prompt": "You are tasked with creating a goal and concept for a video based on a given purpose and target audience. Your job is to craft a clear, concise video_goal and an engaging video_concept that aligns with the provided information.\n\nHere is the purpose of the video:\n<video_purpose>\n[video_purpose]\n</video_purpose>\n\nHere is the target audience for the video:\n<target_audience>\n[target_audience]\n</target_audience>\n\nTo create the video_goal:\n1. Analyze the purpose and audience information carefully.\n2. Formulate a clear, specific, and achievable goal that addresses the purpose and resonates with the target audience.\n3. Ensure the goal is concise and focused, typically one to two sentences long.\n\nTo create the video_concept:\n1. Consider the video_goal you've just created.\n2. Develop a creative and engaging concept that will effectively communicate the goal to the target audience.\n3. The concept should be brief but descriptive, outlining the main idea or approach for the video.\n4. Ensure the concept is appropriate for the audience and aligns with the purpose.\n\n\nCreate two code blocks with raw text and put a heading before each codeblock.\n\nYou don't need to start the sentences with \"The goal\" or the \"The Concept\" because that is implied by the headings.\n\n### Video Goal\n\n[Provide video goal in code block as raw text]\n\n### Video Concept\n\n[Provide video concept in code block as raw text]\n\nRemember to provide only the video_goal and video_concept in your response, with no additional explanation or commentary.",
+          "prompt": "You are tasked with creating a goal and concept for a video based on a given purpose and target audience. Your job is to craft a clear, concise video_goal and an engaging video_concept that aligns with the provided information.\n\nHere is the purpose of the video:\n<video_purpose>\n[video_purpose]\n</video_purpose>\n\nHere is the target audience for the video:\n<target_audience>\n[target_audience]\n</target_audience>\n\nTo create the video_goal:\n1. Analyze the purpose and audience information carefully.\n2. Formulate a clear, specific, and achievable goal that addresses the purpose and resonates with the target audience.\n3. Ensure the goal is concise and focused, typically one to two sentences long.\n\nTo create the video_concept:\n1. Consider the video_goal you've just created.\n2. Develop a creative and engaging concept that will effectively communicate the goal to the target audience.\n3. The concept should be brief but descriptive, outlining the main idea or approach for the video.\n4. Ensure the concept is appropriate for the audience and aligns with the purpose.\n\n\nCreate two code blocks with raw text and put a heading before each codeblock.\n\nYou don't need to start the sentences with \"The goal\" or the \"The Concept\" because that is implied by the headings.\n\n### Video Goal\n\n[Provide video goal in code block as raw text]\n\n### Video Concept\n\n[Provide video concept in code block as raw text]\n\nRemember to provide only the video_goal and video_concept in your response, with no additional explanation or commentary.\n\nIs there anything you would like me to change about the video goal or video concept, or should we move on?\n",
           "input_attributes": [
             {
               "name": "video_purpose",
@@ -215,7 +222,7 @@
           "title": "Video Project Name",
           "order": 5,
           "description": "Create a descriptive project name.",
-          "prompt": "You are tasked with creating a list of 5 project names based on a given video goal and concept. These project names will be used for folder names, so they need to be short, lowercase, and use dashes for word separation.\n\nHere is the video goal:\n<video_goal>\n[video_goal]\n</video_goal>\n\nAnd here is the concept:\n<video_concept>\n[video_concept]\n</video_concept>\n\n\n\nTo create the project names, follow these guidelines:\n1. Keep the names short and concise\n2. Use lowercase letters only\n3. Use dashes (-) to separate words\n4. Ensure the names are relevant to the video goal and concept\n5. Make each name unique and distinct from the others\n\n### Project Name Ideas\n\n[Provide project name ideas code block as bullet points]\n\n- [first-project-name]\n- [second-project-name]\n- [third-project-name]\n- [fourth-project-name]\n- [fifth-project-name]\n\nYou should finish up with one question.\n\nWhat project name would you like, when you get an answer, you will respond with.\n\nThe project name is now set to [the project name that I give you in my answer]",
+          "prompt": "You are tasked with creating a list of 5 project names based on a given video goal and concept. These project names will be used for folder names, so they need to be short, lowercase, and use dashes for word separation.\n\nHere is the video goal:\n<video_goal>\n[video_goal]\n</video_goal>\n\nAnd here is the concept:\n<video_concept>\n[video_concept]\n</video_concept>\n\n\n\nTo create the project names, follow these guidelines:\n1. Keep the names short and concise\n2. Use lowercase letters only\n3. Use dashes (-) to separate words\n4. Ensure the names are relevant to the video goal and concept\n5. Make each name unique and distinct from the others\n6. Project name will be between 3 & 8 words long and balance description idea vs simplicity\n\n### Project Name Ideas\n\n[Provide project name ideas code block as bullet points]\n\n- [first-project-name]\n- [second-project-name]\n- [third-project-name]\n- [fourth-project-name]\n- [fifth-project-name]\n\nYou should finish up with one question.\n\nWhat project name would you like, when you get an answer, you will respond with.\n\nThe project name is now set to [the project name that I give you in my answer]",
           "input_attributes": [
             {
               "name": "video_goal",
@@ -265,21 +272,210 @@
           "language_models": [
             "gpt4o"
           ]
+        },
+        {
+          "name": "YouTube Title",
+          "title": "You Tube Title",
+          "order": 6,
+          "description": "Create a list of potential video titles.",
+          "prompt": "You are a specialist in youtube video title creation.\n\nYou will create 10 youtube titles\n\nWhen creating a YouTube title:\n- Keep it under 70 characters for full visibility.\n- Use action verbs at the beginning for engagement.\n- Avoid clickbait; focus on curiosity-driven content.\n- Incorporate relevant keywords and the current year for SEO.\n- Use brackets, numbers, and all caps strategically.\n- Include solutions to pain points with \"how-to\" titles.\n\nFinish up with question:\n\nCan you provide the one title you would like to use?; or\nCan you give me instructions on refinements and I will regenerate the list\n\n",
+          "input_attributes": [
+            {
+              "name": "youtube_title_list",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Youtube Title List"
+            },
+            {
+              "name": "youtube_title",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Youtube Title"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "youtube_title_list",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Youtube Title List"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Planning Brief",
+          "title": "Planning Brief",
+          "order": 7,
+          "description": "Create a planning brief for the video.",
+          "prompt": "<youtube_title>[youtube_title]</youtube_title>\n<project_name>[project_name]</project_name>\n<video_purpose>[video_purpose]</video_purpose>\n<target_audience>[target_audience]</target_audience>\n<video_goal>[video_goal]</video_goal>\n<video_concept>[video_concept]</video_concept>\n<talking_points>[talking_points]</talking_points>\n\nCan you take all the ideas and create factsheet, keep it in simple rich text format, no need for code blocks.\n\nIt should be ordered as\n\nYouTube Title\nVideo Purpose\nTarget Audience\nVideo Goal\nVideo Concept\nTalking Points\nProject Name\n",
+          "input_attributes": [
+            {
+              "name": "youtube_title",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Youtube Title"
+            },
+            {
+              "name": "project_name",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Project Name"
+            },
+            {
+              "name": "video_purpose",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Purpose"
+            },
+            {
+              "name": "target_audience",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Target Audience"
+            },
+            {
+              "name": "video_goal",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Goal"
+            },
+            {
+              "name": "video_concept",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Concept"
+            },
+            {
+              "name": "talking_points",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Talking Points"
+            },
+            {
+              "name": "planning_brief",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Planning Brief"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "brief",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Brief"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Planning Reference Card",
+          "title": "Planning Reference Card",
+          "order": 8,
+          "description": "Create a reference card for the video.",
+          "prompt": "Can you create a simple reference card based of the brief.\n\nUse the same inputs that you used for the brief, but consider the usage\n\nI will have alread read the brief and have it in my mind so it just needs to help me remember.\n\nBefore you start, ask me if there is anything else important if I give you anthing, include that information.\n\n\n<youtube_title>[youtube_title]</youtube_title>\n<project_name>[project_name]</project_name>\n<video_purpose>[video_purpose]</video_purpose>\n<target_audience>[target_audience]</target_audience>\n<video_goal>[video_goal]</video_goal>\n<video_concept>[video_concept]</video_concept>\n<talking_points>[talking_points]</talking_points>\n\nCreate a small card that I can hold in my hand\nThe title is important.\nShorten the purpose\nAudience should be simple horizontal list of 3-4 types, format like *Audience*: [Type1, Type2, Type3]\nGoal & concept should shortened or simplified, \nList the talking points\nList any important CTAs or other items that I said were important",
+          "input_attributes": [
+            {
+              "name": "youtube_title",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Youtube Title"
+            },
+            {
+              "name": "project_name",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Project Name"
+            },
+            {
+              "name": "video_purpose",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Purpose"
+            },
+            {
+              "name": "target_audience",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Target Audience"
+            },
+            {
+              "name": "video_goal",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Goal"
+            },
+            {
+              "name": "video_concept",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Concept"
+            },
+            {
+              "name": "talking_points",
+              "type": "array",
+              "is_array": false,
+              "description": null,
+              "title": "Talking Points"
+            },
+            {
+              "name": "planning_reference_card",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Planning Reference Card"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "planning_reference_card",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Planning Reference Card"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
         }
       ]
     },
     {
-      "name": "Project Planning",
-      "title": "Project Planning",
+      "name": "Script Development",
+      "title": "Script Development",
       "order": 2,
-      "description": "Plan the project name and content.",
+      "description": "Define the video's content,  and calls-to-action.",
       "steps": [
         {
           "name": "Content Outline",
           "title": "Content Outline",
           "order": 1,
           "description": "Identify key topics and structure.",
-          "prompt": "You are tasked with creating a content outline for a video based on a given video goal and target audience. Your outline should effectively structure the video content to achieve its goal and appeal to the intended viewers.\n\nHere is the video goal:\n<video_goal>\n[video_goal]\n</video_goal>\n\nAnd here is the target audience:\n<target_audience>\n[target_audience]\n</target_audience>\n\nTo create the content outline, follow these steps:\n\n1. Develop 2-4 key points that directly address the video goal and resonate with the target audience.\n\n2. For each key point:\n   a. Write a clear, concise heading\n   b. Provide a brief description or bullet points of the content to be covered\n   c. Ensure that the content directly relates to the video goal and appeals to the target audience\n\n3. Format your outline using indentation, bullet points, or numbering for easy readability. Maintain a logical flow throughout the outline.\n\n4. Keep the following in mind while creating your outline:\n   - Each point should contribute to achieving the video goal\n   - Consider the interests, needs, and background of the target audience\n   - Ensure the content is appropriate for the target audience's level of understanding\n   - Use language and examples that will resonate with the target audience\n\n5. Review your outline to ensure it comprehensively addresses the video goal and is tailored to the target audience.\n\nProvide your content outline in the following format:\n\n\n# Content Outline\n\n[Write formatted content outline]\n\nRemember to create only one content outline that effectively addresses the video goal and appeals to the target audience.\n\nFollow up with one question:\n\nRe-write in a code block (Yes) or provide me with changes you would like?",
+          "prompt": "You are tasked with creating a content outline for a video based on a given video goal and target audience. Your outline should effectively structure the video content to achieve its goal and appeal to the intended viewers.\n\nHere is the video goal:\n<video_goal>\n[video_goal]\n</video_goal>\n\nAnd here is the target audience:\n<target_audience>\n[target_audience]\n</target_audience>\n\nTo create the content outline, follow these steps:\n\n1. Develop 2-4 key points that directly address the video goal and resonate with the target audience.\n\n2. For each key point:\n   a. Write a clear, concise heading\n   b. Provide a brief description or bullet points of the content to be covered\n   c. Ensure that the content directly relates to the video goal and appeals to the target audience\n\n3. Format your outline using indentation, bullet points, or numbering for easy readability. Maintain a logical flow throughout the outline.\n\n4. Keep the following in mind while creating your outline:\n   - Each point should contribute to achieving the video goal\n   - Consider the interests, needs, and background of the target audience\n   - Ensure the content is appropriate for the target audience's level of understanding\n   - Use language and examples that will resonate with the target audience\n\n5. Review your outline to ensure it comprehensively addresses the video goal and is tailored to the target audience.\n\nProvide your content outline in the following format:\n\n[Write formatted content outline]\n\nRemember to create only one content outline that effectively addresses the video goal and appeals to the target audience.\n\nFollow up with one question:\n\nRe-write in a code block (Yes) or provide me with changes you would like?",
           "input_attributes": [
             {
               "name": "video_goal",
@@ -317,11 +513,75 @@
           ]
         },
         {
+          "name": "Enrich Narrative",
+          "title": "Enrich Narrative",
+          "order": 2,
+          "description": "Identify areas of the script outline that can be improved.",
+          "prompt": "You are an AI assistant tasked with helping enhance a video content outline. Your goal is to analyze the outline, suggest narrative-enhancing ideas, and ask thoughtful follow-up questions to improve the overall content.\n\nFirst, I will provide you with a video content outline:\n\n<content_outline>\n[content_outline]\n</content_outline>\n\nAnalyze the outline carefully, considering its structure, main points, and overall narrative flow. Look for opportunities to enhance the content using the following narrative elements:\n\n1. Personal Anecdotes\n2. Success Stories or Case Studies\n3. Common Pitfalls and Lessons Learned\n4. Behind-the-Scenes Glimpses\n5. Forward-Looking or Future-Proofing Angles\n\nBased on your analysis, provide suggestions and ask questions to improve the outline. Follow these guidelines:\n\n1. If you see obvious opportunities for enhancement, suggest them directly.\n2. For areas that need more context or information, formulate thoughtful questions to ask me.\n3. Aim for a balance between suggestions and questions.\n4. Maintain a conversational tone throughout your response.\n\nPresent your ideas and questions in the following format:\n\n### Suggestions\n\n1. [Your first suggestion]\n2. [Your second suggestion]\n3. [Continue as needed]\n\n### Questions\n1. [Your first question]\n2. [Your second question]\n3. [Continue as needed]\n\nRemember to tie your suggestions and questions directly to specific parts of the outline when relevant. Be creative and think about how to make the content more engaging, informative, and valuable to the audience.\n\nBegin your response with a brief summary of your overall impression of the outline, then proceed with your suggestions and questions.\n\n\n",
+          "input_attributes": [
+            {
+              "name": "content_outline",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Content Outline"
+            }
+          ],
+          "output_attributes": [
+
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Enrich Narrative Focus",
+          "title": "Enrich Narrative Focus",
+          "order": 3,
+          "description": "Choose the ares of the Naritive to Focus on",
+          "prompt": "You are tasked with creating a focused guideline that integrates\nkey points from a video content outline analysis with additional \ncontext and scenarios. This document will be used to guide further \nideation and content development.\n\nFirst, review the narrative analysis provided above\n\nNow, consider the specific points of interest with additional context and scenarios\n\n<narrative_focus>\n[narrative_focus]\n</narrative_focus>\n\nYour task is to create a concise document that:\n\n1. Highlights the key points from the narrative analysis that align with the specified points of interest.\n2. Integrates the additional context and scenarios provided to enrich these key points.\n3. Presents a focused perspective on how these elements can enhance the video content.\n\nFollow these guidelines:\n\n- Keep your analysis brief and to the point.\n- Focus only on the specified points of interest and their related context.\n- Provide clear, actionable insights that can guide further content development.\n- Avoid introducing new ideas not present in the provided information.\n\nPresent your output in the following format:\n\n### Narrative Focus\n\n**Key Point**\nBriefly state the key point from the narrative analysis\n\n**Context**\nIntegrate relevant additional context or scenarios\n\n**Insight**\nProvide a concise, actionable insight for content development\n\nRepeat this structure for each relevant key point\n\nEnsure that your document is concise and focused, as it will be integrated with other ideas in the next phase of the workflow.",
+          "input_attributes": [
+            {
+              "name": "narrative_focus",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Narrative Focus"
+            },
+            {
+              "name": "narrative_refinement",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Narrative Refinement"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "narrative_focus",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Narrative Focus"
+            },
+            {
+              "name": "narrative_refinement",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Narrative Refinement"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
           "name": "Identify CTAs",
           "title": "Identify Ct As",
-          "order": 2,
+          "order": 4,
           "description": "Define desired audience actions.",
-          "prompt": "You are tasked with identifying potential calls to action (CTAs) for a video based on its goal and target audience. Your objective is to create a simple, concise list of CTAs that align with the video's purpose and resonate with the intended viewers.\n\nHere is the video goal:\n<video_goal>\n[video_goal]\n</video_goal>\n\nHere is the target audience:\n<target_audience>\n[target_audience]\n</target_audience>\n\nGuidelines for generating CTAs:\n1. Ensure each CTA is directly related to the video goal\n2. Make the CTAs specific and actionable\n3. Use language that appeals to the target audience\n4. Vary the types of actions (e.g., subscribe, share, visit a website, make a purchase)\n5. Keep the CTAs concise and easy to understand\n\nPlease list the potential CTAs in the following format:\n<cta_ideas>\n1. [First CTA]\n2. [Second CTA]\n3. [Third CTA]\n...\n</cta_ideas>\n\nAim to provide 5-7 relevant CTAs. Keep your list focused and avoid repetitive or overly similar calls to action.",
+          "prompt": "",
           "input_attributes": [
             {
               "name": "video_goal",
@@ -361,9 +621,9 @@
         {
           "name": "Deliver Video Brief",
           "title": "Deliver Video Brief",
-          "order": 3,
+          "order": 5,
           "description": "Compile and provide final output brief.",
-          "prompt": "You are tasked with creating a video workflow summary based on the \nprovided project information. \n\nThis summary will serve as a guide for producing the next video in a content series. \n\nFollow these instructions carefully to generate a comprehensive and useful workflow summary.\n\nYou will be given three pieces of information:\n\n<project_name>\n[project_name]\n</project_name>\n\n<content_outline>\n[content_outline]\n</content_outline>\n\n<cta_ideas>\n[cta_ideas]\n</cta_ideas>\n\n\nUsing this information, create a video workflow summary that includes the following elements:\n\n1. Project Overview: Briefly describe the project based on the project name, and content outline.\n\n2. Content Structure: Break down the content outline into main sections or talking points for the video.\n\n3. Visual Elements: Suggest visual elements or graphics that could enhance each section of the content.\n\n4. Key Takeaways: Identify 2-3 main points that viewers should remember from the video.\n\n5. Call-to-Action (CTA): Choose the most appropriate CTA from the provided ideas and explain how to incorporate it into the video.\n\n6. Production Notes: Provide brief suggestions for filming, such as recommended video length, setting, or any special equipment needed.\n\n7. Post-Production Considerations: Mention any specific editing techniques or effects that could enhance the final video.\n\nPresent your video workflow summary in the following format:\n\n1. Project Overview:\n[Your overview here]\n\n2. Content Structure:\n[List main sections or talking points]\n\n3. Visual Elements:\n[Suggestions for visuals for each section]\n\n4. Key Takeaways:\n[List 2-3 main points]\n\n5. Call-to-Action (CTA):\n[Selected CTA and implementation suggestion]\n\n6. Production Notes:\n[Brief production suggestions]\n\n7. Post-Production Considerations:\n[Editing suggestions or effects]\n",
+          "prompt": "",
           "input_attributes": [
             {
               "name": "project_name",
@@ -408,6 +668,108 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Launch Optimization",
+      "title": "Launch Optimization",
+      "order": 3,
+      "description": "Prepare the video for publishing and promotion.",
+      "steps": [
+
+      ]
+    },
+    {
+      "name": "Launch Amplification",
+      "title": "Launch Amplification",
+      "order": 4,
+      "description": null,
+      "steps": [
+
+      ]
+    },
+    {
+      "name": "Repurpose Content",
+      "title": "Repurpose Content",
+      "order": 5,
+      "description": null,
+      "steps": [
+        {
+          "name": "Key Structural Insights",
+          "title": "Key Structural Insights",
+          "order": 1,
+          "description": "Extract key structural insights from the transcript outline.",
+          "prompt": "You are tasked with extracting useful structural information from a livestream transcript.\nThis information will be used to repurpose the content into a video, \npotentially creating a powerful hook and overview. \n\nYour job is to analyze the transcript and provide a summary of key structural elements.\n\nHere is the transcript of the livestream:\n\n<transcript>\n[transcript]\n</transcript>\n\nCarefully analyze the transcript and extract the following information:\n\n1. General Overview: Provide a brief summary of what the livestream is about, capturing its main theme or purpose.\n\n2. Section Changes/Subtopics: Identify the main subtopics or section changes within the livestream. These are usually distinct areas of discussion that could be taught about separately.\n\n3. Powerful Statements: Locate and extract any particularly impactful or memorable statements made during the livestream. These could be useful for creating hooks or highlights.\n\n4. Additional Useful Information: If you identify any other structural elements or information that could be valuable for repurposing the content, include them as well.\n\nPresent your findings in the following format:\n\n### Overview\n\n[Provide a brief general overview of the livestream here]\n\n\n### Section Changes\n[List the main subtopics or section changes here, with timestamps if available]\n\n### Powerful Statements\n[List the powerful statements here, with timestamps if available]\n\n### Additional Info\n[Include any other useful structural information you've identified]\n\nEnsure that your summary is concise yet comprehensive, capturing the key structural elements of the livestream that would be most useful for repurposing the content into a new video format.",
+          "input_attributes": [
+            {
+              "name": "transcript",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Transcript"
+            }
+          ],
+          "output_attributes": [
+            {
+              "name": "key_structural_insights",
+              "type": "array",
+              "is_array": true,
+              "description": null,
+              "title": "Key Structural Insights"
+            }
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Structure Insight - Refinement",
+          "title": "Structure Insight   Refinement",
+          "order": 2,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+
+          ],
+          "output_attributes": [
+
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "Hook & Overview Development",
+          "title": "Hook Overview Development",
+          "order": 3,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+
+          ],
+          "output_attributes": [
+
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        },
+        {
+          "name": "What CTAs are needed",
+          "title": "What Ct As Are Needed",
+          "order": 4,
+          "description": null,
+          "prompt": "",
+          "input_attributes": [
+
+          ],
+          "output_attributes": [
+
+          ],
+          "language_models": [
+            "gpt4o"
+          ]
+        }
+      ]
     }
   ],
   "attributes": {
@@ -417,6 +779,13 @@
       "is_array": false,
       "description": null,
       "title": "Project Code"
+    },
+    "gpt_links": {
+      "name": "gpt_links",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Gpt Links"
     },
     "initial_purpose": {
       "name": "initial_purpose",
@@ -488,12 +857,47 @@
       "description": null,
       "title": "Project Name"
     },
+    "youtube_title_list": {
+      "name": "youtube_title_list",
+      "type": "array",
+      "is_array": false,
+      "description": null,
+      "title": "Youtube Title List"
+    },
+    "youtube_title": {
+      "name": "youtube_title",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Youtube Title"
+    },
+    "planning_brief": {
+      "name": "planning_brief",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Planning Brief"
+    },
+    "planning_reference_card": {
+      "name": "planning_reference_card",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Planning Reference Card"
+    },
     "content_outline": {
       "name": "content_outline",
       "type": "string",
       "is_array": false,
       "description": null,
       "title": "Content Outline"
+    },
+    "narrative_focus": {
+      "name": "narrative_focus",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Narrative Focus"
     },
     "cta_ideas": {
       "name": "cta_ideas",
@@ -508,18 +912,39 @@
       "is_array": false,
       "description": null,
       "title": "Brief"
+    },
+    "transcript": {
+      "name": "transcript",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Transcript"
+    },
+    "narrative_refinement": {
+      "name": "narrative_refinement",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Narrative Refinement"
+    },
+    "key_structural_insights": {
+      "name": "key_structural_insights",
+      "type": "array",
+      "is_array": true,
+      "description": null,
+      "title": "Key Structural Insights"
     }
   },
   "prompts": {
     "initial_video_idea": {
       "name": "initial_video_idea",
-      "content": "You are tasked with refining the purpose and target audience for a new video project. Your goal is to provide a more focused and detailed description of both the video's purpose and its intended audience based on the initial information provided.\n\nHere is the initial video purpose:\n<initial_purpose>\n[initial_purpose]\n</initial_purpose>\n\nHere is the initial target audience:\n<initial_audience>\n[initial_audience]\n</initial_audience>\n\nTo refine the video purpose:\n1. Analyze the initial purpose and identify its core objectives.\n2. Consider how the purpose can be made more specific, actionable, and measurable.\n3. Think about potential outcomes or results that the video should achieve.\n4. Incorporate elements that will resonate with the target audience.\n\nTo refine the target audience:\n1. Examine the initial audience description and identify key characteristics.\n2. Consider demographic factors such as age range, gender, occupation, and location if applicable.\n3. Think about psychographic factors like interests, values, behaviors, and pain points.\n4. Narrow down the audience to a more specific segment that will benefit most from the video.\n\nEnsure that both the refined purpose and audience are more specific, detailed, and actionable than the initial descriptions provided.\n\nCreate two code blocks with raw text and put a heading before each codeblock.\n\nYou don't need to start the sentences with \"The purpose\" or the \"The Target Audience\" because that is implied by the headings.\n\n### Video Purpose\n\n[Provide your refined video purpose and target audience in a code block as raw text]\n\n### Target Audience\n\n[Provide the refined, more detailed target audience description here in raw text in code block]\n\n",
+      "content": "You are tasked with refining the purpose and target audience for a new video project. Your goal is to provide a more focused and detailed description of both the video's purpose and its intended audience based on the initial information provided.\n\nHere is the initial video purpose:\n<initial_purpose>\n[initial_purpose]\n</initial_purpose>\n\nHere is the initial target audience:\n<initial_audience>\n[initial_audience]\n</initial_audience>\n\nTo refine the video purpose:\n1. Analyze the initial purpose and identify its core objectives.\n2. Consider how the purpose can be made more specific, actionable, and measurable.\n3. Think about potential outcomes or results that the video should achieve.\n4. Incorporate elements that will resonate with the target audience.\n\nTo refine the target audience:\n1. Examine the initial audience description and identify key characteristics.\n2. Consider demographic factors such as age range, gender, occupation, and location if applicable.\n3. Think about psychographic factors like interests, values, behaviors, and pain points.\n4. Narrow down the audience to a more specific segment that will benefit most from the video.\n\nEnsure that both the refined purpose and audience are more specific, detailed, and actionable than the initial descriptions provided.\n\nCreate two code blocks with raw text and put a heading before each codeblock.\n\nYou don't need to start the sentences with \"The purpose\" or the \"The Target Audience\" because that is implied by the headings.\n\n### Video Purpose\n\n[Provide your refined video purpose and target audience in a code block as raw text]\n\n### Target Audience\n\n[Provide the refined, more detailed target audience description here in raw text in code block]\n\nFinally follow up with this question.\n\nIs there anything you would like me to change about the video purpose or video audience, or should we move on?\n\n",
       "description": null,
       "title": "Initial Video Idea"
     },
     "define_video_goal": {
       "name": "define_video_goal",
-      "content": "You are tasked with creating a goal and concept for a video based on a given purpose and target audience. Your job is to craft a clear, concise video_goal and an engaging video_concept that aligns with the provided information.\n\nHere is the purpose of the video:\n<video_purpose>\n[video_purpose]\n</video_purpose>\n\nHere is the target audience for the video:\n<target_audience>\n[target_audience]\n</target_audience>\n\nTo create the video_goal:\n1. Analyze the purpose and audience information carefully.\n2. Formulate a clear, specific, and achievable goal that addresses the purpose and resonates with the target audience.\n3. Ensure the goal is concise and focused, typically one to two sentences long.\n\nTo create the video_concept:\n1. Consider the video_goal you've just created.\n2. Develop a creative and engaging concept that will effectively communicate the goal to the target audience.\n3. The concept should be brief but descriptive, outlining the main idea or approach for the video.\n4. Ensure the concept is appropriate for the audience and aligns with the purpose.\n\n\nCreate two code blocks with raw text and put a heading before each codeblock.\n\nYou don't need to start the sentences with \"The goal\" or the \"The Concept\" because that is implied by the headings.\n\n### Video Goal\n\n[Provide video goal in code block as raw text]\n\n### Video Concept\n\n[Provide video concept in code block as raw text]\n\nRemember to provide only the video_goal and video_concept in your response, with no additional explanation or commentary.",
+      "content": "You are tasked with creating a goal and concept for a video based on a given purpose and target audience. Your job is to craft a clear, concise video_goal and an engaging video_concept that aligns with the provided information.\n\nHere is the purpose of the video:\n<video_purpose>\n[video_purpose]\n</video_purpose>\n\nHere is the target audience for the video:\n<target_audience>\n[target_audience]\n</target_audience>\n\nTo create the video_goal:\n1. Analyze the purpose and audience information carefully.\n2. Formulate a clear, specific, and achievable goal that addresses the purpose and resonates with the target audience.\n3. Ensure the goal is concise and focused, typically one to two sentences long.\n\nTo create the video_concept:\n1. Consider the video_goal you've just created.\n2. Develop a creative and engaging concept that will effectively communicate the goal to the target audience.\n3. The concept should be brief but descriptive, outlining the main idea or approach for the video.\n4. Ensure the concept is appropriate for the audience and aligns with the purpose.\n\n\nCreate two code blocks with raw text and put a heading before each codeblock.\n\nYou don't need to start the sentences with \"The goal\" or the \"The Concept\" because that is implied by the headings.\n\n### Video Goal\n\n[Provide video goal in code block as raw text]\n\n### Video Concept\n\n[Provide video concept in code block as raw text]\n\nRemember to provide only the video_goal and video_concept in your response, with no additional explanation or commentary.\n\nIs there anything you would like me to change about the video goal or video concept, or should we move on?\n",
       "description": null,
       "title": "Define Video Goal"
     },
@@ -537,15 +962,75 @@
     },
     "generate_project_name": {
       "name": "generate_project_name",
-      "content": "You are tasked with creating a list of 5 project names based on a given video goal and concept. These project names will be used for folder names, so they need to be short, lowercase, and use dashes for word separation.\n\nHere is the video goal:\n<video_goal>\n[video_goal]\n</video_goal>\n\nAnd here is the concept:\n<video_concept>\n[video_concept]\n</video_concept>\n\n\n\nTo create the project names, follow these guidelines:\n1. Keep the names short and concise\n2. Use lowercase letters only\n3. Use dashes (-) to separate words\n4. Ensure the names are relevant to the video goal and concept\n5. Make each name unique and distinct from the others\n\n### Project Name Ideas\n\n[Provide project name ideas code block as bullet points]\n\n- [first-project-name]\n- [second-project-name]\n- [third-project-name]\n- [fourth-project-name]\n- [fifth-project-name]\n\nYou should finish up with one question.\n\nWhat project name would you like, when you get an answer, you will respond with.\n\nThe project name is now set to [the project name that I give you in my answer]",
+      "content": "You are tasked with creating a list of 5 project names based on a given video goal and concept. These project names will be used for folder names, so they need to be short, lowercase, and use dashes for word separation.\n\nHere is the video goal:\n<video_goal>\n[video_goal]\n</video_goal>\n\nAnd here is the concept:\n<video_concept>\n[video_concept]\n</video_concept>\n\n\n\nTo create the project names, follow these guidelines:\n1. Keep the names short and concise\n2. Use lowercase letters only\n3. Use dashes (-) to separate words\n4. Ensure the names are relevant to the video goal and concept\n5. Make each name unique and distinct from the others\n6. Project name will be between 3 & 8 words long and balance description idea vs simplicity\n\n### Project Name Ideas\n\n[Provide project name ideas code block as bullet points]\n\n- [first-project-name]\n- [second-project-name]\n- [third-project-name]\n- [fourth-project-name]\n- [fifth-project-name]\n\nYou should finish up with one question.\n\nWhat project name would you like, when you get an answer, you will respond with.\n\nThe project name is now set to [the project name that I give you in my answer]",
       "description": null,
       "title": "Generate Project Name"
     },
+    "youtube_title_list": {
+      "name": "youtube_title_list",
+      "content": "You are a specialist in youtube video title creation.\n\nYou will create 10 youtube titles\n\nWhen creating a YouTube title:\n- Keep it under 70 characters for full visibility.\n- Use action verbs at the beginning for engagement.\n- Avoid clickbait; focus on curiosity-driven content.\n- Incorporate relevant keywords and the current year for SEO.\n- Use brackets, numbers, and all caps strategically.\n- Include solutions to pain points with \"how-to\" titles.\n\nFinish up with question:\n\nCan you provide the one title you would like to use?; or\nCan you give me instructions on refinements and I will regenerate the list\n\n",
+      "description": null,
+      "title": "Youtube Title List"
+    },
+    "planning_brief": {
+      "name": "planning_brief",
+      "content": "<youtube_title>[youtube_title]</youtube_title>\n<project_name>[project_name]</project_name>\n<video_purpose>[video_purpose]</video_purpose>\n<target_audience>[target_audience]</target_audience>\n<video_goal>[video_goal]</video_goal>\n<video_concept>[video_concept]</video_concept>\n<talking_points>[talking_points]</talking_points>\n\nCan you take all the ideas and create factsheet, keep it in simple rich text format, no need for code blocks.\n\nIt should be ordered as\n\nYouTube Title\nVideo Purpose\nTarget Audience\nVideo Goal\nVideo Concept\nTalking Points\nProject Name\n",
+      "description": null,
+      "title": "Planning Brief"
+    },
+    "planning_reference_card": {
+      "name": "planning_reference_card",
+      "content": "Can you create a simple reference card based of the brief.\n\nUse the same inputs that you used for the brief, but consider the usage\n\nI will have alread read the brief and have it in my mind so it just needs to help me remember.\n\nBefore you start, ask me if there is anything else important if I give you anthing, include that information.\n\n\n<youtube_title>[youtube_title]</youtube_title>\n<project_name>[project_name]</project_name>\n<video_purpose>[video_purpose]</video_purpose>\n<target_audience>[target_audience]</target_audience>\n<video_goal>[video_goal]</video_goal>\n<video_concept>[video_concept]</video_concept>\n<talking_points>[talking_points]</talking_points>\n\nCreate a small card that I can hold in my hand\nThe title is important.\nShorten the purpose\nAudience should be simple horizontal list of 3-4 types, format like *Audience*: [Type1, Type2, Type3]\nGoal & concept should shortened or simplified, \nList the talking points\nList any important CTAs or other items that I said were important",
+      "description": null,
+      "title": "Planning Reference Card"
+    },
     "content_outline": {
       "name": "content_outline",
-      "content": "You are tasked with creating a content outline for a video based on a given video goal and target audience. Your outline should effectively structure the video content to achieve its goal and appeal to the intended viewers.\n\nHere is the video goal:\n<video_goal>\n[video_goal]\n</video_goal>\n\nAnd here is the target audience:\n<target_audience>\n[target_audience]\n</target_audience>\n\nTo create the content outline, follow these steps:\n\n1. Develop 2-4 key points that directly address the video goal and resonate with the target audience.\n\n2. For each key point:\n   a. Write a clear, concise heading\n   b. Provide a brief description or bullet points of the content to be covered\n   c. Ensure that the content directly relates to the video goal and appeals to the target audience\n\n3. Format your outline using indentation, bullet points, or numbering for easy readability. Maintain a logical flow throughout the outline.\n\n4. Keep the following in mind while creating your outline:\n   - Each point should contribute to achieving the video goal\n   - Consider the interests, needs, and background of the target audience\n   - Ensure the content is appropriate for the target audience's level of understanding\n   - Use language and examples that will resonate with the target audience\n\n5. Review your outline to ensure it comprehensively addresses the video goal and is tailored to the target audience.\n\nProvide your content outline in the following format:\n\n\n# Content Outline\n\n[Write formatted content outline]\n\nRemember to create only one content outline that effectively addresses the video goal and appeals to the target audience.\n\nFollow up with one question:\n\nRe-write in a code block (Yes) or provide me with changes you would like?",
+      "content": "You are tasked with creating a content outline for a video based on a given video goal and target audience. Your outline should effectively structure the video content to achieve its goal and appeal to the intended viewers.\n\nHere is the video goal:\n<video_goal>\n[video_goal]\n</video_goal>\n\nAnd here is the target audience:\n<target_audience>\n[target_audience]\n</target_audience>\n\nTo create the content outline, follow these steps:\n\n1. Develop 2-4 key points that directly address the video goal and resonate with the target audience.\n\n2. For each key point:\n   a. Write a clear, concise heading\n   b. Provide a brief description or bullet points of the content to be covered\n   c. Ensure that the content directly relates to the video goal and appeals to the target audience\n\n3. Format your outline using indentation, bullet points, or numbering for easy readability. Maintain a logical flow throughout the outline.\n\n4. Keep the following in mind while creating your outline:\n   - Each point should contribute to achieving the video goal\n   - Consider the interests, needs, and background of the target audience\n   - Ensure the content is appropriate for the target audience's level of understanding\n   - Use language and examples that will resonate with the target audience\n\n5. Review your outline to ensure it comprehensively addresses the video goal and is tailored to the target audience.\n\nProvide your content outline in the following format:\n\n[Write formatted content outline]\n\nRemember to create only one content outline that effectively addresses the video goal and appeals to the target audience.\n\nFollow up with one question:\n\nRe-write in a code block (Yes) or provide me with changes you would like?",
       "description": null,
       "title": "Content Outline"
+    },
+    "identify_narrative": {
+      "name": "identify_narrative",
+      "content": "You are an AI assistant tasked with helping enhance a video content outline. Your goal is to analyze the outline, suggest narrative-enhancing ideas, and ask thoughtful follow-up questions to improve the overall content.\n\nFirst, I will provide you with a video content outline:\n\n<content_outline>\n[content_outline]\n</content_outline>\n\nAnalyze the outline carefully, considering its structure, main points, and overall narrative flow. Look for opportunities to enhance the content using the following narrative elements:\n\n1. Personal Anecdotes\n2. Success Stories or Case Studies\n3. Common Pitfalls and Lessons Learned\n4. Behind-the-Scenes Glimpses\n5. Forward-Looking or Future-Proofing Angles\n\nBased on your analysis, provide suggestions and ask questions to improve the outline. Follow these guidelines:\n\n1. If you see obvious opportunities for enhancement, suggest them directly.\n2. For areas that need more context or information, formulate thoughtful questions to ask me.\n3. Aim for a balance between suggestions and questions.\n4. Maintain a conversational tone throughout your response.\n\nPresent your ideas and questions in the following format:\n\n### Suggestions\n\n1. [Your first suggestion]\n2. [Your second suggestion]\n3. [Continue as needed]\n\n### Questions\n1. [Your first question]\n2. [Your second question]\n3. [Continue as needed]\n\nRemember to tie your suggestions and questions directly to specific parts of the outline when relevant. Be creative and think about how to make the content more engaging, informative, and valuable to the audience.\n\nBegin your response with a brief summary of your overall impression of the outline, then proceed with your suggestions and questions.\n\n\n",
+      "description": null,
+      "title": "Identify Narrative"
+    },
+    "narrative_focus": {
+      "name": "narrative_focus",
+      "content": "You are tasked with creating a focused guideline that integrates\nkey points from a video content outline analysis with additional \ncontext and scenarios. This document will be used to guide further \nideation and content development.\n\nFirst, review the narrative analysis provided above\n\nNow, consider the specific points of interest with additional context and scenarios\n\n<narrative_focus>\n[narrative_focus]\n</narrative_focus>\n\nYour task is to create a concise document that:\n\n1. Highlights the key points from the narrative analysis that align with the specified points of interest.\n2. Integrates the additional context and scenarios provided to enrich these key points.\n3. Presents a focused perspective on how these elements can enhance the video content.\n\nFollow these guidelines:\n\n- Keep your analysis brief and to the point.\n- Focus only on the specified points of interest and their related context.\n- Provide clear, actionable insights that can guide further content development.\n- Avoid introducing new ideas not present in the provided information.\n\nPresent your output in the following format:\n\n### Narrative Focus\n\n**Key Point**\nBriefly state the key point from the narrative analysis\n\n**Context**\nIntegrate relevant additional context or scenarios\n\n**Insight**\nProvide a concise, actionable insight for content development\n\nRepeat this structure for each relevant key point\n\nEnsure that your document is concise and focused, as it will be integrated with other ideas in the next phase of the workflow.",
+      "description": null,
+      "title": "Narrative Focus"
+    },
+    "identify_cta": {
+      "name": "identify_cta",
+      "content": "You are tasked with identifying potential calls to action (CTAs) for a video based on its goal and target audience. Your objective is to create a simple, concise list of CTAs that align with the video's purpose and resonate with the intended viewers.\n\nHere is the video goal:\n<video_goal>\n[video_goal]\n</video_goal>\n\nHere is the target audience:\n<target_audience>\n[target_audience]\n</target_audience>\n\nGuidelines for generating CTAs:\n1. Ensure each CTA is directly related to the video goal\n2. Make the CTAs specific and actionable\n3. Use language that appeals to the target audience\n4. Vary the types of actions (e.g., subscribe, share, visit a website, make a purchase)\n5. Keep the CTAs concise and easy to understand\n\nPlease list the potential CTAs in the following format:\n<cta_ideas>\n1. [First CTA]\n2. [Second CTA]\n3. [Third CTA]\n...\n</cta_ideas>\n\nAim to provide 5-7 relevant CTAs. Keep your list focused and avoid repetitive or overly similar calls to action.\n\nThen wait for the user to answer this question.\n\nWhat CTAs are you interested in?",
+      "description": null,
+      "title": "Identify Cta"
+    },
+    "cta_focus": {
+      "name": "cta_focus",
+      "content": "You are tasked with providing recommendations for calls to action (CTAs) based on a content outline for a video and a list of identified potential CTAs. Your goal is to create a clear list of CTA recommendations, including their placement within the content outline and how they relate to each other.\n\nFirst, review the content outline for the video:\n\n<content_outline>\n[content_outline]\n</content_outline>\n\nNext, review the list of identified potential CTAs:\n\n<identified_ctas>\nidentified_ctas\n</identified_ctas>\n\nNow, consider any CTAs the user suggested you focus on, modify or merge and develop your list around that area of interest.\n\nAnalyze the content outline, the identified CTAs, and the focus CTAs. Consider how these CTAs could be effectively integrated into the video content. Think about:\n\n1. The relevance of each CTA to the content\n2. The best placement for each CTA within the content outline\n3. How the CTAs relate to each other\n4. How to make the CTAs compelling and natural within the context of the video\n\nCreate a list of CTA recommendations. For each recommendation, provide:\n\n1. A short, descriptive heading\n2. A brief paragraph explaining:\n   a. The recommended CTA\n   b. Where it should be placed in the content outline\n   c. Why this placement is effective\n   d. How it relates to other CTAs (if applicable)\n3. Keep your response to the focus CTA's, not the identified CTA's\n\nFormat your recommendations as follows:\n\n### CTA Recommendations\n\n[\n  Provide a raw list in code block as raw text formated as\n\n  [Short descriptive heading]\n  [Brief paragraph with your recommendation]\n\n  Repeat for each CTA recommendation\n]\n\n\nRemember, you are not tasked with integrating the CTAs into the content outline.\nYour goal is to provide a clear list of recommendations for another agent to use for integration.",
+      "description": null,
+      "title": "Cta Focus"
+    },
+    "identify_qa": {
+      "name": "identify_qa",
+      "content": "",
+      "description": null,
+      "title": "Identify Qa"
+    },
+    "qa_focus": {
+      "name": "qa_focus",
+      "content": "",
+      "description": null,
+      "title": "Qa Focus"
+    },
+    "content_brief": {
+      "name": "content_brief",
+      "content": "",
+      "description": null,
+      "title": "Content Brief"
     },
     "answer_questions": {
       "name": "answer_questions",
@@ -555,15 +1040,21 @@
     },
     "identify_ctas": {
       "name": "identify_ctas",
-      "content": "You are tasked with identifying potential calls to action (CTAs) for a video based on its goal and target audience. Your objective is to create a simple, concise list of CTAs that align with the video's purpose and resonate with the intended viewers.\n\nHere is the video goal:\n<video_goal>\n[video_goal]\n</video_goal>\n\nHere is the target audience:\n<target_audience>\n[target_audience]\n</target_audience>\n\nGuidelines for generating CTAs:\n1. Ensure each CTA is directly related to the video goal\n2. Make the CTAs specific and actionable\n3. Use language that appeals to the target audience\n4. Vary the types of actions (e.g., subscribe, share, visit a website, make a purchase)\n5. Keep the CTAs concise and easy to understand\n\nPlease list the potential CTAs in the following format:\n<cta_ideas>\n1. [First CTA]\n2. [Second CTA]\n3. [Third CTA]\n...\n</cta_ideas>\n\nAim to provide 5-7 relevant CTAs. Keep your list focused and avoid repetitive or overly similar calls to action.",
+      "content": "",
       "description": null,
       "title": "Identify Ctas"
     },
     "deliver_brief": {
       "name": "deliver_brief",
-      "content": "You are tasked with creating a video workflow summary based on the \nprovided project information. \n\nThis summary will serve as a guide for producing the next video in a content series. \n\nFollow these instructions carefully to generate a comprehensive and useful workflow summary.\n\nYou will be given three pieces of information:\n\n<project_name>\n[project_name]\n</project_name>\n\n<content_outline>\n[content_outline]\n</content_outline>\n\n<cta_ideas>\n[cta_ideas]\n</cta_ideas>\n\n\nUsing this information, create a video workflow summary that includes the following elements:\n\n1. Project Overview: Briefly describe the project based on the project name, and content outline.\n\n2. Content Structure: Break down the content outline into main sections or talking points for the video.\n\n3. Visual Elements: Suggest visual elements or graphics that could enhance each section of the content.\n\n4. Key Takeaways: Identify 2-3 main points that viewers should remember from the video.\n\n5. Call-to-Action (CTA): Choose the most appropriate CTA from the provided ideas and explain how to incorporate it into the video.\n\n6. Production Notes: Provide brief suggestions for filming, such as recommended video length, setting, or any special equipment needed.\n\n7. Post-Production Considerations: Mention any specific editing techniques or effects that could enhance the final video.\n\nPresent your video workflow summary in the following format:\n\n1. Project Overview:\n[Your overview here]\n\n2. Content Structure:\n[List main sections or talking points]\n\n3. Visual Elements:\n[Suggestions for visuals for each section]\n\n4. Key Takeaways:\n[List 2-3 main points]\n\n5. Call-to-Action (CTA):\n[Selected CTA and implementation suggestion]\n\n6. Production Notes:\n[Brief production suggestions]\n\n7. Post-Production Considerations:\n[Editing suggestions or effects]\n",
+      "content": "",
       "description": null,
       "title": "Deliver Brief"
+    },
+    "key_structural_insights": {
+      "name": "key_structural_insights",
+      "content": "You are tasked with extracting useful structural information from a livestream transcript.\nThis information will be used to repurpose the content into a video, \npotentially creating a powerful hook and overview. \n\nYour job is to analyze the transcript and provide a summary of key structural elements.\n\nHere is the transcript of the livestream:\n\n<transcript>\n[transcript]\n</transcript>\n\nCarefully analyze the transcript and extract the following information:\n\n1. General Overview: Provide a brief summary of what the livestream is about, capturing its main theme or purpose.\n\n2. Section Changes/Subtopics: Identify the main subtopics or section changes within the livestream. These are usually distinct areas of discussion that could be taught about separately.\n\n3. Powerful Statements: Locate and extract any particularly impactful or memorable statements made during the livestream. These could be useful for creating hooks or highlights.\n\n4. Additional Useful Information: If you identify any other structural elements or information that could be valuable for repurposing the content, include them as well.\n\nPresent your findings in the following format:\n\n### Overview\n\n[Provide a brief general overview of the livestream here]\n\n\n### Section Changes\n[List the main subtopics or section changes here, with timestamps if available]\n\n### Powerful Statements\n[List the powerful statements here, with timestamps if available]\n\n### Additional Info\n[Include any other useful structural information you've identified]\n\nEnsure that your summary is concise yet comprehensive, capturing the key structural elements of the livestream that would be most useful for repurposing the content into a new video format.",
+      "description": null,
+      "title": "Key Structural Insights"
     }
   }
 }

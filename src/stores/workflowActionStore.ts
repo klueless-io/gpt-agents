@@ -174,5 +174,92 @@ export const workflowActions = {
     };
 
     input.click();
+  },
+
+  saveDocToClipboard: () => {
+    let currentWorkflow;
+    
+    console.log('Starting saveDocToClipboard');
+    
+    const unsubscribe = workflowStore.subscribe(value => {
+      console.log('Workflow store value:', value);
+      currentWorkflow = value;
+    });
+    unsubscribe();
+
+    if (!currentWorkflow) {
+      console.error('No workflow data available');
+      return;
+    }
+
+    // Helper function to safely stringify values
+    const formatValue = (value: any): string => {
+      if (value === null || value === undefined) return '';
+      if (typeof value === 'object') {
+        return value.value || value.content || JSON.stringify(value);
+      }
+      return String(value);
+    };
+
+    // Create markdown documentation
+    let markdown = `# ${currentWorkflow.name || 'Untitled Workflow'}\n\n`;
+    
+    if (currentWorkflow.description) {
+      markdown += `${formatValue(currentWorkflow.description)}\n\n`;
+    }
+
+    if (currentWorkflow.prompts && currentWorkflow.prompts.length > 0) {
+      markdown += `## Prompts\n\n`;
+      currentWorkflow.prompts.forEach(prompt => {
+        markdown += `### ${prompt.name || 'Unnamed Prompt'}\n`;
+        if (prompt.description) {
+          markdown += `${prompt.description}\n\n`;
+        }
+        if (prompt.content) {
+          markdown += `\`\`\`\n${prompt.content}\n\`\`\`\n\n`;
+        }
+      });
+    }
+
+    if (currentWorkflow.sections && currentWorkflow.sections.length > 0) {
+      markdown += `## Sections\n\n`;
+      currentWorkflow.sections.forEach(section => {
+        markdown += `### ${formatValue(section.name)}\n`;
+        if (section.description) {
+          markdown += `${formatValue(section.description)}\n\n`;
+        }
+      });
+    }
+
+    if (currentWorkflow.attributes && Object.keys(currentWorkflow.attributes).length > 0) {
+      markdown += `## Attributes\n\n`;
+      Object.entries(currentWorkflow.attributes).forEach(([key, value]) => {
+        markdown += `- **${key}**: ${formatValue(value)}\n`;
+      });
+      markdown += '\n';
+    }
+
+    if (currentWorkflow.settings) {
+      markdown += `## Settings\n\n`;
+      Object.entries(currentWorkflow.settings).forEach(([key, value]) => {
+        markdown += `- **${key}**: ${formatValue(value)}\n`;
+      });
+    }
+
+    console.log('Final markdown:', markdown);
+    navigator.clipboard.writeText(markdown).then(() => {
+      stateStore.update(state => ({
+        ...state,
+        toastMessage: 'Documentation copied to clipboard!',
+        toastVisible: true,
+      }));
+
+      setTimeout(() => {
+        stateStore.update(state => ({
+          ...state,
+          toastVisible: false,
+        }));
+      }, 3000);
+    });
   }
 }; 

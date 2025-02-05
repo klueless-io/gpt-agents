@@ -1,14 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher, onDestroy, onMount } from 'svelte';
+  import { stateStore } from '../../stores/stateStore';
+  import { workflowActions } from '../../stores/workflowActionStore';
   import DebugMonitor from './DebugMonitor.svelte';
   import CogIcon from './icons/CogIcon.svelte';
   import HomeIcon from './icons/HomeIcon.svelte';
   import SectionIcon from './icons/SectionIcon.svelte';
   import MenuItem from './MenuItem.svelte';
   import QuickAccess from './QuickAccess.svelte';
-  import { workflowActions } from '../../stores/workflowActionStore';
-  import { stateStore } from '../../stores/stateStore';
-  import { get } from 'svelte/store';
 
   export let sections = [];
   export let currentComponent: string;
@@ -28,6 +27,8 @@
 
   function handleMenuClick(event) {
     const component = event.detail;
+    activeMenuItem = component;
+
     console.log('Menu Click:', {
       clickedComponent: component,
       sections,
@@ -49,6 +50,9 @@
       case 'Load':
         workflowActions.loadFromFile();
         return;
+      case 'SaveDocClipboard':
+        workflowActions.saveDocToClipboard();
+        break;
     }
 
     // Find the section if it exists
@@ -152,6 +156,7 @@
           <MenuItem name="Save" letter="S" active={activeMenuItem === 'Save'} component="Save" on:menu-click={handleMenuClick} />
           <MenuItem name="Save Clipboard" letter="C" active={activeMenuItem === 'SaveClipboard'} component="SaveClipboard" on:menu-click={handleMenuClick} />
           <MenuItem name="Load Clipboard" letter="V" active={activeMenuItem === 'LoadClipboard'} component="LoadClipboard" on:menu-click={handleMenuClick} />
+          <MenuItem name="Save Doc Clipboard" letter="D" active={activeMenuItem === 'SaveDocClipboard'} component="SaveDocClipboard" on:menu-click={handleMenuClick} />
         </ul>
       </li>
       <li class="mt-auto">

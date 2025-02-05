@@ -71,11 +71,11 @@
               "title": "Title Ideas"
             },
             {
-              "name": "video_url",
+              "name": "video_link",
               "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Video Url"
+              "title": "Video Link"
             },
             {
               "name": "video_related_links",
@@ -321,6 +321,20 @@
               "is_array": false,
               "description": null,
               "title": "Transcript"
+            },
+            {
+              "name": "intro",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Intro"
+            },
+            {
+              "name": "outro",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Outro"
             }
           ],
           "output_attributes": [
@@ -1416,6 +1430,13 @@
               "title": "Video Link"
             },
             {
+              "name": "video_link_playlist",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Link Playlist"
+            },
+            {
               "name": "video_keywords",
               "type": "array",
               "is_array": false,
@@ -1500,6 +1521,13 @@
               "title": "Video Link"
             },
             {
+              "name": "video_link_playlist",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Link Playlist"
+            },
+            {
               "name": "video_keywords",
               "type": "array",
               "is_array": false,
@@ -1549,11 +1577,18 @@
               "title": "Video Title"
             },
             {
-              "name": "video_url",
+              "name": "video_link",
               "type": "string",
               "is_array": false,
               "description": null,
-              "title": "Video Url"
+              "title": "Video Link"
+            },
+            {
+              "name": "video_link_playlist",
+              "type": "string",
+              "is_array": false,
+              "description": null,
+              "title": "Video Link Playlist"
             }
           ],
           "output_attributes": [
@@ -1841,12 +1876,19 @@
       "description": null,
       "title": "Video Title"
     },
-    "video_url": {
-      "name": "video_url",
+    "video_link": {
+      "name": "video_link",
       "type": "string",
       "is_array": false,
       "description": null,
-      "title": "Video Url"
+      "title": "Video Link"
+    },
+    "video_link_playlist": {
+      "name": "video_link_playlist",
+      "type": "string",
+      "is_array": false,
+      "description": null,
+      "title": "Video Link Playlist"
     },
     "video_topic_theme": {
       "name": "video_topic_theme",
@@ -2064,13 +2106,6 @@
       "is_array": false,
       "description": null,
       "title": "Outcome Notes"
-    },
-    "video_link": {
-      "name": "video_link",
-      "type": "string",
-      "is_array": false,
-      "description": null,
-      "title": "Video Link"
     },
     "short_transcription": {
       "name": "short_transcription",
